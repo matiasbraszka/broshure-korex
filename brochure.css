@@ -456,8 +456,32 @@ h1, h2, h3, h4 { margin: 0; letter-spacing: -0.025em; line-height: 1.05; }
 .funnel-mini .preview img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; transition: transform .45s ease; }
 .funnel-mini:hover .preview { border-color: var(--blue); box-shadow: 0 8px 24px rgba(72,120,255,0.18); }
 .funnel-mini:hover .preview img { transform: scale(1.045); }
-.funnel-mini .fm-go { position: absolute; left: 10px; bottom: 10px; display: inline-flex; align-items: center; gap: 5px; background: rgba(10,10,10,0.80); color: #fff; font-size: 10px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 11px; border-radius: 999px; opacity: 0; transform: translateY(5px); transition: opacity .25s ease, transform .25s ease; backdrop-filter: blur(4px); }
-.funnel-mini:hover .fm-go { opacity: 1; transform: translateY(0); }
+
+/* ── Hint sutil: rotar el móvil (solo en vertical) ───────────── */
+.rotate-hint { display: none; }
+@media (orientation: portrait) {
+  .rotate-hint {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 90;
+    display: flex; align-items: center; justify-content: center; gap: 7px;
+    padding: 6px 12px;
+    background: rgba(10,10,10,0.50);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-size: 10.5px; font-weight: 600; letter-spacing: 0.01em;
+    color: rgba(255,255,255,0.70);
+    pointer-events: none;
+  }
+}
+.rotate-hint .rh-phone { display: inline-flex; width: 13px; height: 13px; color: var(--blue); animation: rh-rotate 3s ease-in-out infinite; transform-origin: center; }
+.rotate-hint .rh-phone svg { width: 100%; height: 100%; }
+@keyframes rh-rotate {
+  0%, 50%   { transform: rotate(0deg); }
+  68%, 86%  { transform: rotate(-90deg); }
+  100%      { transform: rotate(0deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rotate-hint .rh-phone { animation: none; }
+}
 .page.dark .funnel-mini .preview { border-color: var(--dk-line); background: var(--dk-surf); }
 .funnel-mini .preview iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; transform: scale(0.62); transform-origin: top left; width: 161%; height: 161%; pointer-events: none; }
 .funnel-mini .fm-ttl { font-size: 14px; font-weight: 800; color: var(--text); margin-top: 10px; }
@@ -762,7 +786,7 @@ body.var-b .hr { border-color: var(--dk-line); }
 @media print {
   @page { size: A4; margin: 0; }
   html, body { background: #fff; }
-  .vbar, #lb { display: none !important; }
+  .vbar, #lb, .rotate-hint { display: none !important; }
   .brochure { padding: 0; gap: 0; }
   .page { box-shadow: none; margin: 0; page-break-after: always; break-after: page; width: 210mm; min-height: 297mm; }
   .page:last-child { page-break-after: auto; }
