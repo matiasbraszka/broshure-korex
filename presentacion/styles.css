@@ -1784,20 +1784,32 @@ ul.cross li::after {
   width: 100% !important;
   height: 100% !important;
 }
-/* Thumbnail/poster image must cover the whole frame */
+/* Thumbnail/poster + video deben CUBRIR todo el marco (sin barras negras) */
 .vsl-frame .voomly-embed [class*="WithFullScreen"] > div,
 .vsl-frame .voomly-embed [class*="VideoLayout"],
 .vsl-frame .voomly-embed [class*="VideoWithControls"],
 .vsl-frame .voomly-embed [class*="Thumbnail"],
 .vsl-frame .voomly-embed [class*="OptimizedImage"],
 .vsl-frame .voomly-embed picture {
+  position: absolute !important;
+  inset: 0 !important;
   width: 100% !important;
   height: 100% !important;
 }
-.vsl-frame .voomly-embed img {
+.vsl-frame .voomly-embed img,
+.vsl-frame .voomly-embed video,
+.vsl-frame .voomly-embed picture img,
+.vsl-frame .voomly-embed canvas {
+  position: absolute !important;
+  inset: 0 !important;
   width: 100% !important;
   height: 100% !important;
+  min-width: 100% !important;
+  min-height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
   object-fit: cover !important;
+  object-position: center !important;
 }
 .vsl-item .meta {
   padding: 20px 24px;
