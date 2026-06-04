@@ -637,119 +637,220 @@
     <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Simulador · 20</span></div>
     <div class="section-head">
       <span class="eyebrow">Calculá la facturación de tu equipo</span>
-      <h2 class="h-title">Simulador de ventas para tu red.</h2>
-      <p class="h-sub">Editá solo las <b style="color:#0EA5E9">celdas celestes</b>. El resto se calcula automáticamente. Modelo idéntico al sheet de Korex.</p>
+      <h2 class="h-title">Simulador de ventas para tu <em>red</em>.</h2>
+      <p class="h-sub">Editás solo las celdas celestes. El resto se calcula solo. Todos los montos en USD.</p>
     </div>
 
     <style>
-      #simPage .sim-block{margin-top:22px;border:1px solid #E5E7EB;border-radius:14px;overflow:hidden;background:#fff}
-      #simPage .sim-bar{background:#0A0A0A;color:#fff;padding:12px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-      #simPage .sim-bar .ttl{font-size:14px;font-weight:900;letter-spacing:.16em;text-transform:uppercase}
-      #simPage .sim-bar .pers{display:flex;align-items:center;gap:10px;margin-left:auto;background:#FDE68A;color:#0A0A0A;padding:8px 14px;border-radius:8px;font-weight:700}
-      #simPage .sim-bar .pers label{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#4B5563}
-      #simPage .sim-bar .pers input{background:#9EE7FF;border:0;width:90px;padding:6px 10px;border-radius:6px;font-size:14px;font-weight:800;color:#0A0A0A;text-align:center;outline:none;font-variant-numeric:tabular-nums}
-      #simPage .sim-bar .pers input:focus{box-shadow:0 0 0 2px #0EA5E9}
-      #simPage .sim-row{display:grid;gap:0;border-top:1px solid #E5E7EB}
-      #simPage .sim-row.cols-5{grid-template-columns:repeat(5,1fr)}
-      #simPage .sim-row.cols-4{grid-template-columns:repeat(4,1fr)}
-      #simPage .sim-cell{padding:14px 16px;border-right:1px solid #E5E7EB;display:flex;flex-direction:column;gap:6px;min-width:0}
-      #simPage .sim-cell:last-child{border-right:0}
-      #simPage .sim-cell .ch{font-size:11px;font-weight:800;color:#374151;letter-spacing:.04em;line-height:1.25}
-      #simPage .sim-cell input{background:#9EE7FF;border:0;padding:8px 12px;border-radius:6px;font-size:16px;font-weight:800;color:#0A0A0A;outline:none;font-variant-numeric:tabular-nums;width:100%;box-sizing:border-box}
-      #simPage .sim-cell input:focus{box-shadow:0 0 0 2px #0EA5E9}
-      #simPage .sim-cell .out{font-size:18px;font-weight:900;color:var(--blue-ink);font-variant-numeric:tabular-nums;letter-spacing:-.01em;background:#FEF3C7;padding:8px 12px;border-radius:6px;display:inline-block;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-      #simPage .sim-cell .out.win{background:#0A0A0A;color:#FBBF24}
-      #simPage .sim-cell .ch.head{color:#0A0A0A;text-transform:uppercase;letter-spacing:.1em;font-size:10px}
-      #simPage .sim-legend{margin-top:14px;display:flex;gap:18px;font-size:11px;color:#6B7280;flex-wrap:wrap}
-      #simPage .sim-legend .dot{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:middle}
-      @media (max-width: 880px){
-        #simPage .sim-row.cols-5,#simPage .sim-row.cols-4{grid-template-columns:1fr 1fr}
-        #simPage .sim-cell{border-right:0;border-bottom:1px solid #E5E7EB}
+      #simPage{ --sim-r-lg:16px; --sim-r-md:12px; --sim-paper:#FFFFFF; --sim-paper-soft:#F5F6F8; --sim-paper-soft2:#EDEFF3; --sim-line:#E2E5EB; --sim-line-strong:#CFD4DE; --sim-text-mut:#767C8C; --sim-text-soft:#3C4150; }
+      #simPage .sim-legend{display:flex;gap:22px;flex-wrap:wrap;margin:22px 0}
+      #simPage .sim-legend .lg{display:inline-flex;align-items:center;gap:9px;font-size:12px;font-weight:700;color:var(--sim-text-soft)}
+      #simPage .sim-legend .sw{width:16px;height:16px;border-radius:5px;flex-shrink:0}
+      #simPage .sim-legend .sw.edit{background:#CFE7FF;border:2px solid var(--blue)}
+      #simPage .sim-legend .sw.calc{background:var(--sim-paper-soft2);border:1px solid var(--sim-line-strong)}
+
+      #simPage .sim-panel{border:1px solid var(--sim-line);border-radius:var(--sim-r-lg);overflow:hidden;margin-bottom:22px;background:var(--sim-paper);box-shadow:0 10px 34px -18px rgba(10,22,40,.16)}
+      #simPage .sim-head{display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--ink);padding:16px 22px}
+      #simPage .sim-head .ttl{display:flex;align-items:center;gap:12px;font-size:16px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#fff}
+      #simPage .sim-head .ttl .ic{width:30px;height:30px;border-radius:8px;background:rgba(72,120,255,.22);color:#6FA3FF;display:flex;align-items:center;justify-content:center}
+      #simPage .sim-head .ttl .ic svg{width:17px;height:17px}
+
+      #simPage .sim-hero{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:6px 6px 6px 18px}
+      #simPage .sim-hero .hl{font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#C2C8D4;white-space:nowrap}
+      #simPage .sim-stepper{display:flex;align-items:center;gap:2px;background:#CFE7FF;border-radius:999px;padding:3px}
+      #simPage .sim-stepper button{width:26px;height:26px;border:0;border-radius:50%;background:var(--blue);color:#fff;font-size:17px;font-weight:800;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .12s ease;font-family:inherit}
+      #simPage .sim-stepper button:hover{background:var(--blue-dark)}
+      #simPage .sim-stepper input{width:58px;border:0;background:transparent;text-align:center;font-family:inherit;font-size:17px;font-weight:900;color:var(--blue-ink);letter-spacing:-.02em;-moz-appearance:textfield}
+      #simPage .sim-stepper input::-webkit-outer-spin-button,#simPage .sim-stepper input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+      #simPage .sim-stepper.lg input{width:64px;font-size:18px}
+
+      #simPage .sim-vars{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--sim-line)}
+      #simPage .sim-vars.cols4{grid-template-columns:repeat(4,1fr)}
+      #simPage .sim-field{background:var(--sim-paper);padding:14px 16px 16px;display:flex;flex-direction:column;gap:9px;justify-content:space-between}
+      #simPage .sim-field .fl{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--sim-text-mut);line-height:1.3;min-height:26px}
+      #simPage .sim-ctrl{display:flex;align-items:center;background:#CFE7FF;border:2px solid var(--blue);border-radius:9px;overflow:hidden}
+      #simPage .sim-ctrl .pre{padding-left:10px;font-size:14px;font-weight:800;color:var(--blue-ink)}
+      #simPage .sim-ctrl input{flex:1;min-width:0;width:100%;border:0;background:transparent;padding:9px 8px;font-family:inherit;font-size:17px;font-weight:900;color:var(--blue-ink);letter-spacing:-.02em;-moz-appearance:textfield}
+      #simPage .sim-ctrl input::-webkit-outer-spin-button,#simPage .sim-ctrl input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+      #simPage .sim-ctrl input:focus{outline:none}
+      #simPage .sim-ctrl .stp{display:flex;flex-direction:column;border-left:1px solid rgba(72,120,255,.4)}
+      #simPage .sim-ctrl .stp button{width:26px;height:19px;border:0;background:rgba(72,120,255,.14);color:var(--blue-ink);cursor:pointer;font-size:11px;line-height:1;display:flex;align-items:center;justify-content:center;padding:0;font-family:inherit}
+      #simPage .sim-ctrl .stp button:hover{background:var(--blue);color:#fff}
+      #simPage .sim-ctrl .stp button:first-child{border-bottom:1px solid rgba(72,120,255,.4)}
+
+      #simPage .sim-flow{display:grid;align-items:stretch;gap:12px;padding:16px 16px 20px}
+      #simPage .sim-node{background:var(--sim-paper-soft);border:1px solid var(--sim-line);border-radius:var(--sim-r-md);padding:14px 16px;position:relative;display:flex;flex-direction:column;justify-content:center;gap:5px}
+      #simPage .sim-node .nl{font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--sim-text-mut);line-height:1.3}
+      #simPage .sim-node .nv{font-size:26px;font-weight:900;letter-spacing:-.03em;color:var(--blue-ink);font-variant-numeric:tabular-nums;line-height:1}
+      #simPage .sim-node.arrow::after{content:"→";position:absolute;right:-10px;top:50%;transform:translateY(-50%);font-size:16px;font-weight:900;color:var(--sim-line-strong);z-index:2}
+      #simPage .sim-node.span2,#simPage .sim-sales.span2{grid-column:span 2}
+      #simPage .sim-sales{background:var(--ink);border:0;border-radius:var(--sim-r-md);padding:14px 18px;display:flex;flex-direction:column;justify-content:center;gap:5px;box-shadow:0 14px 36px -14px rgba(72,120,255,.5)}
+      #simPage .sim-sales .nl{font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#6FA3FF}
+      #simPage .sim-sales .nv{font-size:32px;font-weight:900;letter-spacing:-.03em;color:#fff;font-variant-numeric:tabular-nums;line-height:1}
+
+      #simPage .sim-extra{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+      #simPage .sim-extra .ex{display:inline-flex;align-items:baseline;gap:8px;font-size:13px;font-weight:600;color:var(--sim-text-mut)}
+      #simPage .sim-extra .ex b{font-size:17px;font-weight:900;color:var(--sim-text-soft);font-variant-numeric:tabular-nums}
+      #simPage .sim-reset{display:inline-flex;align-items:center;gap:8px;background:transparent;border:1px solid var(--sim-line-strong);border-radius:999px;padding:9px 18px;font-family:inherit;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--sim-text-soft);cursor:pointer;transition:all .15s ease}
+      #simPage .sim-reset:hover{border-color:var(--blue);color:var(--blue)}
+
+      @media(max-width:680px){
+        #simPage .sim-head{flex-direction:column;align-items:flex-start}
+        #simPage .sim-vars,#simPage .sim-vars.cols4{grid-template-columns:repeat(2,1fr)}
+        #simPage .sim-flow{grid-template-columns:1fr!important}
+        #simPage .sim-node.arrow::after{content:"↓";right:50%;top:auto;bottom:-10px;transform:translateX(50%)}
+        #simPage .sim-node.span2,#simPage .sim-sales.span2{grid-column:auto}
       }
     </style>
 
-    <!-- BLOQUE PUBLICIDAD -->
-    <div class="sim-block">
-      <div class="sim-bar">
-        <span class="ttl">Publicidad</span>
-        <div class="pers">
-          <label>Personas que mete</label>
-          <input type="number" id="pPers" value="2000" min="1" step="1">
-        </div>
-      </div>
-      <div class="sim-row cols-5">
-        <div class="sim-cell"><span class="ch">Publicidad Promedio (€)</span><input type="number" id="pPub" value="300" min="0" step="10"></div>
-        <div class="sim-cell"><span class="ch">Inversión total</span><span class="out" id="pInv">€600,000</span></div>
-        <div class="sim-cell"><span class="ch">Costo Por Lead (€)</span><input type="number" id="pCpl" value="2" min="0.1" step="0.1"></div>
-        <div class="sim-cell"><span class="ch">Conversion (%)</span><input type="number" id="pConv" value="6" min="0" max="100" step="0.5"></div>
-        <div class="sim-cell"><span class="ch">Ticket (€)</span><input type="number" id="pTick" value="400" min="0" step="10"></div>
-      </div>
-      <div class="sim-row cols-4">
-        <div class="sim-cell"><span class="ch head">Veces que tu anuncio se muestra</span><span class="out" id="pImp">180,000,000</span></div>
-        <div class="sim-cell"><span class="ch head">Leads cualificados conseguidos</span><span class="out" id="pLeads">300,000</span></div>
-        <div class="sim-cell"><span class="ch head">Posible conversión de clientes</span><span class="out" id="pCli">18,000</span></div>
-        <div class="sim-cell"><span class="ch head">Ventas</span><span class="out win" id="pVtas">€7,200,000</span></div>
-      </div>
-    </div>
-
-    <!-- BLOQUE ORGÁNICO -->
-    <div class="sim-block">
-      <div class="sim-bar">
-        <span class="ttl">Orgánico · sin pagar publicidad</span>
-        <div class="pers">
-          <label>Personas que mete</label>
-          <input type="number" id="oPers" value="100" min="1" step="1">
-        </div>
-      </div>
-      <div class="sim-row cols-4">
-        <div class="sim-cell"><span class="ch">Promedio personas que envían tus landings</span><input type="number" id="oProm" value="100" min="0" step="1"></div>
-        <div class="sim-cell"><span class="ch">Registros (%)</span><input type="number" id="oReg" value="40" min="0" max="100" step="1"></div>
-        <div class="sim-cell"><span class="ch">Conversion (%)</span><input type="number" id="oConv" value="10" min="0" max="100" step="0.5"></div>
-        <div class="sim-cell"><span class="ch">Ticket (€)</span><input type="number" id="oTick" value="400" min="0" step="10"></div>
-      </div>
-      <div class="sim-row cols-4" style="grid-template-columns:repeat(3,1fr)">
-        <div class="sim-cell"><span class="ch head">Nuevos leads</span><span class="out" id="oLeads">4,000</span></div>
-        <div class="sim-cell"><span class="ch head">Posible conversión de clientes</span><span class="out" id="oCli">400</span></div>
-        <div class="sim-cell"><span class="ch head">Ventas</span><span class="out win" id="oVtas">€160,000</span></div>
-      </div>
-    </div>
-
     <div class="sim-legend">
-      <span><span class="dot" style="background:#9EE7FF"></span>Celdas celestes = editables</span>
-      <span><span class="dot" style="background:#FEF3C7"></span>Resultados calculados</span>
-      <span><span class="dot" style="background:#0A0A0A"></span>Venta final del equipo</span>
+      <span class="lg"><span class="sw edit"></span>Editás estos números</span>
+      <span class="lg"><span class="sw calc"></span>El resto se calcula solo</span>
+    </div>
+
+    <!-- PUBLICIDAD -->
+    <div class="sim-panel" id="simPub">
+      <div class="sim-head">
+        <div class="ttl">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 11-5.8-1.6"/></svg></span>
+          Con publicidad
+        </div>
+        <div class="sim-hero">
+          <span class="hl">Personas que metés</span>
+          <div class="sim-stepper lg">
+            <button type="button" data-step="-10" data-t="pPersonas">−</button>
+            <input type="number" id="pPersonas" value="100" min="0">
+            <button type="button" data-step="10" data-t="pPersonas">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="sim-vars">
+        <div class="sim-field">
+          <span class="fl">Publicidad promedio</span>
+          <div class="sim-ctrl"><span class="pre">$</span><input type="number" id="pPub" value="100" min="0"><span class="stp"><button type="button" data-step="10" data-t="pPub">▲</button><button type="button" data-step="-10" data-t="pPub">▼</button></span></div>
+        </div>
+        <div class="sim-field">
+          <span class="fl">Costo por lead</span>
+          <div class="sim-ctrl"><span class="pre">$</span><input type="number" id="pCpl" value="2" min="0.1" step="0.5"><span class="stp"><button type="button" data-step="0.5" data-t="pCpl">▲</button><button type="button" data-step="-0.5" data-t="pCpl">▼</button></span></div>
+        </div>
+        <div class="sim-field">
+          <span class="fl">Conversión a cliente (%)</span>
+          <div class="sim-ctrl"><input type="number" id="pConv" value="6" min="0" max="100"><span class="stp"><button type="button" data-step="1" data-t="pConv">▲</button><button type="button" data-step="-1" data-t="pConv">▼</button></span></div>
+        </div>
+        <div class="sim-field">
+          <span class="fl">Ticket promedio</span>
+          <div class="sim-ctrl"><span class="pre">$</span><input type="number" id="pTicket" value="400" min="0"><span class="stp"><button type="button" data-step="50" data-t="pTicket">▲</button><button type="button" data-step="-50" data-t="pTicket">▼</button></span></div>
+        </div>
+        <div class="sim-field">
+          <span class="fl">Inversión total</span>
+          <div class="sim-ctrl" style="background:var(--sim-paper-soft2); border-color:var(--sim-line-strong)"><span class="pre" style="color:var(--sim-text-soft)">$</span><input type="text" id="pInv" value="10.000" readonly style="color:var(--sim-text-soft)"></div>
+        </div>
+      </div>
+      <div class="sim-flow" style="grid-template-columns:repeat(5,1fr)">
+        <div class="sim-node arrow"><span class="nl">Impresiones del anuncio</span><span class="nv" id="pImp" style="font-size:19px">3.000.000</span></div>
+        <div class="sim-node arrow"><span class="nl">Leads captados</span><span class="nv" id="pLeads">5.000</span></div>
+        <div class="sim-node arrow"><span class="nl">Clientes</span><span class="nv" id="pCli">300</span></div>
+        <div class="sim-sales span2"><span class="nl">Ventas estimadas</span><span class="nv" id="pVentas">US$120.000</span></div>
+      </div>
+    </div>
+
+    <!-- ORGÁNICO -->
+    <div class="sim-panel" id="simOrg">
+      <div class="sim-head">
+        <div class="ttl">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4-4 7-7.5 7-12a7 7 0 10-14 0c0 4.5 3 8 7 12z"/><path d="M12 22V9"/><path d="M9 12l3-3 3 3"/></svg></span>
+          Orgánico · sin pagar publicidad
+        </div>
+        <div class="sim-hero">
+          <span class="hl">Personas que metés</span>
+          <div class="sim-stepper lg">
+            <button type="button" data-step="-10" data-t="oPersonas">−</button>
+            <input type="number" id="oPersonas" value="100" min="0">
+            <button type="button" data-step="10" data-t="oPersonas">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="sim-vars cols4">
+        <div class="sim-field">
+          <span class="fl">Promedio de landings enviadas</span>
+          <div class="sim-ctrl"><input type="number" id="oLanding" value="100" min="0"><span class="stp"><button type="button" data-step="10" data-t="oLanding">▲</button><button type="button" data-step="-10" data-t="oLanding">▼</button></span></div>
+        </div>
+        <div class="sim-field">
+          <span class="fl">Se registran (%)</span>
+          <div class="sim-ctrl"><input type="number" id="oReg" value="40" min="0" max="100"><span class="stp"><button type="button" data-step="5" data-t="oReg">▲</button><button type="button" data-step="-5" data-t="oReg">▼</button></span></div>
+        </div>
+        <div class="sim-field">
+          <span class="fl">Conversión a cliente (%)</span>
+          <div class="sim-ctrl"><input type="number" id="oConv" value="10" min="0" max="100"><span class="stp"><button type="button" data-step="1" data-t="oConv">▲</button><button type="button" data-step="-1" data-t="oConv">▼</button></span></div>
+        </div>
+        <div class="sim-field">
+          <span class="fl">Ticket promedio</span>
+          <div class="sim-ctrl"><span class="pre">$</span><input type="number" id="oTicket" value="400" min="0"><span class="stp"><button type="button" data-step="50" data-t="oTicket">▲</button><button type="button" data-step="-50" data-t="oTicket">▼</button></span></div>
+        </div>
+      </div>
+      <div class="sim-flow" style="grid-template-columns:repeat(4,1fr)">
+        <div class="sim-node arrow span2"><span class="nl">Leads captados</span><span class="nv" id="oLeads">4.000</span></div>
+        <div class="sim-node arrow"><span class="nl">Clientes</span><span class="nv" id="oCli">400</span></div>
+        <div class="sim-sales"><span class="nl">Ventas estimadas</span><span class="nv" id="oVentas">US$160.000</span></div>
+      </div>
+    </div>
+
+    <div class="sim-extra">
+      <span class="ex">Facturación combinada estimada: <b id="simTotal">US$280.000</b></span>
+      <button type="button" class="sim-reset" id="simReset">↺ Restablecer valores</button>
     </div>
 
     <script>
       (function(){
-        const fmtE = n => '€' + Math.round(n).toLocaleString('es-ES');
-        const fmtN = n => Math.round(n).toLocaleString('es-ES');
-        const $ = id => document.getElementById(id);
-        const IMP_PER_EURO = 300;
-        function v(id){ const x = parseFloat($(id).value); return isNaN(x) ? 0 : x; }
-        function calc(){
-          const pers = v('pPers'), pub = v('pPub'), cpl = v('pCpl'), conv = v('pConv')/100, tick = v('pTick');
-          const inv = pers * pub;
-          const imp = inv * IMP_PER_EURO;
-          const leads = cpl > 0 ? inv / cpl : 0;
-          const cli = leads * conv;
-          const vtas = cli * tick;
-          $('pInv').textContent = fmtE(inv);
-          $('pImp').textContent = fmtN(imp);
-          $('pLeads').textContent = fmtN(leads);
-          $('pCli').textContent = fmtN(cli);
-          $('pVtas').textContent = fmtE(vtas);
-          const opers = v('oPers'), oprom = v('oProm'), oreg = v('oReg')/100, oconv = v('oConv')/100, otick = v('oTick');
-          const oleads = opers * oprom * oreg;
-          const ocli = oleads * oconv;
-          const ovtas = ocli * otick;
-          $('oLeads').textContent = fmtN(oleads);
-          $('oCli').textContent = fmtN(ocli);
-          $('oVtas').textContent = fmtE(ovtas);
+        var defaults = { pPersonas:100, pPub:100, pCpl:2, pConv:6, pTicket:400, oPersonas:100, oLanding:100, oReg:40, oConv:10, oTicket:400 };
+        var IMPR_POR_EURO = 300;
+        var nf = new Intl.NumberFormat('es-ES');
+        function usd(n){ return 'US$' + nf.format(Math.round(n)); }
+        function val(id){ var el = document.getElementById(id); var v = parseFloat(el.value); return isNaN(v) ? 0 : v; }
+        function compute(){
+          var inv = val('pPersonas') * val('pPub');
+          var cpl = val('pCpl') || 1;
+          var leads = inv / cpl;
+          var cli = leads * (val('pConv')/100);
+          var ventasP = cli * val('pTicket');
+          var impr = inv * IMPR_POR_EURO;
+          document.getElementById('pInv').value = nf.format(Math.round(inv));
+          document.getElementById('pImp').textContent = nf.format(Math.round(impr));
+          document.getElementById('pLeads').textContent = nf.format(Math.round(leads));
+          document.getElementById('pCli').textContent = nf.format(Math.round(cli));
+          document.getElementById('pVentas').textContent = usd(ventasP);
+          var oLeads = val('oPersonas') * val('oLanding') * (val('oReg')/100);
+          var oCli = oLeads * (val('oConv')/100);
+          var ventasO = oCli * val('oTicket');
+          document.getElementById('oLeads').textContent = nf.format(Math.round(oLeads));
+          document.getElementById('oCli').textContent = nf.format(Math.round(oCli));
+          document.getElementById('oVentas').textContent = usd(ventasO);
+          document.getElementById('simTotal').textContent = usd(ventasP + ventasO);
         }
-        ['pPers','pPub','pCpl','pConv','pTick','oPers','oProm','oReg','oConv','oTick']
-          .forEach(id => $(id).addEventListener('input', calc));
-        calc();
+        Object.keys(defaults).forEach(function(id){
+          var el = document.getElementById(id);
+          if(el) el.addEventListener('input', compute);
+        });
+        document.querySelectorAll('#simPage [data-step]').forEach(function(btn){
+          btn.addEventListener('click', function(){
+            var el = document.getElementById(btn.getAttribute('data-t'));
+            if(!el) return;
+            var step = parseFloat(btn.getAttribute('data-step'));
+            var cur = parseFloat(el.value); if(isNaN(cur)) cur = 0;
+            var next = cur + step;
+            var min = el.min !== '' ? parseFloat(el.min) : -Infinity;
+            if(next < min) next = min;
+            next = Math.round(next * 100) / 100;
+            el.value = next;
+            compute();
+          });
+        });
+        var rb = document.getElementById('simReset');
+        if(rb) rb.addEventListener('click', function(){
+          Object.keys(defaults).forEach(function(id){ var el = document.getElementById(id); if(el) el.value = defaults[id]; });
+          compute();
+        });
+        compute();
       })();
     </script>
 
