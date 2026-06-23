@@ -4,7 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MÉTODO KOREX — Brochure de ventas</title>
-<link rel="stylesheet" href="brochure.css">
+<link rel="stylesheet" href="/brochure.css">
+<style>
+  /* "Tu inversión" (5.000 / 1.400 USD): oculta por defecto; visible solo en la ruta /broshure */
+  .page-precio{display:none}
+  .ver-precio .page-precio{display:flex}
+</style>
+<script>
+  /* Revela la página de precio ÚNICAMENTE en info.metodokorex.com/broshure
+     (el brochure público en la raíz sigue sin precio). */
+  if (location.pathname.toLowerCase().indexOf('broshure') !== -1) {
+    document.documentElement.classList.add('ver-precio');
+  }
+</script>
 </head>
 <body>
 
@@ -30,13 +42,13 @@
   <!-- ═══ PÁGINA 1 · PORTADA ═══════════════════════════════ -->
   <section class="page cover">
     <div class="cover-top">
-      <div class="cover-logo"><img src="assets/mk-logo-cropped.png" alt="Método Korex"></div>
+      <div class="cover-logo"><img src="/assets/mk-logo-cropped.png" alt="Método Korex"></div>
       <span class="cover-badge">Brochure comercial</span>
     </div>
     <div class="cover-mid">
       <div class="cover-kick">Para equipos de network marketing</div>
       <div class="cover-lockup">
-        <img class="cover-symbol" src="assets/mk-symbol.png" alt="Método Korex">
+        <img class="cover-symbol" src="/assets/mk-symbol.png" alt="Método Korex">
         <span class="cover-wordmark" aria-label="MÉTODO KOREX"><span>M</span><span>É</span><span>T</span><span>O</span><span>D</span><span>O</span><span class="sp"></span><span>K</span><span>O</span><span>R</span><span>E</span><span>X</span></span>
       </div>
       <div class="cover-rule"></div>
@@ -350,10 +362,10 @@
       <p class="h-sub">Cada negocio tiene su propio embudo optimizado. Algunos ejemplos lanzados:</p>
     </div>
     <div class="funnel-grid2">
-      <a class="funnel-mini" href="https://metodokorex.com/ViajerosConProposito/preregistro?ref=7581" target="_blank" rel="noopener"><div class="preview"><img src="assets/cover-viajeros.jpg" alt="Landing Viajeros con Propósito" loading="lazy"></div><div class="fm-tag">Producto</div><div class="fm-ttl">Viajeros con Propósito</div><div class="fm-desc">Corina Grosu · descuentos exclusivos en viajes.</div></a>
-      <a class="funnel-mini" href="https://rimanskincare.metodokorex.com?ref=7580" target="_blank" rel="noopener"><div class="preview"><img src="assets/cover-riman.jpg" alt="Landing Riman" loading="lazy"></div><div class="fm-tag">Producto</div><div class="fm-ttl">Riman</div><div class="fm-desc">Skincare coreano premium con captación integrada.</div></a>
-      <a class="funnel-mini" href="https://clubshine.metodokorex.com?ref=7590" target="_blank" rel="noopener"><div class="preview"><img src="assets/cover-clubshine.jpg" alt="Landing Club Shine" loading="lazy"></div><div class="fm-tag">Reclutamiento</div><div class="fm-ttl">Club Shine</div><div class="fm-desc">Mónica Vozmediano · captación para su equipo.</div></a>
-      <a class="funnel-mini" href="https://summit.metodokorex.com/" target="_blank" rel="noopener"><div class="preview"><img src="assets/cover-summit.jpg" alt="Landing Summit Networkers" loading="lazy"></div><div class="fm-tag">Reclutamiento</div><div class="fm-ttl">Summit Networkers</div><div class="fm-desc">Jonathan Díaz · captación para su comunidad.</div></a>
+      <a class="funnel-mini" href="https://metodokorex.com/ViajerosConProposito/preregistro?ref=7581" target="_blank" rel="noopener"><div class="preview"><img src="/assets/cover-viajeros.jpg" alt="Landing Viajeros con Propósito" loading="lazy"></div><div class="fm-tag">Producto</div><div class="fm-ttl">Viajeros con Propósito</div><div class="fm-desc">Corina Grosu · descuentos exclusivos en viajes.</div></a>
+      <a class="funnel-mini" href="https://rimanskincare.metodokorex.com?ref=7580" target="_blank" rel="noopener"><div class="preview"><img src="/assets/cover-riman.jpg" alt="Landing Riman" loading="lazy"></div><div class="fm-tag">Producto</div><div class="fm-ttl">Riman</div><div class="fm-desc">Skincare coreano premium con captación integrada.</div></a>
+      <a class="funnel-mini" href="https://clubshine.metodokorex.com?ref=7590" target="_blank" rel="noopener"><div class="preview"><img src="/assets/cover-clubshine.jpg" alt="Landing Club Shine" loading="lazy"></div><div class="fm-tag">Reclutamiento</div><div class="fm-ttl">Club Shine</div><div class="fm-desc">Mónica Vozmediano · captación para su equipo.</div></a>
+      <a class="funnel-mini" href="https://summit.metodokorex.com/" target="_blank" rel="noopener"><div class="preview"><img src="/assets/cover-summit.jpg" alt="Landing Summit Networkers" loading="lazy"></div><div class="fm-tag">Reclutamiento</div><div class="fm-ttl">Summit Networkers</div><div class="fm-desc">Jonathan Díaz · captación para su comunidad.</div></a>
     </div>
     <div class="pg-foot"><span class="tag">MÉTODO KOREX</span><span>Embudo a medida, no plantilla</span></div>
   </section>
@@ -387,7 +399,7 @@
     </div>
 
     <div class="crm-feature">
-      <div class="win"><img src="assets/crm-pipeline.png" alt="Pipeline visual por etapas"></div>
+      <div class="win"><img src="/assets/crm-pipeline.png" alt="Pipeline visual por etapas"></div>
       <div class="cap">
         <div class="ix">01</div>
         <div>
@@ -398,7 +410,7 @@
     </div>
 
     <div class="crm-feature">
-      <div class="win"><img src="assets/crm-funnel.png" alt="Métricas del funnel en tiempo real"></div>
+      <div class="win"><img src="/assets/crm-funnel.png" alt="Métricas del funnel en tiempo real"></div>
       <div class="cap">
         <div class="ix">02</div>
         <div>
@@ -421,7 +433,7 @@
 
     <div class="crm-tiles" style="margin-bottom:14px">
       <div class="crm-shot">
-        <div class="win" style="aspect-ratio:16/9"><img src="assets/crm-lead.png" alt="Ficha del lead con mensaje sugerido por IA"></div>
+        <div class="win" style="aspect-ratio:16/9"><img src="/assets/crm-lead.png" alt="Ficha del lead con mensaje sugerido por IA"></div>
         <div class="body">
           <div class="num">03 · Ficha del lead</div>
           <div class="tt">Scoring + mensaje IA</div>
@@ -429,7 +441,7 @@
         </div>
       </div>
       <div class="crm-shot">
-        <div class="win" style="aspect-ratio:16/9"><img src="assets/crm-networkers.png" alt="Desempeño por networker"></div>
+        <div class="win" style="aspect-ratio:16/9"><img src="/assets/crm-networkers.png" alt="Desempeño por networker"></div>
         <div class="body">
           <div class="num">04 · Tu red</div>
           <div class="tt">Desempeño por networker</div>
@@ -439,7 +451,7 @@
     </div>
 
     <div class="crm-feature" style="margin-bottom:14px">
-      <div class="win" style="aspect-ratio:46/9"><img src="assets/crm-lista.png" alt="Detalle de leads con puntuación"></div>
+      <div class="win" style="aspect-ratio:46/9"><img src="/assets/crm-lista.png" alt="Detalle de leads con puntuación"></div>
       <div class="cap">
         <div class="ix">05</div>
         <div>
@@ -450,7 +462,7 @@
     </div>
 
     <div class="crm-feature" style="margin-bottom:0">
-      <div class="win" style="aspect-ratio:46/9"><img src="assets/crm-cursos.png" alt="Centro de formación integrado"></div>
+      <div class="win" style="aspect-ratio:46/9"><img src="/assets/crm-cursos.png" alt="Centro de formación integrado"></div>
       <div class="cap">
         <div class="ix">06</div>
         <div>
@@ -511,11 +523,11 @@
     <div class="case-grid">
       <div class="case" style="padding:18px 18px 14px; gap:12px">
         <div class="who"><span class="nm">Janeyling Gómez</span><span class="br">JIFU</span></div>
-        <img src="assets/janeyling-resultados.png" alt="Métricas reales de Janeyling Gómez — Lead Scoring" style="width:100%; max-height:330px; object-fit:contain; border-radius:8px; display:block">
+        <img src="/assets/janeyling-resultados.png" alt="Métricas reales de Janeyling Gómez — Lead Scoring" style="width:100%; max-height:330px; object-fit:contain; border-radius:8px; display:block">
       </div>
       <div class="case" style="padding:18px 18px 14px; gap:12px">
         <div class="who"><span class="nm">Mónica Vozmediano</span><span class="br">Essens</span></div>
-        <img src="assets/lead-scoring-monica.png" alt="Métricas reales de Mónica Vozmediano — Lead Scoring" style="width:100%; max-height:330px; object-fit:contain; border-radius:8px; display:block">
+        <img src="/assets/lead-scoring-monica.png" alt="Métricas reales de Mónica Vozmediano — Lead Scoring" style="width:100%; max-height:330px; object-fit:contain; border-radius:8px; display:block">
       </div>
     </div>
     <p class="small" style="margin-top:16px">+ 26 clientes activos en la base operativa · Daniel Serrano · Jonathan Díaz · Elixon Alcalá · José Luis Rodríguez · Corina Grosu · José Luis Rivas.</p>
@@ -886,8 +898,9 @@
   </section>
 
   <!-- ═══ PÁGINA 18 · TU INVERSIÓN ═════════════════════════ -->
-  <!-- PAGINA OCULTA TEMPORALMENTE (precios 5.000 / 1.400 USD). Para volver a mostrarla: cambiar la clase "page-oculta" por "page dark" y quitar el style="display:none". -->
-  <section class="page-oculta dark" style="display:none">
+  <!-- Página "Tu inversión" (5.000 / 1.400 USD): oculta en el brochure público (raíz); se revela SOLO en la ruta /broshure
+       mediante la clase .ver-precio (ver <script> en <head>) + el rewrite de /broshure a /index.html en vercel.json. -->
+  <section class="page dark page-precio">
     <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Tu inversión · 22</span></div>
     <div class="section-head">
       <span class="eyebrow">Tu inversión con Korex</span>
