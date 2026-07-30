@@ -570,6 +570,36 @@ h1, h2, h3, h4 { margin: 0; letter-spacing: -0.025em; line-height: 1.05; }
 .price-card .pc-note { font-size: 13px; font-weight: 600; color: var(--text-soft); margin-top: 10px; }
 .page.dark .price-card .pc-note { color: var(--dk-soft); }
 .price-card .pc-pill { align-self: flex-start; margin-top: auto; padding-top: 0; display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: #fff; background: var(--blue); padding: 6px 12px; border-radius: 999px; }
+.price-card .pc-old { font-size: 12px; font-weight: 700; color: var(--text-mut); margin-top: 8px; }
+.page.dark .price-card .pc-old { color: var(--dk-mut); }
+.price-card .pc-old s { color: var(--text-soft); }
+.page.dark .price-card .pc-old s { color: var(--dk-soft); }
+.price-card .pc-reno { font-size: 13px; font-weight: 600; color: var(--text-soft); margin-top: 10px; }
+.page.dark .price-card .pc-reno { color: var(--dk-soft); }
+.price-card .pc-reno b { color: var(--blue); font-weight: 800; }
+
+/* ── Entregables (tabla título + descripción + precio) ────── */
+.entreg { border: 1px solid var(--line); border-radius: var(--r-md); overflow: hidden; }
+.entreg-h, .entreg-r, .entreg-t {
+  display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: start;
+  padding: 11px 18px;
+}
+.entreg-h { background: var(--paper-soft); border-bottom: 2px solid var(--line);
+  font-size: 10px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-mut); align-items: center; }
+.entreg-h > div:last-child, .entreg-r .pr, .entreg-t .pr { text-align: right; }
+.entreg-r { border-top: 1px solid var(--line); }
+.entreg-r:first-of-type { border-top: 0; }
+.entreg-r .ar b { display: block; font-size: 12.5px; font-weight: 800; color: var(--text); line-height: 1.3; }
+.entreg-r .ar .d { display: block; margin-top: 3px; font-size: 11px; font-weight: 500; color: var(--text-soft); line-height: 1.4; }
+.entreg-r .pr { font-size: 13px; font-weight: 800; color: var(--blue-ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.entreg-t { background: linear-gradient(90deg, var(--blue-dark), var(--blue)); color: #fff; align-items: center; }
+.entreg-t .lb { font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+.entreg-t .pr { font-size: 22px; font-weight: 900; letter-spacing: -0.02em; }
+/* Bonos: tono violeta sutil + icono de regalo — se lee como "algo especial" sin gritar */
+.entreg-r.bono { background: rgba(124,92,246,0.06); }
+.entreg-r.bono .ar b { display: flex; align-items: center; gap: 7px; color: #6D4AD6; }
+.entreg-r.bono .ar .gift { flex: 0 0 auto; width: 14px; height: 14px; color: #7C5CF6; }
+.entreg-r.bono .pr { color: #6D4AD6; }
 
 /* ── Roadmap / phases ─────────────────────────────────────── */
 .phases { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
