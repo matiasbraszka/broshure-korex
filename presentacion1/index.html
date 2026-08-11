@@ -130,6 +130,13 @@ h1,h2,.display{font-family:'Montserrat';font-weight:800;letter-spacing:-.01em;li
 .s8 h2{font-size:44px;line-height:1.05;}
 .s8-sub{color:rgba(253,254,254,.66);font-family:'Montserrat';font-size:17px;margin-top:14px;}
 .s8-steps{display:flex;flex-direction:column;gap:16px;width:740px;max-width:90%;margin-top:38px;}
+.s8-steps.solo{width:560px;}
+.s8-btn.wa.solo{background:linear-gradient(180deg,#2fbe6b,#1ea95a);border-color:transparent;color:#ffffff;box-shadow:0 14px 34px -16px rgba(34,197,94,.65);}
+.s8-btn.wa.solo:hover{transform:translateY(-2px);filter:brightness(1.04);border-color:transparent;}
+.s8-btn.wa.solo .s8-num{background:rgba(255,255,255,.16);color:#ffffff;border-color:rgba(255,255,255,.32);}
+.s8-btn.wa.solo .s8-txt small{color:rgba(255,255,255,.78);}
+.s8-btn.wa.solo .s8-ic,.s8-btn.wa.solo:hover .s8-ic{color:#ffffff;}
+.s8-note{font-family:'Montserrat';font-size:13px;color:rgba(253,254,254,.5);margin-top:18px;}
 .s8-btn{display:flex;align-items:center;gap:20px;text-decoration:none;padding:20px 26px;border-radius:16px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.13);color:var(--white);text-align:left;transition:transform .15s ease,border-color .15s ease,background .15s ease;}
 .s8-btn:hover{transform:translateY(-2px);border-color:rgba(72,120,255,.55);background:rgba(255,255,255,.075);}
 .s8-num{flex:0 0 auto;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Montserrat';font-weight:800;font-size:19px;background:rgba(72,120,255,.13);color:var(--gold);border:1px solid rgba(72,120,255,.42);}
@@ -239,7 +246,10 @@ a.bx-embed:hover .bx-embed-cta{background:var(--gold);color:#ffffff;}
 .bx-allin{border-radius:16px;padding:22px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:linear-gradient(180deg,rgba(72,120,255,.16),rgba(72,120,255,.04));border:1px solid rgba(72,120,255,.4);}
 .ai-ttl{font-family:'Montserrat';font-weight:500;font-size:20px;line-height:1.2;}
 .ai-ttl b{font-weight:800;}
-.ai-rule{width:46px;height:2px;background:var(--gold);opacity:.7;margin:14px 0 16px;}
+.ai-rule{width:46px;height:2px;background:var(--gold);opacity:.7;margin:13px 0 15px;}
+.ai-badge{font-family:'Montserrat';font-weight:800;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);background:rgba(72,120,255,.15);border:1px solid rgba(72,120,255,.45);padding:6px 13px;border-radius:999px;margin-bottom:15px;}
+.ai-prices{display:flex;align-items:baseline;justify-content:center;gap:14px;}
+.ai-was{font-family:'Montserrat';font-weight:700;font-size:25px;line-height:1;color:rgba(253,254,254,.4);text-decoration:line-through;text-decoration-thickness:2px;}
 .ai-price{font-family:'Montserrat';font-weight:800;font-size:58px;line-height:1;color:var(--gold);}
 .ai-unit{font-family:'Montserrat';font-size:13px;letter-spacing:.16em;text-transform:uppercase;opacity:.7;margin-top:9px;}
 .ai-pub{font-family:'Montserrat';font-size:15px;margin-top:16px;}
@@ -457,7 +467,8 @@ a.bx-embed:hover .bx-embed-cta{background:var(--gold);color:#ffffff;}
       <div class="bx-allin">
         <div class="ai-ttl">Todo incluido en<br><b>Método Korex</b></div>
         <div class="ai-rule"></div>
-        <div class="ai-price">350 USD</div>
+        <div class="ai-badge">Miembros Fundadores · 40 primeros</div>
+        <div class="ai-prices"><span class="ai-was">500 USD</span><span class="ai-price">350 USD</span></div>
         <div class="ai-unit">pago único</div>
         <div class="ai-pub">+ <b>25%</b> de la publicidad invertida</div>
       </div>
@@ -722,25 +733,16 @@ a.bx-embed:hover .bx-embed-cta{background:var(--gold);color:#ffffff;}
   <div class="s8-head">
     <div class="eyebrow">Empezá ahora</div>
     <h2>Cómo acceder a <span class="gold">Método Korex</span></h2>
-    <div class="s8-sub">Seguí estos pasos para activar tu acceso.</div>
+    <div class="s8-sub">Para empezar, escribile al área de ventas de Korex por WhatsApp.</div>
   </div>
-  <div class="s8-steps">
-    <a class="s8-btn primary" href="#" onclick="return false;" aria-disabled="true">
-      <span class="s8-num">1</span>
-      <span class="s8-txt"><b>Pagar y acceder</b><small>Pago único y seguro vía Stripe</small></span>
-      <span class="s8-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10.5h18"/></svg></span>
-    </a>
-    <a class="s8-btn" href="#" onclick="return false;" aria-disabled="true">
-      <span class="s8-num">2</span>
-      <span class="s8-txt"><b>Completar el registro</b><small>Después del pago, llená el formulario</small></span>
-      <span class="s8-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M9 9h6M9 13h6M9 17h4"/></svg></span>
-    </a>
-    <a class="s8-btn wa" href="https://wa.me/5492915056739?text=Hola%2C%20quiero%20acceder%20a%20M%C3%A9todo%20Korex%2C%20pero%20tengo%20dudas" target="_blank" rel="noopener">
+  <div class="s8-steps solo">
+    <a class="s8-btn wa solo" href="https://wa.me/5492915056739?text=Hola!%20Estoy%20interesado%20en%20el%20sistema%20Korex%20para%20RCO" target="_blank" rel="noopener">
       <span class="s8-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 12a8 8 0 1 1 3.4 6.5L4 19.5l1.1-3.3A7.9 7.9 0 0 1 4 12z"/></svg></span>
-      <span class="s8-txt"><b>Dudas o soporte</b><small>Escribinos por WhatsApp</small></span>
-      <span class="s8-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 5.5h16v10H9l-4 3.2V15.5H4z"/></svg></span>
+      <span class="s8-txt"><b>Escribir al área de ventas</b><small>Te respondemos y activamos tu acceso</small></span>
+      <span class="s8-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h13M13 6.5 18.5 12 13 17.5"/></svg></span>
     </a>
   </div>
+  <div class="s8-note">Se abre WhatsApp con el mensaje listo para enviar.</div>
   <img class="botlogo" src="assets/mk-logo-cropped.png">
 </section>
 
