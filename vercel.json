@@ -1,6 +1,8 @@
 {
   "trailingSlash": true,
   "rewrites": [
+    { "source": "/broshure-1400", "destination": "/broshure-1400.html" },
+    { "source": "/broshure-1400/", "destination": "/broshure-1400.html" },
     { "source": "/broshure", "destination": "/index.html" },
     { "source": "/broshure/", "destination": "/index.html" },
     { "source": "/broshure2", "destination": "/broshure2.html" },

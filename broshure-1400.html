@@ -3,16 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MÉTODO KOREX — Brochure de ventas</title>
+<title>MÉTODO KOREX — Brochure (versión 5.000 + 1.400 USD/mes)</title>
 <link rel="stylesheet" href="/brochure.css">
 <style>
-  /* "Tu inversión" (5.000 USD + 350/año por networker): oculta por defecto; visible solo en la ruta /broshure */
+  /* "Tu inversión" (5.000 / 1.400 USD): oculta por defecto; visible solo en la ruta /broshure */
   .page-precio{display:none}
-  /* Sin la tarjeta de abajo, la página quedaba vacía: el bloque de precio crece y se centra. */
-  .page-precio .price-grid{margin-top:34px;margin-bottom:auto;align-items:stretch}
-  .page-precio .price-card{padding:40px 34px}
-  .page-precio .price-card .pc-v{font-size:68px;margin-top:12px}
-  .page-precio .price-card .pc-lb{line-height:1.5}
   .ver-precio .page-precio{display:flex}
 </style>
 <script>
@@ -931,7 +926,7 @@
   </section>
 
   <!-- ═══ PÁGINA 18 · TU INVERSIÓN ═════════════════════════ -->
-  <!-- Página "Tu inversión" (5.000 USD + 350/año por networker): oculta en el brochure público (raíz); se revela SOLO en la ruta /broshure
+  <!-- Página "Tu inversión" (5.000 / 1.400 USD): oculta en el brochure público (raíz); se revela SOLO en la ruta /broshure
        mediante la clase .ver-precio (ver <script> en <head>) + el rewrite de /broshure a /index.html en vercel.json. -->
   <section class="page dark page-precio">
     <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Tu inversión · 21</span></div>
@@ -949,14 +944,18 @@
         <span class="pc-pill">Pago único · ahorras 1.000</span>
       </div>
       <div class="price-card accent">
-        <div class="pc-lb">Lo que paga cada persona de la red</div>
-        <div class="pc-v">350<span class="u"> USD/año</span></div>
-        <div class="pc-reno"><b>Activación:</b> por cada networker de tu equipo que entra al sistema.</div>
-        <div class="pc-note">Se renueva una vez al año</div>
+        <div class="pc-lb">Mantenimiento mensual</div>
+        <div class="pc-v">1.400<span class="u"> USD/mes</span></div>
+        <div class="pc-reno"><b>Renovación:</b> luego de los 3 meses de servicio.</div>
+        <div class="pc-note">Condicional · no se cobra hasta cumplir la garantía</div>
         <span class="pc-pill">Sin permanencia</span>
       </div>
     </div>
-    <div class="pg-foot"><span class="tag">MÉTODO KOREX</span><span>Mercado: 20–40K €/mes · Korex: 5K pago único</span></div>
+    <div class="card" style="margin-top:24px; text-align:center">
+      <p class="lead">Activación Networker
+350 USD pago único + 25% pauta</p>
+    </div>
+    <div class="pg-foot"><span class="tag">MÉTODO KOREX</span><span>Mercado: 20–40K €/mes · Korex: 5K + 1.4K</span></div>
   </section>
 
   <!-- ═══ PÁGINA 20 · CÓMO CUBRIR EL MANTENIMIENTO ═════════ -->
