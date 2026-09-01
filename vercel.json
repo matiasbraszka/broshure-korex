@@ -3,6 +3,8 @@
   "rewrites": [
     { "source": "/broshure-1400", "destination": "/broshure-1400.html" },
     { "source": "/broshure-1400/", "destination": "/broshure-1400.html" },
+    { "source": "/broshure2-600", "destination": "/broshure2-600.html" },
+    { "source": "/broshure2-600/", "destination": "/broshure2-600.html" },
     { "source": "/broshure", "destination": "/index.html" },
     { "source": "/broshure/", "destination": "/index.html" },
     { "source": "/broshure2", "destination": "/broshure2.html" },
