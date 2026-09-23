@@ -282,6 +282,7 @@ a.bx-embed:hover .bx-embed-cta{background:var(--gold);color:#ffffff;}
   <h1>Método Korex</h1>
   <div class="sub">Automatiza la captación. Tú solo cierras y duplicas.</div>
   <img class="botlogo" src="assets/mk-logo-cropped.png">
+
 </section>
 
 <!-- BX02 -->
@@ -681,14 +682,14 @@ a.bx-embed:hover .bx-embed-cta{background:var(--gold);color:#ffffff;}
       <div class="bx-loose">
         <div class="bx-lh">Por tu cuenta <span>(servicios sueltos)</span></div>
         <ul class="bx-cost">
-          <li><span class="cn">Trafficker sin experiencia en MLM</span><span class="cp">$500 – $800 /trim.</span></li>
+          <li><span class="cn">Trafficker sin experiencia en MLM</span><span class="cp">$500 – $800 /mes</span></li>
           <li><span class="cn">Edición de anuncios + VSL</span><span class="cp">$150 /mes</span></li>
           <li><span class="cn">Diseño y landings</span><span class="cp">$1.000 – $2.000 /mes</span></li>
           <li><span class="cn">Guiones y grabaciones</span><span class="cp">$300 – $400 /mes</span></li>
           <li><span class="cn">Estrategia</span><span class="cp">$800 /mes</span></li>
           <li><span class="cn">CRM, automatizaciones e integraciones</span><span class="cp">$500 /mes</span></li>
         </ul>
-        <div class="bx-total">TOTAL REAL: <b>+$3.250</b></div>
+        <div class="bx-total">TOTAL REAL: <b>+$3.250/mes + Publicidad</b></div>
       </div>
       <div class="bx-allin">
         <div class="ai-ttl">Todo incluido en<br><b>Método Korex</b></div>
@@ -879,14 +880,103 @@ a.bx-embed:hover .bx-embed-cta{background:var(--gold);color:#ffffff;}
     <div class="s8-sub">Para empezar, escribile al área de ventas de Korex por WhatsApp.</div>
   </div>
   <div class="s8-steps solo">
-    <a class="s8-btn wa solo" href="https://wa.me/5492915056739?text=Hola!%20Estoy%20interesado%20en%20el%20sistema%20Korex%20para%20RCO" target="_blank" rel="noopener">
+    <button class="s8-btn wa solo" type="button" id="s8Open">
       <span class="s8-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 12a8 8 0 1 1 3.4 6.5L4 19.5l1.1-3.3A7.9 7.9 0 0 1 4 12z"/></svg></span>
       <span class="s8-txt"><b>Escribir al área de ventas</b><small>Te respondemos y activamos tu acceso</small></span>
       <span class="s8-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h13M13 6.5 18.5 12 13 17.5"/></svg></span>
-    </a>
+    </button>
   </div>
-  <div class="s8-note">Se abre WhatsApp con el mensaje listo para enviar.</div>
+  <div class="s8-note">Completás tres datos y se abre WhatsApp con el mensaje listo para enviar.</div>
   <img class="botlogo" src="assets/mk-logo-cropped.png">
+  <div class="s8-modal" id="s8Modal" hidden>
+    <div class="s8-card" role="dialog" aria-modal="true" aria-labelledby="s8Ttl">
+      <button class="s8-x" type="button" id="s8Close" aria-label="Cerrar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+      <div class="eyebrow">Último paso</div>
+      <h3 id="s8Ttl">Contanos quién sos</h3>
+      <p class="s8-msub">Con estos tres datos el área de ventas te responde con todo preparado.</p>
+      <label class="s8-f"><span>Nombre y apellido</span><input type="text" id="s8Nombre" autocomplete="name" placeholder="Tu nombre completo"></label>
+      <label class="s8-f"><span>Empresa de network marketing</span><input type="text" id="s8Empresa" autocomplete="organization" placeholder="En cuál estás hoy"></label>
+      <label class="s8-f"><span>Quién te invitó a esta presentación</span><input type="text" id="s8Invito" placeholder="Nombre de esa persona"></label>
+      <div class="s8-err" id="s8Err" hidden>Completá los tres datos para continuar.</div>
+      <a class="s8-send" id="s8Send" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 12a8 8 0 1 1 3.4 6.5L4 19.5l1.1-3.3A7.9 7.9 0 0 1 4 12z"/></svg>
+        Enviar por WhatsApp
+      </a>
+    </div>
+  </div>
+
+<style>
+.s8-modal{position:absolute;inset:0;z-index:20;background:rgba(6,7,9,.86);display:flex;align-items:center;justify-content:center;}
+.s8-modal[hidden]{display:none;}
+.s8-card{position:relative;width:560px;max-width:92%;text-align:left;padding:38px 42px 34px;border-radius:22px;
+  background:linear-gradient(180deg,#171b24,#0f1219);border:1px solid rgba(255,255,255,.14);
+  box-shadow:0 40px 90px -30px rgba(0,0,0,.9);}
+.s8-card .eyebrow{font-size:12px;margin-bottom:10px;display:block;}
+.s8-card h3{font-family:'Montserrat';font-weight:800;font-size:30px;line-height:1.1;color:#fff;}
+.s8-msub{font-family:'Montserrat';font-size:14px;line-height:1.45;color:rgba(253,254,254,.6);margin:10px 0 22px;}
+.s8-x{position:absolute;top:18px;right:18px;width:34px;height:34px;border-radius:50%;cursor:pointer;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:rgba(253,254,254,.7);
+  display:flex;align-items:center;justify-content:center;}
+.s8-x svg{width:16px;height:16px;} .s8-x:hover{background:rgba(255,255,255,.12);color:#fff;}
+.s8-f{display:block;margin-bottom:14px;}
+.s8-f span{display:block;font-family:'Montserrat';font-weight:600;font-size:12.5px;letter-spacing:.02em;
+  color:rgba(253,254,254,.72);margin-bottom:7px;}
+.s8-f input{width:100%;font-family:'Montserrat';font-size:15px;color:#fff;padding:13px 15px;border-radius:12px;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.16);outline:none;transition:border-color .15s ease,background .15s ease;}
+.s8-f input::placeholder{color:rgba(253,254,254,.34);}
+.s8-f input:focus{border-color:rgba(72,120,255,.75);background:rgba(255,255,255,.08);}
+.s8-f.miss input{border-color:rgba(210,48,48,.75);}
+.s8-err{font-family:'Montserrat';font-size:13px;color:#ff8b8b;margin:2px 0 12px;}
+.s8-err[hidden]{display:none;}
+.s8-send{display:flex;align-items:center;justify-content:center;gap:11px;margin-top:8px;padding:16px 20px;border-radius:14px;
+  font-family:'Montserrat';font-weight:700;font-size:17px;text-decoration:none;color:#fff;
+  background:linear-gradient(180deg,#2fbe6b,#1ea95a);box-shadow:0 14px 34px -16px rgba(34,197,94,.65);
+  transition:transform .15s ease,filter .15s ease,opacity .15s ease;}
+.s8-send svg{width:20px;height:20px;}
+.s8-send:hover{transform:translateY(-2px);filter:brightness(1.04);}
+.s8-send.off{opacity:.45;}
+</style>
+<script>
+(function(){
+  var WA = '5492915056739';
+  var open = document.getElementById('s8Open'), modal = document.getElementById('s8Modal');
+  var close = document.getElementById('s8Close'), send = document.getElementById('s8Send'), err = document.getElementById('s8Err');
+  var campos = [
+    { el: document.getElementById('s8Nombre'),  rot: 'Nombre' },
+    { el: document.getElementById('s8Empresa'), rot: 'Empresa' },
+    { el: document.getElementById('s8Invito'),  rot: 'Me invitó' }
+  ];
+  function faltan(){ return campos.filter(function(c){ return !c.el.value.trim(); }); }
+  function link(){
+    var cuerpo = 'Hola! Vengo de la presentación de Método Korex y quiero empezar.\n\n'
+      + campos.map(function(c){ return c.rot + ': ' + c.el.value.trim(); }).join('\n');
+    return 'https://wa.me/' + WA + '?text=' + encodeURIComponent(cuerpo);
+  }
+  function sync(){
+    var f = faltan();
+    send.href = f.length ? '#' : link();
+    send.classList.toggle('off', f.length > 0);
+    if(!f.length){ err.hidden = true; campos.forEach(function(c){ c.el.parentNode.classList.remove('miss'); }); }
+  }
+  campos.forEach(function(c){ c.el.addEventListener('input', sync); });
+  open.addEventListener('click', function(){ modal.hidden = false; campos[0].el.focus(); });
+  close.addEventListener('click', function(){ modal.hidden = true; });
+  modal.addEventListener('click', function(e){ if(e.target === modal) modal.hidden = true; });
+  window.addEventListener('keydown', function(e){ if(e.key === 'Escape') modal.hidden = true; });
+  send.addEventListener('click', function(e){
+    var f = faltan();
+    if(f.length){
+      e.preventDefault();
+      err.hidden = false;
+      campos.forEach(function(c){ c.el.parentNode.classList.toggle('miss', !c.el.value.trim()); });
+      f[0].el.focus();
+    }
+  });
+  sync();
+})();
+</script>
 </section>
 
 <!-- S6 -->
