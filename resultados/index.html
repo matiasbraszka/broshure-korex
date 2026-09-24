@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MÉTODO KOREX — Resultados y prueba social</title>
+<link rel="stylesheet" href="/brochure.css">
+<style>
+  /* ── Piezas propias de este brochure ───────────────────── */
+  .quote { border-left: 3px solid var(--blue); padding: 2px 0 2px 18px; margin: 0 0 18px; }
+  .quote p { margin: 0; font-size: 15px; line-height: 1.5; color: var(--text); font-weight: 500; }
+  .page.dark .quote p { color: var(--dk-text); }
+  .quote .who { margin-top: 9px; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--text-mut); }
+  .page.dark .quote .who { color: var(--dk-mut); }
+  .quote.soft { border-left-color: var(--line-strong); }
+  .quote.soft p { font-weight: 400; color: var(--text-soft); font-size: 14px; }
+
+  /* Masonry: cada captura conserva su proporción, nada se recorta */
+  .shots { column-gap: 10px; }
+  .shots.c3 { columns: 3; }
+  .shots.c4 { columns: 4; }
+  .shots img {
+    width: 100%; margin: 0 0 10px; border-radius: var(--r-sm); border: 1px solid var(--line);
+    background: var(--paper-soft); cursor: pointer; display: block;
+    max-height: 380px; object-fit: cover; object-position: top;
+    break-inside: avoid; -webkit-column-break-inside: avoid;
+    transition: transform .15s ease;
+  }
+  .shots img:hover { transform: scale(1.02); }
+  .page.dark .shots img { border-color: var(--dk-line); background: var(--dk-surf); }
+
+  .vid-grid { display: grid; gap: 14px; }
+  .vid-grid.c2 { grid-template-columns: 1fr 1fr; }
+  .vid-grid.c3 { grid-template-columns: 1fr 1fr .62fr; align-items: start; }
+  .vframe { position: relative; width: 100%; border-radius: var(--r-md); overflow: hidden; border: 1px solid var(--line); background: #000; }
+  .page.dark .vframe { border-color: var(--dk-line); }
+  .vframe.r169 { padding-top: 56.25%; }
+  .vframe.r916 { padding-top: 177.8%; }
+  .vframe iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .vcap { margin-top: 8px; font-size: 11.5px; line-height: 1.35; color: var(--text-mut); }
+  .page.dark .vcap { color: var(--dk-mut); }
+  .vcap b { display: block; color: var(--text); font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+  .page.dark .vcap b { color: var(--dk-text); }
+
+  .tbl { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .tbl th { text-align: left; font-size: 9.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--text-mut); font-weight: 800; padding: 0 8px 9px 0; border-bottom: 1px solid var(--line-strong); }
+  .tbl td { padding: 5.5px 8px 5.5px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .tbl td.n { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .tbl .emp { display: block; font-size: 10.5px; color: var(--text-mut); font-weight: 500; }
+  .tbl tr:last-child td { border-bottom: 0; }
+
+  .kpi4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .kpi { border: 1px solid var(--dk-line); border-radius: var(--r-md); padding: 18px 16px; background: var(--dk-surf); }
+  .kpi .v { font-size: 34px; font-weight: 800; letter-spacing: -.03em; line-height: 1; color: var(--blue); }
+  .kpi .l { margin-top: 8px; font-size: 11.5px; font-weight: 700; color: var(--dk-text); }
+  .kpi .d { margin-top: 4px; font-size: 10.5px; line-height: 1.35; color: var(--dk-mut); }
+
+  .fuente { font-size: 10.5px; line-height: 1.45; color: var(--text-mut); }
+  .page.dark .fuente { color: var(--dk-mut); }
+</style>
+</head>
+<body>
+
+<div class="rotate-hint" role="note">
+  <span class="rh-phone" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="3" width="10" height="18" rx="2"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+  </span>
+  <span class="rh-text">Si estás desde el celular, ponlo en horizontal</span>
+</div>
+
+<main class="brochure" id="brochure">
+
+  <!-- ═══ 01 · PORTADA ═════════════════════════════════════ -->
+  <section class="page cover">
+    <div class="cover-top">
+      <div class="cover-logo"><img src="/assets/mk-logo-cropped.png" alt="Método Korex"></div>
+      <span class="cover-badge">Prueba social</span>
+    </div>
+    <div class="cover-mid">
+      <div class="cover-kick">Lo que dicen y lo que registran nuestros clientes</div>
+      <div class="cover-lockup">
+        <img class="cover-symbol" src="/assets/mk-symbol.png" alt="Método Korex">
+        <span class="cover-wordmark" aria-label="MÉTODO KOREX"><span>M</span><span>É</span><span>T</span><span>O</span><span>D</span><span>O</span><span class="sp"></span><span>K</span><span>O</span><span>R</span><span>E</span><span>X</span></span>
+      </div>
+      <div class="cover-rule"></div>
+      <p class="cover-sub">Capturas, números del sistema y clientes hablando sin guion. Sin cifras redondeadas hacia arriba y sin promesas que no podemos sostener.</p>
+    </div>
+    <div class="cover-foot">
+      <div class="ff"><b>Todo lo que ves acá pasó.</b><br>Está en el CRM o está grabado.</div>
+      <div class="ff" style="text-align:right">Datos al<br><b>24 de septiembre de 2026.</b></div>
+    </div>
+  </section>
+
+  <!-- ═══ 02 · LOS NÚMEROS DEL SISTEMA ═════════════════════ -->
+  <section class="page dark">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Los números · 02</span></div>
+    <div class="section-head">
+      <span class="eyebrow">Lo que registró el CRM</span>
+      <h2 class="h-title">Esto no es una proyección.<br>Es lo que pasó.</h2>
+      <p class="h-sub">Del 1 de junio al 24 de septiembre de 2026, sumando las 28 cuentas de clientes que estuvieron activas en ese período.</p>
+    </div>
+
+    <div class="kpi4" style="margin-bottom:16px">
+      <div class="kpi"><div class="v">5.917</div><div class="l">Leads captados</div><div class="d">Personas que dejaron sus datos en un embudo de un cliente.</div></div>
+      <div class="kpi"><div class="v">1.433</div><div class="l">Vieron el VSL completo</div><div class="d">Escucharon la presentación entera antes de hablar con nadie.</div></div>
+      <div class="kpi"><div class="v">2.065</div><div class="l">Pasaron a WhatsApp</div><div class="d">Pidieron el contacto con el líder por su cuenta.</div></div>
+      <div class="kpi"><div class="v">572</div><div class="l">Quedaron calificados</div><div class="d">Completaron todo el recorrido y pidieron información.</div></div>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--blue); margin-bottom:18px">
+      <p class="body" style="font-size:13.5px">Además hubo <b>1.280 leads interesados</b> — gente que vio entre el 25% y el 74% de la presentación y quedó en seguimiento. Son los que firman al segundo o al tercer mes, no el primer día.</p>
+    </div>
+
+    <p class="fuente">Fuente: base de datos operativa de Korex (<i>crm_leads_diarios</i>), consultada el 24/09/2026. Un lead no es una venta: es una persona que levantó la mano. Lo que pasa después depende del equipo que atiende, y eso lo dicen los propios clientes en las páginas siguientes.</p>
+
+    <div class="pg-foot"><span class="tag">MÉTODO KOREX</span><span>29 clientes activos al día de hoy</span></div>
+  </section>
+
+  <!-- ═══ 03 · CASO SUMMIT ═════════════════════════════════ -->
+  <section class="page">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Caso · Summit Networkers · 03</span></div>
+    <div class="section-head">
+      <span class="eyebrow">Jonathan Díaz · Equipo Summit Networkers</span>
+      <h2 class="h-title">«Cuando algo lo puedes usar<br>desde el día uno, es duplicable».</h2>
+    </div>
+
+    <div class="two-col" style="margin-bottom:18px; align-items:start">
+      <div>
+        <div class="quote">
+          <p>«La frustración que teníamos era encontrar un sistema que las personas pudieran duplicar. Cuando tratas de enseñarle a alguien a montar su landing, hacer videos, configurar Meta, los anuncios, la segmentación… gastas muchísimo tiempo y mucha gente se queda en el camino».</p>
+          <div class="who">Jonathan Díaz · antes de entrar</div>
+        </div>
+        <div class="quote">
+          <p>«Lo que hace especial al sistema de Korex es que es real. Un mismo enfoque de anuncios, una misma landing, y cualquier persona lo puede utilizar desde el día uno».</p>
+          <div class="who">Jonathan Díaz · un mes y medio después</div>
+        </div>
+      </div>
+      <div>
+        <div class="stat-row" style="gap:28px; margin-bottom:18px">
+          <div class="stat"><div class="v">800</div><div class="l">Contactos en la plataforma</div></div>
+          <div class="stat"><div class="v">200</div><div class="l">Personas calificadas</div></div>
+        </div>
+        <div class="card soft" style="margin-bottom:14px">
+          <p class="body" style="font-size:13px"><b>Mes y medio de uso.</b> Cerca de 50 networkers del equipo trabajando dentro del sistema, camino a más de 200. «Los que más han tenido resultados son personas nuevas, a las que quizás les daba miedo llamar o dar la presentación».</p>
+        </div>
+        <div class="card soft">
+          <p class="body" style="font-size:13px"><b>Más de 6 paquetes diamante</b> firmados en ese período, de 1.280 USD cada uno, más los paquetes de entrada. Uno de los firmados en Perú entró a la plataforma el mismo día: «ya pasé el proceso, vi cómo funciona, yo quiero esto».</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="crm-feature" style="margin-bottom:0">
+      <div class="win" style="aspect-ratio:46/11"><img src="https://lh3.googleusercontent.com/d/1YjmYjPOQo8am572QGdnEYI9MVBHIEdP3=w1400" alt="Cierre de estatus Diamante reportado en el grupo de Summit" loading="lazy" referrerpolicy="no-referrer"></div>
+      <div class="cap">
+        <div class="ix">01</div>
+        <div>
+          <div class="tt">Así se entera el equipo</div>
+          <div class="dd">«Mi socia Liliana ya tiene sus 3, hicimos un gran cierre con el estatus Diamante». Los cierres se reportan en el grupo, con nombre y apellido.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pg-foot"><span class="tag">MÉTODO KOREX</span><span>Equipo de más de 33.000 personas</span></div>
+  </section>
+
+  <!-- ═══ 04 · LO QUE JONATHAN ADVIERTE ════════════════════ -->
+  <section class="page soft">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Caso · Summit Networkers · 04</span></div>
+    <div class="section-head">
+      <span class="eyebrow">La parte que no conviene saltarse</span>
+      <h2 class="h-title">Lo que el propio cliente<br>le advierte al que está dudando.</h2>
+    </div>
+
+    <div class="quote" style="margin-bottom:22px">
+      <p>«El tema no va a ser que lleguen contactos. El problema es que la gente sepa qué hacer con esos contactos. Hay un 50/50: ustedes ponen el contacto, pero el líder tiene que tener un sistema para que su gente sepa atenderlo. Si alguien tiene 20 contactos y no les escribe ni los llama, no sirve de nada».</p>
+      <div class="who">Jonathan Díaz</div>
+    </div>
+
+    <div class="quote" style="margin-bottom:22px">
+      <p>«Esto no es un sistema para firmar gente gratis. Tiene que generar un ciclo: inviertes en publicidad, ganas, y sigues invirtiendo. Si entras pensando en firmar a todos con el paquete más chico, no te va a funcionar».</p>
+      <div class="who">Jonathan Díaz</div>
+    </div>
+
+    <div class="two-col">
+      <div class="check-group">
+        <div class="cg-ttl">Por qué lo publicamos igual</div>
+        <ul class="clist">
+          <li>Es la condición real para que el sistema rinda, y preferimos decirla antes que después.</li>
+          <li>Los equipos que la cumplen son los que aparecen con números en este documento.</li>
+          <li>Si tu equipo no está listo para atender, eso se arregla antes de pautar un peso.</li>
+        </ul>
+      </div>
+      <div class="check-group">
+        <div class="cg-ttl">Qué pasó antes de Korex</div>
+        <ul class="clist cross">
+          <li>«Veníamos de trabajar con alguien que fue un desastre. Habíamos invertido dinero y no pasaba nada».</li>
+          <li>«Tuve que editar los videos yo. Si yo no supiera editar, no hubiera pasado nada».</li>
+          <li>«Las páginas que nos hacían eran horribles».</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pg-foot"><span class="tag">MÉTODO KOREX</span><span>Transcripción de la entrevista completa, sin editar el sentido</span></div>
+  </section>
+
+  <!-- ═══ 05 · EL EQUIPO DE SUMMIT ═════════════════════════ -->
+  <section class="page">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Voces del equipo · 05</span></div>
+    <div class="section-head">
+      <span class="eyebrow">Networkers del equipo Summit</span>
+      <h2 class="h-title">Los que nunca habían<br>hecho publicidad.</h2>
+      <p class="h-sub">Reunión grabada con los miembros del equipo que empezaron a usar el CRM. No son los líderes: son la gente que atiende los contactos todos los días.</p>
+    </div>
+
+    <div class="quote">
+      <p>«Yo no sabía nada de marketing, no sabía qué era eso. Ahora estoy fascinada: tengo 16 contactos e hice un cierre con la primera asociada de Colombia».</p>
+      <div class="who">Networker del equipo Summit</div>
+    </div>
+
+    <div class="quote">
+      <p>«Me tocó el primer prospecto que yo filtro, el primero con el que hablo, y él ya claramente quería registrarse. Me dice: dime cuáles son los paquetes, yo quiero el mejor. Cerró el diamante de 1.300 dólares. Para mí fue súper desafiante».</p>
+      <div class="who">Networker del equipo Summit</div>
+    </div>
+
+    <div class="quote">
+      <p>«Lo que me encantó es que va directo al WhatsApp. Ellos ya llenaron el formulario, ellos están buscando. No soy yo la que los está buscando».</p>
+      <div class="who">Networker del equipo Summit</div>
+    </div>
+
+    <div class="quote soft">
+      <p>«Hay una parte de la herramienta donde dice notas. Ahí anoto la necesidad de la persona, porque antes yo dejaba todo en mi cabecita y se me olvidaba. Ahora le doy seguimiento a mis prospectos».</p>
+      <div class="who">Networker del equipo Summit</div>
+    </div>
+
+    <div class="quote soft">
+      <p>«Ya hice un cierre la semana pasada de un paquete diamante y otro de un paquete de 100 puntos. Vale la pena invertir».</p>
+      <div class="who">Networker del equipo Summit</div>
+    </div>
+
+    <div class="pg-foot"><span class="tag">MÉTODO KOREX</span><span>Reunión grabada con el equipo</span></div>
+  </section>
+
+  <!-- ═══ 06 · CASO MÓNICA VOZMEDIANO ══════════════════════ -->
+  <section class="page">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Caso · Mónica Vozmediano · 06</span></div>
+    <div class="section-head">
+      <span class="eyebrow">Mónica Vozmediano · Essens</span>
+      <h2 class="h-title">46 personas del equipo,<br>repartiéndose los leads.</h2>
+    </div>
+
+    <div class="stat-row" style="gap:40px; margin-bottom:20px">
+      <div class="stat"><div class="v">1.115</div><div class="l">Leads captados</div><div class="d">Del 1 de junio al 19 de septiembre.</div></div>
+      <div class="stat"><div class="v">440</div><div class="l">VSL completo</div><div class="d">Vieron la presentación entera.</div></div>
+      <div class="stat"><div class="v">138</div><div class="l">Calificados</div><div class="d">Pidieron hablar con alguien.</div></div>
+    </div>
+
+    <div class="quote" style="margin-bottom:18px">
+      <p>«Este mes hemos superado los KPI mínimos que Korex nos garantiza: más de 500 leads en 30 días, repartidos entre las 46 personas que estáis activamente dentro. Y encima no tienes que grabarte, no tienes que pensar el copy, no tienes que tener una página web».</p>
+      <div class="who">Reunión del equipo de Mónica · cierre de mes</div>
+    </div>
+
+    <div class="crm-feature" style="margin-bottom:0">
+      <div class="win" style="aspect-ratio:46/18"><img src="/assets/lead-scoring-monica.png" alt="Lead scoring real de Mónica Vozmediano"></div>
+      <div class="cap">
+        <div class="ix">02</div>
+        <div>
+          <div class="tt">Lead scoring de su cuenta</div>
+          <div class="dd">La puntuación de intención de cada prospecto según cuánto vio y qué respondió. Es la pantalla que usa su equipo para decidir a quién escribirle primero.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pg-foot"><span class="tag">MÉTODO KOREX</span><span>Essens · España</span></div>
+  </section>
+
+  <!-- ═══ 07 · EL EQUIPO DE MÓNICA ═════════════════════════ -->
+  <section class="page soft">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Voces del equipo · 07</span></div>
+    <div class="section-head">
+      <span class="eyebrow">Networkers del equipo de Mónica</span>
+      <h2 class="h-title">Números chicos,<br>contados tal cual.</h2>
+      <p class="h-sub">Cada una contando su propio mes en la reunión de equipo. Incluimos los descartes y los que no contestan, porque así es como se ve un mes real.</p>
+    </div>
+
+    <div class="quote">
+      <p>«Desde que estoy en Korex, que es básicamente un mes, me han entrado 22 contactos, de los cuales 3 se han hecho registros activos. Para mí es un logro: si comparo con lo que hacía el año pasado, ha habido una evolución importante».</p>
+      <div class="who">Networker · Essens</div>
+    </div>
+
+    <div class="quote">
+      <p>«Este mes me han entrado 21. Tengo 3 registros activos, otras 2 que están haciendo un sorteo para juntar el dinero, 6 en seguimiento, 5 que no responden y 3 descartados. Estoy megacontenta».</p>
+      <div class="who">Networker · Essens</div>
+    </div>
+
+    <div class="quote">
+      <p>«Son 25 contactos y he cerrado 4, con un par de 79 euros. Y por orgánico he cerrado dos más, porque al final también te entran».</p>
+      <div class="who">Networker · Essens</div>
+    </div>
+
+    <div class="quote soft">
+      <p>«Es verdad que hay que invertir dinero, pero también es verdad que nadie nos ha prometido aquí que todos vayan a decir que sí. Korex no tiene la culpa de que la persona te diga que no. A mí me han dicho que no un montón de veces este mes».</p>
+      <div class="who">Networker · Essens</div>
+    </div>
+
+    <div class="quote soft">
+      <p>«La diferencia está en que estás en abundancia. Sigo teniendo personas que no te contestan, que te dejan en visto, pero no tienes el foco ahí, porque sabes que ese mismo día o al día siguiente te va a llegar otro».</p>
+      <div class="who">Networker · Essens</div>
+    </div>
+
+    <div class="pg-foot"><span class="tag">MÉTODO KOREX</span><span>Reunión de cierre de mes</span></div>
+  </section>
+
+  <!-- ═══ 08 · OTROS EQUIPOS ═══════════════════════════════ -->
+  <section class="page">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Todos los equipos · 08</span></div>
+    <div class="section-head">
+      <span class="eyebrow">Sin seleccionar los mejores</span>
+      <h2 class="h-title">Todos los clientes<br>con leads en el sistema.</h2>
+      <p class="h-sub">Están todos los que registraron actividad, no solo los que nos convienen. Los períodos son distintos porque cada uno arrancó en un momento distinto.</p>
+    </div>
+
+    <table class="tbl" style="margin-bottom:16px">
+      <thead><tr><th>Cliente</th><th style="text-align:right">Leads</th><th style="text-align:right">Calificados</th><th style="text-align:right; width:88px">Desde</th></tr></thead>
+      <tbody>
+        <tr><td>Mónica Vozmediano<span class="emp">Essens</span></td><td class="n">1.115</td><td class="n">138</td><td class="n">01/06</td></tr>
+        <tr><td>Antonio De la Cruz<span class="emp">Vida Divina</span></td><td class="n">1.097</td><td class="n">77</td><td class="n">09/07</td></tr>
+        <tr><td>Liliana Vega Carvajal<span class="emp">Zinzino</span></td><td class="n">636</td><td class="n">11</td><td class="n">14/08</td></tr>
+        <tr><td>Jose Piquer<span class="emp">Superpatch</span></td><td class="n">507</td><td class="n">—</td><td class="n">02/06</td></tr>
+        <tr><td>Sergio Cánovas<span class="emp">Kangen</span></td><td class="n">443</td><td class="n">48</td><td class="n">10/06</td></tr>
+        <tr><td>Marta Torrico<span class="emp">Beyond Beauty Club</span></td><td class="n">440</td><td class="n">47</td><td class="n">01/06</td></tr>
+        <tr><td>Castor<span class="emp">BitradeX Exchange</span></td><td class="n">248</td><td class="n">52</td><td class="n">05/08</td></tr>
+        <tr><td>Priscila<span class="emp">Riman</span></td><td class="n">243</td><td class="n">54</td><td class="n">07/07</td></tr>
+        <tr><td>Sergio Aldazabal<span class="emp">InCruises</span></td><td class="n">210</td><td class="n">25</td><td class="n">23/07</td></tr>
+        <tr><td>Corina Grosu<span class="emp">Travorium</span></td><td class="n">208</td><td class="n">22</td><td class="n">02/06</td></tr>
+        <tr><td>Fabiana Carrasco y Ricardo Núñez<span class="emp">Jifu</span></td><td class="n">179</td><td class="n">34</td><td class="n">17/08</td></tr>
+        <tr><td>Janeyling Gómez<span class="emp">Jifu</span></td><td class="n">153</td><td class="n">37</td><td class="n">05/06</td></tr>
+        <tr><td>Rafael Bonilla<span class="emp">Seguros de vida</span></td><td class="n">73</td><td class="n">10</td><td class="n">06/08</td></tr>
+        <tr><td>José Luis Rodríguez<span class="emp">Elitecircle</span></td><td class="n">54</td><td class="n">8</td><td class="n">12/06</td></tr>
+      </tbody>
+    </table>
+
+    <p class="fuente">Se excluyen de esta tabla las cuentas internas de Korex y las que llevan menos de un mes. Los guiones son cuentas que captaron leads pero todavía no registraron calificados en el período medido: un equipo que no atiende no califica a nadie, y eso también lo muestra el sistema.</p>
+
+    <div class="pg-foot"><span class="tag">MÉTODO KOREX</span><span>Datos al 24/09/2026</span></div>
+  </section>
+
+  <!-- ═══ 09 · CAPTURAS · Leads ═══════════════════════ -->
+  <section class="page dark">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Capturas · Leads · 09</span></div>
+    <div class="section-head">
+      <span class="eyebrow">Atraen leads sin perseguir a nadie</span>
+      <h2 class="h-title">Lo que ve un líder<br>cuando abre el teléfono.</h2>
+    </div>
+
+    <div class="shots c3" id="gLeads">
+      <img src="https://lh3.googleusercontent.com/d/1FkiBeMTPbveRyBS0wsUxbDUpHkjkYPFy=w800" alt="Leads entrando 1" loading="lazy" referrerpolicy="no-referrer">
+      <img src="https://lh3.googleusercontent.com/d/1Baq-nhCstlseZWPfsPGTbW966UrDlkEJ=w800" alt="Leads entrando 2" loading="lazy" referrerpolicy="no-referrer">
+      <img src="https://lh3.googleusercontent.com/d/1b8nq0u9w42XHHRMHxxRA0BI7jIZfuc7c=w800" alt="Leads entrando 3" loading="lazy" referrerpolicy="no-referrer">
+      <img src="https://lh3.googleusercontent.com/d/1pXNAORNBst1lGmNxVQjnhvrZptrE_ScZ=w800" alt="Leads entrando 4" loading="lazy" referrerpolicy="no-referrer">
+      <img src="https://lh3.googleusercontent.com/d/1UQEyDvqCIAhItQagI4L59rA5FRE-2ZKi=w800" alt="Leads entrando 5" loading="lazy" referrerpolicy="no-referrer">
+      <img src="https://lh3.googleusercontent.com/d/17O1S3aSQllDfK7UIDEAKBaqxM0Swee5A=w800" alt="Leads entrando 6" loading="lazy" referrerpolicy="no-referrer">
+    </div>
+
+    <div class="pg-foot"><span class="tag">MÉTODO KOREX</span><span>El anuncio trabaja mientras el líder duerme</span></div>
+  </section>
+
+  <!-- ═══ 10 · CAPTURAS · Leads ═══════════════════════ -->
+  <section class="page dark">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Capturas · Leads · 10</span></div>
+    <div class="section-head">
+      <span class="eyebrow">Atraen leads sin perseguir a nadie</span>
+      <h2 class="h-title">Y siguen entrando<br>al día siguiente.</h2>
+    </div>
+
+    <div class="shots c3" id="gLeads2">
+      <img src="https://lh3.googleusercontent.com/d/1gEv7bwSLdKemhMtfwjNkrqLoLBNHi3ln=w800" alt="Leads entrando 1" loading="lazy" referrerpolicy="no-referrer">
+      <img src="https://lh3.googleusercontent.com/d/1QIM0eokcCucf2i7WNt0Wbm7h88q0jQps=w800" alt="Leads entrando 2" loading="lazy" referrerpolicy="no-referrer">
+      <img src="https://lh3.googleusercontent.com/d/1IP0B9BgupKBL0eaLoK4vjw_j4VZE7TQW=w800" alt="Leads entrando 3" loading="lazy" referrerpolicy="no-referrer">
+      <img src="https://lh3.googleusercontent.com/d/1wyfnVFzPr0wXFk5BuiiLoUAmh3YhkMSg=w800" alt="Leads entrando 4" loading="lazy" referrerpolicy="no-referrer">
+      <img src="https://lh3.googleusercontent.com/d/12xrA80fKYlntbyDHAaFGngRpbwTtSvQN=w800" alt="Leads entrando 5" loading="lazy" referrerpolicy="no-referrer">
+    </div>
+
+    <p class="fuente" style="margin-top:14px">Capturas enviadas por los propios clientes y por miembros de sus equipos. Toca cualquiera para verla completa.</p>
+
+    <div class="pg-foot"><span class="tag">MÉTODO KOREX</span><span>Nadie tuvo que escribirle primero a un conocido</span></div>
+  </section>
+
+  <!-- ═══ 11 · CAPTURAS · Cierres ═══════════════════════ -->
+  <section class="page dark">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Capturas · Cierres · 11</span></div>
+    <div class="section-head">
+      <span class="eyebrow">Y cierran ventas sin convencer</span>
+      <h2 class="h-title">Los cierres, como llegan:<br>por mensaje.</h2>
+    </div>
+
+    <div class="shots c3" id="gVentas">
+      <img src="https://lh3.googleusercontent.com/d/1Dhq_deD-ha5Ki7DZHoud_CQ8JsHe3RWy=w800" alt="Cierre 1" loading="lazy" referrerpolicy="no-referrer">
+      <img src="https://lh3.googleusercontent.com/d/10usz6-sGQogx7g4WHY36RlCcG-6OaBdo=w800" alt="Cierre 2" loading="lazy" referrerpolicy="no-referrer">
+      <img src="https://lh3.googleusercontent.com/d/1es3CYmxMpBYwthOgqnnq1krzoV6ZTish=w800" alt="Cierre 3" loading="lazy" referrerpolicy="no-referrer">
+      <img src="https://lh3.googleusercontent.com/d/10gaAlX0LxBpkPkmwQnMR178U9_dKwVsc=w800" alt="Cierre 4" loading="lazy" referrerpolicy="no-referrer">
+      <img src="https://lh3.googleusercontent.com/d/1zO_obpiAtL95jWh12Z6IaO5cpUFdP4EC=w800" alt="Cierre 5" loading="lazy" referrerpolicy="no-referrer">
+    </div>
+
+    <div class="pg-foot"><span class="tag">MÉTODO KOREX</span><span>El prospecto llega decidido</span></div>
+  </section>
+
+  <!-- ═══ 12 · CAPTURAS · Cierres ═══════════════════════ -->
+  <section class="page dark">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Capturas · Cierres · 12</span></div>
+    <div class="section-head">
+      <span class="eyebrow">Y cierran ventas sin convencer</span>
+      <h2 class="h-title">Paquetes de entrada<br>y paquetes grandes.</h2>
+    </div>
+
+    <div class="shots c3" id="gVentas2">
+      <img src="https://lh3.googleusercontent.com/d/1I-FwwF8ZhiXK-Xkkxj3IqXWV4Dd1MAbg=w800" alt="Cierre 1" loading="lazy" referrerpolicy="no-referrer">
+      <img src="https://lh3.googleusercontent.com/d/1v9nBRxCSft1uToIVmxi6ehmpnthVgx6X=w800" alt="Cierre 2" loading="lazy" referrerpolicy="no-referrer">
+      <img src="https://lh3.googleusercontent.com/d/1wLMsboGQ5jjJT2HtpVXDdE18I_8LSVX0=w800" alt="Cierre 3" loading="lazy" referrerpolicy="no-referrer">
+      <img src="https://lh3.googleusercontent.com/d/1l3NIm5026Ju6GMUki3U_U5vrtU2e44pl=w800" alt="Cierre 4" loading="lazy" referrerpolicy="no-referrer">
+      <img src="https://lh3.googleusercontent.com/d/1ti6dcxUNfB-5e8mf5fBoVozbjKftrqPB=w800" alt="Cierre 5" loading="lazy" referrerpolicy="no-referrer">
+    </div>
+
+    <p class="fuente" style="margin-top:14px">Ninguno de estos cierres salió de una llamada en frío ni de una lista de conocidos: todos empezaron con alguien que vio un anuncio y pidió información.</p>
+
+    <div class="pg-foot"><span class="tag">MÉTODO KOREX</span><span>Del anuncio al cobro, sin perseguir a nadie</span></div>
+  </section>
+
+  <!-- ═══ 11 · MURO DE TESTIMONIOS ═════════════════════════ -->
+  <section class="page">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Muro de testimonios · 13</span></div>
+    <div class="section-head">
+      <span class="eyebrow">Lo que dicen dentro de los grupos</span>
+      <h2 class="h-title">Conversaciones que no<br>estaban escritas para vos.</h2>
+    </div>
+    <div class="testi-grid" id="testiGrid">
+      <img src="https://imgproxy.gamma.app/resize/quality:80/resizing_type:fit/width:2000/https://cdn.gamma.app/yn4o2gszjvf218e/75cd3cc924524742919b6d5182ba5126/original/image.png" alt="Testimonio 1" loading="lazy">
+      <img src="https://imgproxy.gamma.app/resize/quality:80/resizing_type:fit/width:2000/https://cdn.gamma.app/yn4o2gszjvf218e/1f0685e2cb55469cbd3a556b8431a2b5/original/image.png" alt="Testimonio 2" loading="lazy">
+      <img src="https://imgproxy.gamma.app/resize/quality:80/resizing_type:fit/width:2000/https://cdn.gamma.app/yn4o2gszjvf218e/a73ce663e2a044788ff51e92cc8570aa/original/image.png" alt="Testimonio 3" loading="lazy">
+      <img src="https://imgproxy.gamma.app/resize/quality:80/resizing_type:fit/width:2000/https://cdn.gamma.app/yn4o2gszjvf218e/ab60ba9b4e52482e80ecf6c3cae17545/original/image.png" alt="Testimonio 4" loading="lazy">
+      <img src="https://imgproxy.gamma.app/resize/quality:80/resizing_type:fit/width:2000/https://cdn.gamma.app/yn4o2gszjvf218e/b735e58a2be7411994310fe2c9aba30b/original/image.png" alt="Testimonio 5" loading="lazy">
+      <img src="https://imgproxy.gamma.app/resize/quality:80/resizing_type:fit/width:2000/https://cdn.gamma.app/yn4o2gszjvf218e/419d7b9d2d9d41c69cef2d7f50db85d9/original/image.png" alt="Testimonio 6" loading="lazy">
+      <img src="https://lh3.googleusercontent.com/d/14qCpP9nXumwSGjAzsnP0syZF8IzCjrG1=w400" alt="Testimonio 7" loading="lazy" referrerpolicy="no-referrer">
+      <img src="https://lh3.googleusercontent.com/d/1HDGKD-bDysTdj82YK9HKjPoWqzHsprfr=w400" alt="Testimonio 8" loading="lazy" referrerpolicy="no-referrer">
+      <img src="https://lh3.googleusercontent.com/d/1zMnTwICtw2v6azlTglnEP6M12EM3am-z=w400" alt="Testimonio 9" loading="lazy" referrerpolicy="no-referrer">
+      <img src="https://lh3.googleusercontent.com/d/1gOZ0bFC6ZWDo8ezvZNZgnPWtYLm8zxA3=w400" alt="Testimonio 10" loading="lazy" referrerpolicy="no-referrer">
+      <img src="https://lh3.googleusercontent.com/d/1H35KksQyEQ63XZDp_017GVSBnOV7VRAu=w400" alt="Testimonio 11" loading="lazy" referrerpolicy="no-referrer">
+      <img src="https://lh3.googleusercontent.com/d/1xYZqjZqxI5g_2zISOb6qHGtGpbvirYhY=w400" alt="Testimonio 12" loading="lazy" referrerpolicy="no-referrer">
+      <img src="https://lh3.googleusercontent.com/d/1gqIsdL60TwjHhj58I5-uvEYTHmV1ePyj=w400" alt="Testimonio 13" loading="lazy" referrerpolicy="no-referrer">
+      <img src="https://lh3.googleusercontent.com/d/1mkj-XKmsUUKp3WlGB_jWbqH-N4FO_J5U=w400" alt="Testimonio 14" loading="lazy" referrerpolicy="no-referrer">
+      <img src="https://lh3.googleusercontent.com/d/15vXvddwlsCC76nf_ZNW1yYP1z8mAdn71=w400" alt="Testimonio 15" loading="lazy" referrerpolicy="no-referrer">
+      <img src="https://lh3.googleusercontent.com/d/1OXzCnwRg2N5GnFWWKYvCAyeJsyO2FCq4=w400" alt="Testimonio 16" loading="lazy" referrerpolicy="no-referrer">
+      <img src="https://lh3.googleusercontent.com/d/1U_tqKnQLWTSEo6qhNUEZmpk85wUY8Zik=w400" alt="Testimonio 17" loading="lazy" referrerpolicy="no-referrer">
+      <img src="https://lh3.googleusercontent.com/d/1vX_Hcm6PnlMH5zcca9geKosqjF_mrvdU=w400" alt="Testimonio 18" loading="lazy" referrerpolicy="no-referrer">
+    </div>
+    <p class="small" style="margin-top:14px">Toca cualquier captura para ampliarla.</p>
+    <div class="pg-foot"><span class="tag">MÉTODO KOREX</span><span>Prueba social</span></div>
+  </section>
+
+  <!-- ═══ 14 · VIDEO · LOS LÍDERES ═══════════════════════ -->
+  <section class="page">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>En video · 14</span></div>
+    <div class="section-head">
+      <span class="eyebrow">Grabado en sus reuniones</span>
+      <h2 class="h-title">Escuchalo de ellos,<br>sin edición de por medio.</h2>
+    </div>
+
+    <div class="vid-grid" style="grid-template-columns:1.55fr .75fr; align-items:start">
+      <div>
+        <div class="vframe r169"><iframe data-src="https://embed.voomly.com/embed/assets/embed.html?videoId=rbPmVdlLHQzOjeIxhDAd5i9CGXh6JZAfLXIFDS9I2Ad2fmF8R&amp;videoRatio=1.777778&amp;type=v&amp;skinColor=%234878FF" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen title="Equipo Summit Networkers"></iframe></div>
+        <div class="vcap"><b>El equipo de Summit, en reunión</b>Diez minutos de gente sin experiencia previa en marketing contando su primer mes con el sistema: los cierres, los que no contestan y lo que les costó.</div>
+      </div>
+      <div>
+        <div class="vframe r916"><iframe data-src="https://drive.google.com/file/d/1OOWWWTz_rE4M35ZECFWRufivBSvpcYs5/preview" allow="autoplay" allowfullscreen title="Summit, dos cierres"></iframe></div>
+        <div class="vcap"><b>Summit · dos cierres</b>Dos ventas hechas con leads del sistema, contadas por quienes las cerraron.</div>
+      </div>
+    </div>
+
+    <div class="quote" style="margin-top:22px">
+      <p>«Los que más han tenido resultados son personas que son nuevas, a las que quizás les daba miedo llamar o miedo de dar la presentación».</p>
+      <div class="who">Jonathan Díaz · Summit Networkers</div>
+    </div>
+
+    <div class="pg-foot"><span class="tag">MÉTODO KOREX</span><span>Grabaciones sin guion</span></div>
+  </section>
+
+  <!-- ═══ 13 · VIDEO · LOS EQUIPOS ═════════════════════════ -->
+  <section class="page soft">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>En video · 15</span></div>
+    <div class="section-head">
+      <span class="eyebrow">Testimonios cortos</span>
+      <h2 class="h-title">Los que usan el sistema<br>todos los días.</h2>
+    </div>
+
+    <div class="vid-grid c3">
+      <div>
+        <div class="vframe r169"><iframe data-src="https://player.vimeo.com/video/1076644776?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Testimonio de Juanjo"></iframe></div>
+        <div class="vcap"><b>Juanjo</b>Colchón de Ahorro.</div>
+      </div>
+      <div>
+        <div class="vframe r169"><iframe data-src="https://player.vimeo.com/video/1076642557?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Testimonio de Nuria"></iframe></div>
+        <div class="vcap"><b>Nuria</b>Networker.</div>
+      </div>
+      <div>
+        <div class="vframe r916"><iframe data-src="https://player.vimeo.com/video/1076642640?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen title="Testimonio de Antonia"></iframe></div>
+        <div class="vcap"><b>Antonia</b>Networker.</div>
+      </div>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--blue); margin-top:20px">
+      <p class="body" style="font-size:13.5px">Todos estos videos los grabaron ellos, con su teléfono, sin que les pasáramos un guion. Por eso no suenan a publicidad.</p>
+    </div>
+
+    <div class="pg-foot"><span class="tag">MÉTODO KOREX</span><span>Grabados por los propios clientes</span></div>
+  </section>
+
+  <!-- ═══ 14 · LAS PRESENTACIONES ══════════════════════════ -->
+  <section class="page">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>El trabajo · 16</span></div>
+    <div class="section-head">
+      <span class="eyebrow">Lo que produjimos para ellos</span>
+      <h2 class="h-title">Las presentaciones que<br>generaron todo lo anterior.</h2>
+      <p class="h-sub">Los VSL que están corriendo ahora mismo. Cada lead de este documento entró después de ver uno de estos videos.</p>
+    </div>
+
+    <div class="vsl3">
+      <div><div class="media r169"><div class="voomly-embed" data-id="I9t2yVmQjGnGOwkuaEw_fpUmedEQFCPHFmAlWT14R97jIm0qQ" data-ratio="1.777778" data-type="v" data-skin-color="rgb(72,120,255)"></div></div><div class="media-cap">Producto · Jose Piquer</div></div>
+      <div><div class="media r169"><div class="voomly-embed" data-id="D5kCwKVZJJmJmE5fnNdyqxUdzBfGCiSr2EhRwpBBKA_bnBN2_" data-ratio="1.777778" data-type="v" data-skin-color="rgb(72,120,255)"></div></div><div class="media-cap">Reclutamiento · Mónica Vozmediano</div></div>
+      <div><div class="media r169"><div class="voomly-embed" data-id="01jTTUXiZdmdjV4aWQQ1UNaI0302ZsjAb0-CNTc0HYt2YWqtO" data-ratio="1.777778" data-type="v" data-skin-color="rgb(72,120,255)"></div></div><div class="media-cap">Reclutamiento · Summit Networkers</div></div>
+    </div>
+
+    <div class="pg-foot"><span class="tag">MÉTODO KOREX</span><span>El líder graba una vez. El sistema lo repite todos los días.</span></div>
+  </section>
+
+  <!-- ═══ 15 · LO QUE ESTO NO DICE ═════════════════════════ -->
+  <section class="page dark">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Honestidad · 17</span></div>
+    <div class="section-head">
+      <span class="eyebrow">Antes de que saques conclusiones</span>
+      <h2 class="h-title">Lo que estos números<br>no dicen.</h2>
+    </div>
+
+    <div class="two-col" style="margin-bottom:22px">
+      <div class="check-group">
+        <div class="cg-ttl">Lo que sí podemos sostener</div>
+        <ul class="clist">
+          <li>Que llegan prospectos nuevos todos los días, y que llegan habiendo visto la presentación.</li>
+          <li>Que tu equipo deja de perseguir conocidos y pasa a responder mensajes de gente que pidió información.</li>
+          <li>Que el sistema es el mismo para vos y para cualquiera de tu red, desde el primer día.</li>
+        </ul>
+      </div>
+      <div class="check-group">
+        <div class="cg-ttl">Lo que no depende de nosotros</div>
+        <ul class="clist cross">
+          <li>Cuántos de esos prospectos terminan comprando: eso lo define quién los atiende.</li>
+          <li>La velocidad con la que tu equipo responde. Un lead sin respuesta se enfría en horas.</li>
+          <li>Tu oferta y tu ticket. Con un paquete de entrada muy chico, los números no cierran.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--blue)">
+      <p class="body" style="font-size:13.5px">Los casos de este documento son de equipos que hicieron su parte: grabaron a tiempo, respondieron rápido y sostuvieron la inversión. Los que no lo hicieron también están en la tabla de la página 08, con sus números tal como quedaron.</p>
+    </div>
+
+    <div class="pg-foot"><span class="tag">MÉTODO KOREX</span><span>Sin resultados, sin mantenimiento</span></div>
+  </section>
+
+  <!-- ═══ 16 · CIERRE ══════════════════════════════════════ -->
+  <section class="page dark">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Empezar · 18</span></div>
+    <div class="section-head">
+      <span class="eyebrow">El siguiente paso</span>
+      <h2 class="h-title">¿Querés que tu equipo<br>aparezca en la próxima versión<br>de este documento?</h2>
+      <p class="h-sub">Escribinos y te contamos, con los números en la mano, qué esperar en tu caso según tu nicho, tu ticket y el tamaño de tu red.</p>
+    </div>
+
+    <div class="stat-row" style="gap:44px; margin:14px 0 26px">
+      <div class="stat"><div class="v">29</div><div class="l">Clientes activos</div></div>
+      <div class="stat"><div class="v">5.917</div><div class="l">Leads generados</div></div>
+      <div class="stat"><div class="v">28</div><div class="l">Cuentas con actividad</div></div>
+    </div>
+
+    <p class="fuente" style="margin-bottom:auto">Todos los datos de este documento salen de la base operativa de Korex y de grabaciones y capturas enviadas por los propios clientes. Están fechados: si lo estás leyendo mucho después del 24 de septiembre de 2026, pedinos la versión actualizada.</p>
+
+    <div class="pg-foot"><span class="tag">MÉTODO KOREX</span><span>La presentación trabaja primero. Tu equipo entra después.</span></div>
+  </section>
+
+</main>
+
+<!-- Lightbox -->
+<div id="lb"><button class="x" onclick="document.getElementById('lb').style.display='none'">✕</button><img id="lbImg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt=""></div>
+
+<script>
+  /* Lazy-load de iframes: solo carga el video cuando la página se acerca */
+  (function(){
+    const pages = document.querySelectorAll('.page');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if(en.isIntersecting){
+          en.target.querySelectorAll('iframe[data-src]').forEach(f => { if(!f.src) f.src = f.getAttribute('data-src'); });
+        }
+      });
+    }, { rootMargin: '400px 0px' });
+    pages.forEach(p => io.observe(p));
+  })();
+
+  /* Ampliar cualquier captura */
+  (function(){
+    const lb = document.getElementById('lb');
+    const lbImg = document.getElementById('lbImg');
+    document.querySelectorAll('#testiGrid, #gLeads, #gLeads2, #gVentas, #gVentas2, .crm-feature .win').forEach(grid => {
+      grid.addEventListener('click', e => {
+        if(e.target.tagName === 'IMG'){ lbImg.src = e.target.src; lb.style.display = 'flex'; }
+      });
+    });
+    lb.addEventListener('click', e => { if(e.target === lb) lb.style.display = 'none'; });
+    window.addEventListener('keydown', e => { if(e.key === 'Escape') lb.style.display = 'none'; });
+  })();
+
+  /* El reproductor de Voomly se carga solo cuando hace falta */
+  (function(){
+    var loaded = false;
+    function loadVoomly(){
+      if(loaded) return; loaded = true;
+      var s = document.createElement('script');
+      s.src = 'https://embed.voomly.com/embed/embed-build.js';
+      s.async = true;
+      document.body.appendChild(s);
+    }
+    var vslPages = Array.from(document.querySelectorAll('.voomly-embed')).map(v => v.closest('.page')).filter(Boolean);
+    if(!vslPages.length) return;
+    var vio = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting){ loadVoomly(); vio.disconnect(); } });
+    }, { rootMargin: '300px 0px' });
+    vslPages.forEach(function(p){ vio.observe(p); });
+  })();
+</script>
+</body>
+</html>
