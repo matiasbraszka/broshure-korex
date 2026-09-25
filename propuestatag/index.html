@@ -88,58 +88,60 @@ section{padding-block:136px}
 
 /* ============ SOLICITAMOS VS DAMOS ============ */
 .deal-sec{background:var(--mist)}
-.deal-head{margin-bottom:72px}
-.deal{display:grid;grid-template-columns:.82fr 1.18fr;gap:28px;align-items:stretch}
-@media (max-width:900px){.deal{grid-template-columns:1fr}}
-.panel{border-radius:var(--r-xl);padding:52px 48px;display:flex;flex-direction:column}
-@media (max-width:560px){.panel{padding:36px 24px}}
-.panel-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding-bottom:26px;margin-bottom:6px;border-bottom:1px solid}
-.panel-top h3{font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:800}
-.panel-top span{font-size:12px;font-weight:600;letter-spacing:.06em}
-.items{list-style:none;margin:0 0 18px;padding:0}
-.items li{padding-block:26px;border-bottom:1px solid;display:grid;gap:8px}
-.items li:last-child{border-bottom:0}
-.items h4{margin:0;font-size:16.5px;line-height:1.45;font-weight:700;letter-spacing:-.005em}
-.items p{font-size:15px;line-height:1.72}
-.items .q{font-family:var(--serif);font-style:italic;font-size:19px;line-height:1.4;margin-top:6px}
-.tot{margin-top:auto;padding-top:30px;border-top:1px solid;display:grid;gap:6px}
-.tot .lab{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:800}
-.tot .big{font-size:clamp(36px,4vw,52px);line-height:1;font-weight:800;letter-spacing:-.04em}
-.tot .cap{font-size:14.5px;line-height:1.6;max-width:44ch}
+.deal-head{margin-bottom:56px}
 
-.panel.ask{background:var(--paper);color:var(--text-soft)}
+/* Una sola grilla: cada fila enfrenta lo que pedimos con lo que damos,
+   y las dos celdas comparten alto, asi las divisiones quedan alineadas. */
+.deal{display:grid;grid-template-columns:.86fr 1.14fr;gap:0 24px;align-items:stretch}
+@media (max-width:900px){.deal{grid-template-columns:1fr;gap:0}}
 
-.panel.ask .panel-top{border-color:var(--line)}
-.panel.ask .panel-top h3{color:var(--text-mut)}
-.panel.ask .panel-top span{color:var(--text-mut)}
-.panel.ask .items li{border-color:var(--line)}
-.panel.ask h4{color:var(--text)}
-.panel.ask p strong{color:var(--text);font-weight:600}
-.panel.ask .q{color:var(--text-mut)}
-.panel.ask .tot{border-color:var(--line-2)}
-.panel.ask .tot .lab{color:var(--text-mut)}
-.panel.ask .tot .big{color:var(--text-soft)}
-.panel.ask .tot .cap{color:var(--text-mut)}
+.cell{padding:26px 34px;display:grid;gap:8px;align-content:start;border-bottom:2px solid}
+@media (max-width:560px){.cell{padding:22px 22px}}
+.cell.ask{background:var(--paper);color:var(--text-soft);border-color:#C6CCD8}
+.cell.give{background:var(--ink);color:var(--on-ink-soft);border-color:rgba(255,255,255,.22);position:relative}
 
-.panel.give{background:var(--ink);color:var(--on-ink-soft);position:relative;overflow:hidden;box-shadow:0 40px 90px -40px rgba(11,13,18,.55)}
-.panel.give::before{content:"";position:absolute;right:-30%;top:-20%;width:80%;height:50%;background:radial-gradient(closest-side,rgba(72,120,255,.22),transparent 70%);pointer-events:none}
-.panel.give>*{position:relative}
-.panel.give .panel-top{border-color:var(--ink-line)}
-.panel.give .panel-top h3{color:var(--blue)}
-.panel.give .panel-top span{color:var(--on-ink-mut)}
-.panel.give .items li{border-color:var(--ink-line)}
-.panel.give h4{color:#fff}
-.panel.give p strong{color:#fff;font-weight:600}
-.panel.give u{text-decoration-color:var(--blue);text-underline-offset:3px;color:#fff}
-.pledges{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:10px}
+/* esquinas: solo la primera y la ultima celda de cada columna */
+.cell.ask.first{border-radius:var(--r-xl) var(--r-xl) 0 0}
+.cell.give.first{border-radius:var(--r-xl) var(--r-xl) 0 0}
+.cell.ask.last{border-radius:0 0 var(--r-xl) var(--r-xl);border-bottom:0}
+.cell.give.last{border-radius:0 0 var(--r-xl) var(--r-xl);border-bottom:0}
+.cell.give.first::before{content:"";position:absolute;right:0;top:0;width:70%;height:240px;background:radial-gradient(closest-side,rgba(72,120,255,.22),transparent 70%);pointer-events:none;border-radius:inherit}
+.cell.give>*{position:relative}
+
+.cell h4{margin:0;font-size:16.5px;line-height:1.45;font-weight:700;letter-spacing:-.005em}
+.cell.ask h4{color:var(--text)}
+.cell.give h4{color:#fff}
+.cell p{font-size:15px;line-height:1.72}
+.cell p strong{font-weight:600}
+.cell.ask p strong{color:var(--text)}
+.cell.give p strong{color:#fff}
+.cell.give u{text-decoration-color:var(--blue);text-underline-offset:3px;color:#fff}
+.cell .q{font-family:var(--serif);font-style:italic;font-size:19px;line-height:1.4;margin-top:6px;color:var(--text-mut)}
+.cell.empty{align-content:center;justify-items:center}
+.cell.ask.empty::before{content:"—";font-size:22px;line-height:1;color:#C6CCD8}
+@media (max-width:900px){.cell.empty{display:none}}
+
+/* cabeceras de cada columna */
+.dhead{padding:22px 34px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:800;border-bottom:2px solid;display:flex;align-items:center}
+.dhead.ask{background:var(--paper);color:var(--text-mut);border-color:#C6CCD8;border-radius:var(--r-xl) var(--r-xl) 0 0}
+.dhead.give{background:var(--ink);color:var(--blue);border-color:rgba(255,255,255,.22);border-radius:var(--r-xl) var(--r-xl) 0 0}
+
+/* los dos compromisos, dentro de la columna oscura */
+.pledges{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 @media (max-width:640px){.pledges{grid-template-columns:1fr}}
-.pledge{border:1px solid rgba(72,120,255,.45);background:rgba(72,120,255,.08);border-radius:var(--r-md);padding:22px;display:grid;gap:8px}
+.pledge{border:1px solid rgba(72,120,255,.45);background:rgba(72,120,255,.08);border-radius:var(--r-md);padding:20px;display:grid;gap:8px}
 .pledge h4{color:var(--blue)!important;font-size:12px!important;letter-spacing:.18em;text-transform:uppercase}
 .pledge p{font-size:14.5px;line-height:1.65;color:var(--on-ink)}
-.panel.give .tot{border-color:var(--blue)}
-.panel.give .tot .lab{color:var(--blue)}
-.panel.give .tot .big{color:#fff}
-.panel.give .tot .cap{color:var(--on-ink-soft)}
+
+/* fila del total */
+.cell.tot{padding-block:34px;gap:6px}
+.cell .lab{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:800}
+.cell .big{font-size:clamp(34px,3.6vw,48px);line-height:1.02;font-weight:800;letter-spacing:-.04em}
+.cell .cap{font-size:14.5px;line-height:1.6;max-width:44ch}
+.cell.ask.tot{background:var(--paper)}
+.cell.ask .lab{color:var(--text-mut)} .cell.ask .big{color:var(--text-soft)} .cell.ask .cap{color:var(--text-mut)}
+.cell.give.tot{background:var(--ink)}
+.cell.give .lab{color:var(--blue)} .cell.give .big{color:#fff} .cell.give .cap{color:var(--on-ink-soft)}
 
 /* ============ CALCULADORA ============ */
 .calc-sec{background:var(--paper)}
@@ -307,44 +309,42 @@ input[type=number]{-moz-appearance:textfield}
       <h2 class="h2">Lo que solicitamos <span class="serif">vs</span> Lo que damos</h2>
     </div>
     <div class="deal">
-      <div class="panel ask">
-        <div class="panel-top"><h3>Lo que solicitamos</h3></div>
-        <ul class="items">
-          <li><h4>La tarjeta en co-branding:</h4><p><strong>KOREX CARD by BIX</strong>, con la comisión por activación cerrada por escrito.</p></li>
-          <li><h4>Las 3 cuentas ya liberadas</h4><p>(50K + 20K + 20K), para cubrir el equipo mínimo</p></li>
-          <li><h4>El 50 % de las membresías</h4><p>del software (250 USD). El otro 50 % lo ponemos nosotros. Si alguien no la usa en 7 días, pasa a otra persona.</p><p class="q">“Quien traiga a tres personas orgánicamente en TAG o entre con 1.000 USD tiene el Método Korex gratis en nuestra red”</p></li>
-          <li><h4>Formación completa</h4><p><strong>a nuestro equipo de marketing y tecnología, sobre la tarjeta y la plataforma, para no depender de vosotros, contratos de co-branding y soporte de la tarjeta</strong> para los clientes que traemos, y <strong>2 horas de onboarding técnico</strong> con vuestro responsable.</p></li>
-        </ul>
-        <div class="tot">
-          <span class="lab">Total</span>
-          <span class="big num">~90.000 USD</span>
-          <span class="cap">en cuentas que ya existen</span>
-        </div>
-      </div>
-
-      <div class="panel give">
-        <div class="panel-top"><h3>Lo que damos</h3></div>
-        <ul class="items">
-          <li><h4>Una empresa entera trabajando para TAG:</h4><p>más de 13 personas, tres socios dirigiendo. Coste de mercado: ~44.000 USD al mes.</p></li>
-          <li><h4>Una vez entrenados en la tarjeta nuestro equipo de marketing y tecnología y a nuestros 3 socios, Cristian Stainkeller y Erwin, liberados de presentar:</h4><p>las presentaciones las hacemos nosotros, de forma estructurada. Vosotros os dedicáis a hacer crecer TAG.</p></li>
-          <li><h4>Acceso a 1,7 millones de personas:</h4><p>las redes de nuestros más de 30 clientes tienen ese volumen, queremos ponerla en b2c y b2b con la tarjeta, el copy trading y el exchange delante desde el primer mes.</p></li>
-          <li><h4>Nuestra plataforma propia:</h4><p>embudos, CRM, lead scoring, reparto de leads <u>"NO EXISTE"</u>, IA de setting y WhatsApp integrado. Más de 100.000 USD en desarrollo.</p></li>
-          <li><h4>Embudos validados</h4><p><strong>que vendemos a 8.000 € cada uno</strong>, para BIX Card, brokeraje y BIT1, en tres idiomas: anuncio, embudo, vídeo, cualificación, registro, seguimiento y activación.</p></li>
-          <li><h4>Lo que ya sabemos:</h4><p>más de 100.000 USD invertidos este año con los mejores mentores de marketing. No experimentamos con vosotros: replicamos lo que ya convierte.</p></li>
-          <li><h4>Experiencia en tarjetas:</h4><p>Cristian Fernández, ex director de ventas en una empresa española de tarjetas cripto, ATMs y pasarelas de pago. Nuestra última campaña de tarjeta: 6.500 personas en 2 semanas.</p></li>
-          <li><h4>Trabajo orgánico 24/7:</h4><p>Cristian y todo el equipo colocando la tarjeta y el copy trading a nuestros clientes desde el día 1.</p></li>
-          <li><h4>Formación en directo para la red:</h4><p>entrenamiento grupal de setting y closing 3 veces por semana, formación en nuestra metodología y presentación de la KOREX CARD by BIX mínimo 2 veces por semana.</p></li>
-          <li><h4>Activación de la red:</h4><p>quien meta a tres personas en TAG o entre con 1.000 USD recibe el Método Korex gratis.</p></li>
-        </ul>
-        <div class="pledges">
+      <div class="dhead ask">Lo que solicitamos</div>
+      <div class="dhead give">Lo que damos</div>
+      <div class="cell ask"><h4>La tarjeta en co-branding:</h4><p><strong>KOREX CARD by BIX</strong>, con la comisión por activación cerrada por escrito.</p></div>
+      <div class="cell give"><h4>Una empresa entera trabajando para TAG:</h4><p>más de 13 personas, tres socios dirigiendo. Coste de mercado: ~44.000 USD al mes.</p></div>
+      <div class="cell ask"><h4>Las 3 cuentas ya liberadas</h4><p>(50K + 20K + 20K), para cubrir el equipo mínimo.</p></div>
+      <div class="cell give"><h4>Una vez entrenados en la tarjeta nuestro equipo de marketing y tecnología y a nuestros 3 socios, Cristian Stainkeller y Erwin, liberados de presentar:</h4><p>las presentaciones las hacemos nosotros, de forma estructurada. Vosotros os dedicáis a hacer crecer TAG.</p></div>
+      <div class="cell ask"><h4>El 50 % de las membresías</h4><p>del software (250 USD). El otro 50 % lo ponemos nosotros. Si alguien no la usa en 7 días, pasa a otra persona.</p><p class="q">“Quien traiga a tres personas orgánicamente en TAG o entre con 1.000 USD tiene el Método Korex gratis en nuestra red”</p></div>
+      <div class="cell give"><h4>Acceso a 1,7 millones de personas:</h4><p>las redes de nuestros más de 30 clientes tienen ese volumen, queremos ponerla en b2c y b2b con la tarjeta, el copy trading y el exchange delante desde el primer mes.</p></div>
+      <div class="cell ask"><h4>Formación completa</h4><p><strong>a nuestro equipo de marketing y tecnología, sobre la tarjeta y la plataforma, para no depender de vosotros, contratos de co-branding y soporte de la tarjeta</strong> para los clientes que traemos, y <strong>2 horas de onboarding técnico</strong> con vuestro responsable.</p></div>
+      <div class="cell give"><h4>Nuestra plataforma propia:</h4><p>embudos, CRM, lead scoring, reparto de leads <u>"NO EXISTE"</u>, IA de setting y WhatsApp integrado. Más de 100.000 USD en desarrollo.</p></div>
+      <div class="cell ask empty" aria-hidden="true"></div>
+      <div class="cell give"><h4>Embudos validados</h4><p><strong>que vendemos a 8.000 € cada uno</strong>, para BIX Card, brokeraje y BIT1, en tres idiomas: anuncio, embudo, vídeo, cualificación, registro, seguimiento y activación.</p></div>
+      <div class="cell ask empty" aria-hidden="true"></div>
+      <div class="cell give"><h4>Lo que ya sabemos:</h4><p>más de 100.000 USD invertidos este año con los mejores mentores de marketing. No experimentamos con vosotros: replicamos lo que ya convierte.</p></div>
+      <div class="cell ask empty" aria-hidden="true"></div>
+      <div class="cell give"><h4>Experiencia en tarjetas:</h4><p>Cristian Fernández, ex director de ventas en una empresa española de tarjetas cripto, ATMs y pasarelas de pago. Nuestra última campaña de tarjeta: 6.500 personas en 2 semanas.</p></div>
+      <div class="cell ask empty" aria-hidden="true"></div>
+      <div class="cell give"><h4>Trabajo orgánico 24/7:</h4><p>Cristian y todo el equipo colocando la tarjeta y el copy trading a nuestros clientes desde el día 1.</p></div>
+      <div class="cell ask empty" aria-hidden="true"></div>
+      <div class="cell give"><h4>Formación en directo para la red:</h4><p>entrenamiento grupal de setting y closing 3 veces por semana, formación en nuestra metodología y presentación de la KOREX CARD by BIX mínimo 2 veces por semana.</p></div>
+      <div class="cell ask empty" aria-hidden="true"></div>
+      <div class="cell give"><h4>Activación de la red:</h4><p>quien meta a tres personas en TAG o entre con 1.000 USD recibe el Método Korex gratis.</p></div>
+      <div class="cell ask empty" aria-hidden="true"></div>
+      <div class="cell give"><div class="pledges">
           <div class="pledge"><h4>Exclusividad:</h4><p>90 días sin ningún otro bróker y sin nuevos clientes en ningún nicho para centrar TAG.</p></div>
           <div class="pledge"><h4>Garantía:</h4><p>si el día 30 no están los tres mercados operativos, seguimos sin cobrar hasta que lo estén.</p></div>
-        </div>
-        <div class="tot">
-          <span class="lab">Total</span>
-          <span class="big num">más de 400.000 USD</span>
-          <span class="cap">en equipo, software, embudos y conocimiento, y acceso a una red de 1,7 millones de personas que no se compra</span>
-        </div>
+        </div></div>
+      <div class="cell ask tot last">
+        <span class="lab">Total</span>
+        <span class="big num">~90.000 USD</span>
+        <span class="cap">en cuentas que ya existen</span>
+      </div>
+      <div class="cell give tot last">
+        <span class="lab">Total</span>
+        <span class="big num">más de 400.000 USD</span>
+        <span class="cap">en equipo, software, embudos y conocimiento, y acceso a una red de 1,7 millones de personas que no se compra</span>
       </div>
     </div>
   </div>
