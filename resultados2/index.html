@@ -56,11 +56,12 @@
   .ficha .nota { margin: 0; padding: 11px 17px 12px; font-size: 12px; line-height: 1.5; color: var(--text-mut); background: var(--paper-soft); }
 
   /* ── Videos ─────────────────────────────────────────────── */
-  .vids { max-width: 380px; margin: 0 auto 20px; }
+  .vids { width: 100%; max-width: 380px; margin: 0 auto 20px; }
   .vids.grande { max-width: none; margin: 0 0 18px; }
   .vids.grande .vcap { font-size: 13px; }
   .vids.grande .vcap b { font-size: 15px; }
   .vids.chico { max-width: none; margin: 0; }
+  .vids.medio { width: 100%; max-width: 460px; margin: 0 auto 20px; }
   .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
   .duo .tst { margin: 0; }
   .vframe { position: relative; width: 100%; padding-top: 56.25%; border-radius: var(--r-md); overflow: hidden; border: 1px solid var(--line); background: #000; }
@@ -70,7 +71,7 @@
 
   /* ── Muro de testimonios ────────────────────────────────── */
   .muro { columns: 2; column-gap: 16px; }
-  .muro.c1 { columns: 1; max-width: 460px; margin: 0 auto; }
+  .muro.c1 { columns: 1; width: 100%; max-width: 460px; margin: 0 auto; }
   .tst {
     break-inside: avoid; -webkit-column-break-inside: avoid; margin: 0 0 16px;
     border: 1px solid var(--line-strong); border-radius: var(--r-md); overflow: hidden;
@@ -602,6 +603,12 @@
       
       <p class="nota">Personas que antes no firmaban a nadie y estaban quemando su lista de contactos, recibiendo prospectos sin saber de marketing, sin grabarse y sin hacer anuncios.</p>
     </header>
+    <div class="vids medio">
+      <div>
+        <div class="vframe"><div class="voomly-embed" data-id="UVral8hPgoHFO1RByFrW74_qCxHYBD9poR-nU3IgOPKEcEYcT" data-ratio="1.777778" data-type="v" data-skin-color="rgba(72,120,255,1)"></div></div>
+        <div class="vcap"><b>Uni2 Matrix.</b> Su testimonio, contado en video.</div>
+      </div>
+    </div>
     <div class="muro">
         <figure class="tst">
           <button class="lupa" type="button" data-img="img/uni200.jpg" data-pie="5 leads, 2 compraron" aria-label="Ampliar la captura">
