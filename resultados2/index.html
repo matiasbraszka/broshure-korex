@@ -65,6 +65,8 @@
   .pantalla .barra span { margin-left: 8px; font-size: 10.5px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--text-mut); }
   .pantalla img { width: 100%; display: block; }
   .pantallas { display: grid; gap: 18px; grid-template-columns: 1.55fr 1fr; align-items: start; }
+  .pantallas.tres { grid-template-columns: 1fr 1fr; }
+  .pantallas.tres > div:last-child { grid-column: 1 / -1; }
   .dato { font-size: 12.5px; color: var(--text-mut); margin-top: 9px; line-height: 1.45; }
   .dato b { color: var(--text); }
 
@@ -78,12 +80,16 @@
 <body>
 <div class="brochure">
 
-  <!-- ═══ 01 · TÍTULO + LOS DOS VIDEOS ═══════════════════════ -->
+  <!-- ═══ TAPA: solo el título ═══════════════════════════ -->
   <section class="page tapa">
     <div class="marca"><img src="/assets/mk-logo-cropped.png" alt="Método Korex"></div>
     <h1>Esto es lo que dicen<br>los que ya lo <em>están usando</em>.</h1>
     <p class="bajada">Sin guion y sin edición: capturas tal como llegaron y clientes hablando a cámara.</p>
+  </section>
 
+  <section class="page">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Equipo Summit · 02</span></div>
+    <h2 class="equipo">Equipo Summit</h2>
     <div class="vids" style="width:100%;margin-top:30px">
       <div>
         <div class="vframe r169"><div class="voomly-embed" data-id="EtI7lkaEUNq8hAvDiFsRPFLs8XVCI1xW9ld1JjRsxCKfHFweK" data-ratio="1.777778" data-type="v" data-skin-color="rgba(72,120,255,1)"></div></div>
@@ -94,13 +100,19 @@
         <div class="vcap"><b>Sus networkers.</b> Los que usan el sistema todos los días.</div>
       </div>
     </div>
+    <div class="muro">
+        <figure class="tst">
+          <img src="img/summit00.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="r">Un cierre con estatus Diamante</span></figcaption>
+        </figure>
+    </div>
   </section>
 
-  <!-- ═══ TESTIMONIOS, UNA HOJA POR EQUIPO ═══════════════ -->
   <section class="page">
-    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Equipo Essens · 02</span></div>
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Equipo Essens · 03</span></div>
     <h2 class="equipo">Equipo Essens</h2>
-    <div class="muro c2">
+
+    <div class="muro">
         <figure class="tst">
           <img src="img/essens00.jpg" alt="Testimonio por WhatsApp" loading="lazy">
           <figcaption><span class="r">Su primer registro activo con Korex</span></figcaption>
@@ -129,9 +141,10 @@
   </section>
 
   <section class="page">
-    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Equipo Essens · 03</span></div>
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Equipo Essens · 04</span></div>
     <h2 class="equipo">Equipo Essens</h2>
-    <div class="muro c2">
+
+    <div class="muro">
         <figure class="tst">
           <img src="img/essens06.jpg" alt="Testimonio por WhatsApp" loading="lazy">
           <figcaption><span class="r">Registro de abril con pack de 150</span></figcaption>
@@ -146,19 +159,44 @@
         </figure>
         <figure class="tst">
           <img src="img/essens09.jpg" alt="Testimonio por WhatsApp" loading="lazy">
-          <figcaption><span class="r">“Una página súper accesible”</span></figcaption>
+          <figcaption><span class="r">Registro que se lleva el pack de 34 €</span></figcaption>
         </figure>
         <figure class="tst">
           <img src="img/essens10.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="r">Nuevo registro, con kit de 34</span></figcaption>
+        </figure>
+        <figure class="tst">
+          <img src="img/essens11.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="r">Otro registro en su línea directa</span></figcaption>
+        </figure>
+    </div>
+  </section>
+
+  <section class="page">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Equipo Essens · 05</span></div>
+    <h2 class="equipo">Equipo Essens</h2>
+
+    <div class="muro">
+        <figure class="tst">
+          <img src="img/essens12.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="r">“¡Tiene un nuevo registro!”</span></figcaption>
+        </figure>
+        <figure class="tst">
+          <img src="img/essens13.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="r">“Una página súper accesible”</span></figcaption>
+        </figure>
+        <figure class="tst">
+          <img src="img/essens14.jpg" alt="Testimonio por WhatsApp" loading="lazy">
           <figcaption><span class="r">“Para una persona ciega, esto es todo”</span></figcaption>
         </figure>
     </div>
   </section>
 
   <section class="page">
-    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Equipo Jose Piquer · 04</span></div>
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Equipo Jose Piquer · 06</span></div>
     <h2 class="equipo">Equipo Jose Piquer</h2>
-    <div class="muro c2">
+
+    <div class="muro">
         <figure class="tst">
           <img src="img/piquer00.jpg" alt="Testimonio por WhatsApp" loading="lazy">
           <figcaption><span class="r">Venta de 1.999 USD en México</span></figcaption>
@@ -175,13 +213,18 @@
           <img src="img/piquer03.jpg" alt="Testimonio por WhatsApp" loading="lazy">
           <figcaption><span class="q"><b>Luis</b></span><span class="r">“Nos está ayudando mucho”</span></figcaption>
         </figure>
+        <figure class="tst">
+          <img src="img/piquer04.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="r">Un lead pide que le expliquen el proyecto</span></figcaption>
+        </figure>
     </div>
   </section>
 
   <section class="page">
-    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Otros networkers · 05</span></div>
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Otros networkers · 07</span></div>
     <h2 class="equipo">Otros networkers</h2>
-    <div class="muro c2">
+
+    <div class="muro">
         <figure class="tst">
           <img src="img/otros00.jpg" alt="Testimonio por WhatsApp" loading="lazy">
           <figcaption><span class="r">20 leads en un día, 10 confirmados</span></figcaption>
@@ -198,76 +241,93 @@
           <img src="img/otros03.jpg" alt="Testimonio por WhatsApp" loading="lazy">
           <figcaption><span class="q"><b>Pablo</b></span><span class="r">19 prospectos; firmó 1 en el momento</span></figcaption>
         </figure>
-    </div>
-  </section>
-
-  <section class="page">
-    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Otros networkers · 06</span></div>
-    <h2 class="equipo">Otros networkers</h2>
-    <div class="muro c2">
         <figure class="tst">
           <img src="img/otros04.jpg" alt="Testimonio por WhatsApp" loading="lazy">
           <figcaption><span class="r">2 reuniones agendadas desde los leads</span></figcaption>
         </figure>
         <figure class="tst">
           <img src="img/otros05.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="r">Ratio 1 a 1 en cierre con el video</span></figcaption>
+        </figure>
+    </div>
+  </section>
+
+  <section class="page">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Otros networkers · 08</span></div>
+    <h2 class="equipo">Otros networkers</h2>
+
+    <div class="muro">
+        <figure class="tst">
+          <img src="img/otros06.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="q"><b>Miguel</b></span><span class="r">Asoció a un planner en México</span></figcaption>
+        </figure>
+        <figure class="tst">
+          <img src="img/otros07.jpg" alt="Testimonio por WhatsApp" loading="lazy">
           <figcaption><span class="q"><b>Bianca</b></span><span class="r">Le escribió su primer lead</span></figcaption>
         </figure>
         <figure class="tst">
-          <img src="img/otros06.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <img src="img/otros08.jpg" alt="Testimonio por WhatsApp" loading="lazy">
           <figcaption><span class="r">Un socio nuevo entrado por publicidad</span></figcaption>
         </figure>
     </div>
   </section>
 
   <section class="page">
-    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Equipos · 07</span></div>
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Equipo Uni2 Matrix · 09</span></div>
     <h2 class="equipo">Equipo Uni2 Matrix</h2>
-    <div class="muro c2">
+
+    <div class="muro">
         <figure class="tst">
           <img src="img/uni200.jpg" alt="Testimonio por WhatsApp" loading="lazy">
-          <figcaption><span class="q">Equipo Uni2 Matrix</span><span class="r">5 leads, 2 compraron</span></figcaption>
+          <figcaption><span class="r">5 leads, 2 compraron</span></figcaption>
         </figure>
         <figure class="tst">
           <img src="img/uni201.jpg" alt="Testimonio por WhatsApp" loading="lazy">
-          <figcaption><span class="q"><b>Laura</b> · Equipo Uni2 Matrix</span><span class="r">Su primera afiliada con el método</span></figcaption>
-        </figure>
-    </div>
-    <h2 class="equipo" style="margin-top:26px">Equipo Network Global</h2>
-    <div class="muro c2">
-        <figure class="tst">
-          <img src="img/network00.jpg" alt="Testimonio por WhatsApp" loading="lazy">
-          <figcaption><span class="q"><b>David</b> · Equipo Network Global</span><span class="r">“Hoy entraron como 30 leads”</span></figcaption>
+          <figcaption><span class="q"><b>Laura</b></span><span class="r">Su primera afiliada con el método</span></figcaption>
         </figure>
     </div>
   </section>
 
-  <!-- ═══ 04 · MÉTRICAS DEL CRM (aparte, y se ven distinto) ══ -->
-  <section class="page soft">
-    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Los números · 04</span></div>
-    <div class="section-head">
-      <span class="eyebrow">Lo que registra el CRM</span>
-      <h2 class="h-title">Y esto es lo que muestra<br>el sistema por dentro.</h2>
+  <section class="page">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Equipo Network Global · 10</span></div>
+    <h2 class="equipo">Equipo Network Global</h2>
+
+    <div class="muro">
+        <figure class="tst">
+          <img src="img/network00.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="q"><b>David</b></span><span class="r">“Hoy entraron como 30 leads”</span></figcaption>
+        </figure>
     </div>
-    <div class="pantallas">
+  </section>
+
+  <section class="page soft">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Los números · 11</span></div>
+    <h2 class="equipo">Lo que registra el sistema</h2>
+    <div class="pantallas tres">
       <div>
         <div class="pantalla">
           <div class="barra"><i></i><i></i><i></i><span>Panel de Korex · otros networkers</span></div>
-          <img src="img/crm-leads.jpg" alt="Panel de Korex: leads totales, leads diarios, coste por lead y saldo" loading="lazy">
+          <img src="img/met0.jpg" alt="Captura de métricas del sistema" loading="lazy">
         </div>
-        <p class="dato">Una cuenta de <b>otros networkers</b>: <b>1.645 leads</b>, <b>22,23 por día</b> y un coste por lead de <b>1,45 USD</b>.</p>
+        <p class="dato">Una cuenta real: <b>1.645 leads</b>, <b>22,23 por día</b> y un coste por lead de <b>1,45 USD</b>.</p>
       </div>
       <div>
         <div class="pantalla">
           <div class="barra"><i></i><i></i><i></i><span>Panel de Korex · calidad del lead</span></div>
-          <img src="img/crm-scoring.jpg" alt="Clasificación de leads: curiosos, interesados y calificados" loading="lazy">
+          <img src="img/met1.jpg" alt="Captura de métricas del sistema" loading="lazy">
         </div>
         <p class="dato">De <b>1.169 leads</b> clasificados, <b>1 de cada 4</b> llega calificado.</p>
+      </div>
+      <div>
+        <div class="pantalla">
+          <div class="barra"><i></i><i></i><i></i><span>Analítica del VSL · 7 días</span></div>
+          <img src="img/met2.jpg" alt="Captura de métricas del sistema" loading="lazy">
+        </div>
+        <p class="dato"><b>212 visitas</b> y <b>41 reproducciones</b> del video en una semana.</p>
       </div>
     </div>
     <div class="pg-foot"><span>Capturas del panel, sin retocar</span><span class="tag">MÉTODO KOREX</span></div>
   </section>
-
 </div>
 
 <script>
