@@ -109,7 +109,20 @@
   .metrica.resumen b { font-size: 27px; font-weight: 800; letter-spacing: -.02em; color: var(--blue); font-variant-numeric: tabular-nums; }
   .metrica.resumen .resumen-cuerpo span { font-size: 11px; letter-spacing: .07em; text-transform: uppercase; color: var(--text-mut); }
   .metrica.resumen .dato { padding-top: 12px; border-top: 1px solid var(--line); }
-  .metrica.tira { grid-column: 1 / -1; }
+  /* Donut de clasificacion, con los datos de la base */
+  .metrica.donut .grafico { flex: 1 1 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 14px 16px 16px; }
+  .metrica.donut svg { width: 118px; height: 118px; display: block; }
+  .metrica.donut .arco { fill: none; stroke-width: 17; }
+  .metrica.donut .tot { font-size: 19px; font-weight: 800; fill: var(--text); text-anchor: middle; letter-spacing: -.02em; }
+  .metrica.donut .tot-pie { font-size: 7.5px; fill: var(--text-mut); text-anchor: middle; letter-spacing: .06em; text-transform: uppercase; }
+  .metrica.donut .leyenda { list-style: none; margin: 0; padding: 0; width: 100%; display: grid; gap: 6px; }
+  .metrica.donut .leyenda li { display: grid; grid-template-columns: 9px 1fr auto auto; align-items: center; gap: 8px; font-size: 11.5px; color: var(--text-soft); }
+  .metrica.donut .leyenda i { width: 9px; height: 9px; border-radius: 50%; display: block; }
+  .metrica.donut .leyenda b { font-weight: 800; color: var(--text); font-variant-numeric: tabular-nums; }
+  .metrica.donut .leyenda span { color: var(--text-mut); font-variant-numeric: tabular-nums; min-width: 30px; text-align: right; }
+  .metrica.tira { margin-top: 16px; }
+  .metrica.tira .lupa.ancha { padding: 10px; }
+  .metrica.tira .lupa.ancha img { width: auto; max-height: 106px; border-radius: var(--r-sm); }
   .metrica.tira .cifra { padding-top: 12px; }
   .metrica .lupa.ancha { padding: 0; }
   .metrica .lupa.ancha img { width: 100%; max-height: none; border-radius: 0; }
@@ -157,10 +170,10 @@
     <h1>Esto es lo que dicen<br>los que ya lo <em>están usando</em>.</h1>
     <p class="bajada">Personas que antes no firmaban a nadie y estaban quemando su lista de contactos, recibiendo prospectos sin saber de marketing, sin grabarse y sin hacer anuncios.</p>
     <ul class="claims">
-      <li><span>Hemos lanzado <b>80 embudos de marketing</b> en <b>más de 25 redes</b> de network marketing diferentes.</span></li>
+      <li><span>Hemos lanzado <b>80 embudos de marketing</b> en <b>más de 25 compañías</b> de network marketing distintas.</span></li>
       <li><span>Nuestros clientes son <b>TOP 1 en su empresa</b> o directamente <b>los dueños de la empresa</b>.</span></li>
     </ul>
-    <div class="cifras"><div><b>80</b><span>embudos de marketing lanzados</span></div><div><b>+25</b><span>redes de network marketing distintas</span></div><div><b>15.672</b><span>prospectos generados</span></div><div><b>301</b><span>networkers recibiendo prospectos</span></div></div>
+    <div class="cifras"><div><b>80</b><span>embudos de marketing lanzados</span></div><div><b>+25</b><span>compañías distintas</span></div><div><b>15.672</b><span>prospectos generados</span></div><div><b>301</b><span>networkers recibiendo prospectos</span></div></div>
   </section>
 
   <section class="page">
@@ -286,18 +299,6 @@
           </button>
           <figcaption><span class="r">Nuevo registro, con kit de 34</span></figcaption>
         </figure>
-        <figure class="tst">
-          <button class="lupa" type="button" data-img="img/essens11.jpg" data-pie="Otro registro en su línea directa" aria-label="Ampliar la captura">
-            <img src="img/essens11.jpg" alt="Testimonio por WhatsApp" loading="lazy">
-          </button>
-          <figcaption><span class="r">Otro registro en su línea directa</span></figcaption>
-        </figure>
-        <figure class="tst">
-          <button class="lupa" type="button" data-img="img/essens12.jpg" data-pie="“¡Tiene un nuevo registro!”" aria-label="Ampliar la captura">
-            <img src="img/essens12.jpg" alt="Testimonio por WhatsApp" loading="lazy">
-          </button>
-          <figcaption><span class="r">“¡Tiene un nuevo registro!”</span></figcaption>
-        </figure>
     </div>
   </section>
 
@@ -312,6 +313,18 @@
       <p class="nota">Personas que antes no firmaban a nadie y estaban quemando su lista de contactos, recibiendo prospectos sin saber de marketing, sin grabarse y sin hacer anuncios.</p>
     </header>
     <div class="muro">
+        <figure class="tst">
+          <button class="lupa" type="button" data-img="img/essens11.jpg" data-pie="Otro registro en su línea directa" aria-label="Ampliar la captura">
+            <img src="img/essens11.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
+          <figcaption><span class="r">Otro registro en su línea directa</span></figcaption>
+        </figure>
+        <figure class="tst">
+          <button class="lupa" type="button" data-img="img/essens12.jpg" data-pie="“¡Tiene un nuevo registro!”" aria-label="Ampliar la captura">
+            <img src="img/essens12.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
+          <figcaption><span class="r">“¡Tiene un nuevo registro!”</span></figcaption>
+        </figure>
         <figure class="tst">
           <button class="lupa" type="button" data-img="img/essens13.jpg" data-pie="“Una página súper accesible”" aria-label="Ampliar la captura">
             <img src="img/essens13.jpg" alt="Testimonio por WhatsApp" loading="lazy">
@@ -356,12 +369,6 @@
           </button>
           <figcaption><span class="q"><b>Lucía</b></span><span class="r">2 primeros asociados en menos de un mes</span></figcaption>
         </figure>
-        <figure class="tst">
-          <button class="lupa" type="button" data-img="img/piquer03.jpg" data-pie="“Nos está ayudando mucho”" aria-label="Ampliar la captura">
-            <img src="img/piquer03.jpg" alt="Testimonio por WhatsApp" loading="lazy">
-          </button>
-          <figcaption><span class="q"><b>Luis</b></span><span class="r">“Nos está ayudando mucho”</span></figcaption>
-        </figure>
     </div>
   </section>
 
@@ -375,7 +382,13 @@
       <div class="cifras-eq"><div><b>7</b><span>networkers con prospectos</span></div><div><b>530</b><span>prospectos generados</span></div></div>
       <p class="nota">Personas que antes no firmaban a nadie y estaban quemando su lista de contactos, recibiendo prospectos sin saber de marketing, sin grabarse y sin hacer anuncios.</p>
     </header>
-    <div class="muro c1">
+    <div class="muro">
+        <figure class="tst">
+          <button class="lupa" type="button" data-img="img/piquer03.jpg" data-pie="“Nos está ayudando mucho”" aria-label="Ampliar la captura">
+            <img src="img/piquer03.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
+          <figcaption><span class="q"><b>Luis</b></span><span class="r">“Nos está ayudando mucho”</span></figcaption>
+        </figure>
         <figure class="tst">
           <button class="lupa" type="button" data-img="img/piquer04.jpg" data-pie="Un lead pide que le expliquen el proyecto" aria-label="Ampliar la captura">
             <img src="img/piquer04.jpg" alt="Testimonio por WhatsApp" loading="lazy">
@@ -389,7 +402,7 @@
     <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Otros networkers · 08</span></div>
     <header class="ficha">
       <div class="ficha-top">
-        <h2>Otros networkers <span class="parte">1 de 4</span></h2>
+        <h2>Otros networkers <span class="parte">1 de 5</span></h2>
         <p class="top">Equipos de otras redes que usan el mismo sistema</p>
       </div>
       
@@ -414,12 +427,6 @@
           </button>
           <figcaption><span class="q"><b>Ruth</b></span><span class="r">3 entraron: 1 de España y 2 de México</span></figcaption>
         </figure>
-        <figure class="tst">
-          <button class="lupa" type="button" data-img="img/otros03.jpg" data-pie="19 prospectos; firmó 1 en el momento" aria-label="Ampliar la captura">
-            <img src="img/otros03.jpg" alt="Testimonio por WhatsApp" loading="lazy">
-          </button>
-          <figcaption><span class="q"><b>Pablo</b></span><span class="r">19 prospectos; firmó 1 en el momento</span></figcaption>
-        </figure>
     </div>
   </section>
 
@@ -427,13 +434,19 @@
     <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Otros networkers · 09</span></div>
     <header class="ficha">
       <div class="ficha-top">
-        <h2>Otros networkers <span class="parte">2 de 4</span></h2>
+        <h2>Otros networkers <span class="parte">2 de 5</span></h2>
         <p class="top">Equipos de otras redes que usan el mismo sistema</p>
       </div>
       
       <p class="nota">Personas que antes no firmaban a nadie y estaban quemando su lista de contactos, recibiendo prospectos sin saber de marketing, sin grabarse y sin hacer anuncios.</p>
     </header>
     <div class="muro">
+        <figure class="tst">
+          <button class="lupa" type="button" data-img="img/otros03.jpg" data-pie="19 prospectos; firmó 1 en el momento" aria-label="Ampliar la captura">
+            <img src="img/otros03.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
+          <figcaption><span class="q"><b>Pablo</b></span><span class="r">19 prospectos; firmó 1 en el momento</span></figcaption>
+        </figure>
         <figure class="tst">
           <button class="lupa" type="button" data-img="img/otros04.jpg" data-pie="2 reuniones agendadas desde los leads" aria-label="Ampliar la captura">
             <img src="img/otros04.jpg" alt="Testimonio por WhatsApp" loading="lazy">
@@ -446,6 +459,20 @@
           </button>
           <figcaption><span class="r">Ratio 1 a 1 en cierre con el video</span></figcaption>
         </figure>
+    </div>
+  </section>
+
+  <section class="page">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Otros networkers · 10</span></div>
+    <header class="ficha">
+      <div class="ficha-top">
+        <h2>Otros networkers <span class="parte">3 de 5</span></h2>
+        <p class="top">Equipos de otras redes que usan el mismo sistema</p>
+      </div>
+      
+      <p class="nota">Personas que antes no firmaban a nadie y estaban quemando su lista de contactos, recibiendo prospectos sin saber de marketing, sin grabarse y sin hacer anuncios.</p>
+    </header>
+    <div class="muro">
         <figure class="tst">
           <button class="lupa" type="button" data-img="img/otros06.jpg" data-pie="Asoció a un planner en México" aria-label="Ampliar la captura">
             <img src="img/otros06.jpg" alt="Testimonio por WhatsApp" loading="lazy">
@@ -458,26 +485,26 @@
           </button>
           <figcaption><span class="q"><b>Bianca</b></span><span class="r">Le escribió su primer lead</span></figcaption>
         </figure>
-    </div>
-  </section>
-
-  <section class="page">
-    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Otros networkers · 10</span></div>
-    <header class="ficha">
-      <div class="ficha-top">
-        <h2>Otros networkers <span class="parte">3 de 4</span></h2>
-        <p class="top">Equipos de otras redes que usan el mismo sistema</p>
-      </div>
-      
-      <p class="nota">Personas que antes no firmaban a nadie y estaban quemando su lista de contactos, recibiendo prospectos sin saber de marketing, sin grabarse y sin hacer anuncios.</p>
-    </header>
-    <div class="muro">
         <figure class="tst">
           <button class="lupa" type="button" data-img="img/otros08.jpg" data-pie="Un socio nuevo entrado por publicidad" aria-label="Ampliar la captura">
             <img src="img/otros08.jpg" alt="Testimonio por WhatsApp" loading="lazy">
           </button>
           <figcaption><span class="r">Un socio nuevo entrado por publicidad</span></figcaption>
         </figure>
+    </div>
+  </section>
+
+  <section class="page">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Otros networkers · 11</span></div>
+    <header class="ficha">
+      <div class="ficha-top">
+        <h2>Otros networkers <span class="parte">4 de 5</span></h2>
+        <p class="top">Equipos de otras redes que usan el mismo sistema</p>
+      </div>
+      
+      <p class="nota">Personas que antes no firmaban a nadie y estaban quemando su lista de contactos, recibiendo prospectos sin saber de marketing, sin grabarse y sin hacer anuncios.</p>
+    </header>
+    <div class="muro">
         <figure class="tst">
           <button class="lupa" type="button" data-img="img/otros09.jpg" data-pie="“Les están llegando muy buenos leads”" aria-label="Ampliar la captura">
             <img src="img/otros09.jpg" alt="Testimonio por WhatsApp" loading="lazy">
@@ -494,10 +521,10 @@
   </section>
 
   <section class="page">
-    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Otros networkers · 11</span></div>
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Otros networkers · 12</span></div>
     <header class="ficha">
       <div class="ficha-top">
-        <h2>Otros networkers <span class="parte">4 de 4</span></h2>
+        <h2>Otros networkers <span class="parte">5 de 5</span></h2>
         <p class="top">Equipos de otras redes que usan el mismo sistema</p>
       </div>
       
@@ -526,7 +553,7 @@
   </section>
 
   <section class="page">
-    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Networkers de Liliana Vega · 12</span></div>
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Networkers de Liliana Vega · 13</span></div>
     <header class="ficha">
       <div class="ficha-top">
         <h2>Networkers de Liliana Vega</h2>
@@ -552,7 +579,7 @@
   </section>
 
   <section class="page">
-    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Networkers de Uni2 Matrix · 13</span></div>
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Networkers de Uni2 Matrix · 14</span></div>
     <header class="ficha">
       <div class="ficha-top">
         <h2>Networkers de Uni2 Matrix</h2>
@@ -578,7 +605,7 @@
   </section>
 
   <section class="page">
-    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Networkers de Network Global · 14</span></div>
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Networkers de Network Global · 15</span></div>
     <header class="ficha">
       <div class="ficha-top">
         <h2>Networkers de Network Global</h2>
@@ -598,50 +625,69 @@
   </section>
 
   <section class="page soft">
-    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Lo que registra el sistema · 15</span></div>
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Lo que registra el sistema · 16</span></div>
     <header class="ficha">
       <div class="ficha-top">
         <h2>Lo que registra el sistema</h2>
-        <p class="top">Capturas del panel de Korex, sin retocar</p>
+        <p class="top">Cómo clasifica el sistema los prospectos de cada equipo</p>
       </div>
-      <p class="nota">Cada captura es la cuenta real de un equipo: el sistema clasifica solo los prospectos y deja a la vista lo que costó cada uno.</p>
+      <p class="nota">Datos reales del panel de Korex, contando solo los embudos con video: el sistema separa solo quién es curioso, quién está interesado y quién ya está calificado para la llamada.</p>
     </header>
     <div class="metricas">
-      <article class="metrica">
+      <article class="metrica donut">
+        <div class="barra"><i></i><i></i><i></i><span>Networkers de Summit</span></div>
+        <div class="grafico">
+          <svg viewBox="0 0 120 120" role="img" aria-label="Clasificación de Networkers de Summit">
+            <g transform="rotate(-90 60 60)"><circle class="arco" r="45" cx="60" cy="60" stroke="#5B9BF8" stroke-dasharray="100.68 182.07" stroke-dashoffset="-0.00"></circle><circle class="arco" r="45" cx="60" cy="60" stroke="#F2801C" stroke-dasharray="109.58 173.16" stroke-dashoffset="-100.68"></circle><circle class="arco" r="45" cx="60" cy="60" stroke="#2FA84F" stroke-dasharray="72.49 210.26" stroke-dashoffset="-210.26"></circle></g>
+            <text class="tot" x="60" y="58">1.334</text>
+            <text class="tot-pie" x="60" y="72">prospectos</text>
+          </svg>
+          <ul class="leyenda"><li><i style="background:#5B9BF8"></i>Curiosos<b>475</b><span>36%</span></li><li><i style="background:#F2801C"></i>Interesados<b>517</b><span>39%</span></li><li><i style="background:#2FA84F"></i>Calificados<b>342</b><span>26%</span></li></ul>
+        </div>
+      </article>
+      <article class="metrica donut">
+        <div class="barra"><i></i><i></i><i></i><span>Networkers de Essens</span></div>
+        <div class="grafico">
+          <svg viewBox="0 0 120 120" role="img" aria-label="Clasificación de Networkers de Essens">
+            <g transform="rotate(-90 60 60)"><circle class="arco" r="45" cx="60" cy="60" stroke="#5B9BF8" stroke-dasharray="134.90 147.85" stroke-dashoffset="-0.00"></circle><circle class="arco" r="45" cx="60" cy="60" stroke="#F2801C" stroke-dasharray="93.50 189.24" stroke-dashoffset="-134.90"></circle><circle class="arco" r="45" cx="60" cy="60" stroke="#2FA84F" stroke-dasharray="54.34 228.40" stroke-dashoffset="-228.40"></circle></g>
+            <text class="tot" x="60" y="58">2.664</text>
+            <text class="tot-pie" x="60" y="72">prospectos</text>
+          </svg>
+          <ul class="leyenda"><li><i style="background:#5B9BF8"></i>Curiosos<b>1.271</b><span>48%</span></li><li><i style="background:#F2801C"></i>Interesados<b>881</b><span>33%</span></li><li><i style="background:#2FA84F"></i>Calificados<b>512</b><span>19%</span></li></ul>
+        </div>
+      </article>
+      <article class="metrica donut">
+        <div class="barra"><i></i><i></i><i></i><span>Networkers de JIFU</span></div>
+        <div class="grafico">
+          <svg viewBox="0 0 120 120" role="img" aria-label="Clasificación de Networkers de JIFU">
+            <g transform="rotate(-90 60 60)"><circle class="arco" r="45" cx="60" cy="60" stroke="#5B9BF8" stroke-dasharray="158.45 124.29" stroke-dashoffset="-0.00"></circle><circle class="arco" r="45" cx="60" cy="60" stroke="#F2801C" stroke-dasharray="60.41 222.34" stroke-dashoffset="-158.45"></circle><circle class="arco" r="45" cx="60" cy="60" stroke="#2FA84F" stroke-dasharray="63.89 218.86" stroke-dashoffset="-218.86"></circle></g>
+            <text class="tot" x="60" y="58">894</text>
+            <text class="tot-pie" x="60" y="72">prospectos</text>
+          </svg>
+          <ul class="leyenda"><li><i style="background:#5B9BF8"></i>Curiosos<b>501</b><span>56%</span></li><li><i style="background:#F2801C"></i>Interesados<b>191</b><span>21%</span></li><li><i style="background:#2FA84F"></i>Calificados<b>202</b><span>23%</span></li></ul>
+        </div>
+      </article>
+      <article class="metrica donut">
         <div class="barra"><i></i><i></i><i></i><span>Otros networkers</span></div>
-        <button class="lupa ancha" type="button" data-img="img/met0.jpg" data-pie="Otros networkers — 1.645 leads en una sola cuenta" aria-label="Ampliar la captura">
+        <div class="grafico">
+          <svg viewBox="0 0 120 120" role="img" aria-label="Clasificación de Otros networkers">
+            <g transform="rotate(-90 60 60)"><circle class="arco" r="45" cx="60" cy="60" stroke="#5B9BF8" stroke-dasharray="128.02 154.72" stroke-dashoffset="-0.00"></circle><circle class="arco" r="45" cx="60" cy="60" stroke="#F2801C" stroke-dasharray="96.19 186.56" stroke-dashoffset="-128.02"></circle><circle class="arco" r="45" cx="60" cy="60" stroke="#2FA84F" stroke-dasharray="58.53 224.21" stroke-dashoffset="-224.21"></circle></g>
+            <text class="tot" x="60" y="58">826</text>
+            <text class="tot-pie" x="60" y="72">prospectos</text>
+          </svg>
+          <ul class="leyenda"><li><i style="background:#5B9BF8"></i>Curiosos<b>374</b><span>45%</span></li><li><i style="background:#F2801C"></i>Interesados<b>281</b><span>34%</span></li><li><i style="background:#2FA84F"></i>Calificados<b>171</b><span>21%</span></li></ul>
+        </div>
+      </article>
+    </div>
+      <article class="metrica tira">
+        <div class="barra"><i></i><i></i><i></i><span>Lo que cuesta cada prospecto</span></div>
+        <button class="lupa ancha" type="button" data-img="img/met0.jpg" data-pie="Lo que cuesta cada prospecto — 1.645 leads en una sola cuenta" aria-label="Ampliar la captura">
           <img src="img/met0.jpg" alt="Captura de métricas del sistema" loading="lazy">
         </button>
         <div class="cifra"><b>1.645</b><span>leads en una sola cuenta</span></div>
         <p class="dato"><b>22,23 leads por día</b> y un coste por lead de <b>1,45 USD</b>.</p>
       </article>
-      <article class="metrica">
-        <div class="barra"><i></i><i></i><i></i><span>Networkers de Essens</span></div>
-        <button class="lupa" type="button" data-img="img/met1.jpg" data-pie="Networkers de Essens — 1.309 leads clasificados solos" aria-label="Ampliar la captura">
-          <img src="img/met1.jpg" alt="Captura de métricas del sistema" loading="lazy">
-        </button>
-        <div class="cifra"><b>1.309</b><span>leads clasificados solos</span></div>
-        <p class="dato"><b>288 calificados</b> y <b>74 ya entraron</b> al equipo.</p>
-      </article>
-      <article class="metrica">
-        <div class="barra"><i></i><i></i><i></i><span>Networkers de JIFU</span></div>
-        <button class="lupa" type="button" data-img="img/met2.jpg" data-pie="Networkers de JIFU — 723 leads en el panel" aria-label="Ampliar la captura">
-          <img src="img/met2.jpg" alt="Captura de métricas del sistema" loading="lazy">
-        </button>
-        <div class="cifra"><b>723</b><span>leads en el panel</span></div>
-        <p class="dato"><b>160 calificados</b> (22%) esperando la llamada.</p>
-      </article>
-      <article class="metrica resumen">
-        <div class="barra"><i></i><i></i><i></i><span>Todas las cuentas juntas</span></div>
-        <div class="resumen-cuerpo">
-          <div><b>15.672</b><span>prospectos generados</span></div>
-          <div><b>301</b><span>networkers los recibieron</span></div>
-          <div><b>46</b><span>embudos con tráfico</span></div>
-        </div>
-        <p class="dato">Lo que lleva registrado el sistema, contando solo los prospectos que entraron por publicidad.</p>
-      </article>
-    </div>
-    <div class="pg-foot"><span>Capturas del panel, sin retocar</span><span class="tag">MÉTODO KOREX</span></div>
+    <div class="pg-foot"><span>Datos del panel de Korex, solo embudos con video</span><span class="tag">MÉTODO KOREX</span></div>
   </section>
 </div>
 
