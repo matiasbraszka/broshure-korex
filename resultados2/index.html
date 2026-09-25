@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MÉTODO KOREX — Testimonios</title>
+<link rel="stylesheet" href="/brochure.css">
+<style>
+  /* Esta pieza es un muro de testimonios: un título arriba, los videos, las
+     capturas de WhatsApp y, al final y bien separadas, las métricas del CRM. */
+
+  .tapa { align-items: center; justify-content: center; text-align: center; }
+  .tapa .marca { display: flex; align-items: center; gap: 12px; justify-content: center; margin-bottom: 30px; }
+  .tapa .marca img { height: 34px; width: auto; }
+  .tapa h1 {
+    font-size: 46px; line-height: 1.04; letter-spacing: -.03em; font-weight: 800;
+    margin: 0 0 14px; color: var(--text); text-wrap: balance;
+  }
+  .tapa h1 em { font-style: normal; color: var(--blue); }
+  .tapa .bajada { font-size: 14.5px; color: var(--text-mut); max-width: 52ch; margin: 0 auto; }
+
+  /* ── Videos ─────────────────────────────────────────────── */
+  .vids { display: grid; gap: 18px; margin-top: 30px; }
+  .vids.duo { grid-template-columns: 1.85fr 1fr; align-items: start; }
+  .vframe.r916 { padding-top: 177.8%; }
+  .vframe { position: relative; width: 100%; border-radius: var(--r-md); overflow: hidden; border: 1px solid var(--line); background: #000; }
+  .page.dark .vframe { border-color: var(--dk-line); }
+  .vframe.r169 { padding-top: 56.25%; }
+  .vframe .voomly-embed { position: absolute; inset: 0; }
+  .vcap { margin-top: 9px; font-size: 12px; color: var(--text-mut); }
+  .page.dark .vcap { color: var(--dk-mut); }
+  .vcap b { color: var(--text); font-size: 13.5px; font-weight: 700; }
+  .page.dark .vcap b { color: var(--dk-text); }
+
+  /* ── Muro de testimonios ────────────────────────────────── */
+  .muro { columns: 2; column-gap: 16px; }
+  .tst { break-inside: avoid; -webkit-column-break-inside: avoid; margin: 0 0 16px; }
+  .tst img { width: 100%; display: block; border-radius: var(--r-sm); border: 1px solid var(--line); }
+  .page.dark .tst img { border-color: var(--dk-line); }
+  .tst figcaption { display: flex; flex-direction: column; gap: 1px; padding: 8px 2px 0; }
+  .tst .q { font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--text-mut); }
+  .page.dark .tst .q { color: var(--dk-mut); }
+  .tst .q b { color: var(--text); }
+  .page.dark .tst .q b { color: var(--dk-text); }
+  .tst .r { font-size: 13px; color: var(--text-soft); line-height: 1.4; }
+  .page.dark .tst .r { color: var(--dk-soft); }
+
+  /* ── Métricas: se ven como PANTALLA, no como chat ────────── */
+  .pantalla { border: 1px solid var(--line-strong); border-radius: var(--r-md); overflow: hidden; background: var(--paper); }
+  .pantalla .barra {
+    display: flex; align-items: center; gap: 6px; padding: 9px 12px;
+    background: var(--paper-soft2); border-bottom: 1px solid var(--line);
+  }
+  .pantalla .barra i { width: 9px; height: 9px; border-radius: 50%; background: #CBD2DE; display: block; }
+  .pantalla .barra span { margin-left: 8px; font-size: 10.5px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--text-mut); }
+  .pantalla img { width: 100%; display: block; }
+  .pantallas { display: grid; gap: 18px; grid-template-columns: 1.55fr 1fr; align-items: start; }
+  .dato { font-size: 12.5px; color: var(--text-mut); margin-top: 9px; line-height: 1.45; }
+  .dato b { color: var(--text); }
+
+  @media (max-width: 860px) {
+    .vids.duo, .pantallas { grid-template-columns: 1fr; }
+    .muro { columns: 1; }
+    .tapa h1 { font-size: 34px; }
+  }
+</style>
+</head>
+<body>
+<div class="brochure">
+
+  <!-- ═══ 01 · TÍTULO + LOS DOS VIDEOS ═══════════════════════ -->
+  <section class="page tapa">
+    <div class="marca"><img src="/assets/mk-logo-cropped.png" alt="Método Korex"></div>
+    <h1>Esto es lo que dicen<br>los que ya lo <em>están usando</em>.</h1>
+    <p class="bajada">Sin guion y sin edición: capturas tal como llegaron y clientes hablando a cámara.</p>
+
+    <div class="vids duo" style="width:100%;margin-top:34px">
+      <div>
+        <div class="vframe r169"><div class="voomly-embed" data-id="EtI7lkaEUNq8hAvDiFsRPFLs8XVCI1xW9ld1JjRsxCKfHFweK" data-ratio="1.777778" data-type="v" data-skin-color="rgba(72,120,255,1)"></div></div>
+        <div class="vcap"><b>Jonathan, equipo Summit.</b> Su caso, contado por él.</div>
+      </div>
+      <div>
+        <div class="vframe r916"><div class="voomly-embed" data-id="BapcnMjC_FXbHxUEmCl5ws9JQAfJAiSq0JQNGDs5NKbKAhkOV" data-ratio="0.5625" data-type="v" data-skin-color="rgba(72,120,255,1)"></div></div>
+        <div class="vcap"><b>Sus networkers.</b> Los que usan el sistema todos los días.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 02 · MURO DE TESTIMONIOS ═══════════════════════════ -->
+  <section class="page">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Testimonios · 02</span></div>
+    <div class="muro">
+        <figure class="tst">
+          <img src="img/t00.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="q">Otros networkers</span><span class="r">20 leads en un día, 10 confirmados para la reunión</span></figcaption>
+        </figure>
+        <figure class="tst">
+          <img src="img/t01.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="q"><b>Miguel</b> · Otros networkers</span><span class="r">3 inscritos: México, Perú y Ecuador</span></figcaption>
+        </figure>
+        <figure class="tst">
+          <img src="img/t02.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="q"><b>Ruth</b> · Otros networkers</span><span class="r">3 entraron: 1 de España y 2 de México</span></figcaption>
+        </figure>
+        <figure class="tst">
+          <img src="img/t03.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="q"><b>Pablo</b> · Otros networkers</span><span class="r">19 prospectos; firmó 1 en el momento</span></figcaption>
+        </figure>
+        <figure class="tst">
+          <img src="img/t04.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="q">Otros networkers</span><span class="r">2 reuniones agendadas desde los leads</span></figcaption>
+        </figure>
+        <figure class="tst">
+          <img src="img/t05.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="q">Equipo Uni2 Matrix</span><span class="r">5 leads, 2 compraron</span></figcaption>
+        </figure>
+    </div>
+  </section>
+
+  <section class="page">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Testimonios · 03</span></div>
+    <div class="muro">
+        <figure class="tst">
+          <img src="img/t06.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="q"><b>Laura</b> · Equipo Uni2 Matrix</span><span class="r">Su primera afiliada con el método</span></figcaption>
+        </figure>
+        <figure class="tst">
+          <img src="img/t07.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="q">Equipo Essens</span><span class="r">Un prospecto la llamó y cerró en 13 minutos</span></figcaption>
+        </figure>
+        <figure class="tst">
+          <img src="img/t08.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="q"><b>Susana</b> · Equipo Essens</span><span class="r">Primer zoom con una persona que se registró</span></figcaption>
+        </figure>
+        <figure class="tst">
+          <img src="img/t09.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="q">Equipo Essens</span><span class="r">“Una página súper accesible”</span></figcaption>
+        </figure>
+        <figure class="tst">
+          <img src="img/t10.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="q">Equipo Essens</span><span class="r">“Para una persona ciega, esto es todo”</span></figcaption>
+        </figure>
+        <figure class="tst">
+          <img src="img/t11.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="q"><b>Bianca</b> · Otros networkers</span><span class="r">Le escribió su primer lead</span></figcaption>
+        </figure>
+    </div>
+  </section>
+
+  <!-- ═══ 04 · MÉTRICAS DEL CRM (aparte, y se ven distinto) ══ -->
+  <section class="page soft">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Los números · 04</span></div>
+    <div class="section-head">
+      <span class="eyebrow">Lo que registra el CRM</span>
+      <h2 class="h-title">Y esto es lo que muestra<br>el sistema por dentro.</h2>
+    </div>
+    <div class="pantallas">
+      <div>
+        <div class="pantalla">
+          <div class="barra"><i></i><i></i><i></i><span>Panel de Korex · leads de publicidad</span></div>
+          <img src="img/crm-leads.jpg" alt="Panel de Korex: leads totales, leads diarios, coste por lead y saldo" loading="lazy">
+        </div>
+        <p class="dato">Una cuenta real: <b>1.645 leads</b>, <b>22,23 por día</b> y un coste por lead de <b>1,45 USD</b>.</p>
+      </div>
+      <div>
+        <div class="pantalla">
+          <div class="barra"><i></i><i></i><i></i><span>Panel de Korex · calidad del lead</span></div>
+          <img src="img/crm-scoring.jpg" alt="Clasificación de leads: curiosos, interesados y calificados" loading="lazy">
+        </div>
+        <p class="dato">De <b>1.169 leads</b> clasificados, <b>1 de cada 4</b> llega calificado.</p>
+      </div>
+    </div>
+    <div class="pg-foot"><span>Capturas del panel, sin retocar</span><span class="tag">MÉTODO KOREX</span></div>
+  </section>
+
+</div>
+
+<script>
+  /* El reproductor se carga recién cuando la página del video se acerca:
+     si arranca con tamaño cero, tira errores de seek en consola. */
+  (function(){
+    var loaded = false;
+    function loadVoomly(){
+      if(loaded) return; loaded = true;
+      var s = document.createElement('script');
+      s.src = 'https://embed.voomly.com/embed/embed-build.js';
+      s.async = true;
+      document.body.appendChild(s);
+    }
+    var vPages = Array.from(document.querySelectorAll('.voomly-embed')).map(function(v){ return v.closest('.page'); }).filter(Boolean);
+    if(!vPages.length) return;
+    var vio = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting){ loadVoomly(); vio.disconnect(); } });
+    }, { rootMargin: '300px 0px' });
+    vPages.forEach(function(p){ vio.observe(p); });
+  })();
+</script>
+</body>
+</html>
