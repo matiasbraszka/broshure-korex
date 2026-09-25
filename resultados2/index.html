@@ -21,7 +21,8 @@
 
   /* ── Videos ─────────────────────────────────────────────── */
   .vids { display: grid; gap: 18px; margin-top: 30px; }
-  .vids.duo { grid-template-columns: 1.85fr 1fr; align-items: start; }
+  .vids > div + div { margin-top: 20px; }
+  .vids .angosto { max-width: 330px; margin-left: auto; margin-right: auto; }
   .vframe.r916 { padding-top: 177.8%; }
   .vframe { position: relative; width: 100%; border-radius: var(--r-md); overflow: hidden; border: 1px solid var(--line); background: #000; }
   .page.dark .vframe { border-color: var(--dk-line); }
@@ -34,10 +35,19 @@
 
   /* ── Muro de testimonios ────────────────────────────────── */
   .muro { columns: 2; column-gap: 16px; }
-  .tst { break-inside: avoid; -webkit-column-break-inside: avoid; margin: 0 0 16px; }
-  .tst img { width: 100%; display: block; border-radius: var(--r-sm); border: 1px solid var(--line); }
+  .muro.c1 { columns: 1; }
+  .equipo {
+    font-size: 13px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--blue); margin: 0 0 14px; padding-bottom: 9px; border-bottom: 1px solid var(--line);
+  }
+  .tst {
+    break-inside: avoid; -webkit-column-break-inside: avoid; margin: 0 0 16px;
+    border: 1px solid var(--line-strong); border-radius: var(--r-md); overflow: hidden;
+    background: var(--paper);
+  }
+  .tst img { width: 100%; display: block; border-bottom: 1px solid var(--line); }
   .page.dark .tst img { border-color: var(--dk-line); }
-  .tst figcaption { display: flex; flex-direction: column; gap: 1px; padding: 8px 2px 0; }
+  .tst figcaption { display: flex; flex-direction: column; gap: 2px; padding: 9px 12px 11px; }
   .tst .q { font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--text-mut); }
   .page.dark .tst .q { color: var(--dk-mut); }
   .tst .q b { color: var(--text); }
@@ -74,75 +84,160 @@
     <h1>Esto es lo que dicen<br>los que ya lo <em>están usando</em>.</h1>
     <p class="bajada">Sin guion y sin edición: capturas tal como llegaron y clientes hablando a cámara.</p>
 
-    <div class="vids duo" style="width:100%;margin-top:34px">
+    <div class="vids" style="width:100%;margin-top:30px">
       <div>
         <div class="vframe r169"><div class="voomly-embed" data-id="EtI7lkaEUNq8hAvDiFsRPFLs8XVCI1xW9ld1JjRsxCKfHFweK" data-ratio="1.777778" data-type="v" data-skin-color="rgba(72,120,255,1)"></div></div>
         <div class="vcap"><b>Jonathan, equipo Summit.</b> Su caso, contado por él.</div>
       </div>
-      <div>
+      <div class="angosto">
         <div class="vframe r916"><div class="voomly-embed" data-id="BapcnMjC_FXbHxUEmCl5ws9JQAfJAiSq0JQNGDs5NKbKAhkOV" data-ratio="0.5625" data-type="v" data-skin-color="rgba(72,120,255,1)"></div></div>
         <div class="vcap"><b>Sus networkers.</b> Los que usan el sistema todos los días.</div>
       </div>
     </div>
   </section>
 
-  <!-- ═══ 02 · MURO DE TESTIMONIOS ═══════════════════════════ -->
+  <!-- ═══ TESTIMONIOS, UNA HOJA POR EQUIPO ═══════════════ -->
   <section class="page">
-    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Testimonios · 02</span></div>
-    <div class="muro">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Equipo Essens · 02</span></div>
+    <h2 class="equipo">Equipo Essens</h2>
+    <div class="muro c2">
         <figure class="tst">
-          <img src="img/t00.jpg" alt="Testimonio por WhatsApp" loading="lazy">
-          <figcaption><span class="q">Otros networkers</span><span class="r">20 leads en un día, 10 confirmados para la reunión</span></figcaption>
+          <img src="img/essens00.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="r">Su primer registro activo con Korex</span></figcaption>
         </figure>
         <figure class="tst">
-          <img src="img/t01.jpg" alt="Testimonio por WhatsApp" loading="lazy">
-          <figcaption><span class="q"><b>Miguel</b> · Otros networkers</span><span class="r">3 inscritos: México, Perú y Ecuador</span></figcaption>
+          <img src="img/essens01.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="r">Primer registro y activa con pack de 34 €</span></figcaption>
         </figure>
         <figure class="tst">
-          <img src="img/t02.jpg" alt="Testimonio por WhatsApp" loading="lazy">
-          <figcaption><span class="q"><b>Ruth</b> · Otros networkers</span><span class="r">3 entraron: 1 de España y 2 de México</span></figcaption>
+          <img src="img/essens02.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="r">Otro registro: la que no contestaba, se registró sola</span></figcaption>
         </figure>
         <figure class="tst">
-          <img src="img/t03.jpg" alt="Testimonio por WhatsApp" loading="lazy">
-          <figcaption><span class="q"><b>Pablo</b> · Otros networkers</span><span class="r">19 prospectos; firmó 1 en el momento</span></figcaption>
+          <img src="img/essens03.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="r">Primer registro y no sabía ni cómo mandarle el enlace</span></figcaption>
         </figure>
         <figure class="tst">
-          <img src="img/t04.jpg" alt="Testimonio por WhatsApp" loading="lazy">
-          <figcaption><span class="q">Otros networkers</span><span class="r">2 reuniones agendadas desde los leads</span></figcaption>
+          <img src="img/essens04.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="q"><b>Susana</b></span><span class="r">Primer zoom con una persona que se registró</span></figcaption>
         </figure>
         <figure class="tst">
-          <img src="img/t05.jpg" alt="Testimonio por WhatsApp" loading="lazy">
-          <figcaption><span class="q">Equipo Uni2 Matrix</span><span class="r">5 leads, 2 compraron</span></figcaption>
+          <img src="img/essens05.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="r">Un prospecto la llamó y cerró en 13 minutos</span></figcaption>
         </figure>
     </div>
   </section>
 
   <section class="page">
-    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Testimonios · 03</span></div>
-    <div class="muro">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Equipo Essens · 03</span></div>
+    <h2 class="equipo">Equipo Essens</h2>
+    <div class="muro c2">
         <figure class="tst">
-          <img src="img/t06.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <img src="img/essens06.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="r">Registro de abril con pack de 150</span></figcaption>
+        </figure>
+        <figure class="tst">
+          <img src="img/essens07.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="r">Registro entrado por publicidad</span></figcaption>
+        </figure>
+        <figure class="tst">
+          <img src="img/essens08.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="r">Primer registro con Korex</span></figcaption>
+        </figure>
+        <figure class="tst">
+          <img src="img/essens09.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="r">“Una página súper accesible”</span></figcaption>
+        </figure>
+        <figure class="tst">
+          <img src="img/essens10.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="r">“Para una persona ciega, esto es todo”</span></figcaption>
+        </figure>
+    </div>
+  </section>
+
+  <section class="page">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Equipo Jose Piquer · 04</span></div>
+    <h2 class="equipo">Equipo Jose Piquer</h2>
+    <div class="muro c2">
+        <figure class="tst">
+          <img src="img/piquer00.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="r">Venta de 1.999 USD en México</span></figcaption>
+        </figure>
+        <figure class="tst">
+          <img src="img/piquer01.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="r">Otra de 2.000: entró ayer y ya arranca</span></figcaption>
+        </figure>
+        <figure class="tst">
+          <img src="img/piquer02.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="q"><b>Lucía</b></span><span class="r">2 primeros asociados en menos de un mes</span></figcaption>
+        </figure>
+        <figure class="tst">
+          <img src="img/piquer03.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="q"><b>Luis</b></span><span class="r">“Nos está ayudando mucho”</span></figcaption>
+        </figure>
+    </div>
+  </section>
+
+  <section class="page">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Otros networkers · 05</span></div>
+    <h2 class="equipo">Otros networkers</h2>
+    <div class="muro c2">
+        <figure class="tst">
+          <img src="img/otros00.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="r">20 leads en un día, 10 confirmados</span></figcaption>
+        </figure>
+        <figure class="tst">
+          <img src="img/otros01.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="q"><b>Miguel</b></span><span class="r">3 inscritos: México, Perú y Ecuador</span></figcaption>
+        </figure>
+        <figure class="tst">
+          <img src="img/otros02.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="q"><b>Ruth</b></span><span class="r">3 entraron: 1 de España y 2 de México</span></figcaption>
+        </figure>
+        <figure class="tst">
+          <img src="img/otros03.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="q"><b>Pablo</b></span><span class="r">19 prospectos; firmó 1 en el momento</span></figcaption>
+        </figure>
+    </div>
+  </section>
+
+  <section class="page">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Otros networkers · 06</span></div>
+    <h2 class="equipo">Otros networkers</h2>
+    <div class="muro c2">
+        <figure class="tst">
+          <img src="img/otros04.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="r">2 reuniones agendadas desde los leads</span></figcaption>
+        </figure>
+        <figure class="tst">
+          <img src="img/otros05.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="q"><b>Bianca</b></span><span class="r">Le escribió su primer lead</span></figcaption>
+        </figure>
+        <figure class="tst">
+          <img src="img/otros06.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="r">Un socio nuevo entrado por publicidad</span></figcaption>
+        </figure>
+    </div>
+  </section>
+
+  <section class="page">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Equipos · 07</span></div>
+    <h2 class="equipo">Equipo Uni2 Matrix</h2>
+    <div class="muro c2">
+        <figure class="tst">
+          <img src="img/uni200.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="q">Equipo Uni2 Matrix</span><span class="r">5 leads, 2 compraron</span></figcaption>
+        </figure>
+        <figure class="tst">
+          <img src="img/uni201.jpg" alt="Testimonio por WhatsApp" loading="lazy">
           <figcaption><span class="q"><b>Laura</b> · Equipo Uni2 Matrix</span><span class="r">Su primera afiliada con el método</span></figcaption>
         </figure>
+    </div>
+    <h2 class="equipo" style="margin-top:26px">Equipo Network Global</h2>
+    <div class="muro c2">
         <figure class="tst">
-          <img src="img/t07.jpg" alt="Testimonio por WhatsApp" loading="lazy">
-          <figcaption><span class="q">Equipo Essens</span><span class="r">Un prospecto la llamó y cerró en 13 minutos</span></figcaption>
-        </figure>
-        <figure class="tst">
-          <img src="img/t08.jpg" alt="Testimonio por WhatsApp" loading="lazy">
-          <figcaption><span class="q"><b>Susana</b> · Equipo Essens</span><span class="r">Primer zoom con una persona que se registró</span></figcaption>
-        </figure>
-        <figure class="tst">
-          <img src="img/t09.jpg" alt="Testimonio por WhatsApp" loading="lazy">
-          <figcaption><span class="q">Equipo Essens</span><span class="r">“Una página súper accesible”</span></figcaption>
-        </figure>
-        <figure class="tst">
-          <img src="img/t10.jpg" alt="Testimonio por WhatsApp" loading="lazy">
-          <figcaption><span class="q">Equipo Essens</span><span class="r">“Para una persona ciega, esto es todo”</span></figcaption>
-        </figure>
-        <figure class="tst">
-          <img src="img/t11.jpg" alt="Testimonio por WhatsApp" loading="lazy">
-          <figcaption><span class="q"><b>Bianca</b> · Otros networkers</span><span class="r">Le escribió su primer lead</span></figcaption>
+          <img src="img/network00.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <figcaption><span class="q"><b>David</b> · Equipo Network Global</span><span class="r">“Hoy entraron como 30 leads”</span></figcaption>
         </figure>
     </div>
   </section>
@@ -157,10 +252,10 @@
     <div class="pantallas">
       <div>
         <div class="pantalla">
-          <div class="barra"><i></i><i></i><i></i><span>Panel de Korex · leads de publicidad</span></div>
+          <div class="barra"><i></i><i></i><i></i><span>Panel de Korex · otros networkers</span></div>
           <img src="img/crm-leads.jpg" alt="Panel de Korex: leads totales, leads diarios, coste por lead y saldo" loading="lazy">
         </div>
-        <p class="dato">Una cuenta real: <b>1.645 leads</b>, <b>22,23 por día</b> y un coste por lead de <b>1,45 USD</b>.</p>
+        <p class="dato">Una cuenta de <b>otros networkers</b>: <b>1.645 leads</b>, <b>22,23 por día</b> y un coste por lead de <b>1,45 USD</b>.</p>
       </div>
       <div>
         <div class="pantalla">
