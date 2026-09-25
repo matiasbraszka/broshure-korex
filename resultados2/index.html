@@ -6,71 +6,143 @@
 <title>MÉTODO KOREX — Testimonios</title>
 <link rel="stylesheet" href="/brochure.css">
 <style>
-  /* Esta pieza es un muro de testimonios: un título arriba, los videos, las
-     capturas de WhatsApp y, al final y bien separadas, las métricas del CRM. */
+  /* Muro de testimonios: portada con los datos duros, una hoja por equipo con su
+     ficha, y al final las capturas de metricas del panel. Todas las imagenes se
+     amplian al hacer clic. */
 
+  /* ── Portada ────────────────────────────────────────────── */
   .tapa { align-items: center; justify-content: center; text-align: center; }
-  .tapa .marca { display: flex; align-items: center; gap: 12px; justify-content: center; margin-bottom: 30px; }
-  .tapa .marca img { height: 34px; width: auto; }
+  .tapa .marca { margin-bottom: 26px; }
+  .tapa .marca img { height: 30px; width: auto; filter: brightness(0) invert(1); }
+  .tapa .estrellas { font-size: 21px; letter-spacing: .28em; color: #FFC53D; margin-bottom: 16px; }
   .tapa h1 {
     font-size: 46px; line-height: 1.04; letter-spacing: -.03em; font-weight: 800;
-    margin: 0 0 14px; color: var(--text); text-wrap: balance;
+    margin: 0 0 14px; color: var(--dk-text); text-wrap: balance;
   }
   .tapa h1 em { font-style: normal; color: var(--blue); }
-  .tapa .bajada { font-size: 14.5px; color: var(--text-mut); max-width: 52ch; margin: 0 auto; }
+  .tapa .bajada { font-size: 14px; color: var(--dk-mut); max-width: 54ch; margin: 0 auto 30px; line-height: 1.6; }
+  .tapa .claims { list-style: none; margin: 0 0 34px; padding: 0; display: grid; gap: 10px; max-width: 62ch; }
+  .tapa .claims li {
+    display: flex; align-items: center; gap: 11px; text-align: left;
+    font-size: 14.5px; line-height: 1.45; color: var(--dk-soft);
+    background: var(--dk-surf); border: 1px solid var(--dk-line);
+    border-radius: var(--r-md); padding: 13px 16px;
+  }
+  .tapa .claims li span { display: block; }
+  .tapa .claims li::before {
+    content: ""; flex: 0 0 auto; width: 7px; height: 7px; border-radius: 50%;
+    background: var(--blue); box-shadow: 0 0 0 4px rgba(72,120,255,.18);
+  }
+  .tapa .claims b { color: var(--dk-text); font-weight: 800; }
+  .cifras { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; width: 100%; background: var(--dk-line); border: 1px solid var(--dk-line); border-radius: var(--r-md); overflow: hidden; }
+  .cifras > div { background: var(--ink); padding: 17px 10px; display: flex; flex-direction: column; gap: 4px; }
+  .cifras b { font-size: 27px; font-weight: 800; letter-spacing: -.02em; color: var(--blue); font-variant-numeric: tabular-nums; }
+  .cifras span { font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--dk-mut); line-height: 1.35; }
+
+  /* ── Ficha de equipo ────────────────────────────────────── */
+  .ficha { border: 1px solid var(--line-strong); border-radius: var(--r-md); overflow: hidden; margin-bottom: 20px; background: var(--paper); }
+  .ficha-top { padding: 15px 17px 14px; border-bottom: 1px solid var(--line); }
+  .ficha-top h2 {
+    font-size: 13px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--blue); margin: 0 0 6px;
+  }
+  .ficha-top h2 .parte { color: var(--text-mut); letter-spacing: .1em; }
+  .ficha-top .top { margin: 0; font-size: 19px; font-weight: 800; letter-spacing: -.02em; color: var(--text); line-height: 1.25; text-wrap: balance; }
+  .cifras-eq { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 1px; background: var(--line); border-bottom: 1px solid var(--line); }
+  .cifras-eq > div { background: var(--paper); padding: 12px 17px; display: flex; flex-direction: column; gap: 2px; }
+  .cifras-eq b { font-size: 21px; font-weight: 800; letter-spacing: -.02em; color: var(--text); font-variant-numeric: tabular-nums; }
+  .cifras-eq span { font-size: 10.5px; letter-spacing: .07em; text-transform: uppercase; color: var(--text-mut); line-height: 1.35; }
+  .ficha .nota { margin: 0; padding: 11px 17px 12px; font-size: 12px; line-height: 1.5; color: var(--text-mut); background: var(--paper-soft); }
 
   /* ── Videos ─────────────────────────────────────────────── */
-  .vids { display: grid; gap: 18px; margin-top: 30px; }
-  .vids > div + div { margin-top: 20px; }
-  .vids .angosto { max-width: 330px; margin-left: auto; margin-right: auto; }
-  .vframe.r916 { padding-top: 177.8%; }
-  .vframe { position: relative; width: 100%; border-radius: var(--r-md); overflow: hidden; border: 1px solid var(--line); background: #000; }
-  .page.dark .vframe { border-color: var(--dk-line); }
-  .vframe.r169 { padding-top: 56.25%; }
+  .vids { max-width: 380px; margin: 0 auto 20px; }
+  .vids:last-child { margin: 18px auto 0; }
+  .vframe { position: relative; width: 100%; padding-top: 56.25%; border-radius: var(--r-md); overflow: hidden; border: 1px solid var(--line); background: #000; }
   .vframe .voomly-embed { position: absolute; inset: 0; }
-  .vcap { margin-top: 9px; font-size: 12px; color: var(--text-mut); }
-  .page.dark .vcap { color: var(--dk-mut); }
-  .vcap b { color: var(--text); font-size: 13.5px; font-weight: 700; }
-  .page.dark .vcap b { color: var(--dk-text); }
+  .vcap { margin-top: 8px; font-size: 12px; color: var(--text-mut); }
+  .vcap b { color: var(--text); font-size: 13px; font-weight: 700; }
 
   /* ── Muro de testimonios ────────────────────────────────── */
   .muro { columns: 2; column-gap: 16px; }
-  .muro.c1 { columns: 1; }
-  .equipo {
-    font-size: 13px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
-    color: var(--blue); margin: 0 0 14px; padding-bottom: 9px; border-bottom: 1px solid var(--line);
-  }
+  .muro.c1 { columns: 1; max-width: 460px; margin: 0 auto; }
   .tst {
     break-inside: avoid; -webkit-column-break-inside: avoid; margin: 0 0 16px;
     border: 1px solid var(--line-strong); border-radius: var(--r-md); overflow: hidden;
     background: var(--paper);
   }
-  .tst img { width: 100%; display: block; border-bottom: 1px solid var(--line); }
-  .page.dark .tst img { border-color: var(--dk-line); }
   .tst figcaption { display: flex; flex-direction: column; gap: 2px; padding: 9px 12px 11px; }
   .tst .q { font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--text-mut); }
-  .page.dark .tst .q { color: var(--dk-mut); }
   .tst .q b { color: var(--text); }
-  .page.dark .tst .q b { color: var(--dk-text); }
   .tst .r { font-size: 13px; color: var(--text-soft); line-height: 1.4; }
-  .page.dark .tst .r { color: var(--dk-soft); }
 
-  /* ── Métricas: se ven como PANTALLA, no como chat ────────── */
-  .pantalla { border: 1px solid var(--line-strong); border-radius: var(--r-md); overflow: hidden; background: var(--paper); }
-  .pantalla .barra {
+  /* ── Boton de ampliar ───────────────────────────────────── */
+  .lupa {
+    display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in;
+    position: relative; line-height: 0;
+  }
+  .lupa img { width: 100%; display: block; }
+  .tst .lupa img { border-bottom: 1px solid var(--line); }
+  .lupa::after {
+    content: "⤢"; position: absolute; right: 9px; bottom: 9px; width: 24px; height: 24px;
+    display: grid; place-items: center; border-radius: var(--r-sm);
+    background: rgba(17,19,26,.62); color: #fff; font-size: 13px; line-height: 1;
+    opacity: 0; transition: opacity .16s ease;
+  }
+  .lupa:hover::after, .lupa:focus-visible::after { opacity: 1; }
+  .lupa:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+  /* ── Metricas: se ven como PANTALLA, no como chat ────────── */
+  .metricas { display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: 1fr; gap: 16px; }
+  .metrica {
+    display: flex; flex-direction: column;
+    border: 1px solid var(--line-strong); border-radius: var(--r-md); overflow: hidden; background: var(--paper);
+  }
+  .metrica .barra {
     display: flex; align-items: center; gap: 6px; padding: 9px 12px;
     background: var(--paper-soft2); border-bottom: 1px solid var(--line);
   }
-  .pantalla .barra i { width: 9px; height: 9px; border-radius: 50%; background: #CBD2DE; display: block; }
-  .pantalla .barra span { margin-left: 8px; font-size: 10.5px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--text-mut); }
-  .pantalla img { width: 100%; display: block; }
-  .pantallas { display: grid; gap: 18px; grid-template-columns: 1.55fr 1fr; align-items: start; }
-  .pantallas.cuatro { grid-template-columns: 1fr 1fr; }
-  .dato { font-size: 12.5px; color: var(--text-mut); margin-top: 9px; line-height: 1.45; }
-  .dato b { color: var(--text); }
+  .metrica .barra i { width: 9px; height: 9px; border-radius: 50%; background: #CBD2DE; display: block; }
+  .metrica .barra span { margin-left: 8px; font-size: 10.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--text-mut); }
+  .metrica .lupa { flex: 1 1 auto; display: flex; align-items: center; justify-content: center; background: var(--paper-soft); padding: 10px; }
+  .metrica.resumen .resumen-cuerpo { flex: 1 1 auto; display: flex; flex-direction: column; justify-content: center; gap: 16px; padding: 18px 16px; background: var(--blue-bg2); }
+  .metrica.resumen .resumen-cuerpo > div { display: flex; flex-direction: column; gap: 2px; }
+  .metrica.resumen b { font-size: 27px; font-weight: 800; letter-spacing: -.02em; color: var(--blue); font-variant-numeric: tabular-nums; }
+  .metrica.resumen .resumen-cuerpo span { font-size: 11px; letter-spacing: .07em; text-transform: uppercase; color: var(--text-mut); }
+  .metrica.resumen .dato { padding-top: 12px; border-top: 1px solid var(--line); }
+  .metrica.tira { grid-column: 1 / -1; }
+  .metrica.tira .cifra { padding-top: 12px; }
+  .metrica .lupa.ancha { padding: 0; }
+  .metrica .lupa.ancha img { width: 100%; max-height: none; border-radius: 0; }
+  .metrica .lupa img { max-height: 235px; width: auto; max-width: 100%; border-radius: var(--r-sm); }
+  .metrica .cifra {
+    display: flex; align-items: baseline; gap: 8px; padding: 11px 14px 4px; border-top: 1px solid var(--line);
+  }
+  .metrica .cifra b { font-size: 25px; font-weight: 800; letter-spacing: -.02em; color: var(--blue); font-variant-numeric: tabular-nums; }
+  .metrica .cifra span { font-size: 11px; letter-spacing: .07em; text-transform: uppercase; color: var(--text-mut); }
+  .metrica .dato { margin: 0; padding: 0 14px 13px; font-size: 12.5px; color: var(--text-mut); line-height: 1.45; }
+  .metrica .dato b { color: var(--text); }
+
+  /* ── Visor ──────────────────────────────────────────────── */
+  .visor {
+    position: fixed; inset: 0; z-index: 300; display: none; place-items: center;
+    background: rgba(8,8,8,.94); padding: 28px; cursor: zoom-out;
+  }
+  .visor.abierto { display: grid; }
+  .visor figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; max-height: 100%; }
+  .visor img { max-width: min(92vw, 900px); max-height: 82vh; width: auto; border-radius: var(--r-md); box-shadow: 0 30px 80px -20px rgba(0,0,0,.7); background: #fff; }
+  .visor figcaption { font-size: 13.5px; color: #E8EBF2; text-align: center; max-width: 60ch; }
+  .visor .cerrar {
+    position: absolute; top: 18px; right: 20px; width: 38px; height: 38px; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.22); background: rgba(255,255,255,.08); color: #fff;
+    font-size: 19px; line-height: 1; cursor: pointer;
+  }
+
+  @media print { .visor, .lupa::after { display: none !important; } }
 
   @media (max-width: 860px) {
-    .vids.duo, .pantallas { grid-template-columns: 1fr; }
+    .metricas, .cifras { grid-template-columns: 1fr 1fr; }
+    .vids { max-width: none; }
+    .cifras-eq { grid-auto-flow: row; }
     .muro { columns: 1; }
     .tapa h1 { font-size: 34px; }
   }
@@ -79,114 +151,177 @@
 <body>
 <div class="brochure">
 
-  <!-- ═══ TAPA: solo el título ═══════════════════════════ -->
-  <section class="page tapa">
+  <section class="page dark tapa">
     <div class="marca"><img src="/assets/mk-logo-cropped.png" alt="Método Korex"></div>
+    <div class="estrellas" aria-label="Cinco estrellas">★★★★★</div>
     <h1>Esto es lo que dicen<br>los que ya lo <em>están usando</em>.</h1>
-    <p class="bajada">Personas que antes no firmaban a nadie y estaban quemando su lista de contactos empezaron a recibir prospectos sin saber de marketing, sin tener que grabarse y sin hacer anuncios.</p>
+    <p class="bajada">Personas que antes no firmaban a nadie y estaban quemando su lista de contactos, recibiendo prospectos sin saber de marketing, sin grabarse y sin hacer anuncios.</p>
+    <ul class="claims">
+      <li><span>Hemos lanzado <b>80 embudos de marketing</b> en <b>más de 25 redes</b> de network marketing diferentes.</span></li>
+      <li><span>Nuestros clientes son <b>TOP 1 en su empresa</b> o directamente <b>los dueños de la empresa</b>.</span></li>
+    </ul>
+    <div class="cifras"><div><b>80</b><span>embudos de marketing lanzados</span></div><div><b>+25</b><span>redes de network marketing distintas</span></div><div><b>15.672</b><span>prospectos generados</span></div><div><b>301</b><span>networkers recibiendo prospectos</span></div></div>
   </section>
 
-  <!-- ═══ TESTIMONIOS, UNA HOJA POR EQUIPO ═══════════════ -->
   <section class="page">
     <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Networkers de Summit · 02</span></div>
-    <h2 class="equipo">Networkers de Summit</h2>
-    <div class="vids" style="width:100%;margin-top:30px">
+    <header class="ficha">
+      <div class="ficha-top">
+        <h2>Networkers de Summit</h2>
+        <p class="top">Posicionados en el TOP 49 de Business For Home</p>
+      </div>
+      <div class="cifras-eq"><div><b>55</b><span>networkers usando el sistema</span></div><div><b>1 mes y medio</b><span>desde que arrancaron</span></div><div><b>800</b><span>prospectos generados</span></div></div>
+      <p class="nota">Personas que antes no firmaban a nadie y estaban quemando su lista de contactos, recibiendo prospectos sin saber de marketing, sin grabarse y sin hacer anuncios.</p>
+    </header>
+    <div class="vids">
       <div>
-        <div class="vframe r169"><div class="voomly-embed" data-id="EtI7lkaEUNq8hAvDiFsRPFLs8XVCI1xW9ld1JjRsxCKfHFweK" data-ratio="1.777778" data-type="v" data-skin-color="rgba(72,120,255,1)"></div></div>
+        <div class="vframe"><div class="voomly-embed" data-id="EtI7lkaEUNq8hAvDiFsRPFLs8XVCI1xW9ld1JjRsxCKfHFweK" data-ratio="1.777778" data-type="v" data-skin-color="rgba(72,120,255,1)"></div></div>
         <div class="vcap"><b>Jonathan, equipo Summit.</b> Su caso, contado por él.</div>
       </div>
-      <div>
-        <div class="vframe r169"><div class="voomly-embed" data-id="BapcnMjC_FXbHxUEmCl5ws9JQAfJAiSq0JQNGDs5NKbKAhkOV" data-ratio="1.777778" data-type="v" data-skin-color="rgba(72,120,255,1)"></div></div>
-        <div class="vcap"><b>Sus networkers.</b> Los que usan el sistema todos los días.</div>
-      </div>
     </div>
-    <div class="muro">
+    <div class="muro c1">
         <figure class="tst">
-          <img src="img/summit00.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <button class="lupa" type="button" data-img="img/summit00.jpg" data-pie="Un cierre con estatus Diamante" aria-label="Ampliar la captura">
+            <img src="img/summit00.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
           <figcaption><span class="r">Un cierre con estatus Diamante</span></figcaption>
         </figure>
+    </div>
+    <div class="vids">
+      <div>
+        <div class="vframe"><div class="voomly-embed" data-id="BapcnMjC_FXbHxUEmCl5ws9JQAfJAiSq0JQNGDs5NKbKAhkOV" data-ratio="1.777778" data-type="v" data-skin-color="rgba(72,120,255,1)"></div></div>
+        <div class="vcap"><b>Sus networkers.</b> Los que usan el sistema todos los días.</div>
+      </div>
     </div>
   </section>
 
   <section class="page">
     <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Networkers de Essens · 03</span></div>
-    <h2 class="equipo">Networkers de Essens</h2>
-
+    <header class="ficha">
+      <div class="ficha-top">
+        <h2>Networkers de Essens <span class="parte">1 de 3</span></h2>
+        <p class="top">Mónica Vozmediano, TOP 1 de Essens</p>
+      </div>
+      <div class="cifras-eq"><div><b>55</b><span>networkers usaron Korex</span></div><div><b>2.807</b><span>prospectos generados</span></div></div>
+      <p class="nota">Personas que antes no firmaban a nadie y estaban quemando su lista de contactos, recibiendo prospectos sin saber de marketing, sin grabarse y sin hacer anuncios.</p>
+    </header>
     <div class="muro">
         <figure class="tst">
-          <img src="img/essens00.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <button class="lupa" type="button" data-img="img/essens00.jpg" data-pie="Su primer registro activo con Korex" aria-label="Ampliar la captura">
+            <img src="img/essens00.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
           <figcaption><span class="r">Su primer registro activo con Korex</span></figcaption>
         </figure>
         <figure class="tst">
-          <img src="img/essens01.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <button class="lupa" type="button" data-img="img/essens01.jpg" data-pie="Primer registro y activa con pack de 34 €" aria-label="Ampliar la captura">
+            <img src="img/essens01.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
           <figcaption><span class="r">Primer registro y activa con pack de 34 €</span></figcaption>
         </figure>
         <figure class="tst">
-          <img src="img/essens02.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <button class="lupa" type="button" data-img="img/essens02.jpg" data-pie="Otro registro: la que no contestaba, se registró sola" aria-label="Ampliar la captura">
+            <img src="img/essens02.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
           <figcaption><span class="r">Otro registro: la que no contestaba, se registró sola</span></figcaption>
         </figure>
         <figure class="tst">
-          <img src="img/essens03.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <button class="lupa" type="button" data-img="img/essens03.jpg" data-pie="Primer registro y no sabía ni cómo mandarle el enlace" aria-label="Ampliar la captura">
+            <img src="img/essens03.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
           <figcaption><span class="r">Primer registro y no sabía ni cómo mandarle el enlace</span></figcaption>
         </figure>
         <figure class="tst">
-          <img src="img/essens04.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <button class="lupa" type="button" data-img="img/essens04.jpg" data-pie="Primer zoom con una persona que se registró" aria-label="Ampliar la captura">
+            <img src="img/essens04.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
           <figcaption><span class="q"><b>Susana</b></span><span class="r">Primer zoom con una persona que se registró</span></figcaption>
         </figure>
         <figure class="tst">
-          <img src="img/essens05.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <button class="lupa" type="button" data-img="img/essens05.jpg" data-pie="Un prospecto la llamó y cerró en 13 minutos" aria-label="Ampliar la captura">
+            <img src="img/essens05.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
           <figcaption><span class="r">Un prospecto la llamó y cerró en 13 minutos</span></figcaption>
+        </figure>
+        <figure class="tst">
+          <button class="lupa" type="button" data-img="img/essens06.jpg" data-pie="Registro de abril con pack de 150" aria-label="Ampliar la captura">
+            <img src="img/essens06.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
+          <figcaption><span class="r">Registro de abril con pack de 150</span></figcaption>
         </figure>
     </div>
   </section>
 
   <section class="page">
     <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Networkers de Essens · 04</span></div>
-    <h2 class="equipo">Networkers de Essens</h2>
-
+    <header class="ficha">
+      <div class="ficha-top">
+        <h2>Networkers de Essens <span class="parte">2 de 3</span></h2>
+        <p class="top">Mónica Vozmediano, TOP 1 de Essens</p>
+      </div>
+      <div class="cifras-eq"><div><b>55</b><span>networkers usaron Korex</span></div><div><b>2.807</b><span>prospectos generados</span></div></div>
+      <p class="nota">Personas que antes no firmaban a nadie y estaban quemando su lista de contactos, recibiendo prospectos sin saber de marketing, sin grabarse y sin hacer anuncios.</p>
+    </header>
     <div class="muro">
         <figure class="tst">
-          <img src="img/essens06.jpg" alt="Testimonio por WhatsApp" loading="lazy">
-          <figcaption><span class="r">Registro de abril con pack de 150</span></figcaption>
-        </figure>
-        <figure class="tst">
-          <img src="img/essens07.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <button class="lupa" type="button" data-img="img/essens07.jpg" data-pie="Registro entrado por publicidad" aria-label="Ampliar la captura">
+            <img src="img/essens07.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
           <figcaption><span class="r">Registro entrado por publicidad</span></figcaption>
         </figure>
         <figure class="tst">
-          <img src="img/essens08.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <button class="lupa" type="button" data-img="img/essens08.jpg" data-pie="Primer registro con Korex" aria-label="Ampliar la captura">
+            <img src="img/essens08.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
           <figcaption><span class="r">Primer registro con Korex</span></figcaption>
         </figure>
         <figure class="tst">
-          <img src="img/essens09.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <button class="lupa" type="button" data-img="img/essens09.jpg" data-pie="Registro que se lleva el pack de 34 €" aria-label="Ampliar la captura">
+            <img src="img/essens09.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
           <figcaption><span class="r">Registro que se lleva el pack de 34 €</span></figcaption>
         </figure>
         <figure class="tst">
-          <img src="img/essens10.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <button class="lupa" type="button" data-img="img/essens10.jpg" data-pie="Nuevo registro, con kit de 34" aria-label="Ampliar la captura">
+            <img src="img/essens10.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
           <figcaption><span class="r">Nuevo registro, con kit de 34</span></figcaption>
         </figure>
         <figure class="tst">
-          <img src="img/essens11.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <button class="lupa" type="button" data-img="img/essens11.jpg" data-pie="Otro registro en su línea directa" aria-label="Ampliar la captura">
+            <img src="img/essens11.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
           <figcaption><span class="r">Otro registro en su línea directa</span></figcaption>
+        </figure>
+        <figure class="tst">
+          <button class="lupa" type="button" data-img="img/essens12.jpg" data-pie="“¡Tiene un nuevo registro!”" aria-label="Ampliar la captura">
+            <img src="img/essens12.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
+          <figcaption><span class="r">“¡Tiene un nuevo registro!”</span></figcaption>
         </figure>
     </div>
   </section>
 
   <section class="page">
     <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Networkers de Essens · 05</span></div>
-    <h2 class="equipo">Networkers de Essens</h2>
-
+    <header class="ficha">
+      <div class="ficha-top">
+        <h2>Networkers de Essens <span class="parte">3 de 3</span></h2>
+        <p class="top">Mónica Vozmediano, TOP 1 de Essens</p>
+      </div>
+      <div class="cifras-eq"><div><b>55</b><span>networkers usaron Korex</span></div><div><b>2.807</b><span>prospectos generados</span></div></div>
+      <p class="nota">Personas que antes no firmaban a nadie y estaban quemando su lista de contactos, recibiendo prospectos sin saber de marketing, sin grabarse y sin hacer anuncios.</p>
+    </header>
     <div class="muro">
         <figure class="tst">
-          <img src="img/essens12.jpg" alt="Testimonio por WhatsApp" loading="lazy">
-          <figcaption><span class="r">“¡Tiene un nuevo registro!”</span></figcaption>
-        </figure>
-        <figure class="tst">
-          <img src="img/essens13.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <button class="lupa" type="button" data-img="img/essens13.jpg" data-pie="“Una página súper accesible”" aria-label="Ampliar la captura">
+            <img src="img/essens13.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
           <figcaption><span class="r">“Una página súper accesible”</span></figcaption>
         </figure>
         <figure class="tst">
-          <img src="img/essens14.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <button class="lupa" type="button" data-img="img/essens14.jpg" data-pie="“Para una persona ciega, esto es todo”" aria-label="Ampliar la captura">
+            <img src="img/essens14.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
           <figcaption><span class="r">“Para una persona ciega, esto es todo”</span></figcaption>
         </figure>
     </div>
@@ -194,196 +329,357 @@
 
   <section class="page">
     <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Networkers de Jose Piquer · 06</span></div>
-    <h2 class="equipo">Networkers de Jose Piquer</h2>
-
+    <header class="ficha">
+      <div class="ficha-top">
+        <h2>Networkers de Jose Piquer <span class="parte">1 de 2</span></h2>
+        <p class="top">Jose Piquer, líder de su propia red</p>
+      </div>
+      <div class="cifras-eq"><div><b>7</b><span>networkers con prospectos</span></div><div><b>530</b><span>prospectos generados</span></div></div>
+      <p class="nota">Personas que antes no firmaban a nadie y estaban quemando su lista de contactos, recibiendo prospectos sin saber de marketing, sin grabarse y sin hacer anuncios.</p>
+    </header>
     <div class="muro">
         <figure class="tst">
-          <img src="img/piquer00.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <button class="lupa" type="button" data-img="img/piquer00.jpg" data-pie="Venta de 1.999 USD en México" aria-label="Ampliar la captura">
+            <img src="img/piquer00.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
           <figcaption><span class="r">Venta de 1.999 USD en México</span></figcaption>
         </figure>
         <figure class="tst">
-          <img src="img/piquer01.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <button class="lupa" type="button" data-img="img/piquer01.jpg" data-pie="Otra de 2.000: entró ayer y ya arranca" aria-label="Ampliar la captura">
+            <img src="img/piquer01.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
           <figcaption><span class="r">Otra de 2.000: entró ayer y ya arranca</span></figcaption>
         </figure>
         <figure class="tst">
-          <img src="img/piquer02.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <button class="lupa" type="button" data-img="img/piquer02.jpg" data-pie="2 primeros asociados en menos de un mes" aria-label="Ampliar la captura">
+            <img src="img/piquer02.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
           <figcaption><span class="q"><b>Lucía</b></span><span class="r">2 primeros asociados en menos de un mes</span></figcaption>
         </figure>
         <figure class="tst">
-          <img src="img/piquer03.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <button class="lupa" type="button" data-img="img/piquer03.jpg" data-pie="“Nos está ayudando mucho”" aria-label="Ampliar la captura">
+            <img src="img/piquer03.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
           <figcaption><span class="q"><b>Luis</b></span><span class="r">“Nos está ayudando mucho”</span></figcaption>
         </figure>
+    </div>
+  </section>
+
+  <section class="page">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Networkers de Jose Piquer · 07</span></div>
+    <header class="ficha">
+      <div class="ficha-top">
+        <h2>Networkers de Jose Piquer <span class="parte">2 de 2</span></h2>
+        <p class="top">Jose Piquer, líder de su propia red</p>
+      </div>
+      <div class="cifras-eq"><div><b>7</b><span>networkers con prospectos</span></div><div><b>530</b><span>prospectos generados</span></div></div>
+      <p class="nota">Personas que antes no firmaban a nadie y estaban quemando su lista de contactos, recibiendo prospectos sin saber de marketing, sin grabarse y sin hacer anuncios.</p>
+    </header>
+    <div class="muro c1">
         <figure class="tst">
-          <img src="img/piquer04.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <button class="lupa" type="button" data-img="img/piquer04.jpg" data-pie="Un lead pide que le expliquen el proyecto" aria-label="Ampliar la captura">
+            <img src="img/piquer04.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
           <figcaption><span class="r">Un lead pide que le expliquen el proyecto</span></figcaption>
         </figure>
     </div>
   </section>
 
   <section class="page">
-    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Otros networkers · 07</span></div>
-    <h2 class="equipo">Otros networkers</h2>
-
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Otros networkers · 08</span></div>
+    <header class="ficha">
+      <div class="ficha-top">
+        <h2>Otros networkers <span class="parte">1 de 4</span></h2>
+        <p class="top">Equipos de otras redes que usan el mismo sistema</p>
+      </div>
+      
+      <p class="nota">Personas que antes no firmaban a nadie y estaban quemando su lista de contactos, recibiendo prospectos sin saber de marketing, sin grabarse y sin hacer anuncios.</p>
+    </header>
     <div class="muro">
         <figure class="tst">
-          <img src="img/otros00.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <button class="lupa" type="button" data-img="img/otros00.jpg" data-pie="20 leads en un día, 10 confirmados" aria-label="Ampliar la captura">
+            <img src="img/otros00.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
           <figcaption><span class="r">20 leads en un día, 10 confirmados</span></figcaption>
         </figure>
         <figure class="tst">
-          <img src="img/otros01.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <button class="lupa" type="button" data-img="img/otros01.jpg" data-pie="3 inscritos: México, Perú y Ecuador" aria-label="Ampliar la captura">
+            <img src="img/otros01.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
           <figcaption><span class="q"><b>Miguel</b></span><span class="r">3 inscritos: México, Perú y Ecuador</span></figcaption>
         </figure>
         <figure class="tst">
-          <img src="img/otros02.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <button class="lupa" type="button" data-img="img/otros02.jpg" data-pie="3 entraron: 1 de España y 2 de México" aria-label="Ampliar la captura">
+            <img src="img/otros02.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
           <figcaption><span class="q"><b>Ruth</b></span><span class="r">3 entraron: 1 de España y 2 de México</span></figcaption>
         </figure>
         <figure class="tst">
-          <img src="img/otros03.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <button class="lupa" type="button" data-img="img/otros03.jpg" data-pie="19 prospectos; firmó 1 en el momento" aria-label="Ampliar la captura">
+            <img src="img/otros03.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
           <figcaption><span class="q"><b>Pablo</b></span><span class="r">19 prospectos; firmó 1 en el momento</span></figcaption>
-        </figure>
-        <figure class="tst">
-          <img src="img/otros04.jpg" alt="Testimonio por WhatsApp" loading="lazy">
-          <figcaption><span class="r">2 reuniones agendadas desde los leads</span></figcaption>
-        </figure>
-        <figure class="tst">
-          <img src="img/otros05.jpg" alt="Testimonio por WhatsApp" loading="lazy">
-          <figcaption><span class="r">Ratio 1 a 1 en cierre con el video</span></figcaption>
-        </figure>
-    </div>
-  </section>
-
-  <section class="page">
-    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Otros networkers · 08</span></div>
-    <h2 class="equipo">Otros networkers</h2>
-
-    <div class="muro">
-        <figure class="tst">
-          <img src="img/otros06.jpg" alt="Testimonio por WhatsApp" loading="lazy">
-          <figcaption><span class="q"><b>Miguel</b></span><span class="r">Asoció a un planner en México</span></figcaption>
-        </figure>
-        <figure class="tst">
-          <img src="img/otros07.jpg" alt="Testimonio por WhatsApp" loading="lazy">
-          <figcaption><span class="q"><b>Bianca</b></span><span class="r">Le escribió su primer lead</span></figcaption>
-        </figure>
-        <figure class="tst">
-          <img src="img/otros08.jpg" alt="Testimonio por WhatsApp" loading="lazy">
-          <figcaption><span class="r">Un socio nuevo entrado por publicidad</span></figcaption>
-        </figure>
-        <figure class="tst">
-          <img src="img/otros09.jpg" alt="Testimonio por WhatsApp" loading="lazy">
-          <figcaption><span class="r">“Les están llegando muy buenos leads”</span></figcaption>
-        </figure>
-        <figure class="tst">
-          <img src="img/otros10.jpg" alt="Testimonio por WhatsApp" loading="lazy">
-          <figcaption><span class="r">El grupo, contando invitados del día</span></figcaption>
-        </figure>
-        <figure class="tst">
-          <img src="img/otros11.jpg" alt="Testimonio por WhatsApp" loading="lazy">
-          <figcaption><span class="r">Cinco invitadas al zoom de esa noche</span></figcaption>
         </figure>
     </div>
   </section>
 
   <section class="page">
     <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Otros networkers · 09</span></div>
-    <h2 class="equipo">Otros networkers</h2>
-
+    <header class="ficha">
+      <div class="ficha-top">
+        <h2>Otros networkers <span class="parte">2 de 4</span></h2>
+        <p class="top">Equipos de otras redes que usan el mismo sistema</p>
+      </div>
+      
+      <p class="nota">Personas que antes no firmaban a nadie y estaban quemando su lista de contactos, recibiendo prospectos sin saber de marketing, sin grabarse y sin hacer anuncios.</p>
+    </header>
     <div class="muro">
         <figure class="tst">
-          <img src="img/otros12.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <button class="lupa" type="button" data-img="img/otros04.jpg" data-pie="2 reuniones agendadas desde los leads" aria-label="Ampliar la captura">
+            <img src="img/otros04.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
+          <figcaption><span class="r">2 reuniones agendadas desde los leads</span></figcaption>
+        </figure>
+        <figure class="tst">
+          <button class="lupa" type="button" data-img="img/otros05.jpg" data-pie="Ratio 1 a 1 en cierre con el video" aria-label="Ampliar la captura">
+            <img src="img/otros05.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
+          <figcaption><span class="r">Ratio 1 a 1 en cierre con el video</span></figcaption>
+        </figure>
+        <figure class="tst">
+          <button class="lupa" type="button" data-img="img/otros06.jpg" data-pie="Asoció a un planner en México" aria-label="Ampliar la captura">
+            <img src="img/otros06.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
+          <figcaption><span class="q"><b>Miguel</b></span><span class="r">Asoció a un planner en México</span></figcaption>
+        </figure>
+        <figure class="tst">
+          <button class="lupa" type="button" data-img="img/otros07.jpg" data-pie="Le escribió su primer lead" aria-label="Ampliar la captura">
+            <img src="img/otros07.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
+          <figcaption><span class="q"><b>Bianca</b></span><span class="r">Le escribió su primer lead</span></figcaption>
+        </figure>
+    </div>
+  </section>
+
+  <section class="page">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Otros networkers · 10</span></div>
+    <header class="ficha">
+      <div class="ficha-top">
+        <h2>Otros networkers <span class="parte">3 de 4</span></h2>
+        <p class="top">Equipos de otras redes que usan el mismo sistema</p>
+      </div>
+      
+      <p class="nota">Personas que antes no firmaban a nadie y estaban quemando su lista de contactos, recibiendo prospectos sin saber de marketing, sin grabarse y sin hacer anuncios.</p>
+    </header>
+    <div class="muro">
+        <figure class="tst">
+          <button class="lupa" type="button" data-img="img/otros08.jpg" data-pie="Un socio nuevo entrado por publicidad" aria-label="Ampliar la captura">
+            <img src="img/otros08.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
+          <figcaption><span class="r">Un socio nuevo entrado por publicidad</span></figcaption>
+        </figure>
+        <figure class="tst">
+          <button class="lupa" type="button" data-img="img/otros09.jpg" data-pie="“Les están llegando muy buenos leads”" aria-label="Ampliar la captura">
+            <img src="img/otros09.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
+          <figcaption><span class="r">“Les están llegando muy buenos leads”</span></figcaption>
+        </figure>
+        <figure class="tst">
+          <button class="lupa" type="button" data-img="img/otros10.jpg" data-pie="El grupo, contando invitados del día" aria-label="Ampliar la captura">
+            <img src="img/otros10.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
+          <figcaption><span class="r">El grupo, contando invitados del día</span></figcaption>
+        </figure>
+    </div>
+  </section>
+
+  <section class="page">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Otros networkers · 11</span></div>
+    <header class="ficha">
+      <div class="ficha-top">
+        <h2>Otros networkers <span class="parte">4 de 4</span></h2>
+        <p class="top">Equipos de otras redes que usan el mismo sistema</p>
+      </div>
+      
+      <p class="nota">Personas que antes no firmaban a nadie y estaban quemando su lista de contactos, recibiendo prospectos sin saber de marketing, sin grabarse y sin hacer anuncios.</p>
+    </header>
+    <div class="muro">
+        <figure class="tst">
+          <button class="lupa" type="button" data-img="img/otros11.jpg" data-pie="Cinco invitadas al zoom de esa noche" aria-label="Ampliar la captura">
+            <img src="img/otros11.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
+          <figcaption><span class="r">Cinco invitadas al zoom de esa noche</span></figcaption>
+        </figure>
+        <figure class="tst">
+          <button class="lupa" type="button" data-img="img/otros12.jpg" data-pie="Van sumando invitados uno por uno" aria-label="Ampliar la captura">
+            <img src="img/otros12.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
           <figcaption><span class="r">Van sumando invitados uno por uno</span></figcaption>
         </figure>
         <figure class="tst">
-          <img src="img/otros13.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <button class="lupa" type="button" data-img="img/otros13.jpg" data-pie="Otro socio entrado por publicidad" aria-label="Ampliar la captura">
+            <img src="img/otros13.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
           <figcaption><span class="r">Otro socio entrado por publicidad</span></figcaption>
         </figure>
     </div>
   </section>
 
   <section class="page">
-    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Networkers de Liliana Vega · 10</span></div>
-    <h2 class="equipo">Networkers de Liliana Vega</h2>
-
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Networkers de Liliana Vega · 12</span></div>
+    <header class="ficha">
+      <div class="ficha-top">
+        <h2>Networkers de Liliana Vega</h2>
+        <p class="top">Liliana Vega, líder con más de 3.000 personas en su red</p>
+      </div>
+      <div class="cifras-eq"><div><b>10</b><span>networkers con prospectos</span></div><div><b>668</b><span>prospectos generados</span></div></div>
+      <p class="nota">Personas que antes no firmaban a nadie y estaban quemando su lista de contactos, recibiendo prospectos sin saber de marketing, sin grabarse y sin hacer anuncios.</p>
+    </header>
     <div class="muro">
         <figure class="tst">
-          <img src="img/liliana00.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <button class="lupa" type="button" data-img="img/liliana00.jpg" data-pie="Más de 40 personas le escribieron por WhatsApp" aria-label="Ampliar la captura">
+            <img src="img/liliana00.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
           <figcaption><span class="q"><b>Liliana</b></span><span class="r">Más de 40 personas le escribieron por WhatsApp</span></figcaption>
         </figure>
         <figure class="tst">
-          <img src="img/liliana01.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <button class="lupa" type="button" data-img="img/liliana01.jpg" data-pie="10 muy interesados y 3 a punto de pagar" aria-label="Ampliar la captura">
+            <img src="img/liliana01.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
           <figcaption><span class="q"><b>Liliana</b></span><span class="r">10 muy interesados y 3 a punto de pagar</span></figcaption>
         </figure>
     </div>
   </section>
 
   <section class="page">
-    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Networkers de Uni2 Matrix · 11</span></div>
-    <h2 class="equipo">Networkers de Uni2 Matrix</h2>
-
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Networkers de Uni2 Matrix · 13</span></div>
+    <header class="ficha">
+      <div class="ficha-top">
+        <h2>Networkers de Uni2 Matrix</h2>
+        <p class="top">Su red usando el sistema todos los días</p>
+      </div>
+      
+      <p class="nota">Personas que antes no firmaban a nadie y estaban quemando su lista de contactos, recibiendo prospectos sin saber de marketing, sin grabarse y sin hacer anuncios.</p>
+    </header>
     <div class="muro">
         <figure class="tst">
-          <img src="img/uni200.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <button class="lupa" type="button" data-img="img/uni200.jpg" data-pie="5 leads, 2 compraron" aria-label="Ampliar la captura">
+            <img src="img/uni200.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
           <figcaption><span class="r">5 leads, 2 compraron</span></figcaption>
         </figure>
         <figure class="tst">
-          <img src="img/uni201.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <button class="lupa" type="button" data-img="img/uni201.jpg" data-pie="Su primera afiliada con el método" aria-label="Ampliar la captura">
+            <img src="img/uni201.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
           <figcaption><span class="q"><b>Laura</b></span><span class="r">Su primera afiliada con el método</span></figcaption>
         </figure>
     </div>
   </section>
 
   <section class="page">
-    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Networkers de Network Global · 12</span></div>
-    <h2 class="equipo">Networkers de Network Global</h2>
-
-    <div class="muro">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Networkers de Network Global · 14</span></div>
+    <header class="ficha">
+      <div class="ficha-top">
+        <h2>Networkers de Network Global</h2>
+        <p class="top">Su red usando el sistema todos los días</p>
+      </div>
+      
+      <p class="nota">Personas que antes no firmaban a nadie y estaban quemando su lista de contactos, recibiendo prospectos sin saber de marketing, sin grabarse y sin hacer anuncios.</p>
+    </header>
+    <div class="muro c1">
         <figure class="tst">
-          <img src="img/network00.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          <button class="lupa" type="button" data-img="img/network00.jpg" data-pie="“Hoy entraron como 30 leads”" aria-label="Ampliar la captura">
+            <img src="img/network00.jpg" alt="Testimonio por WhatsApp" loading="lazy">
+          </button>
           <figcaption><span class="q"><b>David</b></span><span class="r">“Hoy entraron como 30 leads”</span></figcaption>
         </figure>
     </div>
   </section>
 
   <section class="page soft">
-    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Los números · 13</span></div>
-    <h2 class="equipo">Lo que registra el sistema</h2>
-    <div class="pantallas cuatro">
-      <div>
-        <div class="pantalla">
-          <div class="barra"><i></i><i></i><i></i><span>Panel de Korex · otros networkers</span></div>
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Lo que registra el sistema · 15</span></div>
+    <header class="ficha">
+      <div class="ficha-top">
+        <h2>Lo que registra el sistema</h2>
+        <p class="top">Capturas del panel de Korex, sin retocar</p>
+      </div>
+      <p class="nota">Cada captura es la cuenta real de un equipo: el sistema clasifica solo los prospectos y deja a la vista lo que costó cada uno.</p>
+    </header>
+    <div class="metricas">
+      <article class="metrica">
+        <div class="barra"><i></i><i></i><i></i><span>Otros networkers</span></div>
+        <button class="lupa ancha" type="button" data-img="img/met0.jpg" data-pie="Otros networkers — 1.645 leads en una sola cuenta" aria-label="Ampliar la captura">
           <img src="img/met0.jpg" alt="Captura de métricas del sistema" loading="lazy">
-        </div>
-        <p class="dato">Una cuenta real: <b>1.645 leads</b>, <b>22,23 por día</b> y un coste por lead de <b>1,45 USD</b>.</p>
-      </div>
-      <div>
-        <div class="pantalla">
-          <div class="barra"><i></i><i></i><i></i><span>Panel de Korex · networkers de Essens</span></div>
+        </button>
+        <div class="cifra"><b>1.645</b><span>leads en una sola cuenta</span></div>
+        <p class="dato"><b>22,23 leads por día</b> y un coste por lead de <b>1,45 USD</b>.</p>
+      </article>
+      <article class="metrica">
+        <div class="barra"><i></i><i></i><i></i><span>Networkers de Essens</span></div>
+        <button class="lupa" type="button" data-img="img/met1.jpg" data-pie="Networkers de Essens — 1.309 leads clasificados solos" aria-label="Ampliar la captura">
           <img src="img/met1.jpg" alt="Captura de métricas del sistema" loading="lazy">
-        </div>
-        <p class="dato"><b>1.309 leads</b> clasificados solos: 288 calificados y <b>74 ya entraron</b> al equipo.</p>
-      </div>
-      <div>
-        <div class="pantalla">
-          <div class="barra"><i></i><i></i><i></i><span>Panel de Korex · networkers de JIFU</span></div>
+        </button>
+        <div class="cifra"><b>1.309</b><span>leads clasificados solos</span></div>
+        <p class="dato"><b>288 calificados</b> y <b>74 ya entraron</b> al equipo.</p>
+      </article>
+      <article class="metrica">
+        <div class="barra"><i></i><i></i><i></i><span>Networkers de JIFU</span></div>
+        <button class="lupa" type="button" data-img="img/met2.jpg" data-pie="Networkers de JIFU — 723 leads en el panel" aria-label="Ampliar la captura">
           <img src="img/met2.jpg" alt="Captura de métricas del sistema" loading="lazy">
+        </button>
+        <div class="cifra"><b>723</b><span>leads en el panel</span></div>
+        <p class="dato"><b>160 calificados</b> (22%) esperando la llamada.</p>
+      </article>
+      <article class="metrica resumen">
+        <div class="barra"><i></i><i></i><i></i><span>Todas las cuentas juntas</span></div>
+        <div class="resumen-cuerpo">
+          <div><b>15.672</b><span>prospectos generados</span></div>
+          <div><b>301</b><span>networkers los recibieron</span></div>
+          <div><b>46</b><span>embudos con tráfico</span></div>
         </div>
-        <p class="dato"><b>723 leads</b>, con <b>160 calificados</b> (22%) esperando la llamada.</p>
-      </div>
-      <div>
-        <div class="pantalla">
-          <div class="barra"><i></i><i></i><i></i><span>Analítica del VSL · 7 días</span></div>
-          <img src="img/met3.jpg" alt="Captura de métricas del sistema" loading="lazy">
-        </div>
-        <p class="dato"><b>212 visitas</b> y <b>41 reproducciones</b> del video en una semana.</p>
-      </div>
+        <p class="dato">Lo que lleva registrado el sistema, contando solo los prospectos que entraron por publicidad.</p>
+      </article>
     </div>
     <div class="pg-foot"><span>Capturas del panel, sin retocar</span><span class="tag">MÉTODO KOREX</span></div>
   </section>
 </div>
 
+<div class="visor" id="visor" role="dialog" aria-modal="true" aria-label="Captura ampliada">
+  <button class="cerrar" type="button" aria-label="Cerrar">×</button>
+  <figure><img alt=""><figcaption></figcaption></figure>
+</div>
+
 <script>
-  /* El reproductor se carga recién cuando la página del video se acerca:
-     si arranca con tamaño cero, tira errores de seek en consola. */
+  /* Ampliar cualquier captura con un clic. */
+  (function(){
+    var visor = document.getElementById('visor');
+    var img = visor.querySelector('img');
+    var pie = visor.querySelector('figcaption');
+    var ultimo = null;
+    function abrir(b){
+      ultimo = b;
+      img.src = b.getAttribute('data-img');
+      img.alt = b.getAttribute('data-pie') || '';
+      pie.textContent = b.getAttribute('data-pie') || '';
+      visor.classList.add('abierto');
+      document.body.style.overflow = 'hidden';
+      visor.querySelector('.cerrar').focus();
+    }
+    function cerrar(){
+      visor.classList.remove('abierto');
+      document.body.style.overflow = '';
+      if(ultimo) ultimo.focus();
+    }
+    document.querySelectorAll('.lupa').forEach(function(b){
+      b.addEventListener('click', function(){ abrir(b); });
+    });
+    visor.addEventListener('click', function(e){ if(e.target !== img) cerrar(); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') cerrar(); });
+  })();
+
+  /* El reproductor se carga recien cuando la pagina del video se acerca:
+     si arranca con tamano cero, tira errores de seek en consola. */
   (function(){
     var loaded = false;
     function loadVoomly(){
