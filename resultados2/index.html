@@ -146,6 +146,23 @@
   .metrica .dato { margin: 0; padding: 0 14px 13px; font-size: 12.5px; color: var(--text-mut); line-height: 1.45; }
   .metrica .dato b { color: var(--text); }
 
+  /* ── Coste por prospecto: un renglon por equipo ─────────── */
+  .rank { list-style: none; margin: 0 0 16px; padding: 0; columns: 2; column-gap: 26px; }
+  .rank li {
+    break-inside: avoid; -webkit-column-break-inside: avoid;
+    display: grid; grid-template-columns: 1fr auto; align-items: baseline;
+    column-gap: 10px; padding: 16px 0 17px; border-bottom: 1px solid var(--line);
+  }
+  .rank .eq { font-size: 13.5px; font-weight: 700; color: var(--text); }
+  .rank .val { font-size: 12px; color: var(--text-mut); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .rank .val b { font-size: 17px; font-weight: 800; color: var(--blue); letter-spacing: -.01em; }
+  .rank .riel {
+    grid-column: 1 / -1; order: 3; height: 9px; margin-top: 8px;
+    border-radius: 99px; background: var(--paper-soft2); overflow: hidden;
+  }
+  .rank .riel i { display: block; height: 100%; border-radius: 99px; background: var(--blue); }
+  .rank .det { grid-column: 1 / -1; order: 4; margin-top: 5px; font-size: 10.5px; color: var(--text-mut); font-variant-numeric: tabular-nums; }
+
   /* ── Visor ──────────────────────────────────────────────── */
   .visor {
     position: fixed; inset: 0; z-index: 300; display: none; place-items: center;
@@ -165,6 +182,7 @@
 
   @media (max-width: 860px) {
     .metricas, .metricas.tres, .cifras { grid-template-columns: 1fr 1fr; }
+    .rank { columns: 1; }
     .duo { grid-template-columns: 1fr; }
     .vids { max-width: none; }
     .cifras-eq { grid-auto-flow: row; }
@@ -795,14 +813,117 @@
       </article>
     </div>
       <article class="metrica tira">
-        <div class="barra"><i></i><i></i><i></i><span>Lo que cuesta cada prospecto</span></div>
-        <button class="lupa ancha" type="button" data-img="img/met0.jpg" data-pie="Lo que cuesta cada prospecto — 1.645 leads en una sola cuenta" aria-label="Ampliar la captura">
+        <div class="barra"><i></i><i></i><i></i><span>Así lo muestra el panel</span></div>
+        <button class="lupa ancha" type="button" data-img="img/met0.jpg" data-pie="Así lo muestra el panel — 1,45 USD por prospecto en esa cuenta" aria-label="Ampliar la captura">
           <img src="img/met0.jpg" alt="Captura de métricas del sistema" loading="lazy">
         </button>
-        <div class="cifra"><b>1.645</b><span>leads en una sola cuenta</span></div>
-        <p class="dato"><b>22,23 leads por día</b> y un coste por lead de <b>1,45 USD</b>.</p>
+        <div class="cifra"><b>1,45</b><span>USD por prospecto en esa cuenta</span></div>
+        <p class="dato">El panel calcula solo el coste por prospecto, sin que nadie cargue nada a mano.</p>
       </article>
     <div class="pg-foot"><span>Datos del panel de Korex, solo embudos con video</span><span class="tag">MÉTODO KOREX</span></div>
+  </section>
+
+  <section class="page soft">
+    <div class="pg-head"><span class="mk">MÉTODO <b>KOREX</b></span><span>Lo que cuesta cada prospecto · 18</span></div>
+    <header class="ficha">
+      <div class="ficha-top">
+        <h2>Lo que cuesta cada prospecto</h2>
+        <p class="top">Ningún equipo paga más de 8 USD por prospecto</p>
+      </div>
+      <div class="cifras-eq">
+        <div><b>2,35 USD</b><span>coste promedio por prospecto</span></div>
+        <div><b>0,81 USD</b><span>el equipo que menos paga</span></div>
+        <div><b>22.998 USD</b><span>invertidos en publicidad</span></div>
+      </div>
+      <p class="nota">Lo que cada equipo pagó, de verdad, por cada persona que levantó la mano. Sale del panel de Korex, contando solo los embudos con video.</p>
+    </header>
+      <ol class="rank">
+        <li>
+          <span class="eq">Equipo de Liliana</span>
+          <span class="riel"><i style="width:10.1%"></i></span>
+          <span class="val"><b>0,81</b> USD</span>
+          <span class="det">189 prospectos · 142 USD invertidos</span>
+        </li>
+        <li>
+          <span class="eq">Equipo de Madeleine</span>
+          <span class="riel"><i style="width:14.4%"></i></span>
+          <span class="val"><b>1,15</b> USD</span>
+          <span class="det">737 prospectos · 848 USD invertidos</span>
+        </li>
+        <li>
+          <span class="eq">Equipo de Priscila</span>
+          <span class="riel"><i style="width:17.1%"></i></span>
+          <span class="val"><b>1,37</b> USD</span>
+          <span class="det">248 prospectos · 333 USD invertidos</span>
+        </li>
+        <li>
+          <span class="eq">Equipo de Corina</span>
+          <span class="riel"><i style="width:20.2%"></i></span>
+          <span class="val"><b>1,62</b> USD</span>
+          <span class="det">5.341 prospectos · 5.484 USD invertidos</span>
+        </li>
+        <li>
+          <span class="eq">Otros equipos</span>
+          <span class="riel"><i style="width:21.0%"></i></span>
+          <span class="val"><b>1,68</b> USD</span>
+          <span class="det">1.171 prospectos · 1.173 USD invertidos</span>
+        </li>
+        <li>
+          <span class="eq">Equipo de Elías</span>
+          <span class="riel"><i style="width:21.6%"></i></span>
+          <span class="val"><b>1,73</b> USD</span>
+          <span class="det">259 prospectos · 426 USD invertidos</span>
+        </li>
+        <li>
+          <span class="eq">Equipo Fabiana y Ricardo</span>
+          <span class="riel"><i style="width:24.4%"></i></span>
+          <span class="val"><b>1,95</b> USD</span>
+          <span class="det">203 prospectos · 344 USD invertidos</span>
+        </li>
+        <li>
+          <span class="eq">Equipo de Jose Piquer</span>
+          <span class="riel"><i style="width:29.0%"></i></span>
+          <span class="val"><b>2,32</b> USD</span>
+          <span class="det">530 prospectos · 956 USD invertidos</span>
+        </li>
+        <li>
+          <span class="eq">Equipo de Marta</span>
+          <span class="riel"><i style="width:31.2%"></i></span>
+          <span class="val"><b>2,50</b> USD</span>
+          <span class="det">543 prospectos · 1.099 USD invertidos</span>
+        </li>
+        <li>
+          <span class="eq">Equipo de Mónica</span>
+          <span class="riel"><i style="width:37.8%"></i></span>
+          <span class="val"><b>3,02</b> USD</span>
+          <span class="det">2.664 prospectos · 7.079 USD invertidos</span>
+        </li>
+        <li>
+          <span class="eq">Equipo de Oscar</span>
+          <span class="riel"><i style="width:41.2%"></i></span>
+          <span class="val"><b>3,30</b> USD</span>
+          <span class="det">212 prospectos · 572 USD invertidos</span>
+        </li>
+        <li>
+          <span class="eq">Equipo de Sergio Aldazabal</span>
+          <span class="riel"><i style="width:72.4%"></i></span>
+          <span class="val"><b>5,79</b> USD</span>
+          <span class="det">207 prospectos · 1.117 USD invertidos</span>
+        </li>
+        <li>
+          <span class="eq">Equipo de Sergio Cánovas</span>
+          <span class="riel"><i style="width:77.8%"></i></span>
+          <span class="val"><b>6,22</b> USD</span>
+          <span class="det">687 prospectos · 2.991 USD invertidos</span>
+        </li>
+        <li>
+          <span class="eq">Equipo de José Luis</span>
+          <span class="riel"><i style="width:90.2%"></i></span>
+          <span class="val"><b>7,22</b> USD</span>
+          <span class="det">63 prospectos · 433 USD invertidos</span>
+        </li>
+      </ol>
+    <div class="pg-foot"><span>Escala de 0 a 8 USD por prospecto</span><span class="tag">MÉTODO KOREX</span></div>
   </section>
 </div>
 
