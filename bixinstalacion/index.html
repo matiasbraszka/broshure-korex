@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d0f0a">
+<meta name="description" content="Cómo sacar y usar tu tarjeta BIX en 4 pasos, en historias cortas.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tutorial Tarjeta BIX">
+<meta property="og:description" content="Cómo sacar y usar tu tarjeta BIX en 4 pasos.">
+<meta property="og:url" content="https://info.metodokorex.com/bixinstalacion/">
+<meta property="og:image" content="https://info.metodokorex.com/bixinstalacion/og.jpg">
+<meta name="robots" content="noindex">
+<title>Tutorial Tarjeta BIX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: un visor de historias a pantalla completa en el celular (centrado y con forma de teléfono en la compu).
+   Arriba las barras de los pasos, al medio la pantalla de la app, abajo la instrucción en letra grande. */
+:root {
+  --bg: #070806;
+  --stage: #0d0f0a;
+  --ink: #f2f5ea;
+  --muted: #a3a998;
+  --line: #2b3022;
+  --lime: #cafe5c;
+  --lime-ink: #10140a;
+  --font-display: "Sora", "Segoe UI", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  color-scheme: dark;
+}
+html, body { height: 100%; margin: 0; }
+[hidden] { display: none !important; }
+body {
+  background: var(--bg); color: var(--ink); font: 400 16px/1.45 var(--font-body);
+  display: grid; place-items: center; overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+.stage {
+  position: relative; width: 100%; height: 100%;
+  background: radial-gradient(120% 60% at 0% 0%, #20330a 0%, transparent 60%), var(--stage);
+  display: grid; grid-template-rows: auto minmax(0, 1fr) auto; overflow: hidden;
+  user-select: none; -webkit-user-select: none; touch-action: manipulation;
+}
+@media (min-width: 640px) {
+  body { padding: 16px; }
+  .stage { width: min(430px, 100%); height: min(900px, 100%); border-radius: 28px; border: 1px solid var(--line);
+           box-shadow: 0 30px 80px rgba(0,0,0,.6); }
+}
+
+/* Arriba */
+.top { padding: 12px max(14px, env(safe-area-inset-right, 0px)) 6px max(14px, env(safe-area-inset-left, 0px)); display: grid; gap: 10px; position: relative; z-index: 3; }
+.bars { display: flex; gap: 4px; }
+.bar { flex: 1 1 0; height: 3px; border-radius: 3px; background: rgba(255,255,255,.28); overflow: hidden; }
+.bar i { display: block; height: 100%; width: 0; background: var(--lime); border-radius: inherit; }
+.head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.label { min-width: 0; display: grid; gap: 1px; }
+.label small { font: 600 11px/1.2 var(--font-body); letter-spacing: .12em; text-transform: uppercase; color: var(--lime); }
+.label strong { font: 700 17px/1.2 var(--font-display); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.btns { display: flex; gap: 6px; flex-shrink: 0; }
+.ico {
+  width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); background: rgba(0,0,0,.35);
+  color: var(--ink); display: grid; place-items: center; cursor: pointer; padding: 0;
+}
+.ico svg { width: 18px; height: 18px; }
+.ico:focus-visible, .chip:focus-visible, .row:focus-visible, .cta:focus-visible { outline: 2px solid var(--lime); outline-offset: 2px; }
+
+/* Pantalla */
+.media { position: relative; display: grid; place-items: center; padding: 6px 18px; min-height: 0; }
+.phone {
+  height: 100%; max-height: 100%; aspect-ratio: 540 / 1172; max-width: 100%;
+  border-radius: 22px; overflow: hidden; background: #000; border: 1px solid rgba(202,254,92,.35);
+  box-shadow: 0 18px 50px rgba(0,0,0,.55); position: relative;
+}
+.phone img, .phone video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.phone img.kb { animation: kb 6s ease-out forwards; transform-origin: 50% 40%; }
+.paused .phone img.kb { animation-play-state: paused; }
+@keyframes kb { from { transform: scale(1); } to { transform: scale(1.05); } }
+.pausa {
+  position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; z-index: 2;
+  opacity: 0; transition: opacity .15s;
+}
+.paused .pausa { opacity: 1; }
+.pausa span { width: 72px; height: 72px; border-radius: 50%; background: rgba(0,0,0,.55); display: grid; place-items: center; }
+.pausa svg { width: 28px; height: 28px; }
+
+/* Abajo */
+.cap { padding: 10px max(20px, env(safe-area-inset-right, 0px)) calc(18px + env(safe-area-inset-bottom, 0px)) max(20px, env(safe-area-inset-left, 0px)); min-height: 128px; display: grid; align-content: start; gap: 8px; position: relative; z-index: 3; pointer-events: none; }
+.cap p { margin: 0; font: 700 clamp(20px, 5.6vw, 24px)/1.25 var(--font-display); text-wrap: balance; text-align: center; }
+.cap p b { color: var(--lime); font-weight: 800; }
+.count { text-align: center; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+/* Zonas de toque */
+.tap { position: absolute; inset: 96px 0 0 0; z-index: 1; display: grid; grid-template-columns: 1fr 2fr; }
+.tap div { cursor: pointer; }
+
+/* Ayuda la primera vez */
+.hint {
+  position: absolute; inset: 0; z-index: 6; background: rgba(4,5,3,.86); display: grid; place-items: center;
+  padding: 24px; text-align: center;
+}
+.hint-box { display: grid; gap: 18px; max-width: 300px; }
+.hint h2 { text-align: center; margin: 0; font: 800 26px/1.15 var(--font-display); text-wrap: balance; }
+.hint h2 b { color: var(--lime); }
+.hint ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; text-align: left; }
+.hint li { display: grid; grid-template-columns: 40px 1fr; gap: 12px; align-items: center; font-size: 15px; color: var(--ink); }
+.hint li span { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; font-size: 18px; color: var(--lime); }
+.cta {
+  font: 700 16px/1 var(--font-display); background: var(--lime); color: var(--lime-ink); border: 0;
+  border-radius: 999px; padding: 16px 22px; cursor: pointer;
+}
+.cta.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+
+/* Menú de pasos */
+.sheet { position: absolute; inset: 0; z-index: 7; background: rgba(0,0,0,.6); display: grid; align-items: end; }
+.sheet-in {
+  background: #14170f; border-top: 1px solid var(--line); border-radius: 22px 22px 0 0;
+  padding: 18px max(16px, env(safe-area-inset-right, 0px)) calc(20px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+  display: grid; gap: 10px;
+}
+.sheet-in h3 { margin: 0 0 4px; font: 700 18px/1.2 var(--font-display); }
+.row {
+  display: grid; grid-template-columns: 36px minmax(0,1fr); gap: 12px; align-items: center; text-align: left;
+  background: #1b1f14; border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; color: var(--ink);
+  font: inherit; cursor: pointer;
+}
+.row.on { border-color: var(--lime); }
+.row .n { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: var(--lime); color: var(--lime-ink); font: 800 15px/1 var(--font-display); }
+.row.extra .n { background: transparent; color: var(--lime); border: 1.5px dashed var(--lime); font-size: 12px; }
+.row strong { font: 600 16px/1.25 var(--font-display); display: block; }
+.row small { color: var(--muted); font-size: 13px; }
+
+/* Final */
+.fin { position: absolute; inset: 0; z-index: 5; display: grid; place-items: center; padding: 28px; text-align: center;
+  background: radial-gradient(90% 50% at 50% 30%, #2a4210 0%, transparent 70%), var(--stage); }
+.fin-box { display: grid; gap: 16px; max-width: 320px; }
+.fin-card { width: 150px; height: 94px; margin: 0 auto 4px; border-radius: 12px; background: var(--lime); transform: rotate(-8deg);
+  box-shadow: 0 18px 40px rgba(0,0,0,.5); position: relative; }
+.fin-card::after { content: "BIX"; position: absolute; left: 14px; top: 10px; font: 800 18px/1 var(--font-display); color: var(--lime-ink); }
+.fin-card::before { content: "VISA"; position: absolute; right: 12px; bottom: 10px; font: 800 italic 18px/1 var(--font-display); color: var(--lime-ink); }
+.fin h2 { margin: 0; font: 800 28px/1.15 var(--font-display); text-wrap: balance; }
+.fin h2 b { color: var(--lime); }
+.fin p { margin: 0; color: var(--muted); }
+.fin .acc { display: grid; gap: 10px; margin-top: 6px; }
+.tag-note { font-size: 13px; color: var(--muted); }
+
+@media (prefers-reduced-motion: reduce) { .phone img.kb { animation: none; } .pausa { transition: none; } }
+</style>
+</head>
+<body>
+
+<main class="stage" id="stage" aria-label="Tutorial de la tarjeta BIX en historias">
+  <div class="top">
+    <div class="bars" id="bars"></div>
+    <div class="head">
+      <div class="label"><small id="lbl-paso">Paso 1 de 4</small><strong id="lbl-titulo">Descarga y regístrate</strong></div>
+      <div class="btns">
+        <button class="ico" id="btn-pausa" type="button" aria-label="Pausar">
+          <svg viewBox="0 0 24 24" fill="currentColor" id="svg-pausa"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+        </button>
+        <button class="ico" id="btn-pasos" type="button" aria-label="Ver los pasos">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 7h14M5 12h14M5 17h14"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="media">
+    <div class="phone" id="phone"></div>
+    <div class="pausa" aria-hidden="true"><span><svg viewBox="0 0 24 24" fill="#fff"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg></span></div>
+  </div>
+
+  <div class="cap">
+    <p id="texto" aria-live="polite"></p>
+  </div>
+
+  <div class="tap" id="tap" aria-hidden="true"><div data-dir="-1"></div><div data-dir="1"></div></div>
+
+  <div class="hint" id="hint">
+    <div class="hint-box">
+      <h2>Saca tu <b>tarjeta BIX</b> en 4 pasos</h2>
+      <ul>
+        <li><span>›</span>Toca a la derecha para avanzar</li>
+        <li><span>‹</span>Toca a la izquierda para volver</li>
+        <li><span>❚❚</span>Mantén el dedo apretado para pausar</li>
+      </ul>
+      <button class="cta" id="btn-empezar" type="button">Empezar</button>
+    </div>
+  </div>
+
+  <div class="sheet" id="sheet" hidden>
+    <div class="sheet-in" role="dialog" aria-label="Pasos del tutorial">
+      <h3>Ir a un paso</h3>
+      <div id="sheet-list" style="display:grid;gap:8px"></div>
+      <button class="cta ghost" id="btn-cerrar" type="button">Seguir mirando</button>
+    </div>
+  </div>
+
+  <div class="fin" id="fin" hidden>
+    <div class="fin-box">
+      <div class="fin-card" aria-hidden="true"></div>
+      <h2>¡Listo! Ya puedes pagar donde acepten <b>Visa</b></h2>
+      <p>Si te perdiste algún paso, míralo de nuevo cuando quieras.</p>
+      <div class="acc">
+        <button class="cta" id="btn-tag" type="button">¿Tienes cuenta en TAG? Vincúlala</button>
+        <button class="cta ghost" id="btn-otra" type="button">Ver de nuevo</button>
+      </div>
+      <span class="tag-note" id="tag-note">Si no tienes cuenta en TAG, no necesitas este paso.</span>
+    </div>
+  </div>
+</main>
+
+<script>
+const DATA = {"pasos": [{"n": 1, "titulo": "Descarga y regístrate", "extra": false}, {"n": 2, "titulo": "Verifica tu identidad", "extra": false}, {"n": 3, "titulo": "Carga USDT y crea tu tarjeta", "extra": false}, {"n": 4, "titulo": "Paga con Apple Pay", "extra": false}, {"n": 5, "titulo": "Vincula con TAG", "extra": true}], "historias": [{"paso": 1, "tipo": "imagen", "src": "media/h00.jpg", "dur": 4.0, "texto": "Entra al **link** que te pasaron"}, {"paso": 1, "tipo": "video", "src": "media/h01.mp4", "dur": 3.4, "texto": "Descarga **BixPay** desde la App Store o Google Play"}, {"paso": 1, "tipo": "imagen", "src": "media/h02.jpg", "dur": 3.2, "texto": "Abre la app y toca **Register**"}, {"paso": 1, "tipo": "imagen", "src": "media/h03.jpg", "dur": 3.4, "texto": "Pon tu correo y una contraseña"}, {"paso": 1, "tipo": "imagen", "src": "media/h04.jpg", "dur": 3.4, "texto": "Confirma tu correo con **Verify Account**"}, {"paso": 2, "tipo": "video", "src": "media/h05.mp4", "dur": 3.2, "texto": "En **Cards** toca **Continue Verification**"}, {"paso": 2, "tipo": "video", "src": "media/h06.mp4", "dur": 3.2, "texto": "Toca **Continuar** y acepta"}, {"paso": 2, "tipo": "video", "src": "media/h07.mp4", "dur": 3.2, "texto": "Elige tu país y tu documento"}, {"paso": 2, "tipo": "imagen", "src": "media/h08.jpg", "dur": 3.4, "texto": "Saca foto al **frente** y al **dorso** del documento"}, {"paso": 2, "tipo": "imagen", "src": "media/h09.jpg", "dur": 3.4, "texto": "Hazte la **selfie** dentro del círculo"}, {"paso": 2, "tipo": "video", "src": "media/h10.mp4", "dur": 3.2, "texto": "Sube un **comprobante de domicilio**: factura o resumen del banco"}, {"paso": 2, "tipo": "video", "src": "media/h11.mp4", "dur": 3.2, "texto": "Espera que se cargue y toca **Continuar**"}, {"paso": 2, "tipo": "imagen", "src": "media/h12.jpg", "dur": 3.4, "texto": "Completa tus datos personales"}, {"paso": 2, "tipo": "imagen", "src": "media/h13.jpg", "dur": 3.4, "texto": "Responde las preguntas que siguen"}, {"paso": 2, "tipo": "imagen", "src": "media/h14.jpg", "dur": 3.2, "texto": "¡Verificación **completada**! Puede tardar unos minutos"}, {"paso": 3, "tipo": "imagen", "src": "media/h15.jpg", "dur": 3.4, "texto": "En **Wallet** toca **Deposit** y elige **USDT**"}, {"paso": 3, "tipo": "imagen", "src": "media/h16.jpg", "dur": 3.4, "texto": "Elige la red. En el ejemplo: **BNB Smart Chain**"}, {"paso": 3, "tipo": "imagen", "src": "media/h17.jpg", "dur": 4.0, "texto": "Copia tu dirección y envía USDT desde tu exchange. **Revisa bien la red**"}, {"paso": 3, "tipo": "imagen", "src": "media/h18.jpg", "dur": 3.2, "texto": "Cuando llega, lo ves en tu saldo"}, {"paso": 3, "tipo": "imagen", "src": "media/h19.jpg", "dur": 3.4, "texto": "En **Cards** toca **Create Card** (9,99 USDT)"}, {"paso": 3, "tipo": "video", "src": "media/h20.mp4", "dur": 3.23, "texto": "Ponle un nombre y toca **Pay**"}, {"paso": 3, "tipo": "imagen", "src": "media/h21.jpg", "dur": 3.6, "texto": "¡Tu tarjeta **Visa** está lista!"}, {"paso": 4, "tipo": "imagen", "src": "media/h22.jpg", "dur": 3.4, "texto": "En **Card Info** están los datos de tu tarjeta"}, {"paso": 4, "tipo": "imagen", "src": "media/h23.jpg", "dur": 3.4, "texto": "En la app **Wallet** del iPhone toca **+**"}, {"paso": 4, "tipo": "imagen", "src": "media/h24.jpg", "dur": 3.2, "texto": "Elige **Enter Card Details Manually**"}, {"paso": 4, "tipo": "imagen", "src": "media/h25.jpg", "dur": 3.2, "texto": "Carga los datos de tu tarjeta"}, {"paso": 4, "tipo": "imagen", "src": "media/h26.jpg", "dur": 3.6, "texto": "¡Lista para pagar con **Apple Pay**!"}, {"paso": 5, "tipo": "video", "src": "media/h27.mp4", "dur": 3.3, "texto": "En BixPay ve a **Settings → Scan QR**"}, {"paso": 5, "tipo": "video", "src": "media/h28.mp4", "dur": 3.3, "texto": "En TAG entra a **Profile → BIX Wallets → Register** y escanea el QR"}, {"paso": 5, "tipo": "video", "src": "media/h29.mp4", "dur": 3.2, "texto": "Toca **Approve** y quedan vinculadas"}]};
+const H = DATA.historias;
+const PASOS = DATA.pasos;
+const $ = id => document.getElementById(id);
+const stage = $("stage"), phone = $("phone");
+let idx = 0, t0 = 0, elapsed = 0, paused = true, raf = 0, holdTimer = 0, held = false, finShown = false;
+
+// barritas tipo historia: una por pantalla del paso actual (como las historias de una cuenta)
+let barEls = [], barPaso = 0;
+function armarBarras(paso) {
+  if (paso === barPaso) return;
+  barPaso = paso; $("bars").innerHTML = "";
+  barEls = delPaso(paso).map(() => {
+    const b = document.createElement("div"); b.className = "bar"; b.innerHTML = "<i></i>";
+    $("bars").appendChild(b); return b.firstChild;
+  });
+}
+const delPaso = n => H.map((h, i) => [h, i]).filter(([h]) => h.paso === n).map(([, i]) => i);
+const primero = n => delPaso(n)[0];
+const ultimoPrincipal = Math.max(...delPaso(4));
+
+function esc(s) { return s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
+function rico(s) { return esc(s).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>"); }
+
+function pintarBarras(frac) {
+  armarBarras(H[idx].paso);
+  const k = delPaso(H[idx].paso).indexOf(idx);
+  barEls.forEach((el, j) => { el.style.width = (j < k ? 100 : j > k ? 0 : frac * 100).toFixed(2) + "%"; });
+}
+
+function mostrar(i) {
+  idx = Math.max(0, Math.min(H.length - 1, i));
+  const h = H[idx], p = PASOS.find(x => x.n === h.paso);
+  $("lbl-paso").textContent = p.extra ? "Extra · solo si tienes cuenta en TAG" : `Paso ${p.n} de 4`;
+  $("lbl-titulo").textContent = p.titulo;
+  $("texto").innerHTML = rico(h.texto);
+  phone.innerHTML = "";
+  if (h.tipo === "video") {
+    const v = document.createElement("video");
+    v.src = h.src; v.muted = true; v.playsInline = true; v.setAttribute("playsinline", ""); v.preload = "auto";
+    phone.appendChild(v);
+    if (!paused) v.play().catch(() => {});
+  } else {
+    const im = document.createElement("img");
+    im.src = h.src; im.alt = ""; im.className = "kb"; im.style.animationDuration = h.dur + "s";
+    phone.appendChild(im);
+  }
+  // precargar la siguiente
+  const nx = H[idx + 1];
+  if (nx && nx.tipo === "imagen") { const pre = new Image(); pre.src = nx.src; }
+  elapsed = 0; t0 = performance.now();
+  pintarBarras(0);
+}
+
+function tick(now) {
+  if (!paused) {
+    const tot = elapsed + (now - t0) / 1000, dur = H[idx].dur;
+    pintarBarras(Math.min(tot / dur, 1));
+    if (tot >= dur) { siguiente(); }
+  }
+  raf = requestAnimationFrame(tick);
+}
+
+function siguiente() {
+  if (idx === ultimoPrincipal || idx === H.length - 1) { terminar(); return; }
+  mostrar(idx + 1);
+}
+function anterior() {
+  if (finShown) { ocultarFin(); return; }
+  mostrar(elapsedNow() > 1.2 ? idx : idx - 1);
+}
+function elapsedNow() { return paused ? elapsed : elapsed + (performance.now() - t0) / 1000; }
+
+function pausar() {
+  if (paused) return;
+  elapsed = elapsedNow(); paused = true; stage.classList.add("paused");
+  const v = phone.querySelector("video"); if (v) v.pause();
+  $("btn-pausa").setAttribute("aria-label", "Seguir");
+  $("svg-pausa").innerHTML = '<path d="M8 5v14l11-7z"/>';
+}
+function seguir() {
+  if (!paused || finShown || !$("hint").hidden || !$("sheet").hidden) return;
+  paused = false; t0 = performance.now(); stage.classList.remove("paused");
+  const v = phone.querySelector("video"); if (v && !v.ended) v.play().catch(() => {});
+  $("btn-pausa").setAttribute("aria-label", "Pausar");
+  $("svg-pausa").innerHTML = '<rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/>';
+}
+
+function terminar() {
+  pausar(); stage.classList.remove("paused"); finShown = true; $("fin").hidden = false;
+  const enExtra = H[idx].paso === 5;
+  $("btn-tag").hidden = enExtra; $("tag-note").hidden = enExtra;
+  pintarBarras(1);
+}
+function ocultarFin() { finShown = false; $("fin").hidden = true; }
+
+// toques: tocar = avanzar/volver, mantener = pausar
+$("tap").addEventListener("pointerdown", e => {
+  held = false;
+  holdTimer = setTimeout(() => { held = true; pausar(); }, 220);
+});
+$("tap").addEventListener("pointerup", e => {
+  clearTimeout(holdTimer);
+  if (held) { held = false; seguir(); return; }
+  const dir = Number(e.target.dataset.dir || 1);
+  dir < 0 ? anterior() : siguiente();
+});
+$("tap").addEventListener("pointercancel", () => { clearTimeout(holdTimer); if (held) { held = false; seguir(); } });
+$("tap").addEventListener("contextmenu", e => e.preventDefault());
+
+$("btn-pausa").addEventListener("click", () => paused ? seguir() : pausar());
+$("btn-empezar").addEventListener("click", () => {
+  $("hint").hidden = true;
+  try { localStorage.setItem("bix-tuto-visto", "1"); } catch (e) {}
+  mostrar(0); seguir();
+});
+
+function abrirPasos() {
+  pausar();
+  const list = $("sheet-list"); list.innerHTML = "";
+  PASOS.forEach(p => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "row" + (p.extra ? " extra" : "") + (H[idx].paso === p.n && !finShown ? " on" : "");
+    const sub = p.extra ? "Solo si tienes cuenta en TAG" : H[primero(p.n)].texto.replace(/\*\*/g, "");
+    b.innerHTML = `<span class="n">${p.extra ? "TAG" : p.n}</span><span><strong>${esc(p.titulo)}</strong><small>${esc(sub)}</small></span>`;
+    b.addEventListener("click", () => { $("sheet").hidden = true; ocultarFin(); mostrar(primero(p.n)); seguir(); });
+    list.appendChild(b);
+  });
+  $("sheet").hidden = false;
+}
+$("btn-pasos").addEventListener("click", abrirPasos);
+$("btn-cerrar").addEventListener("click", () => { $("sheet").hidden = true; seguir(); });
+$("sheet").addEventListener("click", e => { if (e.target.id === "sheet") { $("sheet").hidden = true; seguir(); } });
+$("btn-tag").addEventListener("click", () => { ocultarFin(); mostrar(primero(5)); seguir(); });
+$("btn-otra").addEventListener("click", () => { ocultarFin(); mostrar(0); seguir(); });
+
+document.addEventListener("keydown", e => {
+  if (e.key === "ArrowRight") siguiente();
+  else if (e.key === "ArrowLeft") anterior();
+  else if (e.key === " ") { e.preventDefault(); paused ? seguir() : pausar(); }
+});
+document.addEventListener("visibilitychange", () => { if (document.hidden) pausar(); });
+
+// arranque: se ve la primera pantalla detrás de la ayuda
+mostrar(0);
+let visto = false;
+try { visto = localStorage.getItem("bix-tuto-visto") === "1"; } catch (e) {}
+if (visto) { $("hint").hidden = true; seguir(); }
+raf = requestAnimationFrame(tick);
+</script>
+
+</body>
+</html>
