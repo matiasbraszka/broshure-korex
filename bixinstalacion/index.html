@@ -76,6 +76,16 @@ body {
 .phone img.kb { animation: kb 6s ease-out forwards; transform-origin: 50% 40%; }
 .paused .phone img.kb { animation-play-state: paused; }
 @keyframes kb { from { transform: scale(1); } to { transform: scale(1.05); } }
+.nav {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 4;
+  width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--line); background: rgba(0,0,0,.45);
+  color: var(--ink); display: grid; place-items: center; cursor: pointer; padding: 0;
+}
+.nav svg { width: 16px; height: 16px; }
+.nav.prev { left: max(4px, env(safe-area-inset-left, 0px)); }
+.nav.next { right: max(4px, env(safe-area-inset-right, 0px)); }
+.nav:focus-visible { outline: 2px solid var(--lime); outline-offset: 2px; }
+.phone { cursor: pointer; }
 .pausa {
   position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; z-index: 2;
   opacity: 0; transition: opacity .15s;
@@ -166,7 +176,9 @@ body {
   </div>
 
   <div class="media">
+    <button class="nav prev" id="btn-prev" type="button" aria-label="Pantalla anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
     <div class="phone" id="phone"></div>
+    <button class="nav next" id="btn-next" type="button" aria-label="Pantalla siguiente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
     <div class="pausa" aria-hidden="true"><span><svg viewBox="0 0 24 24" fill="#fff"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg></span></div>
   </div>
 
@@ -180,9 +192,9 @@ body {
     <div class="hint-box">
       <h2>Saca tu <b>tarjeta BIX</b> en 4 pasos</h2>
       <ul>
+        <li><span>❚❚</span>Toca la imagen para pausar y otra vez para seguir</li>
         <li><span>›</span>Toca a la derecha para avanzar</li>
         <li><span>‹</span>Toca a la izquierda para volver</li>
-        <li><span>❚❚</span>Mantén el dedo apretado para pausar</li>
       </ul>
       <button class="cta" id="btn-empezar" type="button">Empezar</button>
     </div>
@@ -315,12 +327,18 @@ $("tap").addEventListener("pointerdown", e => {
 $("tap").addEventListener("pointerup", e => {
   clearTimeout(holdTimer);
   if (held) { held = false; seguir(); return; }
+  const r = phone.getBoundingClientRect();
+  if (e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom) {
+    paused ? seguir() : pausar(); return;
+  }
   const dir = Number(e.target.dataset.dir || 1);
   dir < 0 ? anterior() : siguiente();
 });
 $("tap").addEventListener("pointercancel", () => { clearTimeout(holdTimer); if (held) { held = false; seguir(); } });
 $("tap").addEventListener("contextmenu", e => e.preventDefault());
 
+$("btn-prev").addEventListener("click", () => anterior());
+$("btn-next").addEventListener("click", () => siguiente());
 $("btn-pausa").addEventListener("click", () => paused ? seguir() : pausar());
 $("btn-empezar").addEventListener("click", () => {
   $("hint").hidden = true;
