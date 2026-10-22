@@ -86,6 +86,11 @@ body {
 .nav.next { right: max(4px, env(safe-area-inset-right, 0px)); }
 .nav:focus-visible { outline: 2px solid var(--lime); outline-offset: 2px; }
 .phone { cursor: pointer; }
+.sonido {
+  position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%); z-index: 5;
+  font: 700 15px/1 var(--font-display); background: var(--lime); color: var(--lime-ink);
+  border: 0; border-radius: 999px; padding: 12px 18px; cursor: pointer;
+}
 .pausa {
   position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; z-index: 2;
   opacity: 0; transition: opacity .15s;
@@ -179,6 +184,7 @@ body {
     <button class="nav prev" id="btn-prev" type="button" aria-label="Pantalla anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
     <div class="phone" id="phone"></div>
     <button class="nav next" id="btn-next" type="button" aria-label="Pantalla siguiente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+    <button class="sonido" id="btn-sonido" type="button" hidden>Activar sonido</button>
     <div class="pausa" aria-hidden="true"><span><svg viewBox="0 0 24 24" fill="#fff"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg></span></div>
   </div>
 
@@ -223,7 +229,7 @@ body {
 </main>
 
 <script>
-const DATA = {"pasos": [{"n": 1, "titulo": "Descarga y regístrate", "extra": false}, {"n": 2, "titulo": "Verifica tu identidad", "extra": false}, {"n": 3, "titulo": "Carga USDT y crea tu tarjeta", "extra": false}, {"n": 4, "titulo": "Paga con el celular", "extra": false}, {"n": 5, "titulo": "Vincula con TAG", "extra": true}], "historias": [{"paso": 1, "tipo": "imagen", "src": "media/h00.jpg", "dur": 4.0, "texto": "Entra al **link** que te pasaron"}, {"paso": 1, "tipo": "video", "src": "media/h01.mp4", "dur": 3.4, "texto": "Descarga **BixPay** desde la App Store o Google Play"}, {"paso": 1, "tipo": "imagen", "src": "media/h02.jpg", "dur": 3.2, "texto": "Abre la app y toca **Register**"}, {"paso": 1, "tipo": "imagen", "src": "media/h03.jpg", "dur": 3.4, "texto": "Pon tu correo y una contraseña"}, {"paso": 1, "tipo": "imagen", "src": "media/h04.jpg", "dur": 3.4, "texto": "Confirma tu correo con **Verify Account**"}, {"paso": 2, "tipo": "video", "src": "media/h05.mp4", "dur": 3.2, "texto": "En **Cards** toca **Continue Verification**"}, {"paso": 2, "tipo": "video", "src": "media/h06.mp4", "dur": 3.2, "texto": "Toca **Continuar** y acepta"}, {"paso": 2, "tipo": "video", "src": "media/h07.mp4", "dur": 3.2, "texto": "Elige tu país y tu documento"}, {"paso": 2, "tipo": "imagen", "src": "media/h08.jpg", "dur": 3.4, "texto": "Saca foto al **frente** y al **dorso** del documento"}, {"paso": 2, "tipo": "imagen", "src": "media/h09.jpg", "dur": 3.4, "texto": "Hazte la **selfie** dentro del círculo"}, {"paso": 2, "tipo": "video", "src": "media/h10.mp4", "dur": 3.2, "texto": "Sube un **comprobante de domicilio**: factura o resumen del banco"}, {"paso": 2, "tipo": "video", "src": "media/h11.mp4", "dur": 3.2, "texto": "Espera que se cargue y toca **Continuar**"}, {"paso": 2, "tipo": "imagen", "src": "media/h12.jpg", "dur": 3.4, "texto": "Completa tus datos personales"}, {"paso": 2, "tipo": "imagen", "src": "media/h13.jpg", "dur": 3.4, "texto": "Responde las preguntas que siguen"}, {"paso": 2, "tipo": "imagen", "src": "media/h14.jpg", "dur": 3.2, "texto": "¡Verificación **completada**! Puede tardar unos minutos"}, {"paso": 3, "tipo": "imagen", "src": "media/h15.jpg", "dur": 3.4, "texto": "En **Wallet** toca **Deposit** y elige **USDT**"}, {"paso": 3, "tipo": "imagen", "src": "media/h16.jpg", "dur": 3.4, "texto": "Elige la red. En el ejemplo: **BNB Smart Chain**"}, {"paso": 3, "tipo": "imagen", "src": "media/h17.jpg", "dur": 4.0, "texto": "Copia tu dirección y envía USDT desde tu exchange. **Revisa bien la red**"}, {"paso": 3, "tipo": "imagen", "src": "media/h18.jpg", "dur": 3.2, "texto": "Cuando llega, lo ves en tu saldo"}, {"paso": 3, "tipo": "imagen", "src": "media/h19.jpg", "dur": 3.4, "texto": "En **Cards** toca **Create Card** (9,99 USDT)"}, {"paso": 3, "tipo": "video", "src": "media/h20.mp4", "dur": 3.23, "texto": "Ponle un nombre y toca **Pay**"}, {"paso": 3, "tipo": "imagen", "src": "media/h21.jpg", "dur": 3.6, "texto": "¡Tu tarjeta **Visa** está lista!"}, {"paso": 4, "tipo": "imagen", "src": "media/h22.jpg", "dur": 4.0, "texto": "Súmala a **Apple Pay** o **Google Pay** y paga con el celular en el súper, hoteles, vuelos o suscripciones"}, {"paso": 4, "tipo": "imagen", "src": "media/h23.jpg", "dur": 3.4, "texto": "En **Card Info** están los datos de tu tarjeta"}, {"paso": 4, "tipo": "imagen", "src": "media/h24.jpg", "dur": 3.4, "texto": "En la app **Wallet** del iPhone toca **+**"}, {"paso": 4, "tipo": "imagen", "src": "media/h25.jpg", "dur": 3.2, "texto": "Elige **Enter Card Details Manually**"}, {"paso": 4, "tipo": "imagen", "src": "media/h26.jpg", "dur": 3.2, "texto": "Carga los datos de tu tarjeta"}, {"paso": 4, "tipo": "imagen", "src": "media/h27.jpg", "dur": 4.2, "texto": "¿Tienes Android? Abre **Google Wallet**, toca **Agregar a Wallet** y carga los datos de tu tarjeta"}, {"paso": 4, "tipo": "imagen", "src": "media/h28.jpg", "dur": 4.2, "texto": "Acerca el celular al lector y paga. Funciona con **NFC**: casi todos los celulares 2025 y 2026 lo tienen"}, {"paso": 5, "tipo": "video", "src": "media/h29.mp4", "dur": 3.3, "texto": "En BixPay ve a **Settings → Scan QR**"}, {"paso": 5, "tipo": "video", "src": "media/h30.mp4", "dur": 3.3, "texto": "En TAG entra a **Profile → BIX Wallets → Register** y escanea el QR"}, {"paso": 5, "tipo": "video", "src": "media/h31.mp4", "dur": 3.2, "texto": "Toca **Approve** y quedan vinculadas"}]};
+const DATA = {"pasos": [{"n": 1, "titulo": "Descarga y regístrate", "extra": false, "final": false}, {"n": 2, "titulo": "Verifica tu identidad", "extra": false, "final": false}, {"n": 3, "titulo": "Carga USDT y crea tu tarjeta", "extra": false, "final": false}, {"n": 4, "titulo": "Paga con el celular", "extra": false, "final": false}, {"n": 6, "titulo": "Mira una compra real", "extra": false, "final": true}, {"n": 5, "titulo": "Vincula con TAG", "extra": true, "final": false}], "historias": [{"paso": 1, "tipo": "imagen", "src": "media/h00.jpg", "dur": 4.0, "texto": "Entra al **link** que te pasaron"}, {"paso": 1, "tipo": "video", "src": "media/h01.mp4", "dur": 3.4, "texto": "Descarga **BixPay** desde la App Store o Google Play"}, {"paso": 1, "tipo": "imagen", "src": "media/h02.jpg", "dur": 3.2, "texto": "Abre la app y toca **Register**"}, {"paso": 1, "tipo": "imagen", "src": "media/h03.jpg", "dur": 3.4, "texto": "Pon tu correo y una contraseña"}, {"paso": 1, "tipo": "imagen", "src": "media/h04.jpg", "dur": 3.4, "texto": "Confirma tu correo con **Verify Account**"}, {"paso": 2, "tipo": "video", "src": "media/h05.mp4", "dur": 3.2, "texto": "En **Cards** toca **Continue Verification**"}, {"paso": 2, "tipo": "video", "src": "media/h06.mp4", "dur": 3.2, "texto": "Toca **Continuar** y acepta"}, {"paso": 2, "tipo": "video", "src": "media/h07.mp4", "dur": 3.2, "texto": "Elige tu país y tu documento"}, {"paso": 2, "tipo": "imagen", "src": "media/h08.jpg", "dur": 3.4, "texto": "Saca foto al **frente** y al **dorso** del documento"}, {"paso": 2, "tipo": "imagen", "src": "media/h09.jpg", "dur": 3.4, "texto": "Hazte la **selfie** dentro del círculo"}, {"paso": 2, "tipo": "video", "src": "media/h10.mp4", "dur": 3.2, "texto": "Sube un **comprobante de domicilio**: factura o resumen del banco"}, {"paso": 2, "tipo": "video", "src": "media/h11.mp4", "dur": 3.2, "texto": "Espera que se cargue y toca **Continuar**"}, {"paso": 2, "tipo": "imagen", "src": "media/h12.jpg", "dur": 3.4, "texto": "Completa tus datos personales"}, {"paso": 2, "tipo": "imagen", "src": "media/h13.jpg", "dur": 3.4, "texto": "Responde las preguntas que siguen"}, {"paso": 2, "tipo": "imagen", "src": "media/h14.jpg", "dur": 3.2, "texto": "¡Verificación **completada**! Puede tardar unos minutos"}, {"paso": 3, "tipo": "imagen", "src": "media/h15.jpg", "dur": 3.4, "texto": "En **Wallet** toca **Deposit** y elige **USDT**"}, {"paso": 3, "tipo": "imagen", "src": "media/h16.jpg", "dur": 3.4, "texto": "Elige la red. En el ejemplo: **BNB Smart Chain**"}, {"paso": 3, "tipo": "imagen", "src": "media/h17.jpg", "dur": 4.0, "texto": "Copia tu dirección y envía USDT desde tu exchange. **Revisa bien la red**"}, {"paso": 3, "tipo": "imagen", "src": "media/h18.jpg", "dur": 3.2, "texto": "Cuando llega, lo ves en tu saldo"}, {"paso": 3, "tipo": "imagen", "src": "media/h19.jpg", "dur": 3.4, "texto": "En **Cards** toca **Create Card** (9,99 USDT)"}, {"paso": 3, "tipo": "video", "src": "media/h20.mp4", "dur": 3.23, "texto": "Ponle un nombre y toca **Pay**"}, {"paso": 3, "tipo": "imagen", "src": "media/h21.jpg", "dur": 3.6, "texto": "¡Tu tarjeta **Visa** está lista!"}, {"paso": 4, "tipo": "imagen", "src": "media/h22.jpg", "dur": 4.0, "texto": "Súmala a **Apple Pay** o **Google Pay** y paga con el celular en el súper, hoteles, vuelos o suscripciones"}, {"paso": 4, "tipo": "imagen", "src": "media/h23.jpg", "dur": 3.4, "texto": "En **Card Info** están los datos de tu tarjeta"}, {"paso": 4, "tipo": "imagen", "src": "media/h24.jpg", "dur": 3.4, "texto": "En la app **Wallet** del iPhone toca **+**"}, {"paso": 4, "tipo": "imagen", "src": "media/h25.jpg", "dur": 3.2, "texto": "Elige **Enter Card Details Manually**"}, {"paso": 4, "tipo": "imagen", "src": "media/h26.jpg", "dur": 3.2, "texto": "Carga los datos de tu tarjeta"}, {"paso": 4, "tipo": "imagen", "src": "media/h27.jpg", "dur": 4.2, "texto": "¿Tienes Android? Abre **Google Wallet**, toca **Agregar a Wallet** y carga los datos de tu tarjeta"}, {"paso": 4, "tipo": "imagen", "src": "media/h28.jpg", "dur": 4.2, "texto": "Acerca el celular al lector y paga. Funciona con **NFC**: casi todos los celulares 2025 y 2026 lo tienen"}, {"paso": 6, "tipo": "video", "src": "media/h29.mp4", "dur": 40.5, "texto": "Mira una **compra real** online: se confirma en la app y listo", "sonido": true, "sigue_video": true, "ajuste": "contain"}, {"paso": 5, "tipo": "video", "src": "media/h30.mp4", "dur": 3.3, "texto": "En BixPay ve a **Settings → Scan QR**"}, {"paso": 5, "tipo": "video", "src": "media/h31.mp4", "dur": 3.3, "texto": "En TAG entra a **Profile → BIX Wallets → Register** y escanea el QR"}, {"paso": 5, "tipo": "video", "src": "media/h32.mp4", "dur": 3.2, "texto": "Toca **Approve** y quedan vinculadas"}]};
 const H = DATA.historias;
 const PASOS = DATA.pasos;
 const $ = id => document.getElementById(id);
@@ -242,7 +248,8 @@ function armarBarras(paso) {
 }
 const delPaso = n => H.map((h, i) => [h, i]).filter(([h]) => h.paso === n).map(([, i]) => i);
 const primero = n => delPaso(n)[0];
-const ultimoPrincipal = Math.max(...delPaso(4));
+const esExtra = n => PASOS.find(p => p.n === n).extra;
+const ultimoPrincipal = Math.max(...H.map((h, i) => esExtra(h.paso) ? -1 : i));
 
 function esc(s) { return s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
 function rico(s) { return esc(s).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>"); }
@@ -256,15 +263,20 @@ function pintarBarras(frac) {
 function mostrar(i) {
   idx = Math.max(0, Math.min(H.length - 1, i));
   const h = H[idx], p = PASOS.find(x => x.n === h.paso);
-  $("lbl-paso").textContent = p.extra ? "Extra · solo si tienes cuenta en TAG" : `Paso ${p.n} de 4`;
+  $("lbl-paso").textContent = p.extra ? "Extra · solo si tienes cuenta en TAG" : p.final ? "Para terminar" : `Paso ${p.n} de 4`;
+  $("btn-sonido").hidden = true;
   $("lbl-titulo").textContent = p.titulo;
   $("texto").innerHTML = rico(h.texto);
   phone.innerHTML = "";
   if (h.tipo === "video") {
     const v = document.createElement("video");
-    v.src = h.src; v.muted = true; v.playsInline = true; v.setAttribute("playsinline", ""); v.preload = "auto";
+    v.src = h.src; v.muted = !h.sonido; v.playsInline = true; v.setAttribute("playsinline", ""); v.preload = "auto";
+    if (h.ajuste) v.style.objectFit = h.ajuste;
     phone.appendChild(v);
-    if (!paused) v.play().catch(() => {});
+    if (!paused) v.play().catch(() => {
+      // el celular no dejó arrancar con sonido: arranca muda y ofrece activarlo
+      if (h.sonido) { v.muted = true; $("btn-sonido").hidden = false; v.play().catch(() => {}); }
+    });
   } else {
     const im = document.createElement("img");
     im.src = h.src; im.alt = ""; im.className = "kb"; im.style.animationDuration = h.dur + "s";
@@ -279,9 +291,17 @@ function mostrar(i) {
 
 function tick(now) {
   if (!paused) {
-    const tot = elapsed + (now - t0) / 1000, dur = H[idx].dur;
-    pintarBarras(Math.min(tot / dur, 1));
-    if (tot >= dur) { siguiente(); }
+    const v = phone.querySelector("video");
+    if (H[idx].sigue_video && v) {
+      // la barrita sigue al video (si se traba cargando, no se adelanta)
+      if (v.duration) pintarBarras(Math.min(v.currentTime / v.duration, 1));
+      const tot = elapsed + (now - t0) / 1000;
+      if (v.ended || tot >= H[idx].dur + 8) siguiente();   // seguro: si no carga, no queda trabada
+    } else {
+      const tot = elapsed + (now - t0) / 1000, dur = H[idx].dur;
+      pintarBarras(Math.min(tot / dur, 1));
+      if (tot >= dur) { siguiente(); }
+    }
   }
   raf = requestAnimationFrame(tick);
 }
@@ -337,6 +357,10 @@ $("tap").addEventListener("pointerup", e => {
 $("tap").addEventListener("pointercancel", () => { clearTimeout(holdTimer); if (held) { held = false; seguir(); } });
 $("tap").addEventListener("contextmenu", e => e.preventDefault());
 
+$("btn-sonido").addEventListener("click", () => {
+  const v = phone.querySelector("video"); if (v) { v.muted = false; v.play().catch(() => {}); }
+  $("btn-sonido").hidden = true;
+});
 $("btn-prev").addEventListener("click", () => anterior());
 $("btn-next").addEventListener("click", () => siguiente());
 $("btn-pausa").addEventListener("click", () => paused ? seguir() : pausar());
@@ -353,7 +377,7 @@ function abrirPasos() {
     const b = document.createElement("button");
     b.type = "button"; b.className = "row" + (p.extra ? " extra" : "") + (H[idx].paso === p.n && !finShown ? " on" : "");
     const sub = p.extra ? "Solo si tienes cuenta en TAG" : H[primero(p.n)].texto.replace(/\*\*/g, "");
-    b.innerHTML = `<span class="n">${p.extra ? "TAG" : p.n}</span><span><strong>${esc(p.titulo)}</strong><small>${esc(sub)}</small></span>`;
+    b.innerHTML = `<span class="n">${p.extra ? "TAG" : p.final ? "▶" : p.n}</span><span><strong>${esc(p.titulo)}</strong><small>${esc(sub)}</small></span>`;
     b.addEventListener("click", () => { $("sheet").hidden = true; ocultarFin(); mostrar(primero(p.n)); seguir(); });
     list.appendChild(b);
   });
