@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<meta name="description" content="Simulador del plan de comisiones de la tarjeta BIX: mueve los números y mira cuánto podría generar tu red cada mes.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Simulador BIX — ¿Cuánto podría generar tu red?">
+<meta property="og:description" content="Mueve las personas de cada nivel y mira cuánto podría generar tu red cada mes.">
+<meta property="og:url" content="https://info.metodokorex.com/bixsimulador/">
+<meta name="robots" content="noindex">
+<title>Simulador BIX — ¿Cuánto podría generar tu red?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+/* Simulador del plan de comisiones de BIX. Mismo lenguaje visual que la landing
+   «BIX para comunidades»: negro, verde lima y Geist. */
+:root {
+  --bg: #000; --bg-2: #07080A; --panel: #0E0F12; --panel-2: #15171B;
+  --line: rgba(255,255,255,.08); --line-2: rgba(255,255,255,.14);
+  --ink: #F4F5F0; --muted: #A3A1AE; --soft: #CBCAD3;
+  --lima: #CAFE5C; --lima-ink: #020202; --lima-soft: rgba(202,254,92,.08); --lima-borde: rgba(202,254,92,.22);
+  --f: "Geist", ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+  --mono: "Geist Mono", ui-monospace, Consolas, monospace;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); }
+body { color: var(--ink); font: 16px/1.55 var(--f); -webkit-font-smoothing: antialiased; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 2px solid var(--lima); outline-offset: 3px; }
+h1, h2, h3, p { margin: 0; }
+.in { max-width: 920px; margin: 0 auto; padding-inline: 20px; }
+
+.nav { border-bottom: 1px solid var(--line); }
+.nav .in { display: flex; align-items: center; min-height: 72px; }
+.alianza { display: flex; align-items: center; gap: 12px; }
+.alianza img { display: block; height: 22px; width: auto; }
+.alianza .k { height: 24px; }
+.alianza .x { color: var(--muted); font-size: 14px; }
+
+.hero { padding: 64px 0 28px; text-align: center; background: radial-gradient(60% 50% at 50% 0%, rgba(202,254,92,.10), transparent 70%); }
+.ey { display: inline-flex; align-items: center; gap: 8px; font: 500 13px/1.2 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--soft); }
+.ey::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--lima); box-shadow: 0 0 10px var(--lima); }
+h1 { margin-top: 18px; font-size: clamp(32px, 6vw, 56px); font-weight: 500; letter-spacing: -.035em; line-height: 1.06; text-wrap: balance; }
+.lima { color: var(--lima); }
+.bajada { margin: 18px auto 0; max-width: 56ch; color: var(--muted); font-size: clamp(16px, 2vw, 18.5px); }
+
+.caja { margin-top: 20px; border: 1px solid var(--line-2); border-radius: 24px; background: linear-gradient(180deg, var(--panel-2), var(--panel)); padding: 26px; }
+
+/* Resultado: arriba y pegado mientras se baja por la tabla (en el celular). */
+.resultado { position: sticky; top: 0; z-index: 5; text-align: center; padding: 22px 20px 18px; border-radius: 24px; border: 1px solid var(--lima-borde); background: radial-gradient(90% 120% at 50% 0%, rgba(202,254,92,.12), transparent 70%), #07080A; box-shadow: 0 18px 40px -20px #000; }
+.resultado .lbl { font-size: 15px; color: var(--soft); }
+.resultado .num { display: block; margin-top: 2px; font-size: clamp(46px, 9vw, 84px); font-weight: 600; letter-spacing: -.045em; line-height: 1; color: var(--lima); font-variant-numeric: tabular-nums; }
+.resultado .num small { font-size: .34em; font-weight: 500; letter-spacing: -.01em; color: var(--ink); }
+.resultado .con { display: block; margin-top: 8px; font-size: 14px; color: var(--muted); }
+
+.control { display: grid; gap: 14px; }
+.fila { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.fila label { font-size: 16px; color: var(--soft); }
+.fila b { font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
+input[type=range] { width: 100%; height: 44px; margin: 0; accent-color: #CAFE5C; cursor: pointer; }
+.lim { display: flex; justify-content: space-between; font: 400 13px var(--mono); color: var(--muted); margin-top: -6px; }
+.fijo { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 14px; border: 1px dashed var(--line-2); color: var(--soft); font-size: 15px; }
+.fijo b { color: var(--ink); font-size: 20px; font-weight: 600; white-space: nowrap; }
+.ayuda { font-size: 14px; color: var(--muted); }
+
+/* Tabla de niveles: barra por comisión, personas editables y lo que deja al mes. */
+.plan-cab { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.plan-cab h2 { font-size: clamp(16px, 2.4vw, 20px); font-weight: 600; letter-spacing: -.01em; text-transform: uppercase; }
+.plan-cab b { font-size: clamp(18px, 2.6vw, 22px); font-weight: 600; color: var(--lima); white-space: nowrap; }
+.tabla { margin-top: 18px; display: grid; grid-template-columns: 34px minmax(0, 1fr) 112px 104px; column-gap: 16px; align-items: center; }
+.tabla .cab { font: 500 12px var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+.tabla .der { text-align: right; }
+.corto { display: none; }
+.tabla .cen { text-align: center; }
+.tabla > .c { padding-block: 9px; border-bottom: 1px solid rgba(255,255,255,.04); }
+.nv { font-size: 17px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.com { display: grid; gap: 6px; }
+.com .pc { font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.com .barra { height: 8px; border-radius: 6px; background: rgba(255,255,255,.07); overflow: hidden; }
+.com .barra i { display: block; height: 100%; border-radius: 6px; background: linear-gradient(90deg, #7FA82A, #9CCB3A); }
+.top .com .pc { color: var(--lima); }
+.top .com .barra i { background: linear-gradient(90deg, #B6EC3E, #CAFE5C); box-shadow: 0 0 12px rgba(202,254,92,.45); }
+.per input { width: 100%; height: 44px; border: 1px solid var(--line-2); border-radius: 12px; background: var(--bg-2); color: var(--ink); font: 600 16px var(--f); font-variant-numeric: tabular-nums; text-align: center; padding: 0 8px; }
+.per input:focus { outline: none; border-color: var(--lima); box-shadow: 0 0 0 3px rgba(202,254,92,.15); }
+.usd { font-size: 15px; color: var(--soft); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.tot { font-weight: 600; padding-top: 14px !important; border-bottom: 0 !important; }
+.tot.usd { color: var(--lima); font-size: 17px; }
+.tot.cen { font-size: 16px; }
+.reset { margin-top: 14px; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line-2); background: transparent; color: var(--soft); font: 500 14px var(--f); cursor: pointer; }
+.reset:hover { border-color: var(--lima-borde); color: var(--ink); }
+
+.notas { margin: 22px 0 0; display: grid; gap: 10px; font-size: 13.5px; line-height: 1.55; color: var(--muted); text-align: center; }
+.pie { margin-top: 56px; padding: 28px 0 40px; border-top: 1px solid var(--line); font-size: 12.5px; line-height: 1.6; color: var(--muted); }
+.pie p + p { margin-top: 8px; }
+
+@media (max-width: 560px) {
+  .hero { padding-top: 44px; }
+  .caja { padding: 20px 16px; border-radius: 20px; }
+  .tabla { grid-template-columns: 22px minmax(0, 1fr) 86px 78px; column-gap: 10px; }
+  .tabla .cab { font-size: 10.5px; letter-spacing: .03em; }
+  .nv { font-size: 15px; }
+  .com .pc { font-size: 13.5px; }
+  .per input { height: 42px; font-size: 15px; padding: 0 4px; }
+  .usd { font-size: 13px; }
+  .tot.usd { font-size: 14.5px; }
+  .fijo { font-size: 14px; }
+  .largo { display: none; }
+  .corto { display: inline; }
+  /* El total fijo arriba, más bajo para no tapar la tabla. */
+  .resultado { padding: 12px 14px 10px; border-radius: 18px; }
+  .resultado .lbl { font-size: 13px; }
+  .resultado .num { font-size: 40px; }
+  .resultado .con { margin-top: 4px; font-size: 12.5px; }
+}
+</style>
+</head>
+<body>
+<header class="nav">
+  <div class="in">
+    <div class="alianza" aria-label="KOREX by BIX CARD">
+      <img class="k" src="media/korex-logo-verde.png" alt="Método Korex">
+      <span class="x">×</span>
+      <img class="b" src="media/logo-bix-verde.svg" alt="BIX">
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="in">
+      <span class="ey">Entiende la escalabilidad del plan</span>
+      <h1>Proyección de lo que se puede <span class="lima">generar</span></h1>
+      <p class="bajada">Hasta el 50 % de los fees se reparte en la red. Mueve los números o cambia las personas de cada nivel y mira cuánto podría generar la tuya cada mes.</p>
+    </div>
+  </section>
+
+  <div class="in">
+    <div class="resultado" aria-live="polite">
+      <span class="lbl">Podrías generar</span>
+      <span class="num"><span id="total">3.804</span> <small>USD al mes</small></span>
+      <span class="con">con <b id="totPersonas">5.840</b> personas en tu red</span>
+    </div>
+
+    <div class="caja control">
+      <div class="fila"><label for="personas">Personas en tu red</label><b id="personasTxt">5.840</b></div>
+      <input type="range" id="personas" min="100" max="10000" step="10" value="5840">
+      <div class="lim"><span>100</span><span id="limMax">10.000</span></div>
+      <div class="fijo"><span>Gasto mensual promedio por persona</span><b><span id="gastoTxt">800</span> USD</b></div>
+      <p class="ayuda">Al mover la barra, las personas se reparten solas entre los 10 niveles. También puedes escribir cuántas hay en cada nivel en la tabla.</p>
+    </div>
+
+    <section class="caja" aria-labelledby="plan-tit">
+      <div class="plan-cab">
+        <h2 id="plan-tit">Plan de comisiones de diez niveles</h2>
+        <b>Total 45 %</b>
+      </div>
+      <div class="tabla" id="tabla">
+        <span class="cab"><span class="largo">Nivel</span><span class="corto" aria-hidden="true">N.º</span></span>
+        <span class="cab">Comisión</span>
+        <span class="cab cen">Personas</span>
+        <span class="cab der">Al mes</span>
+        <!-- Las filas las arma el script -->
+      </div>
+      <button class="reset" type="button" id="reset" hidden>↺ Volver al reparto sugerido</button>
+    </section>
+
+    <div class="notas">
+      <p>3 % de tarifa por compra · el 50 % neto va a comisiones: 45 % en los 10 niveles + 5 % al Pool BIX (no incluido en el cálculo).</p>
+      <p>Ejemplo ilustrativo. No es una promesa ni una garantía de ingresos. Depende de cuántas personas usen la tarjeta, cuánto gasten y de las condiciones vigentes del plan de BIX.</p>
+    </div>
+
+    <footer class="pie">
+      <p><b>KOREX by BIX CARD · Partner independiente.</b> Esta página es un sitio informativo gestionado por KOREX, afiliado independiente de BIX. No es la página oficial de BIX ni una entidad bancaria o emisora de tarjetas.</p>
+      <p>Los ejemplos de comisiones son ilustrativos y no garantizan ingresos. La participación en el programa de referidos está sujeta a las condiciones vigentes de BIX.</p>
+    </footer>
+  </div>
+</main>
+
+<script>
+/* ============================================================
+   DATOS DEL PLAN — se cambian acá si cambia el plan de BIX
+   ============================================================ */
+const GASTO = 800;                       // gasto mensual promedio por persona (USD), fijo
+const TARIFA = 0.03;                     // 3 % de tarifa por compra
+const PCT = [15, 10, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5]; // % de comisión por nivel
+const BASE = [40, 100, 200, 300, 400, 500, 700, 900, 1200, 1500]; // reparto sugerido para una red de 5.840
+const RED_BASE = BASE.reduce((a, b) => a + b, 0);
+const MAX_POR_NIVEL = 10000000;
+/* ============================================================ */
+
+(function () {
+  const $ = (id) => document.getElementById(id);
+  const miles = (n) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  const pct = (p) => String(p).replace(".", ",") + " %";
+  const rango = $("personas"), tabla = $("tabla");
+  let niveles = BASE.slice();
+  let editado = false;
+  const filas = [];
+
+  $("gastoTxt").textContent = miles(GASTO);
+
+  // Arma las 10 filas y la de total.
+  PCT.forEach((p, i) => {
+    const top = i < 2 ? " top" : "";
+    const nv = el("span", "c nv" + top, String(i + 1));
+    const com = el("span", "c com" + top);
+    com.innerHTML = '<span class="pc">' + pct(p) + '</span><span class="barra" aria-hidden="true"><i style="width:' + (p / PCT[0]) * 100 + '%"></i></span>';
+    const per = el("span", "c per");
+    const input = document.createElement("input");
+    input.type = "text";
+    input.inputMode = "numeric";
+    input.autocomplete = "off";
+    input.setAttribute("aria-label", "Personas en el nivel " + (i + 1));
+    per.appendChild(input);
+    const usd = el("span", "c usd der");
+    tabla.append(nv, com, per, usd);
+    filas.push({ input, usd });
+
+    input.addEventListener("focus", () => { input.value = String(niveles[i]); input.select(); });
+    input.addEventListener("input", () => {
+      const limpio = input.value.replace(/\D/g, "");
+      if (input.value !== limpio) input.value = limpio;
+      niveles[i] = Math.min(MAX_POR_NIVEL, parseInt(limpio || "0", 10));
+      editado = true;
+      calcular(i);
+    });
+    input.addEventListener("blur", () => { input.value = miles(niveles[i]); });
+  });
+  tabla.append(el("span", "c tot", ""), el("span", "c tot", "Total"));
+  const totPer = el("span", "c tot cen", ""), totUsd = el("span", "c tot usd der", "");
+  tabla.append(totPer, totUsd);
+
+  function el(tag, cls, txt) {
+    const e = document.createElement(tag);
+    e.className = cls;
+    if (txt != null) e.textContent = txt;
+    return e;
+  }
+
+  // Recalcula todo. `menos` = la fila que se está escribiendo (no se le pisa el texto).
+  function calcular(menos) {
+    let total = 0, personas = 0;
+    niveles.forEach((n, i) => {
+      const c = n * GASTO * TARIFA * PCT[i] / 100;
+      total += c;
+      personas += n;
+      filas[i].usd.textContent = miles(c) + " USD";
+      if (i !== menos) filas[i].input.value = miles(n);
+    });
+    $("total").textContent = miles(total);
+    $("totPersonas").textContent = miles(personas);
+    $("personasTxt").textContent = miles(personas);
+    totPer.textContent = miles(personas);
+    totUsd.textContent = miles(total) + " USD";
+    // La barra sigue a la suma; si la red pasa de 10.000, la barra se estira.
+    const max = Math.max(10000, Math.ceil(personas / 10) * 10);
+    rango.max = String(max);
+    $("limMax").textContent = miles(max);
+    rango.value = String(Math.max(100, personas));
+    $("reset").hidden = !editado;
+  }
+
+  // La barra reparte el total entre los niveles con la proporción sugerida.
+  function repartir(total) {
+    niveles = BASE.map((b) => Math.round((total * b) / RED_BASE));
+  }
+  rango.addEventListener("input", () => {
+    repartir(+rango.value);
+    editado = false;
+    calcular(-1);
+  });
+  $("reset").addEventListener("click", () => {
+    repartir(RED_BASE);
+    editado = false;
+    rango.max = "10000";
+    calcular(-1);
+  });
+
+  calcular(-1);
+})();
+</script>
+</body>
+</html>
