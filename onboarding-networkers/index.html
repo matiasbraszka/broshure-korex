@@ -10,10 +10,13 @@
 <meta property="og:title" content="Onboarding de networkers · Método Korex">
 <meta property="og:description" content="Infraestructura de captación y duplicación para empresas de network marketing.">
 <link rel="icon" href="/assets/mk-symbol.png">
+<script>
+  // En celulares la slide horizontal queda diminuta: se abre la versión con scroll
+  if (matchMedia('(max-width: 820px), (max-height: 480px)').matches) location.replace('movil/' + location.hash);
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&display=swap" rel="stylesheet">
-<script>document.documentElement.classList.add('js')</script>
 <style>
 :root{
   --bg:#060709; --bg2:#0B0D12; --bg3:#11141B;
@@ -22,422 +25,363 @@
   --text:#F3F5F9; --soft:#B4BACA; --mut:#7C8290;
   --blue:#4878FF; --blue2:#8FAEFF; --blue3:#2E69E0; --blue-deep:#1F4FBF;
   --amber:#F5A524;
-  --paper:#F5F6F8; --ink:#0A0A0A; --ink-soft:#3C4150; --ink-mut:#767C8C; --ink-line:#E2E5EB;
-  --r:20px; --r-sm:14px;
-  --pad:clamp(20px,5vw,88px);
-  --max:1240px;
+  --paper:#F5F6F8; --ink:#0A0A0A; --ink-soft:#3C4150; --ink-line:#E2E5EB;
   --ease:cubic-bezier(.2,.7,.2,1);
+  --s:1;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{overflow-x:clip;scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{background:var(--bg);color:var(--text);font-family:'Montserrat',system-ui,sans-serif;font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:clip}
+html,body{height:100%;overflow:hidden;background:var(--bg)}
+body{font-family:'Montserrat',system-ui,sans-serif;color:var(--text);-webkit-font-smoothing:antialiased;touch-action:none}
 a{color:inherit;text-decoration:none}
-img{display:block;max-width:100%}
+img{display:block}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
 ::selection{background:var(--blue);color:#fff}
-
-/* ── Fondo global: grilla + grano ───────────────────────────── */
-body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
-  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
-  background-size:72px 72px;opacity:.35;
-  -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 20%,transparent 75%);
-          mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 20%,transparent 75%)}
 body::after{content:"";position:fixed;inset:0;z-index:100;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
-/* ── Barra superior ─────────────────────────────────────────── */
-.top{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:16px;
-  padding:14px var(--pad);background:linear-gradient(to bottom,rgba(6,7,9,.85),rgba(6,7,9,0));backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-.brand{display:flex;align-items:center;gap:12px;font-size:12px;font-weight:800;letter-spacing:.24em;text-transform:uppercase}
-.brand img{height:22px;width:auto;filter:invert(1)}
-.brand b{color:var(--blue)}
-.brand .sep{width:1px;height:16px;background:var(--line2)}
-.top .chap{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);display:flex;align-items:center;gap:10px}
-.top .chap i{font-style:normal;color:var(--blue2)}
-.progress{position:fixed;left:0;top:0;height:3px;width:100%;z-index:60;transform-origin:0 50%;transform:scaleX(0);
-  background:linear-gradient(90deg,var(--blue-deep),var(--blue),var(--blue2));box-shadow:0 0 18px var(--blue)}
+/* ── Escenario 1920×1080 que se escala a la pantalla ─────────── */
+#stage{position:fixed;left:50%;top:50%;width:1920px;height:1080px;transform:translate(-50%,-50%) scale(var(--s));transform-origin:50% 50%;
+  font-size:24px;line-height:1.5;overflow:clip;background:var(--bg)}
+#stage::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:80px 80px;opacity:.35;
+  -webkit-mask-image:radial-gradient(ellipse 80% 70% at 50% 0%,#000 20%,transparent 75%);mask-image:radial-gradient(ellipse 80% 70% at 50% 0%,#000 20%,transparent 75%)}
 
-/* ── Navegación lateral ─────────────────────────────────────── */
-.dots{position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:40;display:flex;flex-direction:column;gap:12px}
-.dots a{position:relative;display:block;width:10px;height:10px;border-radius:50%;border:1.5px solid var(--line2);transition:.3s var(--ease)}
-.dots a::after{content:attr(data-label);position:absolute;right:22px;top:50%;transform:translate(6px,-50%);white-space:nowrap;
-  font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text);background:var(--bg3);border:1px solid var(--line);
-  padding:6px 10px;border-radius:8px;opacity:0;pointer-events:none;transition:.25s var(--ease)}
-.dots a:hover::after{opacity:1;transform:translate(0,-50%)}
-.dots a.on{background:var(--blue);border-color:var(--blue);box-shadow:0 0 0 4px rgba(72,120,255,.18),0 0 16px var(--blue);height:26px;border-radius:6px}
-.dots.light a{border-color:rgba(10,10,10,.25)}
-.hint{position:fixed;left:var(--pad);bottom:22px;z-index:40;display:flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);transition:opacity .6s}
-.hint kbd{font-family:inherit;font-size:11px;border:1px solid var(--line2);border-bottom-width:2px;border-radius:6px;padding:2px 7px;color:var(--soft)}
-.hint.off{opacity:0}
+/* ── Slides ─────────────────────────────────────────────────── */
+.slide{position:absolute;inset:0;padding:150px 160px 120px;display:flex;flex-direction:column;justify-content:center;isolation:isolate;overflow:clip;
+  opacity:0;visibility:hidden;transform:translateY(70px) scale(.985);transition:opacity .7s var(--ease),transform .8s var(--ease),visibility 0s .8s}
+.slide.past{transform:translateY(-70px) scale(.985)}
+.slide.on{opacity:1;visibility:visible;transform:none;transition:opacity .7s var(--ease),transform .8s var(--ease),visibility 0s}
+.rv{opacity:0;transform:translateY(34px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.slide.on .rv{opacity:1;transform:none;transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:calc(var(--d,0) * 80ms + 180ms)}
 
-/* ── Secciones ──────────────────────────────────────────────── */
-.slide{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:clamp(96px,12vh,140px) var(--pad);isolation:isolate}
-.wrap{width:100%;max-width:var(--max);margin:0 auto;position:relative}
-.eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:12px;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--blue2);margin-bottom:22px}
-.eyebrow::before{content:"";width:34px;height:2px;background:var(--blue);box-shadow:0 0 12px var(--blue)}
+.eyebrow{display:flex;align-items:center;gap:14px;font-size:17px;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--blue2);margin-bottom:24px}
+.eyebrow::before{content:"";width:44px;height:2px;background:var(--blue);box-shadow:0 0 12px var(--blue)}
 h1,h2,h3{font-weight:800;letter-spacing:-.025em;line-height:1.05}
-h2{font-size:clamp(36px,5.6vw,76px);max-width:16ch}
-h2.wide{max-width:22ch}
-h3{font-size:clamp(20px,1.8vw,24px);letter-spacing:-.01em;line-height:1.2}
-.lead{font-size:clamp(17px,1.6vw,22px);color:var(--soft);max-width:60ch;margin-top:20px;line-height:1.5}
+h2{font-size:80px;letter-spacing:-.035em}
+h3{font-size:30px;letter-spacing:-.01em;line-height:1.2}
+.lead{font-size:28px;color:var(--soft);max-width:1450px;margin-top:20px;line-height:1.45}
 .grad{background:linear-gradient(100deg,#fff 0%,var(--blue2) 45%,var(--blue) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
-.ghost{position:absolute;z-index:-1;right:calc(var(--pad) * -.2);top:clamp(40px,8vh,90px);font-size:clamp(160px,26vw,380px);font-weight:900;line-height:.8;letter-spacing:-.06em;
-  color:rgba(255,255,255,.035);pointer-events:none;user-select:none}
-.glow{position:absolute;z-index:-1;border-radius:50%;filter:blur(90px);pointer-events:none;background:var(--blue);opacity:.22}
+.ghost{position:absolute;z-index:-1;right:110px;top:70px;font-size:440px;font-weight:900;line-height:.8;letter-spacing:-.06em;color:rgba(255,255,255,.03);pointer-events:none;user-select:none}
+.glow{position:absolute;z-index:-1;border-radius:50%;filter:blur(110px);pointer-events:none;background:var(--blue);opacity:.22}
 
-/* Tarjetas con foco que sigue al mouse */
-.card{position:relative;background:var(--surf);border:1px solid var(--line);border-radius:var(--r);padding:clamp(24px,2.6vw,36px);overflow:hidden;
-  transition:transform .4s var(--ease),border-color .4s var(--ease),background .4s}
+.card{position:relative;background:var(--surf);border:1px solid var(--line);border-radius:24px;padding:36px;overflow:hidden;transition:transform .4s var(--ease),border-color .4s var(--ease)}
 .card::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:0;transition:opacity .4s;
-  background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(72,120,255,.16),transparent 60%)}
-.card:hover{transform:translateY(-4px);border-color:rgba(72,120,255,.45)}
+  background:radial-gradient(480px circle at var(--mx,50%) var(--my,50%),rgba(72,120,255,.16),transparent 60%)}
+.card:hover{transform:translateY(-5px);border-color:rgba(72,120,255,.45)}
 .card:hover::before{opacity:1}
 .card>*{position:relative;z-index:1}
-.card p{color:var(--soft)}
-.ico{display:grid;place-items:center;width:52px;height:52px;border-radius:14px;font-size:24px;color:var(--blue2);
-  background:linear-gradient(145deg,rgba(72,120,255,.22),rgba(72,120,255,.05));border:1px solid rgba(72,120,255,.3);margin-bottom:22px;flex:none}
+.card p{color:var(--soft);font-size:22px;line-height:1.45}
+.ico{display:grid;place-items:center;width:56px;height:56px;border-radius:16px;font-size:26px;color:var(--blue2);flex:none;
+  background:linear-gradient(145deg,rgba(72,120,255,.22),rgba(72,120,255,.05));border:1px solid rgba(72,120,255,.3)}
 
-/* Botones */
-.btns{display:flex;flex-wrap:wrap;gap:14px;margin-top:40px}
-.btn{display:inline-flex;align-items:center;gap:12px;padding:17px 26px;border-radius:999px;font-weight:700;font-size:15px;letter-spacing:.01em;transition:.3s var(--ease);white-space:nowrap}
-.btn .i{font-size:18px;transition:transform .3s var(--ease)}
-.btn:hover .i{transform:translateX(4px)}
-.btn-p{background:var(--blue);color:#fff;box-shadow:0 10px 40px -10px var(--blue),inset 0 1px 0 rgba(255,255,255,.25)}
-.btn-p:hover{background:#5C88FF;box-shadow:0 14px 50px -8px var(--blue)}
-.btn-g{border:1px solid var(--line2);color:var(--text);background:rgba(255,255,255,.03)}
+.btns{display:flex;gap:18px;margin-top:52px}
+.btn{display:inline-flex;align-items:center;gap:14px;padding:22px 34px;border-radius:999px;font-weight:700;font-size:21px;transition:.3s var(--ease);white-space:nowrap}
+.btn .i{font-size:22px;transition:transform .3s var(--ease)}
+.btn:hover .i{transform:translateX(5px)}
+.btn-p{background:var(--blue);color:#fff;box-shadow:0 14px 50px -12px var(--blue),inset 0 1px 0 rgba(255,255,255,.25)}
+.btn-p:hover{background:#5C88FF}
+.btn-g{border:1px solid var(--line2);background:rgba(255,255,255,.03)}
 .btn-g:hover{border-color:var(--blue);background:rgba(72,120,255,.1)}
 
-/* Aparición al hacer scroll */
-.js .rv{opacity:0;transform:translateY(32px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:calc(var(--d,0) * 90ms)}
-.js .rv.in{opacity:1;transform:none}
+/* ── Marco fijo: marca, capítulo, pie, contador, puntos ─────── */
+.chrome{position:absolute;inset:0;z-index:20;pointer-events:none;color:var(--text);transition:color .5s}
+.chrome>*{pointer-events:auto}
+.brand{position:absolute;left:160px;top:54px;display:flex;align-items:center;gap:16px;font-size:16px;font-weight:800;letter-spacing:.24em;text-transform:uppercase}
+.brand img{height:30px;filter:invert(1);transition:filter .5s}
+.brand .sep{width:1px;height:20px;background:var(--line2)}
+.brand b{color:var(--blue)}
+.chap{position:absolute;right:160px;top:58px;font-size:16px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);display:flex;gap:12px}
+.chap i{font-style:normal;color:var(--blue2)}
+.foot{position:absolute;left:160px;bottom:50px;font-size:16px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
+.ctrl{position:absolute;right:160px;bottom:40px;display:flex;align-items:center;gap:22px}
+.count{font-size:16px;font-weight:700;letter-spacing:.14em;color:var(--mut);font-variant-numeric:tabular-nums}
+.count b{color:var(--text)}
+.ctrl button{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;border:1px solid var(--line2);font-size:20px;transition:.3s}
+.ctrl button:hover{border-color:var(--blue);background:rgba(72,120,255,.15)}
+.bar{position:absolute;left:0;bottom:0;height:4px;width:100%;transform-origin:0 50%;transform:scaleX(0);transition:transform .7s var(--ease);
+  background:linear-gradient(90deg,var(--blue-deep),var(--blue),var(--blue2));box-shadow:0 0 18px var(--blue)}
+.dots{position:absolute;right:60px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:14px}
+.dots a{position:relative;display:block;width:12px;height:12px;border-radius:50%;border:2px solid var(--line2);transition:.35s var(--ease)}
+.dots a::after{content:attr(data-label);position:absolute;right:26px;top:50%;transform:translate(8px,-50%);white-space:nowrap;font-size:14px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--text);background:var(--bg3);border:1px solid var(--line);padding:8px 12px;border-radius:10px;opacity:0;pointer-events:none;transition:.25s var(--ease)}
+.dots a:hover::after{opacity:1;transform:translate(0,-50%)}
+.dots a.on{background:var(--blue);border-color:var(--blue);height:30px;border-radius:7px;box-shadow:0 0 0 5px rgba(72,120,255,.18),0 0 18px var(--blue)}
+.hint{position:absolute;left:50%;bottom:48px;transform:translateX(-50%);display:flex;align-items:center;gap:12px;font-size:15px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);transition:opacity .6s}
+.hint .mouse{width:24px;height:38px;border:2px solid var(--line2);border-radius:13px;position:relative}
+.hint .mouse::after{content:"";position:absolute;left:50%;top:8px;width:4px;height:8px;margin-left:-2px;border-radius:2px;background:var(--blue);animation:wheel 1.8s infinite}
+.hint.off{opacity:0;pointer-events:none}
+@keyframes wheel{0%{opacity:1;transform:none}100%{opacity:0;transform:translateY(12px)}}
+/* Marco sobre slide clara o azul */
+#stage.t-light .chrome{color:var(--ink)}
+#stage.t-light .brand img{filter:none}
+#stage.t-light .brand .sep,#stage.t-light .ctrl button,#stage.t-light .dots a{border-color:rgba(10,10,10,.2)}
+#stage.t-light .chap,#stage.t-light .foot,#stage.t-light .count{color:#767C8C}
+#stage.t-light .count b{color:var(--ink)}
+#stage.t-light .chap i{color:var(--blue3)}
+#stage.t-blue .chap,#stage.t-blue .foot,#stage.t-blue .count,#stage.t-blue .chap i{color:rgba(255,255,255,.75)}
+#stage.t-blue .brand b{color:#fff}
+#stage.t-blue .dots a.on{background:#fff;border-color:#fff;box-shadow:0 0 0 5px rgba(255,255,255,.2)}
+#stage.t-blue .bar{background:#fff;box-shadow:none}
 
 /* ── 1. Portada ─────────────────────────────────────────────── */
-#cover{overflow:hidden}
-#cover .wrap{display:grid;grid-template-columns:1.15fr .85fr;align-items:center;gap:40px}
-.pill{display:inline-flex;align-items:center;gap:10px;padding:8px 16px 8px 12px;border:1px solid var(--line2);border-radius:999px;background:rgba(255,255,255,.03);
-  font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--soft)}
-.pill .live{width:8px;height:8px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 0 rgba(72,120,255,.7);animation:ping 2s infinite}
-@keyframes ping{70%{box-shadow:0 0 0 10px rgba(72,120,255,0)}100%{box-shadow:0 0 0 0 rgba(72,120,255,0)}}
-#cover h1{font-size:clamp(54px,9.4vw,148px);line-height:.92;letter-spacing:-.05em;margin:30px 0 28px}
+#cover .wrap{display:grid;grid-template-columns:1fr 600px;align-items:center;gap:40px}
+.pill{display:inline-flex;align-items:center;gap:12px;padding:10px 20px 10px 14px;border:1px solid var(--line2);border-radius:999px;background:rgba(255,255,255,.03);
+  font-size:16px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--soft)}
+.live{width:10px;height:10px;border-radius:50%;background:var(--blue);animation:ping 2s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(72,120,255,.7)}70%{box-shadow:0 0 0 12px rgba(72,120,255,0)}100%{box-shadow:0 0 0 0 rgba(72,120,255,0)}}
+#cover h1{font-size:150px;line-height:.92;letter-spacing:-.05em;margin:36px 0 34px}
 #cover h1 span{display:block}
-#cover .lead{max-width:30ch;font-size:clamp(19px,1.9vw,26px);color:var(--text);font-weight:500}
+#cover .lead{font-size:32px;max-width:780px;color:var(--text);font-weight:500}
 #cover .lead em{font-style:normal;color:var(--soft)}
-.art{position:relative;aspect-ratio:1;width:100%;max-width:560px;justify-self:end}
+.art{position:relative;width:600px;height:600px}
 .art .r{position:absolute;border-radius:24%;transform:rotate(45deg)}
 .art .r1{inset:0;border:1px solid rgba(255,255,255,.08)}
 .art .r2{inset:14%;border:1px solid rgba(255,255,255,.12);animation:spin 40s linear infinite}
 .art .r3{inset:28%;padding:2px;background:conic-gradient(from 0deg,var(--blue),transparent 30%,var(--blue2) 50%,transparent 80%,var(--blue));animation:spin 12s linear infinite;
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
-.art .core{position:absolute;inset:38%;border-radius:24%;transform:rotate(45deg);background:linear-gradient(135deg,var(--blue),var(--blue-deep));
-  box-shadow:0 0 80px 10px rgba(72,120,255,.45),inset 0 1px 0 rgba(255,255,255,.35)}
+.art .core{position:absolute;inset:38%;border-radius:24%;transform:rotate(45deg);background:linear-gradient(135deg,var(--blue),var(--blue-deep));box-shadow:0 0 90px 12px rgba(72,120,255,.45),inset 0 1px 0 rgba(255,255,255,.35)}
 .art .logo{position:absolute;inset:0;display:grid;place-items:center}
-.art .logo img{width:20%;filter:invert(1) drop-shadow(0 4px 20px rgba(0,0,0,.4))}
-.art .tag{position:absolute;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);
-  background:rgba(11,13,18,.8);border:1px solid var(--line2);border-radius:999px;padding:8px 14px;backdrop-filter:blur(6px);animation:float 6s ease-in-out infinite}
+.art .logo img{width:20%;filter:invert(1)}
+.art .tag{position:absolute;font-size:15px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);background:rgba(11,13,18,.85);border:1px solid var(--line2);border-radius:999px;padding:10px 18px;animation:float 6s ease-in-out infinite}
 .art .tag b{color:var(--blue2)}
-.art .t1{left:-4%;top:22%}
-.art .t2{right:-8%;top:64%;animation-delay:-2s}
-.art .t3{left:10%;bottom:12%;animation-delay:-4s}
-@keyframes spin{to{transform:rotate(405deg)}}
-@keyframes float{50%{transform:translateY(-10px)}}
-.cover-foot{position:absolute;left:var(--pad);right:var(--pad);bottom:28px;display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
-.scroll{display:flex;align-items:center;gap:10px}
-.scroll span{width:22px;height:34px;border:1.5px solid var(--line2);border-radius:12px;position:relative}
-.scroll span::after{content:"";position:absolute;left:50%;top:7px;width:3px;height:7px;margin-left:-1.5px;border-radius:2px;background:var(--blue);animation:wheel 1.8s infinite}
-@keyframes wheel{0%{opacity:1;transform:none}100%{opacity:0;transform:translateY(10px)}}
+.art .t1{left:-6%;top:20%}
+.art .t2{right:-10%;top:62%;animation-delay:-2s}
+.art .t3{left:6%;bottom:8%;animation-delay:-4s}
+@keyframes spin{from{transform:rotate(45deg)}to{transform:rotate(405deg)}}
+@keyframes float{50%{transform:translateY(-12px)}}
 
 /* ── 2. Qué es ──────────────────────────────────────────────── */
-.vs{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:56px}
-.vs .card{padding:clamp(28px,3vw,44px)}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:44px}
+.vs .card{padding:38px 42px}
 .vs .yes{background:linear-gradient(160deg,rgba(72,120,255,.16),rgba(72,120,255,.03) 60%);border-color:rgba(72,120,255,.4)}
 .vs .no{background:rgba(255,255,255,.02)}
-.vs-h{display:flex;align-items:center;gap:14px;margin-bottom:26px}
-.vs-h .badge{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;font-size:20px}
-.yes .badge{background:var(--blue);color:#fff;box-shadow:0 0 24px rgba(72,120,255,.6)}
+.vs-h{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+.badge{display:grid;place-items:center;width:52px;height:52px;border-radius:50%;font-size:24px}
+.yes .badge{background:var(--blue);color:#fff;box-shadow:0 0 26px rgba(72,120,255,.6)}
 .no .badge{background:rgba(255,255,255,.07);color:var(--soft)}
-.vs-h h3{font-size:clamp(24px,2.4vw,32px)}
+.vs-h h3{font-size:36px}
 .no .vs-h h3{color:var(--soft)}
-.list{list-style:none;display:flex;flex-direction:column}
-.list li{display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-top:1px solid var(--line);font-size:clamp(16px,1.35vw,18px);color:var(--text);font-weight:500}
-.list li .i{margin-top:3px;font-size:18px}
+.list{list-style:none}
+.list li{display:flex;gap:16px;align-items:flex-start;padding:14px 0;border-top:1px solid var(--line);font-size:23px;font-weight:500;line-height:1.4}
+.list li .i{margin-top:4px;font-size:22px}
 .yes .list li .i{color:var(--blue2)}
 .no .list li{color:var(--soft)}
 .no .list li .i{color:var(--mut)}
-.statement{margin-top:20px;display:flex;align-items:center;gap:22px;padding:26px 32px;border-radius:var(--r);
-  background:linear-gradient(90deg,rgba(72,120,255,.14),rgba(72,120,255,0));border:1px solid rgba(72,120,255,.25);border-left:3px solid var(--blue)}
-.statement .i{font-size:28px;color:var(--blue2)}
-.statement p{font-size:clamp(16px,1.5vw,20px);color:var(--soft)}
+.statement{margin-top:20px;display:flex;align-items:center;gap:24px;padding:24px 34px;border-radius:24px;background:linear-gradient(90deg,rgba(72,120,255,.14),rgba(72,120,255,0));border:1px solid rgba(72,120,255,.25);border-left:4px solid var(--blue)}
+.statement .i{font-size:34px;color:var(--blue2)}
+.statement p{font-size:24px;color:var(--soft)}
 .statement b{color:var(--text)}
 
 /* ── 3. Agenda ──────────────────────────────────────────────── */
-.agenda{margin-top:56px;border-top:1px solid var(--line)}
-.agenda a{display:grid;grid-template-columns:clamp(70px,10vw,150px) 1fr 1.2fr 40px;align-items:center;gap:24px;padding:clamp(20px,3vh,32px) 0;border-bottom:1px solid var(--line);position:relative;transition:padding .4s var(--ease)}
-.agenda a::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(72,120,255,.12),transparent);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
-.agenda a:hover{padding-left:20px}
+.agenda{margin-top:48px;border-top:1px solid var(--line)}
+.agenda a{display:grid;grid-template-columns:170px 520px 1fr 40px;align-items:center;gap:30px;padding:28px 0;border-bottom:1px solid var(--line);position:relative;transition:padding .4s var(--ease)}
+.agenda a::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(72,120,255,.13),transparent);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.agenda a:hover{padding-left:24px}
 .agenda a:hover::before{transform:none}
-.agenda .n{font-size:clamp(40px,5.5vw,76px);font-weight:900;letter-spacing:-.05em;line-height:1;color:rgba(72,120,255,.3);transition:.4s}
-.agenda a:hover .n{color:var(--blue);text-shadow:0 0 30px rgba(72,120,255,.5)}
-.agenda h3{font-size:clamp(22px,2.6vw,36px)}
-.agenda p{color:var(--soft);font-size:clamp(15px,1.3vw,18px)}
-.agenda .go{font-size:24px;color:var(--mut);transition:.4s var(--ease)}
-.agenda a:hover .go{color:var(--blue2);transform:translateX(6px)}
+.agenda .n{font-size:84px;font-weight:900;letter-spacing:-.05em;line-height:1;color:rgba(72,120,255,.3);transition:.4s}
+.agenda a:hover .n{color:var(--blue);text-shadow:0 0 34px rgba(72,120,255,.5)}
+.agenda h3{font-size:42px}
+.agenda p{color:var(--soft);font-size:24px}
+.agenda .go{font-size:30px;color:var(--mut);transition:.4s var(--ease)}
+.agenda a:hover .go{color:var(--blue2);transform:translateX(8px)}
 
 /* ── 4. Verticales ──────────────────────────────────────────── */
-.duo{display:grid;grid-template-columns:1fr auto 1fr;align-items:stretch;margin-top:56px}
-.duo .card{padding:clamp(30px,3.4vw,52px);min-height:clamp(300px,42vh,420px);display:flex;flex-direction:column}
-.duo .card h3{font-size:clamp(40px,5vw,72px);letter-spacing:-.04em;margin:auto 0 14px}
-.duo .card p{font-size:clamp(16px,1.4vw,19px);max-width:34ch}
+.duo{display:grid;grid-template-columns:1fr 96px 1fr;margin-top:52px}
+.duo .card{padding:52px;height:460px;display:flex;flex-direction:column}
+.duo .card h3{font-size:96px;letter-spacing:-.045em;margin:auto 0 18px}
+.duo .card p{font-size:25px;max-width:600px}
 .duo .row{display:flex;justify-content:space-between;align-items:center}
-.duo .kicker{font-size:12px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--blue2)}
+.duo .kicker{font-size:17px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--blue2)}
 .duo .base{background:linear-gradient(170deg,var(--bg3),var(--bg2))}
-.duo .acc{background:linear-gradient(150deg,#5A86FF 0%,var(--blue) 40%,var(--blue-deep) 100%);border-color:transparent;box-shadow:0 30px 80px -30px rgba(72,120,255,.7)}
-.duo .acc p,.duo .acc .kicker{color:rgba(255,255,255,.85)}
+.duo .acc{background:linear-gradient(150deg,#5A86FF 0%,var(--blue) 40%,var(--blue-deep) 100%);border-color:transparent;box-shadow:0 30px 90px -30px rgba(72,120,255,.75)}
+.duo .acc p,.duo .acc .kicker{color:rgba(255,255,255,.88)}
 .duo .acc .ico{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.3);color:#fff}
-.duo .acc::before{background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.18),transparent 60%)}
-.plus{display:grid;place-items:center;width:clamp(48px,5vw,72px);position:relative}
-.plus::before{content:"";position:absolute;top:10%;bottom:10%;left:50%;width:1px;background:linear-gradient(transparent,var(--line2),transparent)}
-.plus span{position:relative;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--bg);border:1px solid var(--line2);font-size:20px;color:var(--blue2)}
-.goal{margin-top:20px;text-align:center;font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mut)}
-.goal b{color:var(--text)}
+.duo .acc::before{background:radial-gradient(480px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.18),transparent 60%)}
+.plus{display:grid;place-items:center;position:relative}
+.plus::before{content:"";position:absolute;top:8%;bottom:8%;left:50%;width:1px;background:linear-gradient(transparent,var(--line2),transparent)}
+.plus span{position:relative;display:grid;place-items:center;width:54px;height:54px;border-radius:50%;background:var(--bg);border:1px solid var(--line2);font-size:26px;color:var(--blue2)}
 
 /* ── 5. Orgánica ────────────────────────────────────────────── */
-.quote{margin-top:22px;font-size:clamp(20px,2.2vw,30px);font-weight:700;font-style:italic;letter-spacing:-.01em;color:var(--blue2);max-width:32ch}
-.bento{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
-.bento .card h3{margin-bottom:10px}
-.bento .card p{font-size:16px}
-.bento .hero-c{grid-row:span 2;display:flex;flex-direction:column;background:linear-gradient(165deg,rgba(72,120,255,.2),rgba(72,120,255,.02) 70%);border-color:rgba(72,120,255,.35)}
-.bento .hero-c h3{font-size:clamp(26px,2.6vw,36px);margin-top:auto}
-.bento .hero-c p{font-size:17px}
-.bento .hero-c .big{font-size:clamp(70px,8vw,120px);font-weight:900;letter-spacing:-.06em;line-height:.9;color:rgba(143,174,255,.16);margin-bottom:24px}
-.flow{margin-top:20px;padding:clamp(22px,2.4vw,32px);border-radius:var(--r);background:var(--bg2);border:1px solid var(--line)}
-.flow-t{font-size:12px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);margin-bottom:22px}
-.flow ol{list-style:none;display:grid;grid-template-columns:repeat(5,1fr);gap:12px;position:relative;counter-reset:f}
-.flow ol::before{content:"";position:absolute;left:6%;right:6%;top:15px;height:2px;background:var(--line)}
-.flow ol::after{content:"";position:absolute;left:6%;right:6%;top:15px;height:2px;background:linear-gradient(90deg,var(--blue-deep),var(--blue),var(--blue2));transform:scaleX(0);transform-origin:left;transition:transform 1.8s var(--ease) .3s}
-.flow.in ol::after{transform:none}
-.flow li{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;font-size:15px;font-weight:600;color:var(--soft);counter-increment:f}
-.flow li::before{content:counter(f);display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--bg2);border:2px solid var(--blue);font-size:13px;font-weight:800;color:var(--text)}
+.head-row{display:flex;justify-content:space-between;align-items:flex-end;gap:60px}
+.quote{font-size:27px;font-weight:700;font-style:italic;color:var(--blue2);max-width:640px;line-height:1.35;text-align:right}
+.six{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:32px}
+.six .card{padding:30px 32px}
+.six .ch{display:flex;align-items:center;gap:18px;margin-bottom:14px}
+.six .ch h3{font-size:27px}
+.six .feat{background:linear-gradient(165deg,rgba(72,120,255,.2),rgba(72,120,255,.03) 70%);border-color:rgba(72,120,255,.4)}
+.flow{margin-top:18px;padding:28px 40px 30px;border-radius:24px;background:var(--bg2);border:1px solid var(--line)}
+.flow-t{font-size:16px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);margin-bottom:20px}
+.flow ol{list-style:none;display:grid;grid-template-columns:repeat(5,1fr);position:relative;counter-reset:f}
+.flow ol::before,.flow ol::after{content:"";position:absolute;left:10%;right:10%;top:19px;height:2px;background:var(--line)}
+.flow ol::after{background:linear-gradient(90deg,var(--blue-deep),var(--blue),var(--blue2));transform:scaleX(0);transform-origin:left;transition:transform 1.6s var(--ease)}
+.slide.on .flow ol::after{transform:none;transition-delay:.7s}
+.flow li{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;font-size:21px;font-weight:600;color:var(--soft);counter-increment:f}
+.flow li::before{content:counter(f);display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--bg2);border:2px solid var(--blue);font-size:17px;font-weight:800;color:var(--text)}
 .flow li.end{color:var(--text);font-weight:800}
-.flow li.end::before{background:var(--blue);box-shadow:0 0 20px var(--blue)}
+.flow li.end::before{background:var(--blue);box-shadow:0 0 22px var(--blue)}
 
 /* ── 6. Publicidad ──────────────────────────────────────────── */
-.ads{display:grid;grid-template-columns:1.4fr 1fr;gap:20px;margin-top:56px;align-items:start}
-.steps{display:flex;flex-direction:column;position:relative}
-.steps::before{content:"";position:absolute;left:31px;top:40px;bottom:40px;width:2px;background:linear-gradient(var(--blue),rgba(72,120,255,.1))}
-.step{display:grid;grid-template-columns:64px 1fr;gap:24px;padding:18px 0}
-.step .num{display:grid;place-items:center;width:64px;height:64px;border-radius:18px;background:var(--bg);border:1.5px solid var(--blue);font-size:24px;font-weight:900;color:var(--text);position:relative;z-index:1;box-shadow:0 0 30px -6px rgba(72,120,255,.6)}
+.ads{display:grid;grid-template-columns:1.45fr 1fr;gap:48px;margin-top:48px;align-items:center}
+.steps{position:relative}
+.steps::before{content:"";position:absolute;left:37px;top:50px;bottom:60px;width:2px;background:linear-gradient(var(--blue),rgba(72,120,255,.1))}
+.step{display:grid;grid-template-columns:76px 1fr;gap:30px;padding:16px 0}
+.step .num{display:grid;place-items:center;width:76px;height:76px;border-radius:20px;background:var(--bg);border:2px solid var(--blue);font-size:30px;font-weight:900;position:relative;z-index:1;box-shadow:0 0 34px -6px rgba(72,120,255,.6)}
 .step:last-child .num{background:var(--blue)}
-.step h3{font-size:clamp(20px,2vw,26px);margin:6px 0 8px}
-.step p{color:var(--soft);font-size:clamp(15px,1.3vw,18px)}
-.need h3{font-size:22px;margin-bottom:8px}
-.need .x{display:flex;align-items:center;gap:14px;padding:15px 0;border-top:1px solid var(--line);font-size:18px;font-weight:600;color:var(--soft)}
-.need .x .i{display:grid;place-items:center;width:30px;height:30px;padding:6px;border-radius:50%;background:rgba(255,255,255,.06);color:var(--mut)}
-.need .x s{text-decoration-color:rgba(72,120,255,.8);text-decoration-thickness:2px}
-.need .yes-do{margin-top:18px;padding:20px 22px;border-radius:var(--r-sm);background:linear-gradient(135deg,var(--blue),var(--blue-deep));color:#fff;font-size:17px;line-height:1.45}
-.need .yes-do b{display:block;font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;opacity:.8;margin-bottom:6px}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-.chips span{font-size:13px;font-weight:700;padding:7px 14px;border-radius:999px;background:rgba(72,120,255,.12);border:1px solid rgba(72,120,255,.3);color:var(--blue2)}
+.step h3{font-size:32px;margin:8px 0 8px}
+.step p{color:var(--soft);font-size:23px}
+.chips{display:flex;gap:10px;margin-top:16px}
+.chips span{font-size:17px;font-weight:700;padding:8px 16px;border-radius:999px;background:rgba(72,120,255,.12);border:1px solid rgba(72,120,255,.3);color:var(--blue2)}
+.need{padding:40px}
+.need h3{margin-bottom:10px}
+.need .x{display:flex;align-items:center;gap:16px;padding:17px 0;border-top:1px solid var(--line);font-size:24px;font-weight:600;color:var(--soft)}
+.need .x .i{width:36px;height:36px;padding:8px;border-radius:50%;background:rgba(255,255,255,.06);color:var(--mut)}
+.need .x s{text-decoration-color:rgba(72,120,255,.85);text-decoration-thickness:3px}
+.yes-do{margin-top:20px;padding:24px 26px;border-radius:18px;background:linear-gradient(135deg,var(--blue),var(--blue-deep));color:#fff;font-size:23px;line-height:1.45}
+.yes-do b{display:block;font-size:15px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;opacity:.8;margin-bottom:6px}
 
 /* ── 7. Condiciones ─────────────────────────────────────────── */
-.tri{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:52px}
-.tri .card h3{margin-bottom:18px}
+.tri{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:44px}
+.tri .card{padding:36px}
+.tri .ch{display:flex;align-items:center;gap:18px;margin-bottom:22px}
+.tag-s{display:block;font-size:15px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--blue2);margin-bottom:4px}
 .tri ul{list-style:none;display:flex;flex-direction:column;gap:14px}
-.tri li{position:relative;padding-left:22px;color:var(--soft);font-size:16px}
-.tri li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:8px;border-radius:2px;background:var(--blue);transform:rotate(45deg)}
-.tri .tagline{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--blue2);margin-bottom:14px}
-.warn{margin-top:16px;display:flex;align-items:center;gap:18px;padding:22px 28px;border-radius:var(--r);background:rgba(245,165,36,.07);border:1px solid rgba(245,165,36,.3)}
-.warn .i{font-size:26px;color:var(--amber)}
-.warn p{font-size:clamp(16px,1.4vw,19px);color:var(--text);font-weight:500}
+.tri li{position:relative;padding-left:28px;color:var(--soft);font-size:22px;line-height:1.45}
+.tri li::before{content:"";position:absolute;left:2px;top:.6em;width:10px;height:10px;border-radius:2px;background:var(--blue);transform:rotate(45deg)}
+.warn{margin-top:20px;display:flex;align-items:center;gap:20px;padding:24px 34px;border-radius:24px;background:rgba(245,165,36,.07);border:1px solid rgba(245,165,36,.3)}
+.warn .i{font-size:32px;color:var(--amber)}
+.warn p{font-size:25px;font-weight:500}
 
-/* ── 8. Cultura (bloque azul) ───────────────────────────────── */
-#cultura{background:radial-gradient(ellipse 90% 70% at 80% 10%,#6E97FF 0%,transparent 60%),linear-gradient(160deg,var(--blue) 0%,#2B5BE8 50%,#163C9E 100%);overflow:hidden}
+/* ── 8. Cultura (azul) ──────────────────────────────────────── */
+#cultura{background:radial-gradient(ellipse 90% 70% at 85% 5%,#6E97FF 0%,transparent 60%),linear-gradient(160deg,var(--blue) 0%,#2B5BE8 50%,#163C9E 100%)}
 #cultura .eyebrow{color:rgba(255,255,255,.85)}
 #cultura .eyebrow::before{background:#fff;box-shadow:none}
-#cultura .ghost{color:rgba(255,255,255,.08)}
-#cultura h2{font-size:clamp(40px,6.2vw,96px);max-width:18ch;letter-spacing:-.045em}
+#cultura .ghost{color:rgba(255,255,255,.07)}
+#cultura h2{font-size:84px;max-width:1500px;letter-spacing:-.045em;line-height:1}
 #cultura h2 span{color:rgba(255,255,255,.55)}
-#cultura .lead{color:rgba(255,255,255,.9);max-width:56ch}
-.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:52px}
-.trio .card{background:rgba(9,25,80,.28);border-color:rgba(255,255,255,.18);backdrop-filter:blur(6px)}
+#cultura .lead{color:rgba(255,255,255,.92)}
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:36px}
+.trio .card{background:rgba(9,25,80,.28);border-color:rgba(255,255,255,.18)}
 .trio .card:hover{border-color:rgba(255,255,255,.5)}
-.trio .card::before{background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.14),transparent 60%)}
-.trio .card h3{margin-bottom:10px}
-.trio .card p{color:rgba(255,255,255,.82);font-size:16px}
+.trio .card::before{background:radial-gradient(480px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.14),transparent 60%)}
+.trio .ch{display:flex;align-items:center;gap:18px;margin-bottom:14px}
+.trio .card p{color:rgba(255,255,255,.85)}
 .trio .ico{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.28);color:#fff}
-.chain{margin-top:16px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px;padding:20px;border-radius:var(--r);border:1px dashed rgba(255,255,255,.3)}
-.chain span{padding:10px 18px;border-radius:999px;background:rgba(255,255,255,.12);font-weight:700;font-size:15px}
+.chain{margin-top:20px;display:flex;align-items:center;justify-content:center;gap:16px;padding:20px;border-radius:24px;border:1px dashed rgba(255,255,255,.32)}
+.chain span{padding:12px 26px;border-radius:999px;background:rgba(255,255,255,.12);font-weight:700;font-size:22px}
 .chain span.me{background:#fff;color:var(--blue-deep)}
-.chain .i{color:rgba(255,255,255,.6);font-size:18px}
+.chain .i{color:rgba(255,255,255,.6);font-size:24px}
 
-/* ── 9. Acuerdos (bloque claro) ─────────────────────────────── */
+/* ── 9. Acuerdos (clara) ────────────────────────────────────── */
 #acuerdos{background:var(--paper);color:var(--ink)}
 #acuerdos .eyebrow{color:var(--blue3)}
 #acuerdos .ghost{color:rgba(10,10,10,.04)}
-.pacts{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:52px;counter-reset:p}
-.pact{position:relative;background:#fff;border:1px solid var(--ink-line);border-radius:var(--r);padding:clamp(24px,2.6vw,34px);transition:.4s var(--ease);overflow:hidden}
-.pact::after{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
-.pact:hover{transform:translateY(-5px);box-shadow:0 24px 50px -24px rgba(31,79,191,.35);border-color:transparent}
+.pacts{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:44px}
+.pact{position:relative;background:#fff;border:1px solid var(--ink-line);border-radius:24px;padding:32px 36px;transition:.4s var(--ease);overflow:hidden}
+.pact::after{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.pact:hover{transform:translateY(-6px);box-shadow:0 26px 54px -26px rgba(31,79,191,.35);border-color:transparent}
 .pact:hover::after{transform:none}
-.pact .n{font-size:clamp(46px,4.6vw,64px);font-weight:900;letter-spacing:-.06em;line-height:1;color:rgba(72,120,255,.22);margin-bottom:22px}
-.pact h3{color:var(--ink);margin-bottom:10px}
-.pact p{color:var(--ink-soft);font-size:16px}
+.pact .top{display:flex;align-items:baseline;gap:18px;margin-bottom:12px}
+.pact .n{font-size:56px;font-weight:900;letter-spacing:-.06em;line-height:1;color:rgba(72,120,255,.3)}
+.pact h3{color:var(--ink)}
+.pact p{color:var(--ink-soft);font-size:22px;line-height:1.45}
 .pact.key{background:var(--ink);border-color:var(--ink)}
 .pact.key h3{color:#fff}
 .pact.key p{color:#B4BACA}
 .pact.key .n{color:var(--blue);text-shadow:0 0 30px rgba(72,120,255,.5)}
 
 /* ── 10. Límites ────────────────────────────────────────────── */
-.lim{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(28px,4vw,64px);margin-top:52px;align-items:start}
-.lim .txt p{font-size:clamp(17px,1.5vw,20px);color:var(--soft);margin-bottom:20px}
-.lim .txt p.first{font-size:clamp(20px,1.9vw,26px);color:var(--text);font-weight:600;line-height:1.4}
-.lim .choose{margin-top:12px;padding:26px 0 0;border-top:1px solid var(--line);font-size:clamp(24px,2.6vw,36px)!important;font-weight:800;letter-spacing:-.02em;line-height:1.15!important;color:var(--text)!important}
+.lim{display:grid;grid-template-columns:1.1fr 1fr;gap:72px;margin-top:48px;align-items:center}
+.lim .txt p{font-size:25px;color:var(--soft);margin-bottom:22px;line-height:1.45}
+.lim .txt p.first{font-size:31px;color:var(--text);font-weight:600;line-height:1.4}
+.lim .choose{padding-top:26px;border-top:1px solid var(--line);font-size:42px!important;font-weight:800;letter-spacing:-.025em;line-height:1.12!important;color:var(--text)!important;margin:0!important}
 .lim .choose span{color:var(--blue2)}
-.lim .cards{display:flex;flex-direction:column;gap:16px}
+.lim .cards{display:flex;flex-direction:column;gap:20px}
 .lim .card h3{margin-bottom:10px}
-.lim .card.stop{border-left:3px solid var(--mut)}
-.lim .card.act{border-left:3px solid var(--blue)}
-.lim .card .tagline{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);margin-bottom:12px}
-.lim .card.act .tagline{color:var(--blue2)}
+.lim .stop{border-left:4px solid var(--mut)}
+.lim .act{border-left:4px solid var(--blue)}
+.lim .tag-s{display:flex;align-items:center;gap:10px;color:var(--mut);margin-bottom:14px}
+.lim .act .tag-s{color:var(--blue2)}
 
 /* ── 11. Roadmap ────────────────────────────────────────────── */
-.road{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:64px;position:relative}
-.road::before{content:"";position:absolute;left:0;right:0;top:-30px;height:2px;background:var(--line)}
-.road::after{content:"";position:absolute;left:0;right:0;top:-30px;height:2px;background:linear-gradient(90deg,var(--blue),var(--blue2) 30%,rgba(72,120,255,.15) 70%,transparent);transform:scaleX(0);transform-origin:left;transition:transform 2s var(--ease) .2s}
-.road.in::after{transform:none}
+.road{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:88px;position:relative}
+.road::before,.road::after{content:"";position:absolute;left:0;right:0;top:-42px;height:2px;background:var(--line)}
+.road::after{background:linear-gradient(90deg,var(--blue),var(--blue2) 30%,rgba(72,120,255,.15) 70%,transparent);transform:scaleX(0);transform-origin:left;transition:transform 1.8s var(--ease)}
+.slide.on .road::after{transform:none;transition-delay:.5s}
 .road .card{overflow:visible}
-.road .dot{position:absolute;top:-38px;left:clamp(24px,2.6vw,36px);width:18px;height:18px;border-radius:50%;background:var(--bg);border:2px solid var(--line2);z-index:2}
-.road .now .dot{background:var(--blue);border-color:var(--blue);box-shadow:0 0 0 0 rgba(72,120,255,.7);animation:ping 2s infinite}
-.road .when{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);margin-bottom:14px}
+.road .dot{position:absolute;top:-52px;left:36px;width:22px;height:22px;border-radius:50%;background:var(--bg);border:2px solid var(--line2);z-index:2}
+.road .now .dot{background:var(--blue);border-color:var(--blue);animation:ping 2s infinite}
+.road .when{display:flex;align-items:center;gap:12px;font-size:16px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);margin-bottom:14px}
 .road .now .when{color:var(--blue2)}
-.road .here{font-size:10px;letter-spacing:.14em;padding:4px 9px;border-radius:999px;background:var(--blue);color:#fff}
-.road h3{font-size:clamp(24px,2.4vw,32px);margin-bottom:20px}
-.road ul{list-style:none;display:flex;flex-direction:column}
-.road li{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-top:1px solid var(--line);font-size:15.5px;color:var(--soft)}
-.road li .i{margin-top:3px;color:var(--blue2)}
+.road .here{font-size:13px;letter-spacing:.14em;padding:5px 11px;border-radius:999px;background:var(--blue);color:#fff}
+.road h3{font-size:36px;margin-bottom:18px}
+.road ul{list-style:none}
+.road li{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--line);font-size:22px;color:var(--soft);line-height:1.4}
+.road li .i{margin-top:4px;color:var(--blue2)}
 .road .now{background:linear-gradient(170deg,rgba(72,120,255,.18),rgba(72,120,255,.02) 70%);border-color:rgba(72,120,255,.4)}
 .road .now li{color:var(--text)}
-.note{margin-top:24px;font-size:14px;color:var(--mut);display:flex;align-items:center;gap:10px}
+.note{margin-top:28px;font-size:20px;color:var(--mut);display:flex;align-items:center;gap:12px}
 
 /* ── 12. Próximos pasos ─────────────────────────────────────── */
-.four{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:52px}
-.four .card{display:flex;flex-direction:column;min-height:300px}
-.four .n{font-size:clamp(64px,6vw,96px);font-weight:900;letter-spacing:-.06em;line-height:.85;background:linear-gradient(180deg,var(--blue2),rgba(72,120,255,.1));-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:auto;padding-bottom:28px}
+.four{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:44px}
+.four .card{display:flex;flex-direction:column;height:330px;padding:34px}
+.four .n{font-size:108px;font-weight:900;letter-spacing:-.06em;line-height:.85;background:linear-gradient(180deg,var(--blue2),rgba(72,120,255,.1));-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:auto}
 .four h3{margin-bottom:10px}
-.four p{font-size:15.5px}
-.four .card.first{border-color:rgba(72,120,255,.45);background:linear-gradient(170deg,rgba(72,120,255,.16),rgba(72,120,255,.02))}
-.links{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
-.link{display:flex;align-items:center;gap:20px;padding:22px 26px;border-radius:var(--r);background:var(--blue);color:#fff;transition:.35s var(--ease);box-shadow:0 20px 50px -24px var(--blue)}
-.link:hover{transform:translateY(-3px);background:#5C88FF}
+.four .first{border-color:rgba(72,120,255,.45);background:linear-gradient(170deg,rgba(72,120,255,.16),rgba(72,120,255,.02))}
+.links{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px}
+.link{display:flex;align-items:center;gap:22px;padding:24px 30px;border-radius:24px;background:var(--blue);color:#fff;transition:.35s var(--ease);box-shadow:0 20px 50px -24px var(--blue)}
+.link:hover{transform:translateY(-4px);background:#5C88FF}
 .link.alt{background:var(--surf2);border:1px solid var(--line2);box-shadow:none}
 .link.alt:hover{border-color:var(--blue);background:rgba(72,120,255,.12)}
-.link .ic{display:grid;place-items:center;width:48px;height:48px;border-radius:14px;background:rgba(255,255,255,.16);font-size:22px;flex:none}
-.link small{display:block;font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;opacity:.75;margin-bottom:3px}
-.link strong{display:block;font-size:clamp(15px,1.4vw,18px);font-weight:700;word-break:break-word}
-.link .go{margin-left:auto;font-size:22px;transition:transform .3s var(--ease)}
-.link:hover .go{transform:translateX(5px)}
+.link .ic{display:grid;place-items:center;width:56px;height:56px;border-radius:16px;background:rgba(255,255,255,.16);font-size:26px;flex:none}
+.link small{display:block;font-size:14px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;opacity:.75;margin-bottom:4px}
+.link strong{display:block;font-size:25px;font-weight:700}
+.link .go{margin-left:auto;font-size:28px;transition:transform .3s var(--ease)}
+.link:hover .go{transform:translateX(6px)}
 
 /* ── 13. Recursos ───────────────────────────────────────────── */
-.manual{display:grid;grid-template-columns:.9fr 1.1fr;gap:20px;margin-top:52px;align-items:stretch}
-.doc{position:relative;display:flex;flex-direction:column;justify-content:space-between;gap:40px;padding:clamp(28px,3vw,44px);border-radius:var(--r);overflow:hidden;
-  background:linear-gradient(155deg,#5A86FF,var(--blue) 35%,var(--blue-deep));box-shadow:0 30px 80px -30px rgba(72,120,255,.7);transition:.4s var(--ease)}
-.doc:hover{transform:translateY(-4px) rotate(-.4deg)}
-.doc::after{content:"";position:absolute;right:-60px;bottom:-60px;width:260px;height:260px;border-radius:40px;transform:rotate(45deg);border:1px solid rgba(255,255,255,.2)}
-.doc .sheet{display:flex;flex-direction:column;gap:9px;width:62%}
-.doc .sheet i{display:block;height:9px;border-radius:5px;background:rgba(255,255,255,.28)}
-.doc .sheet i:nth-child(1){width:55%;height:14px;background:rgba(255,255,255,.7)}
+.manual{display:grid;grid-template-columns:620px 1fr;gap:24px;margin-top:44px}
+.doc{position:relative;display:flex;flex-direction:column;justify-content:space-between;padding:48px;border-radius:24px;overflow:hidden;
+  background:linear-gradient(155deg,#5A86FF,var(--blue) 35%,var(--blue-deep));box-shadow:0 30px 90px -30px rgba(72,120,255,.75);transition:.4s var(--ease)}
+.doc:hover{transform:translateY(-5px) rotate(-.4deg)}
+.doc::after{content:"";position:absolute;right:-70px;bottom:-70px;width:300px;height:300px;border-radius:48px;transform:rotate(45deg);border:1px solid rgba(255,255,255,.2)}
+.doc .sheet{display:flex;flex-direction:column;gap:11px;width:60%}
+.doc .sheet i{display:block;height:11px;border-radius:6px;background:rgba(255,255,255,.28)}
+.doc .sheet i:nth-child(1){width:55%;height:16px;background:rgba(255,255,255,.7)}
 .doc .sheet i:nth-child(3){width:85%}
 .doc .sheet i:nth-child(4){width:70%}
-.doc h3{font-size:clamp(28px,3vw,40px);color:#fff}
-.doc p{color:rgba(255,255,255,.85);margin-top:8px;font-size:16px}
-.doc .cta{display:inline-flex;align-items:center;gap:10px;margin-top:22px;padding:13px 20px;border-radius:999px;background:#fff;color:var(--blue-deep);font-weight:800;font-size:14px}
-.items{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.items .card{padding:22px 24px;display:flex;gap:16px;align-items:flex-start}
-.items .ico{width:42px;height:42px;font-size:19px;margin:0;border-radius:12px;flex:none}
-.items h3{font-size:17px;margin-bottom:4px}
-.items p{font-size:14.5px;line-height:1.45}
+.doc h3{font-size:48px;color:#fff}
+.doc p{color:rgba(255,255,255,.88);margin-top:10px;font-size:22px}
+.doc .cta{display:inline-flex;align-items:center;gap:12px;margin-top:26px;padding:16px 26px;border-radius:999px;background:#fff;color:var(--blue-deep);font-weight:800;font-size:20px}
+.items{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.items .card{padding:26px 28px;display:flex;gap:20px;align-items:flex-start}
+.items h3{font-size:24px;margin-bottom:6px}
+.items p{font-size:20px}
 
 /* ── 14. Cierre ─────────────────────────────────────────────── */
-#cierre{overflow:hidden;text-align:center}
-#cierre .wrap{display:flex;flex-direction:column;align-items:center}
-#cierre .big-logo{width:clamp(90px,10vw,130px);filter:invert(1);opacity:.95;margin-bottom:40px}
-#cierre h2{font-size:clamp(44px,7.6vw,124px);max-width:13ch;letter-spacing:-.05em;line-height:.95}
-#cierre .lead{margin:28px auto 0;color:var(--text);font-weight:500}
+#cierre{align-items:center;text-align:center}
+#cierre .big-logo{width:150px;filter:invert(1);margin:0 auto 44px}
+#cierre h2{font-size:124px;max-width:1500px;letter-spacing:-.05em;line-height:.96;margin:0 auto}
+#cierre .lead{margin:34px auto 0;color:var(--text);font-weight:500;font-size:30px}
 #cierre .btns{justify-content:center}
-#cierre .rings{position:absolute;left:50%;top:50%;z-index:-1;width:min(1100px,140vw);aspect-ratio:1;transform:translate(-50%,-50%)}
-#cierre .rings i{position:absolute;border-radius:24%;border:1px solid rgba(72,120,255,.18);transform:rotate(45deg)}
-#cierre .rings i:nth-child(1){inset:0;opacity:.4}
-#cierre .rings i:nth-child(2){inset:14%;opacity:.6}
-#cierre .rings i:nth-child(3){inset:28%;border-color:rgba(72,120,255,.35)}
-footer{padding:28px var(--pad);border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--mut)}
-footer img{height:20px;filter:invert(1);opacity:.7}
+.rings{position:absolute;left:50%;top:50%;z-index:-1;width:1500px;height:1500px;transform:translate(-50%,-50%)}
+.rings i{position:absolute;border-radius:24%;border:1px solid rgba(72,120,255,.2);transform:rotate(45deg)}
+.rings i:nth-child(1){inset:0;opacity:.4}
+.rings i:nth-child(2){inset:14%;opacity:.6}
+.rings i:nth-child(3){inset:28%;border-color:rgba(72,120,255,.35)}
 
-/* ── Responsive ─────────────────────────────────────────────── */
-@media (max-width:1080px){
-  .bento{grid-template-columns:1fr 1fr}
-  .bento .hero-c{grid-row:auto;grid-column:span 2}
-  .four{grid-template-columns:1fr 1fr}
-  .tri,.trio,.pacts{grid-template-columns:1fr 1fr}
-  .tri>:last-child,.trio>:last-child{grid-column:span 2}
-  .manual{grid-template-columns:1fr}
-  .dots{display:none}
-}
-@media (max-width:860px){
-  body{font-size:16px}
-  #cover .wrap{grid-template-columns:1fr}
-  .art{position:absolute;right:-30%;top:-8%;width:90%;opacity:.35;z-index:-1}
-  .art .tag,.art .core,.art .logo{display:none}
-  .vs,.ads,.lim,.links{grid-template-columns:1fr}
-  .duo{grid-template-columns:1fr}
-  .plus{width:auto;height:56px}
-  .plus::before{top:50%;bottom:auto;left:10%;right:10%;width:auto;height:1px;background:linear-gradient(90deg,transparent,var(--line2),transparent)}
-  .agenda a{grid-template-columns:64px 1fr 28px;gap:16px}
-  .agenda a p{grid-column:2;grid-row:2;margin-top:-10px}
-  .agenda .go{grid-row:1/span 2;grid-column:3}
-  .flow ol{grid-template-columns:1fr;gap:16px}
-  .flow ol::before,.flow ol::after{left:15px;right:auto;top:16px;bottom:16px;width:2px;height:auto}
-  .flow ol::after{transform:scaleY(0);transform-origin:top}
-  .flow.in ol::after{transform:none}
-  .flow li{flex-direction:row;text-align:left}
-  .road{grid-template-columns:1fr;gap:16px;margin-top:40px;padding-left:28px}
-  .road::before,.road::after{left:0;right:auto;top:0;bottom:0;width:2px;height:auto}
-  .road::after{transform:scaleY(0);transform-origin:top;background:linear-gradient(var(--blue),var(--blue2) 30%,rgba(72,120,255,.15) 70%,transparent)}
-  .road.in::after{transform:none}
-  .road .dot{left:-36px;top:30px}
-  .top .chap{display:none}
-  .hint{display:none}
-  .cover-foot .scroll{display:none}
-  .ghost{font-size:clamp(140px,40vw,220px)}
-}
-@media (max-width:600px){
-  .tri,.trio,.pacts,.four,.items,.bento{grid-template-columns:1fr}
-  .tri>:last-child,.trio>:last-child,.bento .hero-c{grid-column:auto}
-  .four .card{min-height:0}
-  .four .n{padding-bottom:16px}
-  .btn{width:100%;justify-content:center}
-  .statement,.warn{flex-direction:column;align-items:flex-start;gap:12px;padding:22px}
-  .brand .sep,.brand .txt{display:none}
-  .cover-foot{flex-direction:column;align-items:flex-start;gap:4px;bottom:20px}
-  .link{padding:18px}
-}
-@media (prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation:none!important;transition:none!important}
-  html{scroll-behavior:auto}
-  .js .rv{opacity:1;transform:none}
-}
-@media print{
-  .top,.dots,.hint,.progress{display:none}
-  .slide{min-height:auto;break-inside:avoid;padding:48px}
-  .js .rv{opacity:1;transform:none}
-}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition-duration:.01s!important;transition-delay:0s!important}}
 </style>
 </head>
 <body>
 
-<!-- Íconos -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
   <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
   <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-full" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></symbol>
   <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
   <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></symbol>
   <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2V17h6v-.3c0-.8.4-1.5 1-2A7 7 0 0 0 12 2z"/></symbol>
@@ -463,24 +407,16 @@ footer img{height:20px;filter:invert(1);opacity:.7}
   <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></symbol>
 </svg>
 
-<div class="progress" id="progress"></div>
-<header class="top">
-  <a class="brand" href="#cover"><img src="/assets/mk-symbol.png" alt="Método Korex"><span class="sep"></span><span class="txt">Método <b>Korex</b></span></a>
-  <div class="chap" id="chap"><i>00</i><span>Bienvenida</span></div>
-</header>
-<nav class="dots" id="dots" aria-label="Secciones"></nav>
-<div class="hint" id="hint"><kbd>↑</kbd><kbd>↓</kbd> para navegar como presentación</div>
-
-<main>
+<div id="stage">
 
 <!-- 1 · PORTADA -->
 <section class="slide" id="cover" data-label="Inicio" data-chap="00" data-chap-name="Bienvenida">
-  <div class="glow" style="width:600px;height:600px;right:-10%;top:10%"></div>
-  <div class="glow" style="width:420px;height:420px;left:-15%;bottom:-10%;opacity:.12"></div>
+  <div class="glow" style="width:700px;height:700px;right:-6%;top:12%"></div>
+  <div class="glow" style="width:480px;height:480px;left:-12%;bottom:-14%;opacity:.12"></div>
   <div class="wrap">
     <div>
       <div class="pill rv"><span class="live"></span>Comunidad AITech · Noviembre 2026</div>
-      <h1 class="rv" style="--d:1"><span>Onboarding</span><span>de <span class="grad" style="display:inline">networkers</span></span></h1>
+      <h1 class="rv" style="--d:1"><span>Onboarding de</span><span class="grad">networkers</span></h1>
       <p class="lead rv" style="--d:2">Infraestructura de captación y duplicación <em>para empresas de network marketing.</em></p>
       <div class="btns rv" style="--d:3">
         <a class="btn btn-p" href="#que-es">Empezar <svg class="i"><use href="#i-arrow"/></svg></a>
@@ -495,208 +431,186 @@ footer img{height:20px;filter:invert(1);opacity:.7}
       <div class="tag t3"><b>●</b> Duplicación</div>
     </div>
   </div>
-  <div class="cover-foot"><span>Korex Project LLC · metodokorex.com</span><span class="scroll"><span></span>Desliza</span></div>
 </section>
 
 <!-- 2 · QUÉ ES -->
 <section class="slide" id="que-es" data-label="Qué es Korex" data-chap="00" data-chap-name="Introducción">
-  <div class="wrap">
-    <div class="eyebrow rv">Introducción</div>
-    <h2 class="rv" style="--d:1">Qué es Korex <span class="grad">y qué no es</span></h2>
-    <div class="vs">
-      <div class="card yes rv" style="--d:2">
-        <div class="vs-h"><span class="badge"><svg class="i"><use href="#i-check"/></svg></span><h3>Korex es</h3></div>
-        <ul class="list">
-          <li><svg class="i"><use href="#i-check"/></svg>Un acompañamiento para que desarrolles tu red de forma profesional</li>
-          <li><svg class="i"><use href="#i-check"/></svg>Metodologías, guiones y estructuras duplicables</li>
-          <li><svg class="i"><use href="#i-check"/></svg>Herramientas que evolucionan semana a semana</li>
-          <li><svg class="i"><use href="#i-check"/></svg>Un equipo de networkers afiliados de AITech, como tú</li>
-        </ul>
-      </div>
-      <div class="card no rv" style="--d:3">
-        <div class="vs-h"><span class="badge"><svg class="i"><use href="#i-x"/></svg></span><h3>Korex no es</h3></div>
-        <ul class="list">
-          <li><svg class="i"><use href="#i-x"/></svg>La empresa: somos afiliados, igual que tú</li>
-          <li><svg class="i"><use href="#i-x"/></svg>Una agencia de marketing ni un proveedor de servicios</li>
-          <li><svg class="i"><use href="#i-x"/></svg>Una solución mágica que hace el negocio por ti</li>
-          <li><svg class="i"><use href="#i-x"/></svg>Solo un software: el valor está en el acompañamiento</li>
-        </ul>
-      </div>
+  <div class="eyebrow rv">Introducción</div>
+  <h2 class="rv" style="--d:1">Qué es Korex <span class="grad">y qué no es</span></h2>
+  <div class="vs">
+    <div class="card yes rv" style="--d:2">
+      <div class="vs-h"><span class="badge"><svg class="i"><use href="#i-check"/></svg></span><h3>Korex es</h3></div>
+      <ul class="list">
+        <li><svg class="i"><use href="#i-check"/></svg>Un acompañamiento para que desarrolles tu red de forma profesional</li>
+        <li><svg class="i"><use href="#i-check"/></svg>Metodologías, guiones y estructuras duplicables</li>
+        <li><svg class="i"><use href="#i-check"/></svg>Herramientas que evolucionan semana a semana</li>
+        <li><svg class="i"><use href="#i-check"/></svg>Un equipo de networkers afiliados de AITech, como tú</li>
+      </ul>
     </div>
-    <div class="statement rv" style="--d:4">
-      <svg class="i"><use href="#i-bulb"/></svg>
-      <p><b>Nuestro valor no está en el software:</b> está en el acompañamiento y las metodologías. Si la plataforma falla, eso sigue ahí.</p>
+    <div class="card no rv" style="--d:3">
+      <div class="vs-h"><span class="badge"><svg class="i"><use href="#i-x"/></svg></span><h3>Korex no es</h3></div>
+      <ul class="list">
+        <li><svg class="i"><use href="#i-x"/></svg>La empresa: somos afiliados, igual que tú</li>
+        <li><svg class="i"><use href="#i-x"/></svg>Una agencia de marketing ni un proveedor de servicios</li>
+        <li><svg class="i"><use href="#i-x"/></svg>Una solución mágica que hace el negocio por ti</li>
+        <li><svg class="i"><use href="#i-x"/></svg>Solo un software: el valor está en el acompañamiento</li>
+      </ul>
     </div>
+  </div>
+  <div class="statement rv" style="--d:4">
+    <svg class="i"><use href="#i-bulb"/></svg>
+    <p><b>Nuestro valor no está en el software:</b> está en el acompañamiento y las metodologías. Si la plataforma falla, eso sigue ahí.</p>
   </div>
 </section>
 
 <!-- 3 · AGENDA -->
 <section class="slide" id="agenda" data-label="Agenda" data-chap="00" data-chap-name="Agenda">
-  <div class="wrap">
-    <div class="eyebrow rv">Agenda</div>
-    <h2 class="rv" style="--d:1">Lo que vamos a <span class="grad">ver hoy</span></h2>
-    <nav class="agenda">
-      <a href="#verticales" class="rv" style="--d:2"><span class="n">01</span><h3>Dos verticales</h3><p>Orgánica y publicidad: lo que Korex pone a tu disposición</p><svg class="i go"><use href="#i-arrow"/></svg></a>
-      <a href="#cultura" class="rv" style="--d:3"><span class="n">02</span><h3>Nuestra cultura</h3><p>Cómo trabajamos juntos y qué esperamos de cada uno</p><svg class="i go"><use href="#i-arrow"/></svg></a>
-      <a href="#roadmap" class="rv" style="--d:4"><span class="n">03</span><h3>Roadmap</h3><p>Hacia dónde evoluciona el sistema</p><svg class="i go"><use href="#i-arrow"/></svg></a>
-      <a href="#primeros-pasos" class="rv" style="--d:5"><span class="n">04</span><h3>Próximos pasos</h3><p>Qué haces al salir de esta reunión</p><svg class="i go"><use href="#i-arrow"/></svg></a>
-    </nav>
-  </div>
+  <div class="eyebrow rv">Agenda</div>
+  <h2 class="rv" style="--d:1">Lo que vamos a <span class="grad">ver hoy</span></h2>
+  <nav class="agenda">
+    <a href="#verticales" class="rv" style="--d:2"><span class="n">01</span><h3>Dos verticales</h3><p>Orgánica y publicidad: lo que Korex pone a tu disposición</p><svg class="i go"><use href="#i-arrow"/></svg></a>
+    <a href="#cultura" class="rv" style="--d:3"><span class="n">02</span><h3>Nuestra cultura</h3><p>Cómo trabajamos juntos y qué esperamos de cada uno</p><svg class="i go"><use href="#i-arrow"/></svg></a>
+    <a href="#roadmap" class="rv" style="--d:4"><span class="n">03</span><h3>Roadmap</h3><p>Hacia dónde evoluciona el sistema</p><svg class="i go"><use href="#i-arrow"/></svg></a>
+    <a href="#primeros-pasos" class="rv" style="--d:5"><span class="n">04</span><h3>Próximos pasos</h3><p>Qué haces al salir de esta reunión</p><svg class="i go"><use href="#i-arrow"/></svg></a>
+  </nav>
 </section>
 
 <!-- 4 · VERTICALES -->
 <section class="slide" id="verticales" data-label="Dos verticales" data-chap="01" data-chap-name="Dos verticales">
   <div class="ghost">01</div>
-  <div class="wrap">
-    <div class="eyebrow rv">01 · Dos verticales</div>
-    <h2 class="rv" style="--d:1">Dos caminos, <span class="grad">un mismo objetivo</span></h2>
-    <p class="lead rv" style="--d:2">Que desarrolles tu red dentro de AITech de forma profesional.</p>
-    <div class="duo">
-      <a href="#organica" class="card base rv" style="--d:3">
-        <div class="row"><span class="ico"><svg class="i"><use href="#i-users"/></svg></span><span class="kicker">La base</span></div>
-        <h3>Orgánica</h3>
-        <p>Tu lista de contactos, una metodología probada y rutinas diarias. La forma más sólida de crecer, siempre.</p>
-      </a>
-      <div class="plus rv" style="--d:4"><span>+</span></div>
-      <a href="#publicidad" class="card acc rv" style="--d:5">
-        <div class="row"><span class="ico"><svg class="i"><use href="#i-zap"/></svg></span><span class="kicker">El acelerador</span></div>
-        <h3>Publicidad</h3>
-        <p>Campañas que gestiona Korex y que te envían prospectos. Se habilita de forma gradual.</p>
-      </a>
-    </div>
+  <div class="eyebrow rv">01 · Dos verticales</div>
+  <h2 class="rv" style="--d:1">Dos caminos, <span class="grad">un mismo objetivo</span></h2>
+  <p class="lead rv" style="--d:2">Que desarrolles tu red dentro de AITech de forma profesional.</p>
+  <div class="duo">
+    <a href="#organica" class="card base rv" style="--d:3">
+      <div class="row"><span class="ico"><svg class="i"><use href="#i-users"/></svg></span><span class="kicker">La base</span></div>
+      <h3>Orgánica</h3>
+      <p>Tu lista de contactos, una metodología probada y rutinas diarias. La forma más sólida de crecer, siempre.</p>
+    </a>
+    <div class="plus rv" style="--d:4"><span>+</span></div>
+    <a href="#publicidad" class="card acc rv" style="--d:5">
+      <div class="row"><span class="ico"><svg class="i"><use href="#i-zap"/></svg></span><span class="kicker">El acelerador</span></div>
+      <h3>Publicidad</h3>
+      <p>Campañas que gestiona Korex y que te envían prospectos. Se habilita de forma gradual.</p>
+    </a>
   </div>
 </section>
 
 <!-- 5 · ORGÁNICA -->
 <section class="slide" id="organica" data-label="Vertical orgánica" data-chap="01" data-chap-name="Vertical orgánica">
-  <div class="glow" style="width:500px;height:500px;left:-12%;top:20%;opacity:.14"></div>
-  <div class="wrap">
-    <div class="eyebrow rv">01 · Vertical orgánica</div>
+  <div class="glow" style="width:560px;height:560px;left:-10%;top:30%;opacity:.14"></div>
+  <div class="eyebrow rv">01 · Vertical orgánica</div>
+  <div class="head-row">
     <h2 class="rv" style="--d:1">Tu red, <span class="grad">con método</span></h2>
     <p class="quote rv" style="--d:2">“La vieja escuela supera a cualquier anuncio. Por eso es, y será siempre, la base.”</p>
-    <div class="bento">
-      <div class="card hero-c rv" style="--d:2">
-        <div class="big">Worre</div>
-        <span class="ico"><svg class="i"><use href="#i-book"/></svg></span>
-        <h3>Metodología Eric Worre</h3>
-        <p>Cómo invitar, presentar y hacer seguimiento, paso a paso.</p>
-      </div>
-      <div class="card rv" style="--d:3"><span class="ico"><svg class="i"><use href="#i-contacts"/></svg></span><h3>Tu lista de contactos</h3><p>Tu principal activo. La importas al sistema y la trabajas con orden.</p></div>
-      <div class="card rv" style="--d:4"><span class="ico"><svg class="i"><use href="#i-target"/></svg></span><h3>Estrategia personalizada</h3><p>Definida contigo en una llamada 1 a 1, según tu perfil y tu red.</p></div>
-      <div class="card rv" style="--d:5"><span class="ico"><svg class="i"><use href="#i-copy"/></svg></span><h3>Embudos duplicables</h3><p>Estructuras que tu equipo puede copiar tal cual, sin reinventar nada.</p></div>
-      <div class="card rv" style="--d:6"><span class="ico"><svg class="i"><use href="#i-layers"/></svg></span><h3>Sistema de organización</h3><p>Cada contacto en su etapa y con su próximo paso. Nadie se pierde.</p></div>
-    </div>
-    <div class="card rv" style="--d:3;margin-top:16px;display:flex;gap:20px;align-items:center"><span class="ico" style="margin:0"><svg class="i"><use href="#i-repeat"/></svg></span><div><h3 style="margin-bottom:4px">Rutinas diarias</h3><p>Acciones pequeñas y constantes que, sumadas, construyen tu red.</p></div></div>
-    <div class="flow rv" style="--d:2">
-      <div class="flow-t">El proceso</div>
-      <ol>
-        <li>Importas tu lista</li>
-        <li>Llamada 1 a 1</li>
-        <li>Contactas con método</li>
-        <li>Seguimiento</li>
-        <li class="end">Tu equipo lo duplica</li>
-      </ol>
-    </div>
+  </div>
+  <div class="six">
+    <div class="card feat rv" style="--d:2"><div class="ch"><span class="ico"><svg class="i"><use href="#i-book"/></svg></span><h3>Metodología Eric Worre</h3></div><p>Cómo invitar, presentar y hacer seguimiento, paso a paso.</p></div>
+    <div class="card rv" style="--d:3"><div class="ch"><span class="ico"><svg class="i"><use href="#i-contacts"/></svg></span><h3>Tu lista de contactos</h3></div><p>Tu principal activo. La importas al sistema y la trabajas con orden.</p></div>
+    <div class="card rv" style="--d:4"><div class="ch"><span class="ico"><svg class="i"><use href="#i-target"/></svg></span><h3>Estrategia personalizada</h3></div><p>Definida contigo en una llamada 1 a 1, según tu perfil y tu red.</p></div>
+    <div class="card rv" style="--d:5"><div class="ch"><span class="ico"><svg class="i"><use href="#i-copy"/></svg></span><h3>Embudos duplicables</h3></div><p>Estructuras que tu equipo puede copiar tal cual, sin reinventar nada.</p></div>
+    <div class="card rv" style="--d:6"><div class="ch"><span class="ico"><svg class="i"><use href="#i-layers"/></svg></span><h3>Sistema de organización</h3></div><p>Cada contacto en su etapa y con su próximo paso. Nadie se pierde.</p></div>
+    <div class="card rv" style="--d:7"><div class="ch"><span class="ico"><svg class="i"><use href="#i-repeat"/></svg></span><h3>Rutinas diarias</h3></div><p>Acciones pequeñas y constantes que, sumadas, construyen tu red.</p></div>
+  </div>
+  <div class="flow rv" style="--d:5">
+    <div class="flow-t">El proceso</div>
+    <ol>
+      <li>Importas tu lista</li>
+      <li>Llamada 1 a 1</li>
+      <li>Contactas con método</li>
+      <li>Seguimiento</li>
+      <li class="end">Tu equipo lo duplica</li>
+    </ol>
   </div>
 </section>
 
 <!-- 6 · PUBLICIDAD -->
 <section class="slide" id="publicidad" data-label="Vertical publicidad" data-chap="01" data-chap-name="Vertical publicidad">
-  <div class="glow" style="width:560px;height:560px;right:-14%;top:5%"></div>
-  <div class="wrap">
-    <div class="eyebrow rv">01 · Vertical publicidad</div>
-    <h2 class="rv wide" style="--d:1">Prospectos <span class="grad">sin saber de anuncios</span></h2>
-    <p class="lead rv" style="--d:2">Te apalancas en las campañas que hace Korex, sin grabarte y sin nada técnico.</p>
-    <div class="ads">
-      <div class="steps">
-        <div class="step rv" style="--d:3"><span class="num">1</span><div><h3>Korex diseña y gestiona las campañas</h3><p>Anuncios, embudos y seguimiento: lo técnico corre de nuestra cuenta.</p></div></div>
-        <div class="step rv" style="--d:4"><span class="num">2</span><div><h3>Aportas un saldo para publicidad</h3><p>Según el modelo que esté vigente en cada momento.</p></div></div>
-        <div class="step rv" style="--d:5"><span class="num">3</span><div><h3>Recibes prospectos interesados</h3><p>En la tarjeta BIX, en las inversiones o en el network marketing.</p>
-          <div class="chips"><span>Tarjeta BIX</span><span>Inversiones</span><span>Network marketing</span></div></div></div>
-      </div>
-      <div class="card need rv" style="--d:4">
-        <h3>Lo que no necesitas</h3>
-        <div class="x"><svg class="i"><use href="#i-x"/></svg><s>Grabarte</s></div>
-        <div class="x"><svg class="i"><use href="#i-x"/></svg><s>Saber de anuncios</s></div>
-        <div class="x"><svg class="i"><use href="#i-x"/></svg><s>Conocimientos técnicos</s></div>
-        <div class="yes-do"><b>Lo que sí</b>Atender y dar seguimiento a cada prospecto que recibes.</div>
-      </div>
+  <div class="glow" style="width:620px;height:620px;right:-8%;top:4%"></div>
+  <div class="eyebrow rv">01 · Vertical publicidad</div>
+  <h2 class="rv" style="--d:1">Prospectos <span class="grad">sin saber de anuncios</span></h2>
+  <p class="lead rv" style="--d:2">Te apalancas en las campañas que hace Korex, sin grabarte y sin nada técnico.</p>
+  <div class="ads">
+    <div class="steps">
+      <div class="step rv" style="--d:3"><span class="num">1</span><div><h3>Korex diseña y gestiona las campañas</h3><p>Anuncios, embudos y seguimiento: lo técnico corre de nuestra cuenta.</p></div></div>
+      <div class="step rv" style="--d:4"><span class="num">2</span><div><h3>Aportas un saldo para publicidad</h3><p>Según el modelo que esté vigente en cada momento.</p></div></div>
+      <div class="step rv" style="--d:5"><span class="num">3</span><div><h3>Recibes prospectos interesados</h3><p>En la tarjeta BIX, en las inversiones o en el network marketing.</p>
+        <div class="chips"><span>Tarjeta BIX</span><span>Inversiones</span><span>Network marketing</span></div></div></div>
+    </div>
+    <div class="card need rv" style="--d:4">
+      <h3>Lo que no necesitas</h3>
+      <div class="x"><svg class="i"><use href="#i-x"/></svg><s>Grabarte</s></div>
+      <div class="x"><svg class="i"><use href="#i-x"/></svg><s>Saber de anuncios</s></div>
+      <div class="x"><svg class="i"><use href="#i-x"/></svg><s>Conocimientos técnicos</s></div>
+      <div class="yes-do"><b>Lo que sí</b>Atender y dar seguimiento a cada prospecto que recibes.</div>
     </div>
   </div>
 </section>
 
 <!-- 7 · CONDICIONES -->
 <section class="slide" id="publicidad-condiciones" data-label="Cómo se habilita" data-chap="01" data-chap-name="Vertical publicidad">
-  <div class="wrap">
-    <div class="eyebrow rv">01 · Vertical publicidad</div>
-    <h2 class="rv wide" style="--d:1">Cómo se habilita <span class="grad">la publicidad</span></h2>
-    <p class="lead rv" style="--d:2">Se abre poco a poco. Preferimos ir despacio y bien antes que prometer lo que aún no está listo.</p>
-    <div class="tri">
-      <div class="card rv" style="--d:3"><span class="ico"><svg class="i"><use href="#i-target"/></svg></span><span class="tagline">Meta</span><h3>El objetivo</h3>
-        <ul><li>Habilitarla para todos a lo largo de noviembre</li><li>Acceso gradual, empezando por pocas personas</li><li>A mediano plazo, que todos participen</li></ul></div>
-      <div class="card rv" style="--d:4"><span class="ico"><svg class="i"><use href="#i-split"/></svg></span><span class="tagline">Variables</span><h3>De qué depende el resultado</h3>
-        <ul><li>El rendimiento de las campañas</li><li>El comportamiento del mercado</li><li>El apoyo de AITech con financiación o recursos</li></ul></div>
-      <div class="card rv" style="--d:5"><span class="ico"><svg class="i"><use href="#i-repeat"/></svg></span><span class="tagline">Flexible</span><h3>El modelo puede cambiar</h3>
-        <ul><li>Hoy no pensamos cobrarla, en un futuro tal vez solo los costos.</li><li>Podría pasar a saldos, compra de prospectos o una mensualidad para cubrir gastos</li></ul></div>
-    </div>
-    <div class="warn rv" style="--d:4"><svg class="i"><use href="#i-alert"/></svg><p>Invertir en publicidad puede dar un resultado bueno, medio o malo. Ese resultado es de quien invierte.</p></div>
+  <div class="eyebrow rv">01 · Vertical publicidad</div>
+  <h2 class="rv" style="--d:1">Cómo se habilita <span class="grad">la publicidad</span></h2>
+  <p class="lead rv" style="--d:2">Se abre poco a poco. Preferimos ir despacio y bien antes que prometer lo que aún no está listo.</p>
+  <div class="tri">
+    <div class="card rv" style="--d:3"><div class="ch"><span class="ico"><svg class="i"><use href="#i-target"/></svg></span><div><span class="tag-s">Meta</span><h3>El objetivo</h3></div></div>
+      <ul><li>Habilitarla para todos a lo largo de noviembre</li><li>Acceso gradual, empezando por pocas personas</li><li>A mediano plazo, que todos participen</li></ul></div>
+    <div class="card rv" style="--d:4"><div class="ch"><span class="ico"><svg class="i"><use href="#i-split"/></svg></span><div><span class="tag-s">Variables</span><h3>De qué depende el resultado</h3></div></div>
+      <ul><li>El rendimiento de las campañas</li><li>El comportamiento del mercado</li><li>El apoyo de AITech con financiación o recursos</li></ul></div>
+    <div class="card rv" style="--d:5"><div class="ch"><span class="ico"><svg class="i"><use href="#i-repeat"/></svg></span><div><span class="tag-s">Flexible</span><h3>El modelo puede cambiar</h3></div></div>
+      <ul><li>Hoy no pensamos cobrarla, en un futuro tal vez solo los costos.</li><li>Podría pasar a saldos, compra de prospectos o una mensualidad para cubrir gastos</li></ul></div>
   </div>
+  <div class="warn rv" style="--d:5"><svg class="i"><use href="#i-alert"/></svg><p>Invertir en publicidad puede dar un resultado bueno, medio o malo. Ese resultado es de quien invierte.</p></div>
 </section>
 
 <!-- 8 · CULTURA -->
-<section class="slide" id="cultura" data-label="Nuestra cultura" data-chap="02" data-chap-name="Nuestra cultura">
+<section class="slide" id="cultura" data-label="Nuestra cultura" data-chap="02" data-chap-name="Nuestra cultura" data-theme="blue">
   <div class="ghost">02</div>
-  <div class="wrap">
-    <div class="eyebrow rv">02 · Nuestra cultura</div>
-    <h2 class="rv" style="--d:1">Korex complementa tu liderazgo. <span>No hace el negocio por ti.</span></h2>
-    <p class="lead rv" style="--d:2">Es una herramienta adicional a lo que ya haces y a tus habilidades. Puede funcionarte más o menos, puede tener fallos, pero tu resultado depende de ti.</p>
-    <div class="trio">
-      <div class="card rv" style="--d:3"><span class="ico"><svg class="i"><use href="#i-users"/></svg></span><h3>Somos equipo, no proveedores</h3><p>Somos networkers afiliados de AITech, como tú. No somos una agencia ni la empresa.</p></div>
-      <div class="card rv" style="--d:4"><span class="ico"><svg class="i"><use href="#i-heart"/></svg></span><h3>No nos pagaste por esto</h3><p>Es una decisión estratégica: invertimos equipo, tiempo y dinero para hacer crecer la red.</p></div>
-      <div class="card rv" style="--d:5"><span class="ico"><svg class="i"><use href="#i-share"/></svg></span><h3>El apoyo se multiplica</h3><p>Así como Juan Ramón nos apoya, te apoyamos a ti, y tú apoyas a tu equipo.</p></div>
-    </div>
-    <div class="chain rv" style="--d:4">
-      <span>Juan Ramón</span><svg class="i"><use href="#i-arrow"/></svg>
-      <span>Korex</span><svg class="i"><use href="#i-arrow"/></svg>
-      <span class="me">Tú</span><svg class="i"><use href="#i-arrow"/></svg>
-      <span>Tu equipo</span>
-    </div>
+  <div class="eyebrow rv">02 · Nuestra cultura</div>
+  <h2 class="rv" style="--d:1">Korex complementa tu liderazgo. <span>No hace el negocio por ti.</span></h2>
+  <p class="lead rv" style="--d:2">Es una herramienta adicional a lo que ya haces y a tus habilidades. Puede funcionarte más o menos, puede tener fallos, pero tu resultado depende de ti.</p>
+  <div class="trio">
+    <div class="card rv" style="--d:3"><div class="ch"><span class="ico"><svg class="i"><use href="#i-users"/></svg></span><h3>Somos equipo, no proveedores</h3></div><p>Somos networkers afiliados de AITech, como tú. No somos una agencia ni la empresa.</p></div>
+    <div class="card rv" style="--d:4"><div class="ch"><span class="ico"><svg class="i"><use href="#i-heart"/></svg></span><h3>No nos pagaste por esto</h3></div><p>Es una decisión estratégica: invertimos equipo, tiempo y dinero para hacer crecer la red.</p></div>
+    <div class="card rv" style="--d:5"><div class="ch"><span class="ico"><svg class="i"><use href="#i-share"/></svg></span><h3>El apoyo se multiplica</h3></div><p>Así como Juan Ramón nos apoya, te apoyamos a ti, y tú apoyas a tu equipo.</p></div>
+  </div>
+  <div class="chain rv" style="--d:6">
+    <span>Juan Ramón</span><svg class="i"><use href="#i-arrow"/></svg>
+    <span>Korex</span><svg class="i"><use href="#i-arrow"/></svg>
+    <span class="me">Tú</span><svg class="i"><use href="#i-arrow"/></svg>
+    <span>Tu equipo</span>
   </div>
 </section>
 
 <!-- 9 · ACUERDOS -->
-<section class="slide" id="acuerdos" data-label="Seis acuerdos" data-chap="02" data-chap-name="Nuestra cultura" data-light>
+<section class="slide" id="acuerdos" data-label="Seis acuerdos" data-chap="02" data-chap-name="Nuestra cultura" data-theme="light">
   <div class="ghost">06</div>
-  <div class="wrap">
-    <div class="eyebrow rv">02 · Nuestra cultura</div>
-    <h2 class="rv" style="--d:1">Seis acuerdos para <span style="color:var(--blue)">trabajar juntos</span></h2>
-    <div class="pacts">
-      <div class="pact rv" style="--d:2"><div class="n">01</div><h3>Complemento, no atajo</h3><p>Korex suma a tu liderazgo y a tus habilidades. El negocio lo construyes tú.</p></div>
-      <div class="pact rv" style="--d:3"><div class="n">02</div><h3>Van a faltar cosas</h3><p>Estamos en una etapa inicial. Aprovechamos lo que hay y lo mejoramos juntos.</p></div>
-      <div class="pact key rv" style="--d:4"><div class="n">03</div><h3>Resultados propios</h3><p>La plataforma puede fallar o caerse. Tus resultados nunca son culpa de Korex.</p></div>
-      <div class="pact rv" style="--d:5"><div class="n">04</div><h3>Feedback constructivo</h3><p>Si algo no te convence, dínoslo en privado y con una propuesta. Si suma, lo impulsamos.</p></div>
-      <div class="pact rv" style="--d:6"><div class="n">05</div><h3>Entorno sano</h3><p>Nada de comentarios negativos ante el equipo: contaminan y frenan a todos.</p></div>
-      <div class="pact rv" style="--d:7"><div class="n">06</div><h3>Libertad para salir</h3><p>Si esta forma de trabajar no te encaja, puedes salir sin afectar al resto.</p></div>
-    </div>
+  <div class="eyebrow rv">02 · Nuestra cultura</div>
+  <h2 class="rv" style="--d:1">Seis acuerdos para <span style="color:var(--blue)">trabajar juntos</span></h2>
+  <div class="pacts">
+    <div class="pact rv" style="--d:2"><div class="top"><span class="n">01</span><h3>Complemento, no atajo</h3></div><p>Korex suma a tu liderazgo y a tus habilidades. El negocio lo construyes tú.</p></div>
+    <div class="pact rv" style="--d:3"><div class="top"><span class="n">02</span><h3>Van a faltar cosas</h3></div><p>Estamos en una etapa inicial. Aprovechamos lo que hay y lo mejoramos juntos.</p></div>
+    <div class="pact key rv" style="--d:4"><div class="top"><span class="n">03</span><h3>Resultados propios</h3></div><p>La plataforma puede fallar o caerse. Tus resultados nunca son culpa de Korex.</p></div>
+    <div class="pact rv" style="--d:5"><div class="top"><span class="n">04</span><h3>Feedback constructivo</h3></div><p>Si algo no te convence, dínoslo en privado y con una propuesta. Si suma, lo impulsamos.</p></div>
+    <div class="pact rv" style="--d:6"><div class="top"><span class="n">05</span><h3>Entorno sano</h3></div><p>Nada de comentarios negativos ante el equipo: contaminan y frenan a todos.</p></div>
+    <div class="pact rv" style="--d:7"><div class="top"><span class="n">06</span><h3>Libertad para salir</h3></div><p>Si esta forma de trabajar no te encaja, puedes salir sin afectar al resto.</p></div>
   </div>
 </section>
 
 <!-- 10 · LÍMITES -->
 <section class="slide" id="limites" data-label="Un privilegio" data-chap="02" data-chap-name="Nuestra cultura">
-  <div class="glow" style="width:520px;height:520px;right:-10%;bottom:0;opacity:.16"></div>
-  <div class="wrap">
-    <div class="eyebrow rv">02 · Nuestra cultura</div>
-    <h2 class="rv wide" style="--d:1">Un privilegio, <span class="grad">no una obligación</span></h2>
-    <div class="lim">
-      <div class="txt">
-        <p class="first rv" style="--d:2">Detrás de Korex hay mucho equipo, tiempo y dinero invertido. Tú no pagas por usarlo: confiamos plenamente en quienes están entrando.</p>
-        <p class="rv" style="--d:3">No tenemos un compromiso de servicio contigo. Lo que sí tenemos es el apoyo y las ganas reales de ayudarte a crecer.</p>
-        <p class="choose rv" style="--d:4">Podríamos usar Korex solo para nosotros. <span>Elegimos compartirlo.</span></p>
-      </div>
-      <div class="cards">
-        <div class="card stop rv" style="--d:3"><span class="tagline"><svg class="i"><use href="#i-hand"/></svg> Límite</span><h3>Lo que no aceptamos</h3><p>Actitud de víctima, quejas en público y hablar mal de Korex delante del equipo.</p></div>
-        <div class="card act rv" style="--d:4"><span class="tagline"><svg class="i"><use href="#i-shield"/></svg> Consecuencia</span><h3>Lo que pasa si ocurre</h3><p>Retiramos el acceso a esa persona. Si se extiende, pausamos Korex y lo reservamos para quienes estén comprometidos.</p></div>
-      </div>
+  <div class="glow" style="width:600px;height:600px;right:-8%;bottom:-10%;opacity:.16"></div>
+  <div class="eyebrow rv">02 · Nuestra cultura</div>
+  <h2 class="rv" style="--d:1">Un privilegio, <span class="grad">no una obligación</span></h2>
+  <div class="lim">
+    <div class="txt">
+      <p class="first rv" style="--d:2">Detrás de Korex hay mucho equipo, tiempo y dinero invertido. Tú no pagas por usarlo: confiamos plenamente en quienes están entrando.</p>
+      <p class="rv" style="--d:3">No tenemos un compromiso de servicio contigo. Lo que sí tenemos es el apoyo y las ganas reales de ayudarte a crecer.</p>
+      <p class="choose rv" style="--d:4">Podríamos usar Korex solo para nosotros. <span>Elegimos compartirlo.</span></p>
+    </div>
+    <div class="cards">
+      <div class="card stop rv" style="--d:3"><span class="tag-s"><svg class="i"><use href="#i-hand"/></svg> Límite</span><h3>Lo que no aceptamos</h3><p>Actitud de víctima, quejas en público y hablar mal de Korex delante del equipo.</p></div>
+      <div class="card act rv" style="--d:4"><span class="tag-s"><svg class="i"><use href="#i-shield"/></svg> Consecuencia</span><h3>Lo que pasa si ocurre</h3><p>Retiramos el acceso a esa persona. Si se extiende, pausamos Korex y lo reservamos para quienes estén comprometidos.</p></div>
     </div>
   </div>
 </section>
@@ -704,87 +618,81 @@ footer img{height:20px;filter:invert(1);opacity:.7}
 <!-- 11 · ROADMAP -->
 <section class="slide" id="roadmap" data-label="Roadmap" data-chap="03" data-chap-name="Roadmap">
   <div class="ghost">03</div>
-  <div class="wrap">
-    <div class="eyebrow rv">03 · Roadmap</div>
-    <h2 class="rv" style="--d:1">Korex evoluciona <span class="grad">cada semana</span></h2>
-    <div class="road rv" style="--d:2">
-      <div class="card now rv" style="--d:3"><span class="dot"></span>
-        <div class="when">Hoy <span class="here">Estás aquí</span></div>
-        <h3>Punto de partida</h3>
-        <ul>
-          <li><svg class="i"><use href="#i-check"/></svg>Plataforma inicial</li>
-          <li><svg class="i"><use href="#i-check"/></svg>Importación de contactos</li>
-          <li><svg class="i"><use href="#i-check"/></svg>Metodología Eric Worre</li>
-          <li><svg class="i"><use href="#i-check"/></svg>Guiones, estructuras y guion de objeciones</li>
-          <li><svg class="i"><use href="#i-check"/></svg>Llamada 1 a 1 para tu estrategia</li>
-        </ul>
-      </div>
-      <div class="card rv" style="--d:4"><span class="dot"></span>
-        <div class="when">Noviembre</div>
-        <h3>Apertura gradual</h3>
-        <ul>
-          <li><svg class="i"><use href="#i-arrow"/></svg>Primeros networkers con acceso a la publicidad</li>
-          <li><svg class="i"><use href="#i-arrow"/></svg>Nuevas herramientas y mejoras cada semana</li>
-        </ul>
-      </div>
-      <div class="card rv" style="--d:5"><span class="dot"></span>
-        <div class="when">Mediano plazo</div>
-        <h3>Todos dentro</h3>
-        <ul>
-          <li><svg class="i"><use href="#i-arrow"/></svg>Todos participan de las campañas</li>
-          <li><svg class="i"><use href="#i-arrow"/></svg>Prospectos sin grabarse ni saber de anuncios</li>
-          <li><svg class="i"><use href="#i-arrow"/></svg>Más facilidades y herramientas</li>
-        </ul>
-      </div>
+  <div class="eyebrow rv">03 · Roadmap</div>
+  <h2 class="rv" style="--d:1">Korex evoluciona <span class="grad">cada semana</span></h2>
+  <div class="road">
+    <div class="card now rv" style="--d:2"><span class="dot"></span>
+      <div class="when">Hoy <span class="here">Estás aquí</span></div>
+      <h3>Punto de partida</h3>
+      <ul>
+        <li><svg class="i"><use href="#i-check"/></svg>Plataforma inicial</li>
+        <li><svg class="i"><use href="#i-check"/></svg>Importación de contactos</li>
+        <li><svg class="i"><use href="#i-check"/></svg>Metodología Eric Worre</li>
+        <li><svg class="i"><use href="#i-check"/></svg>Guiones, estructuras y guion de objeciones</li>
+        <li><svg class="i"><use href="#i-check"/></svg>Llamada 1 a 1 para tu estrategia</li>
+      </ul>
     </div>
-    <p class="note rv" style="--d:4"><svg class="i"><use href="#i-info"/></svg>Plazos orientativos: dependen de las campañas, del mercado y del apoyo de AITech.</p>
+    <div class="card rv" style="--d:3"><span class="dot"></span>
+      <div class="when">Noviembre</div>
+      <h3>Apertura gradual</h3>
+      <ul>
+        <li><svg class="i"><use href="#i-arrow"/></svg>Primeros networkers con acceso a la publicidad</li>
+        <li><svg class="i"><use href="#i-arrow"/></svg>Nuevas herramientas y mejoras cada semana</li>
+      </ul>
+    </div>
+    <div class="card rv" style="--d:4"><span class="dot"></span>
+      <div class="when">Mediano plazo</div>
+      <h3>Todos dentro</h3>
+      <ul>
+        <li><svg class="i"><use href="#i-arrow"/></svg>Todos participan de las campañas</li>
+        <li><svg class="i"><use href="#i-arrow"/></svg>Prospectos sin grabarse ni saber de anuncios</li>
+        <li><svg class="i"><use href="#i-arrow"/></svg>Más facilidades y herramientas</li>
+      </ul>
+    </div>
   </div>
+  <p class="note rv" style="--d:5"><svg class="i"><use href="#i-info"/></svg>Plazos orientativos: dependen de las campañas, del mercado y del apoyo de AITech.</p>
 </section>
 
 <!-- 12 · PRÓXIMOS PASOS -->
 <section class="slide" id="primeros-pasos" data-label="Próximos pasos" data-chap="04" data-chap-name="Próximos pasos">
   <div class="ghost">04</div>
-  <div class="glow" style="width:600px;height:600px;left:20%;bottom:-30%;opacity:.16"></div>
-  <div class="wrap">
-    <div class="eyebrow rv">04 · Próximos pasos</div>
-    <h2 class="rv" style="--d:1">Próximos <span class="grad">pasos</span></h2>
-    <p class="lead rv" style="--d:2">Cuatro acciones para empezar esta misma semana.</p>
-    <div class="four">
-      <div class="card first rv" style="--d:3"><div class="n">1</div><h3>Entra al sistema Korex</h3><p>Accede a la plataforma con tu usuario y familiarízate con ella.</p></div>
-      <div class="card rv" style="--d:4"><div class="n">2</div><h3>Importa tu lista de contactos</h3><p>Toda tu agenda, sin descartar a nadie de antemano.</p></div>
-      <div class="card rv" style="--d:5"><div class="n">3</div><h3>Agenda tu llamada 1 a 1</h3><p>Revisamos tu lista, definimos tu estrategia y elegimos tus guiones.</p></div>
-      <div class="card rv" style="--d:6"><div class="n">4</div><h3>Trabaja con los guiones</h3><p>Estructuras de conversación y guion de objeciones, listos para usar.</p></div>
-    </div>
-    <div class="links">
-      <a class="link rv" style="--d:4" href="https://duplicador.metodokorex.com" target="_blank" rel="noopener"><span class="ic"><svg class="i"><use href="#i-login"/></svg></span><span><small>Plataforma</small><strong>duplicador.metodokorex.com</strong></span><svg class="i go"><use href="#i-arrow"/></svg></a>
-      <a class="link alt rv" style="--d:5" href="https://equipo.metodokorex.com/agendar/p/cc762e2e6bb488ddf4d3" target="_blank" rel="noopener"><span class="ic"><svg class="i"><use href="#i-cal"/></svg></span><span><small>Agenda tu llamada</small><strong>Reservar mi llamada 1 a 1</strong></span><svg class="i go"><use href="#i-arrow"/></svg></a>
-    </div>
+  <div class="glow" style="width:700px;height:700px;left:25%;bottom:-40%;opacity:.16"></div>
+  <div class="eyebrow rv">04 · Próximos pasos</div>
+  <h2 class="rv" style="--d:1">Próximos <span class="grad">pasos</span></h2>
+  <p class="lead rv" style="--d:2">Cuatro acciones para empezar esta misma semana.</p>
+  <div class="four">
+    <div class="card first rv" style="--d:3"><div class="n">1</div><h3>Entra al sistema Korex</h3><p>Accede a la plataforma con tu usuario y familiarízate con ella.</p></div>
+    <div class="card rv" style="--d:4"><div class="n">2</div><h3>Importa tu lista de contactos</h3><p>Toda tu agenda, sin descartar a nadie de antemano.</p></div>
+    <div class="card rv" style="--d:5"><div class="n">3</div><h3>Agenda tu llamada 1 a 1</h3><p>Revisamos tu lista, definimos tu estrategia y elegimos tus guiones.</p></div>
+    <div class="card rv" style="--d:6"><div class="n">4</div><h3>Trabaja con los guiones</h3><p>Estructuras de conversación y guion de objeciones, listos para usar.</p></div>
+  </div>
+  <div class="links">
+    <a class="link rv" style="--d:6" href="https://duplicador.metodokorex.com" target="_blank" rel="noopener"><span class="ic"><svg class="i"><use href="#i-login"/></svg></span><span><small>Plataforma</small><strong>duplicador.metodokorex.com</strong></span><svg class="i go"><use href="#i-arrow"/></svg></a>
+    <a class="link alt rv" style="--d:7" href="https://equipo.metodokorex.com/agendar/p/cc762e2e6bb488ddf4d3" target="_blank" rel="noopener"><span class="ic"><svg class="i"><use href="#i-cal"/></svg></span><span><small>Agenda tu llamada</small><strong>Reservar mi llamada 1 a 1</strong></span><svg class="i go"><use href="#i-arrow"/></svg></a>
   </div>
 </section>
 
 <!-- 13 · RECURSOS -->
 <section class="slide" id="recursos" data-label="Manual de Inicio" data-chap="04" data-chap-name="Próximos pasos">
-  <div class="wrap">
-    <div class="eyebrow rv">04 · Próximos pasos</div>
-    <h2 class="rv" style="--d:1">Manual <span class="grad">de Inicio</span></h2>
-    <p class="lead rv" style="--d:2">Guiones, objeciones, links y recursos: todo lo que necesitas para empezar, en un solo documento.</p>
-    <div class="manual">
-      <a class="doc rv" style="--d:3" href="https://docs.google.com/document/d/1rvBr6NQrote-Np0aMd9Xo3p-WJnLhV5HqgdgAFb4au0/edit?usp=sharing" target="_blank" rel="noopener">
-        <div class="sheet"><i></i><i></i><i></i><i></i></div>
-        <div>
-          <h3>Abrir el Manual de Inicio</h3>
-          <p>Guiones · Links · Recursos</p>
-          <span class="cta">Abrir documento <svg class="i"><use href="#i-ext"/></svg></span>
-        </div>
-      </a>
-      <div class="items">
-        <div class="card rv" style="--d:3"><span class="ico"><svg class="i"><use href="#i-split"/></svg></span><div><h3>Inversor o Negocio</h3><p>Cómo clasificar a cada contacto.</p></div></div>
-        <div class="card rv" style="--d:4"><span class="ico"><svg class="i"><use href="#i-mic"/></svg></span><div><h3>Guiones en audio</h3><p>Para cada perfil, más el video de tu cuenta.</p></div></div>
-        <div class="card rv" style="--d:5"><span class="ico"><svg class="i"><use href="#i-shield"/></svg></span><div><h3>5 reglas</h3><p>Qué decir y qué no decir nunca.</p></div></div>
-        <div class="card rv" style="--d:6"><span class="ico"><svg class="i"><use href="#i-chat"/></svg></span><div><h3>Objeciones</h3><p>Respuestas a las dudas más habituales.</p></div></div>
-        <div class="card rv" style="--d:7"><span class="ico"><svg class="i"><use href="#i-list"/></svg></span><div><h3>Seguimiento y rutina</h3><p>Mensajes de recordatorio y checklist diario.</p></div></div>
-        <div class="card rv" style="--d:8"><span class="ico"><svg class="i"><use href="#i-link"/></svg></span><div><h3>Links y recursos</h3><p>Material de BIX e inversiones, Myfxbook y portales.</p></div></div>
+  <div class="eyebrow rv">04 · Próximos pasos</div>
+  <h2 class="rv" style="--d:1">Manual <span class="grad">de Inicio</span></h2>
+  <p class="lead rv" style="--d:2">Guiones, objeciones, links y recursos: todo lo que necesitas para empezar, en un solo documento.</p>
+  <div class="manual">
+    <a class="doc rv" style="--d:3" href="https://docs.google.com/document/d/1rvBr6NQrote-Np0aMd9Xo3p-WJnLhV5HqgdgAFb4au0/edit?usp=sharing" target="_blank" rel="noopener">
+      <div class="sheet"><i></i><i></i><i></i><i></i></div>
+      <div>
+        <h3>Abrir el Manual de Inicio</h3>
+        <p>Guiones · Links · Recursos</p>
+        <span class="cta">Abrir documento <svg class="i"><use href="#i-ext"/></svg></span>
       </div>
+    </a>
+    <div class="items">
+      <div class="card rv" style="--d:3"><span class="ico"><svg class="i"><use href="#i-split"/></svg></span><div><h3>Inversor o Negocio</h3><p>Cómo clasificar a cada contacto.</p></div></div>
+      <div class="card rv" style="--d:4"><span class="ico"><svg class="i"><use href="#i-mic"/></svg></span><div><h3>Guiones en audio</h3><p>Para cada perfil, más el video de tu cuenta.</p></div></div>
+      <div class="card rv" style="--d:5"><span class="ico"><svg class="i"><use href="#i-shield"/></svg></span><div><h3>5 reglas</h3><p>Qué decir y qué no decir nunca.</p></div></div>
+      <div class="card rv" style="--d:6"><span class="ico"><svg class="i"><use href="#i-chat"/></svg></span><div><h3>Objeciones</h3><p>Respuestas a las dudas más habituales.</p></div></div>
+      <div class="card rv" style="--d:7"><span class="ico"><svg class="i"><use href="#i-list"/></svg></span><div><h3>Seguimiento y rutina</h3><p>Mensajes de recordatorio y checklist diario.</p></div></div>
+      <div class="card rv" style="--d:8"><span class="ico"><svg class="i"><use href="#i-link"/></svg></span><div><h3>Links y recursos</h3><p>Material de BIX e inversiones, Myfxbook y portales.</p></div></div>
     </div>
   </div>
 </section>
@@ -792,72 +700,106 @@ footer img{height:20px;filter:invert(1);opacity:.7}
 <!-- 14 · CIERRE -->
 <section class="slide" id="cierre" data-label="Cierre" data-chap="04" data-chap-name="Cierre">
   <div class="rings" aria-hidden="true"><i></i><i></i><i></i></div>
-  <div class="glow" style="width:700px;height:700px;left:50%;top:50%;transform:translate(-50%,-50%);opacity:.18"></div>
-  <div class="wrap">
-    <img class="big-logo rv" src="/assets/mk-logo-cropped.png" alt="Método Korex">
-    <h2 class="rv" style="--d:1">Esto mejora cada semana. <span class="grad">Lo construimos juntos.</span></h2>
-    <p class="lead rv" style="--d:2">Hoy mismo: importa tu lista de contactos y agenda tu llamada 1 a 1.</p>
-    <div class="btns rv" style="--d:3">
-      <a class="btn btn-p" href="https://equipo.metodokorex.com/agendar/p/cc762e2e6bb488ddf4d3" target="_blank" rel="noopener">Agendar mi llamada 1 a 1 <svg class="i"><use href="#i-arrow"/></svg></a>
-      <a class="btn btn-g" href="https://duplicador.metodokorex.com" target="_blank" rel="noopener">Entrar a la plataforma</a>
-    </div>
+  <div class="glow" style="width:800px;height:800px;left:560px;top:140px;opacity:.18"></div>
+  <img class="big-logo rv" src="/assets/mk-logo-cropped.png" alt="Método Korex">
+  <h2 class="rv" style="--d:1">Esto mejora cada semana. <span class="grad">Lo construimos juntos.</span></h2>
+  <p class="lead rv" style="--d:2">Hoy mismo: importa tu lista de contactos y agenda tu llamada 1 a 1.</p>
+  <div class="btns rv" style="--d:3">
+    <a class="btn btn-p" href="https://equipo.metodokorex.com/agendar/p/cc762e2e6bb488ddf4d3" target="_blank" rel="noopener">Agendar mi llamada 1 a 1 <svg class="i"><use href="#i-arrow"/></svg></a>
+    <a class="btn btn-g" href="https://duplicador.metodokorex.com" target="_blank" rel="noopener">Entrar a la plataforma</a>
   </div>
 </section>
 
-</main>
-<footer><img src="/assets/mk-logo-cropped.png" alt="Método Korex"><span>Korex Project LLC · metodokorex.com</span></footer>
+<!-- Marco fijo -->
+<div class="chrome">
+  <a class="brand" href="#cover"><img src="/assets/mk-symbol.png" alt="Método Korex"><span class="sep"></span><span>Método <b>Korex</b></span></a>
+  <div class="chap" id="chap"></div>
+  <nav class="dots" id="dots" aria-label="Slides"></nav>
+  <div class="foot">Korex Project LLC · metodokorex.com</div>
+  <div class="hint" id="hint"><span class="mouse"></span>Scroll, flechas o desliza para avanzar</div>
+  <div class="ctrl">
+    <span class="count" id="count"></span>
+    <button id="prev" aria-label="Slide anterior"><svg class="i"><use href="#i-up"/></svg></button>
+    <button id="next" aria-label="Slide siguiente"><svg class="i"><use href="#i-down"/></svg></button>
+    <button id="full" aria-label="Pantalla completa"><svg class="i"><use href="#i-full"/></svg></button>
+  </div>
+  <div class="bar" id="bar"></div>
+</div>
+
+</div>
 
 <script>
 (function(){
-  var slides=[].slice.call(document.querySelectorAll('.slide'));
-  var dots=document.getElementById('dots'), chap=document.getElementById('chap'), bar=document.getElementById('progress'), hint=document.getElementById('hint');
+  var stage=document.getElementById('stage');
+  var slides=[].slice.call(stage.querySelectorAll('.slide'));
+  var dots=document.getElementById('dots'), chap=document.getElementById('chap'), count=document.getElementById('count'), bar=document.getElementById('bar'), hint=document.getElementById('hint');
+  var n=slides.length, cur=-1, scale=1;
 
-  // Navegación lateral
+  // Escala del escenario para que la slide entre entera en la pantalla
+  function fit(){scale=Math.min(innerWidth/1920,innerHeight/1080);stage.style.setProperty('--s',scale)}
+  addEventListener('resize',fit);fit();
+
   slides.forEach(function(s){var a=document.createElement('a');a.href='#'+s.id;a.setAttribute('data-label',s.dataset.label);a.setAttribute('aria-label',s.dataset.label);dots.appendChild(a)});
   var dotEls=[].slice.call(dots.children);
 
-  // Sección activa
-  var current=0;
-  function setActive(i){
-    current=i;var s=slides[i];
+  function pad(x){return (x<10?'0':'')+x}
+  function go(i){
+    i=Math.max(0,Math.min(n-1,i));if(i===cur)return;
+    if(cur>-1)hint.classList.add('off');
+    slides.forEach(function(s,j){s.classList.toggle('on',j===i);s.classList.toggle('past',j<i)});
+    cur=i;var s=slides[i];
     dotEls.forEach(function(d,j){d.classList.toggle('on',j===i)});
-    dots.classList.toggle('light',s.hasAttribute('data-light'));
+    stage.classList.toggle('t-light',s.dataset.theme==='light');
+    stage.classList.toggle('t-blue',s.dataset.theme==='blue');
     chap.innerHTML='<i>'+s.dataset.chap+'</i><span>'+s.dataset.chapName+'</span>';
+    count.innerHTML='<b>'+pad(i+1)+'</b> / '+pad(n);
+    bar.style.transform='scaleX('+((i+1)/n)+')';
+    history.replaceState(null,'','#'+s.id);
   }
-  function onScroll(){
-    var h=document.documentElement, max=h.scrollHeight-innerHeight;
-    bar.style.transform='scaleX('+(max>0?scrollY/max:0)+')';
-    var mid=innerHeight*.45, idx=0;
-    slides.forEach(function(s,i){if(s.getBoundingClientRect().top<=mid)idx=i});
-    if(idx!==current||!dotEls[idx].classList.contains('on'))setActive(idx);
-    if(scrollY>innerHeight*.6)hint.classList.add('off');
-  }
-  addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onScroll);onScroll();
+  var start=slides.findIndex(function(s){return '#'+s.id===location.hash});
+  go(start<0?0:start);
+  window.goSlide=go;
 
-  // Aparición
-  if('IntersectionObserver' in window){
-    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15,rootMargin:'0px 0px -6% 0px'});
-    document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
-  }else{document.querySelectorAll('.rv').forEach(function(el){el.classList.add('in')})}
+  // Rueda / trackpad: un gesto = una slide (se ignora la inercia)
+  var lockUntil=0,last=0;
+  addEventListener('wheel',function(e){
+    e.preventDefault();
+    var now=performance.now(),gap=now-last;last=now;
+    var d=Math.abs(e.deltaY)>=Math.abs(e.deltaX)?e.deltaY:e.deltaX;
+    if(Math.abs(d)<6)return;
+    if(now<lockUntil){if(gap<140)lockUntil=Math.max(lockUntil,now+140);return}
+    go(cur+(d>0?1:-1));lockUntil=now+750;
+  },{passive:false});
 
-  // Foco que sigue al mouse en las tarjetas
-  document.querySelectorAll('.card').forEach(function(c){
-    c.addEventListener('pointermove',function(e){var r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px')});
+  // Táctil
+  var tx=0,ty=0;
+  addEventListener('touchstart',function(e){tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});
+  addEventListener('touchend',function(e){var dx=tx-e.changedTouches[0].clientX,dy=ty-e.changedTouches[0].clientY;
+    if(Math.max(Math.abs(dx),Math.abs(dy))<45)return;go(cur+((Math.abs(dy)>Math.abs(dx)?dy:dx)>0?1:-1))},{passive:true});
+
+  // Teclado
+  addEventListener('keydown',function(e){
+    var k=e.key;
+    if(['ArrowDown','ArrowRight','PageDown',' ','Enter'].indexOf(k)>-1&&!e.shiftKey){e.preventDefault();go(cur+1)}
+    else if(['ArrowUp','ArrowLeft','PageUp'].indexOf(k)>-1||(k===' '&&e.shiftKey)){e.preventDefault();go(cur-1)}
+    else if(k==='Home'){go(0)}else if(k==='End'){go(n-1)}
+    else if(k==='f'||k==='F'){toggleFull()}
   });
 
-  // Modo presentación: flechas / espacio / PageDown
-  addEventListener('keydown',function(e){
-    if(e.target.closest&&e.target.closest('input,textarea,select'))return;
-    var k=e.key, next=['ArrowDown','ArrowRight','PageDown',' '].indexOf(k)>-1, prev=['ArrowUp','ArrowLeft','PageUp'].indexOf(k)>-1;
-    if(!next&&!prev)return;
-    if(e.shiftKey&&k===' ')next=false,prev=true;
-    var s=slides[current], r=s.getBoundingClientRect();
-    e.preventDefault();
-    // Si la sección es más alta que la pantalla, primero se recorre entera
-    if(next&&r.bottom>innerHeight+8)return scrollBy({top:Math.min(innerHeight*.8,r.bottom-innerHeight),behavior:'smooth'});
-    if(prev&&r.top<-8)return scrollBy({top:Math.max(-innerHeight*.8,r.top),behavior:'smooth'});
-    var t=Math.max(0,Math.min(slides.length-1,current+(next?1:-1)));
-    slides[t].scrollIntoView({behavior:'smooth'});
+  // Enlaces internos y botones
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('a[href^="#"]');if(!a)return;
+    var k=slides.indexOf(document.getElementById(a.getAttribute('href').slice(1)));
+    if(k>-1){e.preventDefault();go(k)}
+  });
+  document.getElementById('prev').onclick=function(){go(cur-1)};
+  document.getElementById('next').onclick=function(){go(cur+1)};
+  function toggleFull(){if(document.fullscreenElement)document.exitFullscreen();else if(document.documentElement.requestFullscreen)document.documentElement.requestFullscreen()}
+  document.getElementById('full').onclick=toggleFull;
+
+  // Foco que sigue al mouse en las tarjetas (corrige la escala)
+  stage.querySelectorAll('.card').forEach(function(c){
+    c.addEventListener('pointermove',function(e){var r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)/scale+'px');c.style.setProperty('--my',(e.clientY-r.top)/scale+'px')});
   });
 })();
 </script>
