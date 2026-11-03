@@ -96,6 +96,10 @@ html.stack .slide{opacity:1;visibility:visible;width:1920px;height:1080px;transf
 html.stack .rv{opacity:1;transform:none}
 html.stack .ctrl,html.stack .bar,html.stack .hint{display:none}
 
+/* Botones con link */
+.slide a.ver,.slide a.btn{cursor:pointer;transition:filter .2s,transform .2s}
+.slide a.ver:hover,.slide a.btn:hover{filter:brightness(1.25)}
+
 /* ── slide 01 ── */
 #s01{background:
   radial-gradient(900px 260px at 22% 104%,rgba(20,90,130,.55),transparent 70%),
@@ -123,12 +127,14 @@ html.stack .ctrl,html.stack .bar,html.stack .hint{display:none}
   -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 60px);mask-image:linear-gradient(90deg,transparent 0,#000 60px)}
 #s02 .mk{left:128px;top:96px;width:124px;filter:invert(1)}
 #s02 .tag{left:129px;top:230px;font-size:24px;font-weight:700;letter-spacing:.164em;color:#45BCF0;white-space:nowrap}
-#s02 .h{left:127px;top:300px;font-size:122px;white-space:nowrap;line-height:1.05;letter-spacing:.012em;
+#s02 .h{left:127px;top:296px;font-size:112px;white-space:nowrap;line-height:1.06;letter-spacing:.012em;
   background:linear-gradient(90deg,#2FB3F2 0%,#4CC5F8 35%,#6AD3FA 70%,#B4ECFC 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
 #s02 .by{left:127px;top:436px;font-size:57px;white-space:nowrap;letter-spacing:.02em;
   background:linear-gradient(180deg,#fafbfb 0%,#dfe2e6 55%,#c5c9cf 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
-#s02 .p{left:129px;top:526px;width:900px;font-size:30px;line-height:45px;font-weight:300;letter-spacing:.028em;color:#B3B5BA}
-#s02 .ai{left:124px;top:760px;width:260px}
+#s02 .p{left:129px;top:568px;width:900px;font-size:30px;line-height:45px;font-weight:300;letter-spacing:.028em;color:#B3B5BA}
+#s02 .h .by2{-webkit-text-fill-color:transparent;background:linear-gradient(180deg,#fafbfb 0%,#dfe2e6 55%,#c5c9cf 100%);-webkit-background-clip:text;background-clip:text}
+#s02 .unused{background:linear-gradient(90deg,#2FB3F2,#6AD3FA 70%,#B4ECFC);-webkit-background-clip:text;background-clip:text;color:transparent}
+#s02 .ai{left:124px;top:796px;width:260px}
 
 /* ── slide 03 ── */
 #s03 .kick{left:0;right:0;top:94px;text-align:center;font-size:44px}
@@ -665,38 +671,47 @@ html.stack .ctrl,html.stack .bar,html.stack .hint{display:none}
 #s22 .foot-k{font-size:24px;top:987px}
 
 /* ── slide 23 ── */
-#s23{background:#050a11;line-height:1}
-#s23 .orb{left:1436px;top:-469px;width:920px;height:920px;border-radius:50%;background:#0b2338}
-#s23 .kick{left:104px;top:71px;font-size:25px;font-weight:700;letter-spacing:.044em;color:#3fcaf6}
-#s23 .h{left:0;right:0;top:162px;text-align:center;font-size:59px;font-weight:700;letter-spacing:.035em;color:#f3f9ff}
-#s23 .sub{left:0;right:0;top:258px;text-align:center;font-size:30px;letter-spacing:.034em;color:#b4baca}
-#s23 .box{border-radius:26px}
-#s23 .b1{left:104px;top:352px;width:810px;height:466px;background:#0c1b2b}
-#s23 .b2{left:955px;top:349px;width:864px;height:471px;background:#0b2a3d;border:2px solid #5dc3e2;border-radius:28px}
-#s23 .t{position:absolute;white-space:nowrap}
-#s23 .lab{font-size:30px;font-weight:700;letter-spacing:.07em}
-#s23 .it{left:157px;font-size:33px;letter-spacing:.015em;color:#f0f9ff}
-#s23 .sep{left:156px;top:677px;width:704px;height:2px;background:#2a4559}
-#s23 .pill{left:1014px;top:708px;width:743px;height:78px;border-radius:12px;background:#133e59}
-#s23 .note{left:0;right:0;text-align:center;color:#b2bcc6;letter-spacing:.03em}
-#s23 .rule{left:100px;top:939px;width:1720px;height:2px;background:#1e3d4e}
-#s23 .ft{top:1000px;font-size:20px;color:#b2bcc8;letter-spacing:.01em}
+#s23 .kick{left:0;right:0;top:94px;text-align:center;font-size:44px}
+#s23 .h{left:0;right:0;top:158px;text-align:center;font-size:58px}
+#s23 .sub{left:0;right:0;top:262px;text-align:center;font-size:31px;color:#E4E7EC}
+#s23 .col{top:350px;width:760px;height:480px;padding:46px 52px}
+#s23 .lab{font-size:19px;font-weight:700;letter-spacing:.18em;color:#8A909C}
+#s23 .row{display:flex;align-items:center;gap:18px;margin-top:22px;font-size:27px;color:#B9BEC8}
+#s23 .row svg{width:34px;height:34px;flex:none;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+#s23 .mine .row svg{stroke:#6B717C}
+#s23 .ref{position:absolute;left:52px;right:52px;bottom:44px;padding-top:26px;border-top:1px solid rgba(255,255,255,.1)}
+#s23 .ref small{display:block;font-size:19px;color:#8A909C}
+#s23 .ref b{display:block;margin-top:8px;font-family:var(--f-title);font-weight:400;font-size:46px;color:#9AA0AA;letter-spacing:.01em}
+#s23 .ref b span{font-family:var(--f-body);font-size:26px;font-weight:500;letter-spacing:0}
+#s23 .korex{background:linear-gradient(160deg,rgba(14,58,96,.92),rgba(8,24,44,.95) 60%);border:1.5px solid rgba(41,182,246,.55);
+  box-shadow:0 0 0 1px rgba(41,182,246,.12),0 30px 80px -30px rgba(41,182,246,.55)}
+#s23 .korex .lab{color:var(--cyan)}
+#s23 .korex .impl{margin-top:22px;font-size:32px;font-weight:700;color:#fff}
+#s23 .korex .big{margin-top:8px;font-size:40px;white-space:nowrap}
+#s23 .korex .row{color:#E4E7EC}
+#s23 .korex .row svg{stroke:var(--cyan)}
+#s23 .pill{position:absolute;left:52px;right:52px;bottom:44px;height:76px;border-radius:38px;display:flex;align-items:center;justify-content:center;
+  font-size:27px;font-weight:700;color:#fff;background:rgba(41,182,246,.14);border:1.5px solid rgba(41,182,246,.6)}
+#s23 .pill span{color:var(--cyan2)}
+#s23 .vs{left:924px;top:554px;width:72px;height:72px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-title);font-size:24px;color:var(--cyan);
+  background:#0b0d12;border:1.5px solid rgba(41,182,246,.6);box-shadow:0 0 24px rgba(41,182,246,.45)}
+#s23 .note{left:0;right:0;text-align:center;font-size:20px;color:#8A909C}
 
 /* ── slide 24 ── */
-#s24{background:#050a11;line-height:1}
-#s24 .orb{left:1436px;top:-469px;width:920px;height:920px;border-radius:50%;background:#0b2338}
-#s24 .kick{left:104px;top:71px;font-size:25px;font-weight:700;letter-spacing:.042em;color:#3fcaf6}
-#s24 .h{left:0;right:0;top:146px;text-align:center;font-size:63px;font-weight:700;letter-spacing:.042em;color:#f2faff}
-#s24 .sub{left:0;right:0;top:242px;text-align:center;font-size:30px;letter-spacing:.034em;color:#b1bccc}
-#s24 .c{width:832px;height:182px;border-radius:22px;background:#0c1b2b}
-#s24 .c .n{position:absolute;left:34px;top:54px;font-size:34px;font-weight:700;color:#33d1ff;letter-spacing:.08em}
-#s24 .c .tt{position:absolute;left:120px;top:55px;font-size:30px;font-weight:700;color:#f1fbff;letter-spacing:.032em;white-space:nowrap}
-#s24 .c .d{position:absolute;left:120px;top:117px;font-size:22px;color:#aebdcc;letter-spacing:.033em;white-space:nowrap}
-#s24 .cta{left:354px;top:797px;width:1213px;height:104px;border:2px solid #55c3e7;border-radius:22px;background:#0b3049;
-  display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:700;letter-spacing:.035em;color:#f4f7ff}
-#s24 .fn{left:0;right:0;top:903px;text-align:center;font-size:20px;color:#b3bac5;letter-spacing:.027em}
-#s24 .rule{left:100px;top:939px;width:1720px;height:2px;background:#1e3d4e}
-#s24 .ft{top:1000px;font-size:20px;color:#b2bcc8;letter-spacing:.01em}
+#s24 .kick{left:0;right:0;top:94px;text-align:center;font-size:44px}
+#s24 .h{left:0;right:0;top:158px;text-align:center;font-size:66px}
+#s24 .sub{left:0;right:0;top:266px;text-align:center;font-size:31px;color:#E4E7EC}
+#s24 .card{top:370px;width:398px;height:320px;padding:44px 40px}
+#s24 .card .n{font-family:var(--f-title);font-size:66px;line-height:1}
+#s24 .card h3{margin-top:30px;font-size:25px;font-weight:700;letter-spacing:.03em;line-height:1.3;color:#fff}
+#s24 .card p{margin-top:14px;font-size:23px;line-height:1.45;color:#B9BEC8}
+#s24 .card::after{content:"";position:absolute;left:40px;right:40px;top:0;height:3px;border-radius:0 0 3px 3px;background:linear-gradient(90deg,#0E8BD6,#7FD8FF);opacity:.85}
+#s24 .cta{left:530px;top:750px;width:860px;height:96px;border-radius:48px;display:flex;align-items:center;justify-content:center;
+  font-size:29px;font-weight:800;letter-spacing:.05em;color:#fff;background:linear-gradient(90deg,#0E8BD6,#29B6F6 55%,#45C2FF);
+  box-shadow:0 0 0 1px rgba(127,216,255,.35),0 18px 60px -12px rgba(41,182,246,.75)}
+#s24.on .cta{animation:s24pulse 2.6s 1.4s ease-in-out infinite}
+@keyframes s24pulse{50%{box-shadow:0 0 0 10px rgba(41,182,246,.0),0 0 0 1px rgba(127,216,255,.35),0 18px 70px -8px rgba(41,182,246,.95)}}
+#s24 .note{left:0;right:0;top:872px;text-align:center;font-size:20px;color:#8A909C}
 </style>
 <script>
   if (matchMedia('(max-width: 820px) and (orientation: portrait)').matches) document.documentElement.classList.add('stack');
@@ -724,8 +739,7 @@ html.stack .ctrl,html.stack .bar,html.stack .hint{display:none}
   <img class="abs globe rv fade" src="img/s02-globe.webp" alt="" style="--d:0">
   <img class="abs mk rv" src="/assets/mk-logo-cropped.png" alt="Método Korex" style="--d:1">
   <div class="abs tag rv" style="--d:2">PRESENTACIÓN PRIVADA · GRUPO DE LÍDERES</div>
-  <h1 class="abs t-title h rv" style="--d:3">KOREX CARD</h1>
-  <div class="abs t-title by rv" style="--d:4">BY BIX</div>
+  <h1 class="abs t-title h rv" style="--d:3">KOREX <span class="by2">BY BIX</span><br>CARD</h1>
   <p class="abs p rv" style="--d:5">La primera tarjeta autocustodia en el cual tienes tu dinero<br>en tu poder con 10 niveles de referidos y una metodologia<br>para conseguir prospectos organicos y de publicidad<br>en automatico</p>
   <img class="abs ai rv" src="img/s02-aitech.webp" alt="Aitech One" style="--d:6">
 </section>
@@ -1044,7 +1058,7 @@ html.stack .ctrl,html.stack .bar,html.stack .hint{display:none}
   <div class="abs panel rv" style="--d:6">
     <svg style="left:50px;top:33px;width:50px;height:60px" viewBox="0 0 50 60"><path d="M6 3h25l13 13v39a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M31 3v13h13"/><path d="M13 40h14M13 47h22" stroke="#5FC6E0"/></svg>
     <div class="t">DOCUMENTACIÓN OFICIAL</div>
-    <div class="row" style="top:110px"><svg style="top:12px;width:50px;height:58px" viewBox="0 0 50 58"><path d="M25 4v6M25 4h7v4h-7"/><path d="M5 22 25 12l20 10z"/><path d="M7 22h36"/><path d="M11 26v20M18 26v20M25 26v20M32 26v20M39 26v20"/><path d="M6 49h38M4 54h42"/></svg><p style="top:11px">Registro en Gobierno<br>de Reino Unido</p><span class="ver" style="top:28px">Ver</span></div>
+    <div class="row" style="top:110px"><svg style="top:12px;width:50px;height:58px" viewBox="0 0 50 58"><path d="M25 4v6M25 4h7v4h-7"/><path d="M5 22 25 12l20 10z"/><path d="M7 22h36"/><path d="M11 26v20M18 26v20M25 26v20M32 26v20M39 26v20"/><path d="M6 49h38M4 54h42"/></svg><p style="top:11px">Registro en Gobierno<br>de Reino Unido</p><a class="ver" href="https://find-and-update.company-information.service.gov.uk/company/12629770" target="_blank" rel="noopener" style="top:28px">Ver</a></div>
     <div class="row" style="top:205px"><svg style="top:24px;width:50px;height:46px" viewBox="0 0 50 46"><path d="M3 3h44v36H29l-4 5-4-5H3z"/><text x="25" y="29" text-anchor="middle" font-family="Inter,sans-serif" font-size="17" font-weight="600" fill="#BDBDBD" stroke="none">FCA</text></svg><p style="top:13px">Registro FCA Financial<br>Conduct Authority</p><span class="ver" style="top:29px">Ver</span></div>
     <div class="row" style="top:300px"><svg style="top:14px;width:50px;height:56px" viewBox="0 0 50 56"><path d="M25 3 45 10v17c0 13-9 21-20 26C14 48 5 40 5 27V10z"/><text x="25" y="34" text-anchor="middle" font-family="Inter,sans-serif" font-size="15" font-weight="600" fill="#BDBDBD" stroke="none">FSC</text></svg><p style="top:12px">Regulación FSC<br>Mauritius</p><span class="ver" style="top:29px">Ver</span></div>
     <div class="row" style="top:396px"><svg style="top:18px;width:46px;height:54px" viewBox="0 0 46 54"><path d="M23 3 41 9.5v15C41 37 33 45 23 50 13 45 5 37 5 24.5v-15z"/><path d="M15.5 26 21 31.5 31 21"/></svg><p style="top:28px">Póliza de Seguro</p><span class="ver" style="top:30px">Ver</span></div>
@@ -1129,7 +1143,7 @@ html.stack .ctrl,html.stack .bar,html.stack .hint{display:none}
   <div class="abs t-title g-silver ss rv" style="--d:3">SONIC AI - TRADING STRATEGY</div>
   <img class="abs fx rv" style="--d:4" src="img/s14-myfxbook.webp" alt="myfxbook">
   <div class="abs ver rv" style="--d:5">Ver historial completo</div>
-  <span class="abs btn rv" style="--d:5">REVISAR</span>
+  <a class="abs btn rv" href="https://www.myfxbook.com/members/SonicExperts/sonic-ai/12076857" target="_blank" rel="noopener" style="--d:5">REVISAR</a>
   <p class="abs end rv" style="--d:6">Los resultados pueden variar. <b>La transparencia no debería hacerlo.</b></p>
   <div class="foot-a">aitechone.io</div>
   <img class="mk-a" src="/assets/mk-logo-cropped.png" alt="Método Korex">
@@ -1589,52 +1603,50 @@ html.stack .ctrl,html.stack .bar,html.stack .hint{display:none}
   <img class="mk-k" src="/assets/mk-logo-cropped.png" alt="Método Korex">
 </section>
 
-<section class="slide" id="s23">
-  <div class="abs orb rv fade"></div>
-  <div class="abs kick rv">LA OFERTA · PRIMERAS 20 PLAZAS</div>
-  <h2 class="abs h rv" style="--d:1">NO CONSTRUYAS EL SISTEMA DESDE CERO</h2>
+<section class="slide bg-silk" id="s23">
+  <div class="abs t-title g-silver kick rv">LA OFERTA · PRIMERAS 20 PLAZAS</div>
+  <h2 class="abs t-title g-cyan h rv" style="--d:1">NO CONSTRUYAS EL SISTEMA DESDE CERO</h2>
   <p class="abs sub rv" style="--d:2">Nosotros ponemos la infraestructura. Tú la pones en movimiento.</p>
-  <div class="abs box b1 rv" style="--d:3"></div>
-  <div class="abs box b2 rv" style="--d:4"></div>
-  <div class="rv" style="--d:3">
-    <div class="t lab" style="left:157px;top:392px;color:#aebdcc">POR TU CUENTA</div>
-    <div class="t it" style="top:469px">Marketing, embudos y landings</div>
-    <div class="t it" style="top:537px">CRM, automatizaciones e IA</div>
-    <div class="t it" style="top:604px">Estrategia, formación y soporte</div>
-    <div class="t sep"></div>
-    <div class="t" style="left:157px;top:723px;font-size:25px;color:#aebdcc;letter-spacing:.01em">Referencia estimada del PDF original:</div>
-    <div class="t" style="left:157px;top:772px;font-size:33px;font-weight:700;letter-spacing:.1em;color:#f2f9ff">+3.250 USD/mes + publicidad</div>
+
+  <div class="abs card col mine rv" style="left:128px;--d:3">
+    <div class="lab">POR TU CUENTA</div>
+    <div class="row"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>Marketing, embudos y landings</div>
+    <div class="row"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>CRM, automatizaciones e IA</div>
+    <div class="row"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>Estrategia, formación y soporte</div>
+    <div class="ref"><small>Referencia estimada del PDF original:</small><b>+3.250 USD/mes <span>+ publicidad</span></b></div>
   </div>
-  <div class="rv" style="--d:4">
-    <div class="t lab" style="left:1013px;top:396px;color:#3cccfd">CON KOREX PARTNER 20</div>
-    <div class="t" style="left:1015px;top:466px;font-size:34px;font-weight:700;letter-spacing:.085em;color:#f2faff">Implementación KOREX</div>
-    <div class="t" style="left:1014px;top:531px;font-size:46px;font-weight:700;letter-spacing:.054em;color:#6dd7bf">SIN TARIFA DE SETUP</div>
-    <div class="t" style="left:1015px;top:604px;font-size:31px;letter-spacing:.031em;color:#eff7ff">Sistema + método + mentorías</div>
-    <div class="t" style="left:1015px;top:659px;font-size:26px;letter-spacing:.024em;color:#a9bfd3">para personas seleccionadas</div>
-    <div class="t pill"></div>
-    <div class="t" style="left:1046px;top:732px;font-size:30px;font-weight:700;letter-spacing:.077em;color:#f0fbff">250 USD · 100% capital de trading</div>
+
+  <div class="abs vs rv zoom" style="--d:4">VS</div>
+
+  <div class="abs card col korex rv" style="left:1032px;--d:5">
+    <div class="lab">CON KOREX PARTNER 20</div>
+    <div class="impl">Implementación KOREX</div>
+    <div class="t-title g-cyan big">SIN TARIFA DE SETUP</div>
+    <div class="row"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Sistema + método + mentorías</div>
+    <div class="row"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>para personas seleccionadas</div>
+    <div class="pill">250 USD <span>&nbsp;·&nbsp;</span> 100% capital de trading</div>
   </div>
-  <div class="abs note rv" style="--d:5;top:863px;font-size:22px">El capital de trading es independiente del precio de KOREX y está sujeto a riesgo de pérdida.</div>
-  <div class="abs note rv" style="--d:5;top:900px;font-size:20px">Acceso y funcionalidades sujetos a las condiciones escritas del programa.</div>
-  <div class="abs rule rv fade" style="--d:6"></div>
-  <div class="abs ft" style="left:104px">KOREX CARD by BIX</div>
-  <div class="abs ft" style="right:113px">23</div>
+
+  <div class="abs note rv" style="top:868px;--d:6">El capital de trading es independiente del precio de KOREX y está sujeto a riesgo de pérdida.</div>
+  <div class="abs note rv" style="top:902px;--d:6">Acceso y funcionalidades sujetos a las condiciones escritas del programa.</div>
+  <div class="foot-k">KOREX CARD by BIX</div>
+  <img class="mk-k" src="/assets/mk-logo-cropped.png" alt="Método Korex">
 </section>
 
-<section class="slide" id="s24">
-  <div class="abs orb rv fade"></div>
-  <div class="abs kick rv">EL COMPROMISO · PLAN DE EJECUCIÓN</div>
-  <h2 class="abs h rv" style="--d:1">TÚ PONES 90 MINUTOS AL DÍA</h2>
+<section class="slide bg-silk" id="s24">
+  <div class="abs t-title g-silver kick rv">EL COMPROMISO · PLAN DE EJECUCIÓN</div>
+  <h2 class="abs t-title g-cyan h rv" style="--d:1">TÚ PONES 90 MINUTOS AL DÍA</h2>
   <p class="abs sub rv" style="--d:2">Nosotros ponemos el método, las herramientas y el acompañamiento.</p>
-  <div class="abs c rv" style="--d:3;left:104px;top:376px"><div class="n">01</div><div class="tt">PROSPECCIÓN ORGÁNICA</div><div class="d">Contacta e invita siguiendo el método.</div></div>
-  <div class="abs c rv" style="--d:4;left:980px;top:376px"><div class="n">02</div><div class="tt">PRESENTACIONES EN ZOOM</div><div class="d">Invita, presenta y da seguimiento.</div></div>
-  <div class="abs c rv" style="--d:5;left:104px;top:588px"><div class="n">03</div><div class="tt">MENTORÍAS Y PRÁCTICA</div><div class="d">Setter, closer y network marketing / IB.</div></div>
-  <div class="abs c rv" style="--d:6;left:980px;top:588px"><div class="n">04</div><div class="tt">KPIs Y OKRs DIARIOS</div><div class="d">Registra actividad, revisa y mejora.</div></div>
+
+  <div class="abs card rv" style="left:128px;--d:3"><div class="n g-cyan">01</div><h3>PROSPECCIÓN ORGÁNICA</h3><p>Contacta e invita siguiendo el método.</p></div>
+  <div class="abs card rv" style="left:550px;--d:4"><div class="n g-cyan">02</div><h3>PRESENTACIONES EN ZOOM</h3><p>Invita, presenta y da seguimiento.</p></div>
+  <div class="abs card rv" style="left:972px;--d:5"><div class="n g-cyan">03</div><h3>MENTORÍAS Y PRÁCTICA</h3><p>Setter, closer y network marketing / IB.</p></div>
+  <div class="abs card rv" style="left:1394px;--d:6"><div class="n g-cyan">04</div><h3>KPIs Y OKRs DIARIOS</h3><p>Registra actividad, revisa y mejora.</p></div>
+
   <div class="abs cta rv zoom" style="--d:7">SOLICITA TU PLAZA · PRIMERAS 20 PERSONAS</div>
-  <div class="abs fn rv" style="--d:8">Selección por compromiso y aceptación de las condiciones del programa.</div>
-  <div class="abs rule rv fade" style="--d:8"></div>
-  <div class="abs ft" style="left:104px">KOREX CARD by BIX</div>
-  <div class="abs ft" style="right:113px">24</div>
+  <div class="abs note rv" style="--d:8">Selección por compromiso y aceptación de las condiciones del programa.</div>
+  <div class="foot-k">KOREX CARD by BIX</div>
+  <img class="mk-k" src="/assets/mk-logo-cropped.png" alt="Método Korex">
 </section>
 </div>
 <div class="hint" id="hint">Scroll, flechas o desliza para avanzar</div>

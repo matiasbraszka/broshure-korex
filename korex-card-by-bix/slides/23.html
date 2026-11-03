@@ -1,49 +1,56 @@
 <style>
-#s23{background:#050a11;line-height:1}
-#s23 .orb{left:1436px;top:-469px;width:920px;height:920px;border-radius:50%;background:#0b2338}
-#s23 .kick{left:104px;top:71px;font-size:25px;font-weight:700;letter-spacing:.044em;color:#3fcaf6}
-#s23 .h{left:0;right:0;top:162px;text-align:center;font-size:59px;font-weight:700;letter-spacing:.035em;color:#f3f9ff}
-#s23 .sub{left:0;right:0;top:258px;text-align:center;font-size:30px;letter-spacing:.034em;color:#b4baca}
-#s23 .box{border-radius:26px}
-#s23 .b1{left:104px;top:352px;width:810px;height:466px;background:#0c1b2b}
-#s23 .b2{left:955px;top:349px;width:864px;height:471px;background:#0b2a3d;border:2px solid #5dc3e2;border-radius:28px}
-#s23 .t{position:absolute;white-space:nowrap}
-#s23 .lab{font-size:30px;font-weight:700;letter-spacing:.07em}
-#s23 .it{left:157px;font-size:33px;letter-spacing:.015em;color:#f0f9ff}
-#s23 .sep{left:156px;top:677px;width:704px;height:2px;background:#2a4559}
-#s23 .pill{left:1014px;top:708px;width:743px;height:78px;border-radius:12px;background:#133e59}
-#s23 .note{left:0;right:0;text-align:center;color:#b2bcc6;letter-spacing:.03em}
-#s23 .rule{left:100px;top:939px;width:1720px;height:2px;background:#1e3d4e}
-#s23 .ft{top:1000px;font-size:20px;color:#b2bcc8;letter-spacing:.01em}
+#s23 .kick{left:0;right:0;top:94px;text-align:center;font-size:44px}
+#s23 .h{left:0;right:0;top:158px;text-align:center;font-size:58px}
+#s23 .sub{left:0;right:0;top:262px;text-align:center;font-size:31px;color:#E4E7EC}
+#s23 .col{top:350px;width:760px;height:480px;padding:46px 52px}
+#s23 .lab{font-size:19px;font-weight:700;letter-spacing:.18em;color:#8A909C}
+#s23 .row{display:flex;align-items:center;gap:18px;margin-top:22px;font-size:27px;color:#B9BEC8}
+#s23 .row svg{width:34px;height:34px;flex:none;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+#s23 .mine .row svg{stroke:#6B717C}
+#s23 .ref{position:absolute;left:52px;right:52px;bottom:44px;padding-top:26px;border-top:1px solid rgba(255,255,255,.1)}
+#s23 .ref small{display:block;font-size:19px;color:#8A909C}
+#s23 .ref b{display:block;margin-top:8px;font-family:var(--f-title);font-weight:400;font-size:46px;color:#9AA0AA;letter-spacing:.01em}
+#s23 .ref b span{font-family:var(--f-body);font-size:26px;font-weight:500;letter-spacing:0}
+#s23 .korex{background:linear-gradient(160deg,rgba(14,58,96,.92),rgba(8,24,44,.95) 60%);border:1.5px solid rgba(41,182,246,.55);
+  box-shadow:0 0 0 1px rgba(41,182,246,.12),0 30px 80px -30px rgba(41,182,246,.55)}
+#s23 .korex .lab{color:var(--cyan)}
+#s23 .korex .impl{margin-top:22px;font-size:32px;font-weight:700;color:#fff}
+#s23 .korex .big{margin-top:8px;font-size:40px;white-space:nowrap}
+#s23 .korex .row{color:#E4E7EC}
+#s23 .korex .row svg{stroke:var(--cyan)}
+#s23 .pill{position:absolute;left:52px;right:52px;bottom:44px;height:76px;border-radius:38px;display:flex;align-items:center;justify-content:center;
+  font-size:27px;font-weight:700;color:#fff;background:rgba(41,182,246,.14);border:1.5px solid rgba(41,182,246,.6)}
+#s23 .pill span{color:var(--cyan2)}
+#s23 .vs{left:924px;top:554px;width:72px;height:72px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-title);font-size:24px;color:var(--cyan);
+  background:#0b0d12;border:1.5px solid rgba(41,182,246,.6);box-shadow:0 0 24px rgba(41,182,246,.45)}
+#s23 .note{left:0;right:0;text-align:center;font-size:20px;color:#8A909C}
 </style>
-<section class="slide" id="s23">
-  <div class="abs orb rv fade"></div>
-  <div class="abs kick rv">LA OFERTA · PRIMERAS 20 PLAZAS</div>
-  <h2 class="abs h rv" style="--d:1">NO CONSTRUYAS EL SISTEMA DESDE CERO</h2>
+<section class="slide bg-silk" id="s23">
+  <div class="abs t-title g-silver kick rv">LA OFERTA · PRIMERAS 20 PLAZAS</div>
+  <h2 class="abs t-title g-cyan h rv" style="--d:1">NO CONSTRUYAS EL SISTEMA DESDE CERO</h2>
   <p class="abs sub rv" style="--d:2">Nosotros ponemos la infraestructura. Tú la pones en movimiento.</p>
-  <div class="abs box b1 rv" style="--d:3"></div>
-  <div class="abs box b2 rv" style="--d:4"></div>
-  <div class="rv" style="--d:3">
-    <div class="t lab" style="left:157px;top:392px;color:#aebdcc">POR TU CUENTA</div>
-    <div class="t it" style="top:469px">Marketing, embudos y landings</div>
-    <div class="t it" style="top:537px">CRM, automatizaciones e IA</div>
-    <div class="t it" style="top:604px">Estrategia, formación y soporte</div>
-    <div class="t sep"></div>
-    <div class="t" style="left:157px;top:723px;font-size:25px;color:#aebdcc;letter-spacing:.01em">Referencia estimada del PDF original:</div>
-    <div class="t" style="left:157px;top:772px;font-size:33px;font-weight:700;letter-spacing:.1em;color:#f2f9ff">+3.250 USD/mes + publicidad</div>
+
+  <div class="abs card col mine rv" style="left:128px;--d:3">
+    <div class="lab">POR TU CUENTA</div>
+    <div class="row"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>Marketing, embudos y landings</div>
+    <div class="row"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>CRM, automatizaciones e IA</div>
+    <div class="row"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>Estrategia, formación y soporte</div>
+    <div class="ref"><small>Referencia estimada del PDF original:</small><b>+3.250 USD/mes <span>+ publicidad</span></b></div>
   </div>
-  <div class="rv" style="--d:4">
-    <div class="t lab" style="left:1013px;top:396px;color:#3cccfd">CON KOREX PARTNER 20</div>
-    <div class="t" style="left:1015px;top:466px;font-size:34px;font-weight:700;letter-spacing:.085em;color:#f2faff">Implementación KOREX</div>
-    <div class="t" style="left:1014px;top:531px;font-size:46px;font-weight:700;letter-spacing:.054em;color:#6dd7bf">SIN TARIFA DE SETUP</div>
-    <div class="t" style="left:1015px;top:604px;font-size:31px;letter-spacing:.031em;color:#eff7ff">Sistema + método + mentorías</div>
-    <div class="t" style="left:1015px;top:659px;font-size:26px;letter-spacing:.024em;color:#a9bfd3">para personas seleccionadas</div>
-    <div class="t pill"></div>
-    <div class="t" style="left:1046px;top:732px;font-size:30px;font-weight:700;letter-spacing:.077em;color:#f0fbff">250 USD · 100% capital de trading</div>
+
+  <div class="abs vs rv zoom" style="--d:4">VS</div>
+
+  <div class="abs card col korex rv" style="left:1032px;--d:5">
+    <div class="lab">CON KOREX PARTNER 20</div>
+    <div class="impl">Implementación KOREX</div>
+    <div class="t-title g-cyan big">SIN TARIFA DE SETUP</div>
+    <div class="row"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Sistema + método + mentorías</div>
+    <div class="row"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>para personas seleccionadas</div>
+    <div class="pill">250 USD <span>&nbsp;·&nbsp;</span> 100% capital de trading</div>
   </div>
-  <div class="abs note rv" style="--d:5;top:863px;font-size:22px">El capital de trading es independiente del precio de KOREX y está sujeto a riesgo de pérdida.</div>
-  <div class="abs note rv" style="--d:5;top:900px;font-size:20px">Acceso y funcionalidades sujetos a las condiciones escritas del programa.</div>
-  <div class="abs rule rv fade" style="--d:6"></div>
-  <div class="abs ft" style="left:104px">KOREX CARD by BIX</div>
-  <div class="abs ft" style="right:113px">23</div>
+
+  <div class="abs note rv" style="top:868px;--d:6">El capital de trading es independiente del precio de KOREX y está sujeto a riesgo de pérdida.</div>
+  <div class="abs note rv" style="top:902px;--d:6">Acceso y funcionalidades sujetos a las condiciones escritas del programa.</div>
+  <div class="foot-k">KOREX CARD by BIX</div>
+  <img class="mk-k" src="/assets/mk-logo-cropped.png" alt="Método Korex">
 </section>
