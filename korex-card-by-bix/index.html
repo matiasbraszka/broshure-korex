@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>KOREX CARD by BIX · Presentación</title>
+<meta name="description" content="KOREX CARD by BIX: presentación privada para el grupo de líderes.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#000000">
+<meta property="og:title" content="KOREX CARD by BIX">
+<meta property="og:description" content="Presentación privada · Grupo de líderes">
+<meta property="og:image" content="https://info.metodokorex.com/korex-card-by-bix/og.jpg">
+<link rel="icon" href="/assets/mk-symbol.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#000;color:#fff;font-family:system-ui,-apple-system,'Segoe UI',sans-serif}
+body{overflow:hidden;touch-action:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+svg{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* Escenario 16:9 que entra entero en la pantalla */
+#stage{position:fixed;left:50%;top:50%;width:min(100vw,177.78vh);aspect-ratio:16/9;transform:translate(-50%,-50%);overflow:hidden;background:#000}
+#stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .55s cubic-bezier(.2,.7,.2,1);user-select:none;-webkit-user-drag:none}
+#stage img.on{opacity:1}
+
+/* Controles: aparecen al mover el mouse */
+.ctrl{position:fixed;right:22px;bottom:20px;z-index:5;display:flex;align-items:center;gap:10px;padding:8px 10px 8px 16px;border-radius:999px;
+  background:rgba(10,12,18,.72);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:opacity .4s}
+.ctrl.hide{opacity:0;pointer-events:none}
+.count{font-size:13px;font-weight:700;letter-spacing:.12em;color:rgba(255,255,255,.6);font-variant-numeric:tabular-nums;margin-right:4px}
+.count b{color:#fff}
+.ctrl button{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;font-size:17px;border:1px solid rgba(255,255,255,.16);transition:.25s}
+.ctrl button:hover{border-color:#2FA8FF;background:rgba(47,168,255,.18)}
+.bar{position:fixed;left:0;bottom:0;height:3px;width:100%;z-index:5;transform-origin:0 50%;transform:scaleX(0);transition:transform .5s;background:linear-gradient(90deg,#1E6BFF,#2FA8FF)}
+.hint{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:5;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55);
+  background:rgba(10,12,18,.6);padding:8px 14px;border-radius:999px;transition:opacity .6s;pointer-events:none}
+.hint.off{opacity:0}
+
+/* Celular vertical: slides una debajo de otra, con scroll normal */
+html.stack body{overflow:auto;touch-action:auto}
+html.stack #stage{position:static;transform:none;width:100%;aspect-ratio:auto;display:flex;flex-direction:column;gap:10px;padding:10px 0 40px}
+html.stack #stage img{position:static;opacity:1;height:auto;transition:none}
+html.stack .ctrl,html.stack .bar,html.stack .hint{display:none}
+</style>
+<script>
+  if (matchMedia('(max-width: 820px) and (orientation: portrait)').matches) document.documentElement.classList.add('stack');
+</script>
+</head>
+<body>
+<div id="stage" aria-live="polite"></div>
+<div class="hint" id="hint">Scroll, flechas o desliza para avanzar</div>
+<div class="ctrl" id="ctrl">
+  <span class="count" id="count"></span>
+  <button id="prev" aria-label="Slide anterior"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
+  <button id="next" aria-label="Slide siguiente"><svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
+  <button id="full" aria-label="Pantalla completa"><svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+</div>
+<div class="bar" id="bar"></div>
+
+<script>
+(function(){
+  var N=24, stage=document.getElementById('stage'), stack=document.documentElement.classList.contains('stack');
+  var imgs=[];
+  for(var i=1;i<=N;i++){
+    var im=document.createElement('img');
+    im.alt='Slide '+i+' de '+N; im.decoding='async';
+    im.dataset.src='s/'+(i<10?'0':'')+i+'.webp';
+    if(stack){im.loading='lazy';im.src=im.dataset.src}
+    stage.appendChild(im);imgs.push(im);
+  }
+  if(stack)return;
+
+  var cur=-1, count=document.getElementById('count'), bar=document.getElementById('bar'), hint=document.getElementById('hint'), ctrl=document.getElementById('ctrl');
+  function load(i){var im=imgs[i];if(im&&!im.src)im.src=im.dataset.src}
+  function pad(x){return (x<10?'0':'')+x}
+  function go(i){
+    i=Math.max(0,Math.min(N-1,i));if(i===cur)return;
+    if(cur>-1)hint.classList.add('off');
+    load(i);load(i+1);load(i+2);load(i-1);
+    imgs.forEach(function(im,j){im.classList.toggle('on',j===i)});
+    cur=i;
+    count.innerHTML='<b>'+pad(i+1)+'</b> / '+N;
+    bar.style.transform='scaleX('+((i+1)/N)+')';
+    history.replaceState(null,'','#'+(i+1));
+  }
+  var h=parseInt(location.hash.slice(1),10);
+  go(h>=1&&h<=N?h-1:0);
+
+  // Rueda / trackpad: un gesto = una slide
+  var lockUntil=0,last=0;
+  addEventListener('wheel',function(e){
+    e.preventDefault();
+    var now=performance.now(),gap=now-last;last=now;
+    var d=Math.abs(e.deltaY)>=Math.abs(e.deltaX)?e.deltaY:e.deltaX;
+    if(Math.abs(d)<6)return;
+    if(now<lockUntil){if(gap<140)lockUntil=Math.max(lockUntil,now+140);return}
+    go(cur+(d>0?1:-1));lockUntil=now+650;
+  },{passive:false});
+
+  // Táctil
+  var tx=0,ty=0;
+  addEventListener('touchstart',function(e){tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});
+  addEventListener('touchend',function(e){var dx=tx-e.changedTouches[0].clientX,dy=ty-e.changedTouches[0].clientY;
+    if(Math.max(Math.abs(dx),Math.abs(dy))<40)return;go(cur+((Math.abs(dy)>Math.abs(dx)?dy:dx)>0?1:-1))},{passive:true});
+
+  // Teclado
+  addEventListener('keydown',function(e){
+    var k=e.key;
+    if(['ArrowDown','ArrowRight','PageDown',' ','Enter'].indexOf(k)>-1&&!e.shiftKey){e.preventDefault();go(cur+1)}
+    else if(['ArrowUp','ArrowLeft','PageUp'].indexOf(k)>-1||(k===' '&&e.shiftKey)){e.preventDefault();go(cur-1)}
+    else if(k==='Home')go(0);else if(k==='End')go(N-1);
+    else if(k==='f'||k==='F')full();
+  });
+
+  // Clic en la mitad derecha avanza, en la izquierda retrocede
+  stage.addEventListener('click',function(e){var r=stage.getBoundingClientRect();go(cur+(e.clientX-r.left>r.width/2?1:-1))});
+  document.getElementById('prev').onclick=function(){go(cur-1)};
+  document.getElementById('next').onclick=function(){go(cur+1)};
+  function full(){if(document.fullscreenElement)document.exitFullscreen();else if(document.documentElement.requestFullscreen)document.documentElement.requestFullscreen()}
+  document.getElementById('full').onclick=full;
+
+  // Los controles se esconden solos para no tapar la slide
+  var t;function wake(){ctrl.classList.remove('hide');clearTimeout(t);t=setTimeout(function(){ctrl.classList.add('hide')},2500)}
+  addEventListener('mousemove',wake);wake();
+})();
+</script>
+</body>
+</html>
