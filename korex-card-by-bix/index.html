@@ -1742,7 +1742,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   <span class="count" id="count"></span>
   <button id="prev" aria-label="Slide anterior"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
   <button id="next" aria-label="Slide siguiente"><svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
-  <button id="esp" aria-label="Pantalla de espera (E)" title="Pantalla de espera (E)"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg></button>
+  <button id="esp" aria-label="Pantalla de espera" title="Pantalla de espera"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg></button>
   <button id="full" aria-label="Pantalla completa"><svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
 </div>
 <div class="bar" id="bar"></div>
@@ -1853,7 +1853,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   }
   document.getElementById('skip').onclick=finish;
 
-  /* ── Volver a abrir la pantalla de espera (botón ⏱ de la presentación o tecla E) ─── */
+  /* ── Volver a abrir la pantalla de espera (botón ⏱ de la presentación) ─── */
   function start(){
     window.introActive=true;
     if(window.goSlide)window.goSlide(0);
@@ -1870,7 +1870,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   function wake(){bar.classList.remove('hide');clearTimeout(ht);ht=setTimeout(function(){bar.classList.add('hide')},3500)}
   addEventListener('mousemove',wake);addEventListener('touchstart',wake,{passive:true});wake();
   addEventListener('keydown',function(e){
-    if(!window.introActive){ if(e.key==='e'||e.key==='E')start(); return }
+    if(!window.introActive)return;
     if(e.key==='m'||e.key==='M'){playing?pause():play()}
   });
 

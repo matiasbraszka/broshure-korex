@@ -119,7 +119,7 @@
   }
   document.getElementById('skip').onclick=finish;
 
-  /* ── Volver a abrir la pantalla de espera (botón ⏱ de la presentación o tecla E) ─── */
+  /* ── Volver a abrir la pantalla de espera (botón ⏱ de la presentación) ─── */
   function start(){
     window.introActive=true;
     if(window.goSlide)window.goSlide(0);
@@ -136,7 +136,7 @@
   function wake(){bar.classList.remove('hide');clearTimeout(ht);ht=setTimeout(function(){bar.classList.add('hide')},3500)}
   addEventListener('mousemove',wake);addEventListener('touchstart',wake,{passive:true});wake();
   addEventListener('keydown',function(e){
-    if(!window.introActive){ if(e.key==='e'||e.key==='E')start(); return }
+    if(!window.introActive)return;
     if(e.key==='m'||e.key==='M'){playing?pause():play()}
   });
 
