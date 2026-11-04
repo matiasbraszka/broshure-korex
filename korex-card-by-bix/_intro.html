@@ -78,9 +78,6 @@
   if(!intro)return;
   // La pantalla de espera aparece al abrir la presentación (sin #número) o con #espera
   var show=!!window.introWanted;
-  if(!show){intro.classList.add('gone');return}
-  window.introActive=true; stage.classList.add('intro-on');
-  if(window.goSlide)window.goSlide(0);
 
   /* ── Contador ─────────────────────────── */
   var TOTAL=5*60, endAt=Date.now()+TOTAL*1000, clock=document.getElementById('clock'), prog=document.getElementById('progBar'), lab=document.getElementById('introLab');
@@ -92,7 +89,7 @@
     prog.style.transform='scaleX('+(1-left/TOTAL)+')';
     var z=left===0; clock.classList.toggle('zero',z); lab.textContent=z?'¡EMPEZAMOS!':'EMPEZAMOS EN';
   }
-  tick(); var timer=setInterval(tick,250);
+  var timer=null;
   document.getElementById('rst').onclick=function(){endAt=Date.now()+TOTAL*1000;tick()};
 
   /* ── Música (el navegador exige un clic para sonar) ─────────────── */
@@ -126,15 +123,30 @@
     intro.classList.add('out'); stage.classList.remove('intro-on');
     var cover=stage.querySelector('.slide'); if(cover){cover.classList.remove('on'); void cover.offsetWidth; setTimeout(function(){cover.classList.add('on')},350)}
     history.replaceState(null,'','#1');
-    setTimeout(function(){intro.classList.add('gone'); cancelAnimationFrame(raf)},1300);
+    setTimeout(function(){if(!window.introActive){intro.classList.add('gone'); cancelAnimationFrame(raf)}},1300);
   }
   document.getElementById('skip').onclick=finish;
+
+  /* ── Volver a abrir la pantalla de espera (botón ⏱ de la presentación o tecla E) ─── */
+  function start(){
+    window.introActive=true;
+    if(window.goSlide)window.goSlide(0);
+    intro.classList.remove('gone'); void intro.offsetWidth; intro.classList.remove('out');
+    stage.classList.add('intro-on');
+    endAt=Date.now()+TOTAL*1000; tick(); clearInterval(timer); timer=setInterval(tick,250);
+    cancelAnimationFrame(raf); frame();
+    history.replaceState(null,'','#espera'); wake();
+  }
+  window.openIntro=start;
 
   /* ── Controles que se esconden solos ─── */
   var bar=document.getElementById('introBar'), ht;
   function wake(){bar.classList.remove('hide');clearTimeout(ht);ht=setTimeout(function(){bar.classList.add('hide')},3500)}
   addEventListener('mousemove',wake);addEventListener('touchstart',wake,{passive:true});wake();
-  addEventListener('keydown',function(e){ if(!window.introActive)return; if(e.key==='m'||e.key==='M'){playing?pause():play()} });
+  addEventListener('keydown',function(e){
+    if(!window.introActive){ if(e.key==='e'||e.key==='E')start(); return }
+    if(e.key==='m'||e.key==='M'){playing?pause():play()}
+  });
 
   /* ── Globo de puntos que gira (reacciona a la música) ─── */
   var cv=document.getElementById('globe'), g=cv.getContext('2d'), N=900, R=330, CX=1420, CY=520, pts=[], i;
@@ -165,7 +177,7 @@
       if(a.t>=0&&a.t<=1){ var hp=proj(slerp(a.a,a.b,a.t),rot); if(hp[2]>-.2){ g.fillStyle='#E9FAFF'; g.shadowColor='#29B6F6'; g.shadowBlur=14; g.beginPath(); g.arc(CX+hp[0]*rr,CY+hp[1]*rr,3.2,0,7); g.fill(); g.shadowBlur=0; } } });
     g.strokeStyle='rgba(127,216,255,'+(.10+smooth*.25)+')'; g.lineWidth=1.2; g.beginPath(); g.ellipse(CX,CY,rr*1.32,rr*.36,-.18,0,7); g.stroke();
   }
-  frame();
+  if(show)start(); else intro.classList.add('gone');
 })();
 </script>
 <!--/INTRO_SCRIPT-->
