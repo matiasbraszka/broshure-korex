@@ -42,9 +42,6 @@
 #intro .b.go:hover{filter:brightness(1.12)}
 #intro .eq{display:flex;align-items:flex-end;gap:3px;height:22px}
 #intro .eq i{width:4px;height:4px;border-radius:2px;background:var(--cyan);transition:height .08s}
-#intro .seg{display:flex;padding:4px;border-radius:40px;border:1px solid rgba(255,255,255,.14)}
-#intro .seg button{height:52px;padding:0 20px;border-radius:30px;font-size:19px;font-weight:600;color:#9AA3B2;transition:.25s}
-#intro .seg button.on{background:rgba(41,182,246,.18);color:#fff}
 #intro .sep{width:1px;height:40px;background:rgba(255,255,255,.12)}
 #stage.intro-on~.ctrl,#stage.intro-on~.hint,#stage.intro-on~.bar{opacity:0!important;pointer-events:none}
 </style>
@@ -63,7 +60,6 @@
   <div class="msg"><b>Gracias por conectarte.</b> En unos minutos comenzamos.</div>
   <div class="ibar" id="introBar">
     <button class="b" id="mus" aria-label="Activar música"><span class="eq" id="eq"><i></i><i></i><i></i><i></i><i></i></span><span id="musTxt">Activar música</span></button>
-    <div class="seg" role="group" aria-label="Estilo de música"><button class="on" data-t="audio/techno.mp3">Techno</button><button data-t="audio/trap.mp3">Trap</button></div>
     <div class="sep"></div>
     <button class="b" id="rst"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>Reiniciar contador</button>
     <button class="b go" id="skip">Quitar contador<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
@@ -111,10 +107,6 @@
   function pause(sec){ playing=false; musTxt.textContent='Activar música'; musBtn.setAttribute('aria-label','Activar música');
     fadeTo(0,sec||.6); setTimeout(function(){if(!playing)audio.pause()},(sec||.6)*1000+50); }
   musBtn.onclick=function(){playing?pause():play()};
-  [].slice.call(document.querySelectorAll('#intro .seg button')).forEach(function(b){
-    b.onclick=function(){ document.querySelectorAll('#intro .seg button').forEach(function(x){x.classList.toggle('on',x===b)});
-      track=b.dataset.t; if(playing){ fadeTo(0,.4); setTimeout(function(){audio.src=track;audio.play();fadeTo(.9,1)},420) } };
-  });
 
   /* ── Salir: se apaga la música, se va el contador y entra la portada ─── */
   function finish(){
