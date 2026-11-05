@@ -7,6 +7,10 @@
 <meta name="description" content="Todo sobre la tarjeta Visa de débito BIX: cómo funciona, seguridad, costos, límites, países y cómo pedirla.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#020202">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Tarjeta BIX">
 <meta property="og:title" content="Tarjeta BIX · Tu cripto, en el mundo real">
 <meta property="og:description" content="Cómo funciona, seguridad, costos, límites, países y cómo pedirla.">
 <meta property="og:image" content="https://info.metodokorex.com/tarjeta-bix/og.jpg">
@@ -109,7 +113,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .count{cursor:pointer}
 .count:hover b{color:var(--lime)}
 /* Pantallas bajas (celular horizontal, notebooks chicas): controles más chicos y sin el cartel de ayuda */
-@media (max-height:560px){.ctrl{transform:scale(.72);transform-origin:right bottom;right:8px;bottom:8px}.hint{display:none}}
+@media (max-height:560px){.ctrl{transform:scale(.6);transform-origin:right bottom;right:8px;bottom:8px}.hint{display:none}}
 /* Logos de marcas (simple-icons, vienen en blanco) */
 .mk img{height:1em;width:auto;display:inline-block;opacity:.92}
 
@@ -220,12 +224,12 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 #s07 .end{margin-top:auto;font-size:40px;font-weight:600;letter-spacing:-.03em}
 
 /* ── slide 08 ── */
-#s08 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:52px}
-#s08 .tl{display:flex;gap:24px;align-items:flex-start;padding:30px 32px}
-#s08 .tl .ic{margin:0}
-#s08 .tl h3{font-size:29px}
-#s08 .tl p{font-size:22px;margin-top:8px}
-#s08 .call{margin-top:30px}
+#s08 .grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:50px}
+#s08 .tl{display:flex;gap:28px;align-items:flex-start;padding:36px 40px}
+#s08 .tl .ic{margin:0;width:72px;height:72px;font-size:34px}
+#s08 .tl h3{font-size:33px}
+#s08 .tl p{font-size:24px;margin-top:10px}
+#s08 .call{margin-top:28px;font-size:25px}
 
 /* ── slide 09 ── */
 #s09 .txt{width:1120px}
@@ -238,20 +242,24 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 #s09 .phone{width:340px}
 
 /* ── slide 10 ── */
-#s10 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:44px}
+#s10 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
 #s10 .tl{padding:28px 28px 30px;display:flex;flex-direction:column}
 #s10 .tl.off{background:linear-gradient(180deg,#0f0f13,#09090c)}
-#s10 .vis{margin:0 4px 26px}
+#s10 .vis{margin:0 auto 24px;width:78%}
+#s10 .duo{display:grid}
+#s10 .duo .mc{grid-area:1/1}
+#s10 .duo .metal{transform:translate(-6%,-4%) rotate(-4deg) scale(.9)}
+#s10 .duo .gold{transform:translate(7%,8%) rotate(3deg) scale(.9)}
 #s10 .mc{position:relative;aspect-ratio:856/540;border-radius:4.2%/6.7%;overflow:hidden;box-shadow:0 30px 40px -20px rgba(0,0,0,.8)}
 #s10 .mc img{position:absolute;left:6%;top:9%;width:30%}
-#s10 .mc b{position:absolute;right:6%;bottom:8%;font-family:Montserrat,Arial,sans-serif;font-style:italic;font-weight:900;font-size:36px}
+#s10 .mc b{position:absolute;right:6%;bottom:8%;font-family:Montserrat,Arial,sans-serif;font-style:italic;font-weight:900;font-size:40px}
 #s10 .metal{background:linear-gradient(135deg,#5b5d63,#2a2b2f 45%,#6d6f76 70%,#26272b);color:#e6e7ea}
 #s10 .gold{background:linear-gradient(135deg,#f3dc8c,#b9933a 45%,#f0d77f 70%,#9c7a2b);color:#2b2108}
 #s10 .k{font-family:var(--mono);font-size:17px;letter-spacing:.14em;text-transform:uppercase;color:var(--lime)}
 #s10 .tl h3{font-size:30px;margin-top:8px}
 #s10 .p{font-size:46px;font-weight:600;letter-spacing:-.03em;color:var(--lime);margin-top:14px;line-height:1}
 #s10 .p small{font-size:22px;color:var(--soft);font-weight:500;letter-spacing:0}
-#s10 .tl p{font-size:21px;margin-top:14px}
+#s10 .tl p{font-size:23px;margin-top:14px}
 #s10 .soon{margin-top:16px}
 #s10 .row{display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:22px;margin-top:26px}
 #s10 .row div{display:flex;gap:14px;align-items:flex-start;font-size:22px;color:var(--soft);line-height:1.4}
@@ -272,7 +280,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 #s11 .net.bad .lg{filter:grayscale(.3)}
 #s11 .net.bad span,#s11 .net.bad span .i{color:var(--no)}
 #s11 .side{display:flex;flex-direction:column;gap:18px}
-#s11 .call{font-size:23px;padding:26px 30px}
+#s11 .call{font-size:25px;padding:30px 32px}
 #s11 .note{margin-top:4px}
 
 /* ── slide 12 ── */
@@ -411,42 +419,40 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 #s21 .flow{display:grid;grid-template-columns:1fr 54px 1fr 54px 1fr 54px 1.25fr;align-items:stretch;margin-top:40px}
 #s21 .ar{display:grid;place-items:center;font-size:34px;color:var(--lime)}
 #s21 .bk{border-radius:24px;padding:26px 28px;background:linear-gradient(180deg,var(--p2),var(--p1));border:1px solid var(--line);display:flex;flex-direction:column;justify-content:center}
-#s21 .bk .k{font-family:var(--mono);font-size:16px;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);display:flex;gap:10px;align-items:center}
-#s21 .bk .k .i{font-size:22px;color:var(--lime)}
-#s21 .bk b{font-size:64px;font-weight:600;letter-spacing:-.045em;line-height:1;margin-top:14px;color:var(--txt)}
-#s21 .bk small{font-size:20px;color:var(--soft);margin-top:8px}
+#s21 .bk .k{font-size:21px;color:var(--soft);display:flex;gap:10px;align-items:center}
+#s21 .bk .k .i{font-size:24px;color:var(--lime)}
+#s21 .bk b{font-size:64px;font-weight:600;letter-spacing:-.045em;line-height:1;margin-top:12px;color:var(--txt)}
 #s21 .bk.hot{border-color:rgba(202,254,92,.35);background:radial-gradient(400px 200px at 100% 0%,rgba(202,254,92,.12),transparent 70%),linear-gradient(180deg,var(--p2),var(--p1))}
 #s21 .bk.hot b{color:var(--lime)}
 #s21 .split{display:grid;grid-template-rows:1fr 1fr;gap:12px}
 #s21 .split .bk{padding:16px 24px;flex-direction:row;align-items:center;justify-content:space-between}
 #s21 .split .bk b{font-size:44px;margin:0}
 #s21 .split .pool b{color:#C9CAD2}
-#s21 .rep{margin-top:34px}
-#s21 .rep>p{font-size:22px;color:var(--soft)}
-#s21 .rep>p b{color:var(--txt)}
-#s21 .rb{display:flex;gap:4px;height:60px;margin-top:14px}
-#s21 .rb i{border-radius:10px;display:grid;place-items:center;font-style:normal;font-family:var(--mono);font-size:20px;font-weight:600;color:#020202}
-#s21 .lab{display:flex;gap:4px;margin-top:10px;font-size:18px;color:var(--soft)}
-#s21 .lab span{white-space:nowrap}
-#s21 .lab b{color:var(--txt);font-weight:600}
-#s21 .ways{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}
-#s21 .ways div{display:flex;gap:16px;align-items:center;padding:18px 22px;border-radius:20px;border:1px solid var(--line);background:rgba(255,255,255,.02);font-size:21px;color:var(--soft);line-height:1.35}
-#s21 .ways .i{font-size:30px;color:var(--lime)}
-#s21 .ways b{color:var(--txt);font-weight:600}
+#s21 .niv{display:grid;grid-template-columns:1.1fr 1fr 1fr 1fr;gap:18px;margin-top:30px}
+#s21 .def{display:flex;gap:18px;align-items:flex-start;padding:24px 26px}
+#s21 .def .i{font-size:40px;color:var(--lime);flex:none}
+#s21 .def p{margin:0;font-size:22px;color:var(--soft);line-height:1.4}
+#s21 .def p b{color:var(--txt)}
+#s21 .lv{border-radius:24px;padding:24px 26px;background:rgba(202,254,92,.05);border:1px solid rgba(202,254,92,.2)}
+#s21 .lv span{font-size:21px;color:var(--soft)}
+#s21 .lv b{display:block;font-size:46px;font-weight:600;letter-spacing:-.04em;line-height:1;color:var(--lime);margin-top:10px}
+#s21 .lv small{display:block;font-size:20px;color:var(--soft);margin-top:8px}
+#s21 .note{margin-top:22px}
 
 /* ── slide 22 ── */
 #s22 .bx{flex-direction:row;gap:56px;padding-top:84px}
 #s22 .izq{width:700px;flex:none;display:flex;flex-direction:column}
 #s22 .h{font-size:70px}
-#s22 .res{margin-top:30px;padding:30px 34px 32px;border-radius:28px;border:1px solid rgba(202,254,92,.32);
+#s22 .how{font-size:23px;color:var(--soft);margin-top:14px;line-height:1.4}
+#s22 .res{margin-top:22px;padding:30px 34px 32px;border-radius:28px;border:1px solid rgba(202,254,92,.32);
   background:radial-gradient(600px 300px at 100% 0%,rgba(202,254,92,.14),transparent 70%),linear-gradient(180deg,var(--p2),var(--p1))}
 #s22 .res .k{font-family:var(--mono);font-size:17px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)}
 #s22 .res .tot{display:flex;align-items:baseline;gap:16px;margin-top:10px}
-#s22 .res .tot b{font-size:118px;font-weight:600;letter-spacing:-.05em;line-height:.95;color:var(--lime);font-variant-numeric:tabular-nums}
+#s22 .res .tot b{font-size:94px;font-weight:600;letter-spacing:-.05em;line-height:.95;color:var(--lime);font-variant-numeric:tabular-nums}
 #s22 .res .tot span{font-size:28px;color:var(--txt);font-weight:500}
 #s22 .res p{font-size:21px;color:var(--soft);margin-top:12px}
 #s22 .res p b{color:var(--txt)}
-#s22 .ctl{margin-top:26px;display:flex;flex-direction:column;gap:20px}
+#s22 .ctl{margin-top:22px;display:flex;flex-direction:column;gap:12px}
 #s22 .ctl .fila{display:flex;justify-content:space-between;align-items:baseline;font-size:22px;color:var(--soft)}
 #s22 .ctl .fila b{font-family:var(--mono);font-size:28px;font-weight:500;color:var(--txt)}
 #s22 .lim{display:flex;justify-content:space-between;font-family:var(--mono);font-size:15px;color:var(--mut);margin-top:-2px}
@@ -455,7 +461,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 #s22 input[type=range]::-moz-range-track{height:10px;border-radius:10px;background:linear-gradient(90deg,#CAFE5C var(--p,50%),rgba(255,255,255,.12) var(--p,50%))}
 #s22 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:34px;height:34px;margin-top:-12px;border-radius:50%;background:#CAFE5C;border:5px solid #020202;box-shadow:0 0 0 2px #CAFE5C,0 0 24px rgba(202,254,92,.6)}
 #s22 input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:#CAFE5C;border:5px solid #020202;box-shadow:0 0 0 2px #CAFE5C}
-#s22 .note{margin-top:auto;font-size:17px;line-height:1.45}
+#s22 .note{margin-top:auto;padding-top:16px;font-size:19px;line-height:1.45}
 #s22 .der{flex:1;padding:30px 34px 26px;display:flex;flex-direction:column}
 #s22 .cab{display:flex;justify-content:space-between;align-items:baseline}
 #s22 .cab h3{font-size:30px}
@@ -476,54 +482,35 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 #s22 .reset{margin-top:14px;align-self:flex-end;font-size:18px;color:var(--soft);padding:8px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.16)}
 #s22 .reset:hover{border-color:var(--lime);color:var(--lime)}
 #s22 .reset[hidden]{display:none}
+#s22 .dfn{margin-top:auto;padding-top:12px;font-size:19px;color:var(--mut)}
 
 /* ── slide 23 ── */
-#s23 .h{font-size:74px}
+#s23 .h{font-size:76px}
 #s23 .lead{font-size:27px;max-width:1500px}
-#s23 .body{display:grid;grid-template-columns:400px 1.25fr 1fr;gap:26px;margin-top:38px;align-items:stretch}
-/* Pool (fondo) */
-#s23 .pool{position:relative;border-radius:28px;border:1px solid rgba(202,254,92,.3);overflow:hidden;
-  background:radial-gradient(circle at 50% 40%,rgba(202,254,92,.18),transparent 62%),linear-gradient(180deg,var(--p2),var(--p1))}
-#s23 .pool .ring{position:absolute;left:50%;top:44%;width:290px;height:290px;margin:-145px;border-radius:50%;border:2px solid rgba(202,254,92,.7);box-shadow:0 0 70px rgba(202,254,92,.25),inset 0 0 50px rgba(202,254,92,.12)}
-#s23 .pool .ring2{position:absolute;left:50%;top:44%;width:350px;height:350px;margin:-175px;border-radius:50%;border:1px dashed rgba(202,254,92,.25);animation:gira 40s linear infinite}
-@keyframes gira{to{transform:rotate(360deg)}}
-#s23 .pool .ctr{position:absolute;left:0;right:0;top:44%;transform:translateY(-50%);text-align:center}
-#s23 .pool .ctr b{display:block;font-size:130px;font-weight:600;letter-spacing:-.06em;line-height:.9;color:var(--lime);text-shadow:0 0 50px rgba(202,254,92,.35)}
-#s23 .pool .ctr span{display:block;font-family:var(--mono);font-size:15px;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);margin-top:12px;line-height:1.5}
-#s23 .pool .pie{position:absolute;left:28px;right:28px;bottom:26px;text-align:center;font-size:20px;color:var(--soft);line-height:1.4}
-#s23 .pool .pie b{color:var(--txt)}
-#s23 .coin{position:absolute;left:50%;top:44%;width:24px;height:24px;margin:-12px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#F1FFD0,#CAFE5C 55%,#8FBF2E);box-shadow:0 0 14px rgba(202,254,92,.7);opacity:0}
-#s23.on .coin{animation:cae 3.6s ease-in infinite}
-#s23 .coin:nth-of-type(1){--x:-170px;--y:-190px;animation-delay:0s}
-#s23 .coin:nth-of-type(2){--x:170px;--y:-160px;animation-delay:.9s}
-#s23 .coin:nth-of-type(3){--x:-180px;--y:110px;animation-delay:1.8s}
-#s23 .coin:nth-of-type(4){--x:175px;--y:140px;animation-delay:2.7s}
-@keyframes cae{0%{transform:translate(var(--x),var(--y)) scale(1);opacity:0}15%{opacity:1}80%{opacity:1}100%{transform:translate(0,0) scale(.3);opacity:0}}
-/* Reglas */
-#s23 .tl{padding:30px 32px}
-#s23 .tl h3{font-size:28px;display:flex;gap:14px;align-items:center}
-#s23 .tl h3 .i{color:var(--lime);font-size:32px}
-#s23 .rules{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
-#s23 .rules div{border-radius:18px;padding:18px 20px;background:rgba(202,254,92,.06);border:1px solid rgba(202,254,92,.18)}
-#s23 .rules b{display:block;font-size:46px;font-weight:600;letter-spacing:-.04em;line-height:1;color:var(--lime)}
-#s23 .rules span{display:block;font-size:19px;color:var(--soft);margin-top:8px;line-height:1.35}
-#s23 .ej{margin-top:22px;display:flex;flex-direction:column;gap:14px}
-#s23 .ej .t{font-family:var(--mono);font-size:15px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
-#s23 .leg{display:grid;grid-template-columns:1fr 150px;gap:16px;align-items:center}
-#s23 .leg .lb{display:flex;gap:3px;height:40px}
-#s23 .leg .lb i{border-radius:8px;display:grid;place-items:center;font-style:normal;font-family:var(--mono);font-size:16px;font-weight:600;color:#020202;white-space:nowrap;overflow:hidden}
-#s23 .leg .r{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:15px;letter-spacing:.06em;text-transform:uppercase;justify-content:flex-end}
-#s23 .leg .r .i{font-size:20px;stroke-width:2.4}
+#s23 .body{display:grid;grid-template-columns:1.2fr 1fr;gap:26px;margin-top:38px;align-items:stretch}
+#s23 .tl{padding:32px 36px}
+#s23 .tl h3{font-size:30px;display:flex;gap:14px;align-items:center}
+#s23 .tl h3 .i{color:var(--lime);font-size:34px}
+#s23 .rules{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+#s23 .rules div{border-radius:18px;padding:20px 22px;background:rgba(202,254,92,.06);border:1px solid rgba(202,254,92,.18)}
+#s23 .rules b{display:block;font-size:50px;font-weight:600;letter-spacing:-.04em;line-height:1;color:var(--lime)}
+#s23 .rules span{display:block;font-size:21px;color:var(--soft);margin-top:8px;line-height:1.35}
+#s23 .lin{font-size:21px;color:var(--soft);margin-top:18px;line-height:1.4}
+#s23 .lin b{color:var(--txt)}
+#s23 .ej{margin-top:18px;display:flex;flex-direction:column;gap:14px}
+#s23 .leg{display:grid;grid-template-columns:1fr 170px;gap:16px;align-items:center}
+#s23 .leg .lb{display:flex;gap:3px;height:42px}
+#s23 .leg .lb i{border-radius:8px;display:grid;place-items:center;font-style:normal;font-family:var(--mono);font-size:17px;font-weight:600;color:#020202;white-space:nowrap;overflow:hidden}
+#s23 .leg .r{display:flex;align-items:center;gap:8px;font-size:21px;font-weight:600;justify-content:flex-end}
+#s23 .leg .r .i{font-size:24px;stroke-width:2.4}
 #s23 .leg.ok .r{color:var(--lime)} #s23 .leg.bad .r{color:var(--no)}
-/* Ejemplo de un mes */
 #s23 .mes{display:flex;flex-direction:column}
-#s23 .paso{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:16px 0;border-bottom:1px solid var(--line);font-size:20px;color:var(--soft)}
-#s23 .paso b{font-family:var(--mono);font-weight:500;font-size:26px;color:var(--txt);white-space:nowrap}
-#s23 .fin{margin-top:auto;padding-top:18px}
-#s23 .fin span{font-family:var(--mono);font-size:15px;letter-spacing:.12em;text-transform:uppercase;color:var(--soft)}
-#s23 .fin b{display:block;font-size:64px;font-weight:600;letter-spacing:-.045em;line-height:1;color:var(--lime);margin-top:6px}
-#s23 .fin small{font-size:20px;color:var(--soft)}
-#s23 .note{margin-top:20px;font-size:18px}
+#s23 .paso{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:18px 0;border-bottom:1px solid var(--line);font-size:22px;color:var(--soft)}
+#s23 .paso b{font-family:var(--mono);font-weight:500;font-size:28px;color:var(--txt);white-space:nowrap}
+#s23 .fin{margin-top:auto;padding-top:20px;display:flex;align-items:baseline;gap:16px}
+#s23 .fin b{font-size:72px;font-weight:600;letter-spacing:-.045em;line-height:1;color:var(--lime)}
+#s23 .fin span{font-size:22px;color:var(--soft)}
+#s23 .note{margin-top:20px;font-size:20px}
 
 /* ── slide 24 ── */
 #s24 .grid{display:grid;grid-template-columns:1fr 1fr;gap:0 56px;margin-top:40px}
@@ -658,7 +645,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <div class="foot"><span><b>KOREX by BIX CARD</b> · Partner independiente</span><span class="r"><img src="img/logo-bix-blanco.svg" alt="BIX">02 / 25</span></div></section>
 
 <section class="slide" id="s03">
-  <svg class="deco" viewBox="0 0 30 30" aria-hidden="true"><path d="M14.7723 5.0646C15.1854 8.98909 16.9912 11.6466 20.3932 13.3356C22.0236 14.1451 22.8438 14.3432 24.5628 14.3432H26.7025L26.4698 12.9377C25.6606 8.0522 21.2856 3.85223 16.3554 3.22819L14.5552 3L14.7723 5.0646ZM8.30485 5.03186C6.27765 6.30904 4.48279 8.47252 3.67823 10.6089C2.96455 12.5045 2.89331 12.9949 3.21188 13.82C3.52278 14.6246 13.3599 14.5959 14.1731 13.788C14.9607 13.0055 14.696 10.0146 13.6561 7.95067C12.9155 6.48035 10.6919 4.09133 10.0644 4.09133C9.91763 4.09133 9.12605 4.51463 8.30485 5.03186ZM3.24683 15.8714C2.39101 16.7217 3.87995 20.7067 5.87886 22.9154C7.59816 24.815 10.6696 26.4676 13.0793 26.789L14.6604 27L14.6604 25.189C14.6604 23.8308 14.4058 22.8718 13.6425 21.3542C12.4871 19.0571 11.2358 17.8725 8.83512 16.8033C7.10917 16.0344 3.66159 15.4597 3.24683 15.8714ZM16.0968 15.9991C14.508 16.635 14.3422 18.8183 15.6547 21.8244C16.3974 23.5256 18.5377 25.9179 19.3173 25.9179C20.1785 25.9179 22.9826 23.7452 24.2645 22.0844C24.8783 21.2894 25.6553 19.7807 25.9911 18.7314C26.5956 16.8424 26.595 16.8179 25.9202 16.2448C25.3457 15.757 24.5767 15.6693 21.0313 15.6869C18.7175 15.6985 16.4969 15.839 16.0968 15.9991Z"/></svg>
   <div class="bx">
     <div class="eb rv">El problema</div>
     <h2 class="h rv" style="--d:1">Tienes dólares digitales.<br><em>¿Y para usarlos?</em></h2>
@@ -734,7 +720,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <div class="foot"><span><b>KOREX by BIX CARD</b> · Partner independiente</span><span class="r"><img src="img/logo-bix-blanco.svg" alt="BIX">06 / 25</span></div></section>
 
 <section class="slide" id="s07">
-  <svg class="deco" viewBox="0 0 30 30" aria-hidden="true"><path d="M14.7723 5.0646C15.1854 8.98909 16.9912 11.6466 20.3932 13.3356C22.0236 14.1451 22.8438 14.3432 24.5628 14.3432H26.7025L26.4698 12.9377C25.6606 8.0522 21.2856 3.85223 16.3554 3.22819L14.5552 3L14.7723 5.0646ZM8.30485 5.03186C6.27765 6.30904 4.48279 8.47252 3.67823 10.6089C2.96455 12.5045 2.89331 12.9949 3.21188 13.82C3.52278 14.6246 13.3599 14.5959 14.1731 13.788C14.9607 13.0055 14.696 10.0146 13.6561 7.95067C12.9155 6.48035 10.6919 4.09133 10.0644 4.09133C9.91763 4.09133 9.12605 4.51463 8.30485 5.03186ZM3.24683 15.8714C2.39101 16.7217 3.87995 20.7067 5.87886 22.9154C7.59816 24.815 10.6696 26.4676 13.0793 26.789L14.6604 27L14.6604 25.189C14.6604 23.8308 14.4058 22.8718 13.6425 21.3542C12.4871 19.0571 11.2358 17.8725 8.83512 16.8033C7.10917 16.0344 3.66159 15.4597 3.24683 15.8714ZM16.0968 15.9991C14.508 16.635 14.3422 18.8183 15.6547 21.8244C16.3974 23.5256 18.5377 25.9179 19.3173 25.9179C20.1785 25.9179 22.9826 23.7452 24.2645 22.0844C24.8783 21.2894 25.6553 19.7807 25.9911 18.7314C26.5956 16.8424 26.595 16.8179 25.9202 16.2448C25.3457 15.757 24.5767 15.6693 21.0313 15.6869C18.7175 15.6985 16.4969 15.839 16.0968 15.9991Z"/></svg>
   <div class="bx">
     <div class="eb rv">El control es tuyo</div>
     <h2 class="h rv" style="--d:1">Solo tú puedes <em>mover tu dinero.</em></h2>
@@ -757,14 +742,12 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <div class="eb rv">Seguridad</div>
     <h2 class="h rv" style="--d:1">Seguridad de banco.<br><em>Sin que nadie guarde tu dinero.</em></h2>
     <div class="grid">
-      <div class="tl rv" style="--d:2"><div class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 3 7.5v9l9 5 9-5v-9z"/><path d="M12 12v9.5M12 12 3 7.5M12 12l9-4.5"/></svg></div><div><h3>Clave dividida</h3><p>Tu clave se parte en fragmentos cifrados guardados por separado. Solo se unen un instante para firmar.</p></div></div>
-      <div class="tl rv" style="--d:3"><div class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3.5" width="18" height="7" rx="1.5"/><rect x="3" y="13.5" width="18" height="7" rx="1.5"/><path d="M7 7h.01M7 17h.01"/></svg></div><div><h3>Entornos aislados</h3><p>Los fragmentos viven en enclaves seguros de AWS Nitro.</p></div></div>
-      <div class="tl rv" style="--d:4"><div class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 7 21.5l5-3 5 3-1.5-7.5"/></svg></div><div><h3>SOC 2 Tipo II</h3><p>Certificación verificada por auditores independientes.</p></div></div>
-      <div class="tl rv" style="--d:5"><div class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20.5 20.5-4.5-4.5M8 11l2 2 4-4"/></svg></div><div><h3>Triple auditoría</h3><p>Seguridad revisada por Cure53, Zellic y Doyensec.</p></div></div>
-      <div class="tl rv" style="--d:6"><div class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2.5"/><path d="m9 12 2 2 4-4"/></svg></div><div><h3>Verificación en dos pasos</h3><p>App autenticadora, SMS, correo y passkeys. Activa al menos una passkey.</p></div></div>
-      <div class="tl rv" style="--d:7"><div class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></div><div><h3>Monitoreo 24/7</h3><p>La plataforma se vigila todo el día, todos los días.</p></div></div>
+      <div class="tl rv" style="--d:2"><div class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 3 7.5v9l9 5 9-5v-9z"/><path d="M12 12v9.5M12 12 3 7.5M12 12l9-4.5"/></svg></div><div><h3>Nadie tiene tu clave completa</h3><p>Se parte en pedazos cifrados que se guardan por separado. Ni siquiera BIX la tiene entera.</p></div></div>
+      <div class="tl rv" style="--d:3"><div class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 7 21.5l5-3 5 3-1.5-7.5"/></svg></div><div><h3>Revisada por expertos</h3><p>Certificación SOC 2 Tipo II y tres auditorías externas: Cure53, Zellic y Doyensec.</p></div></div>
+      <div class="tl rv" style="--d:4"><div class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2.5"/><path d="m9 12 2 2 4-4"/></svg></div><div><h3>Doble verificación</h3><p>Además de tu contraseña, un código o una passkey. Actívala apenas abras tu cuenta.</p></div></div>
+      <div class="tl rv" style="--d:5"><div class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></div><div><h3>Vigilancia las 24 horas</h3><p>La plataforma se monitorea todo el día, todos los días.</p></div></div>
     </div>
-    <div class="call warn rv" style="--d:8"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 2.5 20h19z"/><path d="M12 10v4.5M12 17.2h.01"/></svg><span>BIX nunca te pide tu contraseña ni tus códigos. Si alguien lo hace en su nombre, <b>es un fraude.</b></span></div>
+    <div class="call warn rv" style="--d:6"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 2.5 20h19z"/><path d="M12 10v4.5M12 17.2h.01"/></svg><span>BIX nunca te pide tu contraseña ni tus códigos. Si alguien lo hace en su nombre, <b>es un fraude.</b></span></div>
   </div>
 <div class="foot"><span><b>KOREX by BIX CARD</b> · Partner independiente</span><span class="r"><img src="img/logo-bix-blanco.svg" alt="BIX">08 / 25</span></div></section>
 
@@ -816,8 +799,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <text x="56" y="482" font-family="Geist Mono,monospace" font-weight="600" font-size="34" letter-spacing="3" fill="#020202">•  0216</text>
 <text x="800" y="486" text-anchor="end" font-family="Montserrat,Arial,sans-serif" font-style="italic" font-weight="900" font-size="78" letter-spacing="-1" fill="#020202">VISA</text>
 </svg></div><span class="k">Disponible</span><h3>Física</h3><div class="p">US$ 99 <small>+ envío</small></div><p>Para tiendas y <b>retiros en cajeros.</b> Envío a 77 destinos; en América Latina, a 9 países.</p></div>
-      <div class="tl off rv" style="--d:4"><div class="vis"><div class="mc metal"><img src="img/logo-bix-blanco.svg" alt=""><b>VISA</b></div></div><span class="k" style="color:var(--mut)">Anunciada</span><h3>Metal</h3><span class="soon">Próximamente</span></div>
-      <div class="tl off rv" style="--d:5"><div class="vis"><div class="mc gold"><img src="img/logo-bix-negro.svg" alt=""><b>VISA</b></div></div><span class="k" style="color:var(--mut)">Anunciada</span><h3>Gold</h3><span class="soon">Próximamente</span></div>
+      <div class="tl off rv" style="--d:4"><div class="vis duo"><div class="mc metal"><img src="img/logo-bix-blanco.svg" alt=""><b>VISA</b></div><div class="mc gold"><img src="img/logo-bix-negro.svg" alt=""><b>VISA</b></div></div><span class="k" style="color:var(--mut)">Anunciadas</span><h3>Metal y Gold</h3><span class="soon">Próximamente</span><p>Las mismas funciones, en otro material.</p></div>
     </div>
     <div class="row rv" style="--d:6">
       <div><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span>Todas hacen lo mismo: <b>cambia el diseño y el material.</b></span></div>
@@ -843,8 +825,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
       </div>
       <div class="side">
         <div class="call warn rv" style="--d:6"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 2.5 20h19z"/><path d="M12 10v4.5M12 17.2h.01"/></svg><span><b>¿Tus USDT están en TRON?</b> Desde tu exchange, envíalos por <b>BNB Chain (BEP20)</b> o <b>Base</b>. Revisa siempre la red y la dirección: un envío en la blockchain no se puede cancelar.</span></div>
-        <div class="call rv" style="--d:7"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2.5 4 14h7l-1 7.5L19 10h-7z"/></svg><span>BIX paga el costo de red de tus <b>primeras transacciones</b> (cantidad limitada) en Solana y en redes como BNB, Base u Optimism.</span></div>
-        <p class="note rv" style="--d:8">Tu billetera guarda muchas más criptos y redes (incluida TRON). La tarjeta se recarga solo con USDT o USDC por estas cinco redes.</p>
+        <div class="call rv" style="--d:7"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span><b>¿Cuál elijo?</b> Si dudas, usa BNB Chain o Base: son las más rápidas.</span></div>
       </div>
     </div>
   </div>
@@ -868,7 +849,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
       <div class="side">
         <div class="tl rv" style="--d:3"><h3><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.3a2.6 2.6 0 0 1 5 .9c0 1.8-2.5 2.2-2.5 3.8M12 17h.01"/></svg>¿Por qué 3 %?</h3><p>Pagas por tener el control de tu dinero y soporte con personas reales. Hay opciones más baratas, pero te piden dejarles tu dinero.</p></div>
         <div class="call rv" style="--d:4"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2.5 4 14h7l-1 7.5L19 10h-7z"/></svg><span><b>Para ahorrar:</b> si el datáfono o el cajero te pregunta «¿USD o moneda local?», elige siempre <b>moneda local.</b></span></div>
-        <p class="note rv" style="--d:5">La comisión exacta la ves en la app antes de confirmar (Configuración → Plan). BIX la presenta como referencia general: puede variar según el comercio o la red.</p>
+        <p class="note rv" style="--d:5">Antes de confirmar cada pago, la app te muestra la comisión exacta.</p>
       </div>
     </div>
   </div>
@@ -905,7 +886,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <div class="foot"><span><b>KOREX by BIX CARD</b> · Partner independiente</span><span class="r"><img src="img/logo-bix-blanco.svg" alt="BIX">13 / 25</span></div></section>
 
 <section class="slide" id="s14">
-  <svg class="deco" viewBox="0 0 30 30" aria-hidden="true"><path d="M14.7723 5.0646C15.1854 8.98909 16.9912 11.6466 20.3932 13.3356C22.0236 14.1451 22.8438 14.3432 24.5628 14.3432H26.7025L26.4698 12.9377C25.6606 8.0522 21.2856 3.85223 16.3554 3.22819L14.5552 3L14.7723 5.0646ZM8.30485 5.03186C6.27765 6.30904 4.48279 8.47252 3.67823 10.6089C2.96455 12.5045 2.89331 12.9949 3.21188 13.82C3.52278 14.6246 13.3599 14.5959 14.1731 13.788C14.9607 13.0055 14.696 10.0146 13.6561 7.95067C12.9155 6.48035 10.6919 4.09133 10.0644 4.09133C9.91763 4.09133 9.12605 4.51463 8.30485 5.03186ZM3.24683 15.8714C2.39101 16.7217 3.87995 20.7067 5.87886 22.9154C7.59816 24.815 10.6696 26.4676 13.0793 26.789L14.6604 27L14.6604 25.189C14.6604 23.8308 14.4058 22.8718 13.6425 21.3542C12.4871 19.0571 11.2358 17.8725 8.83512 16.8033C7.10917 16.0344 3.66159 15.4597 3.24683 15.8714ZM16.0968 15.9991C14.508 16.635 14.3422 18.8183 15.6547 21.8244C16.3974 23.5256 18.5377 25.9179 19.3173 25.9179C20.1785 25.9179 22.9826 23.7452 24.2645 22.0844C24.8783 21.2894 25.6553 19.7807 25.9911 18.7314C26.5956 16.8424 26.595 16.8179 25.9202 16.2448C25.3457 15.757 24.5767 15.6693 21.0313 15.6869C18.7175 15.6985 16.4969 15.839 16.0968 15.9991Z"/></svg>
   <div class="bx">
     <div class="eb rv">Dónde está disponible</div>
     <h2 class="h rv" style="--d:1"><em>99</em> países y territorios.</h2>
@@ -969,7 +949,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <div class="foot"><span><b>KOREX by BIX CARD</b> · Partner independiente</span><span class="r"><img src="img/logo-bix-blanco.svg" alt="BIX">16 / 25</span></div></section>
 
 <section class="slide" id="s17">
-  <svg class="deco" viewBox="0 0 30 30" aria-hidden="true"><path d="M14.7723 5.0646C15.1854 8.98909 16.9912 11.6466 20.3932 13.3356C22.0236 14.1451 22.8438 14.3432 24.5628 14.3432H26.7025L26.4698 12.9377C25.6606 8.0522 21.2856 3.85223 16.3554 3.22819L14.5552 3L14.7723 5.0646ZM8.30485 5.03186C6.27765 6.30904 4.48279 8.47252 3.67823 10.6089C2.96455 12.5045 2.89331 12.9949 3.21188 13.82C3.52278 14.6246 13.3599 14.5959 14.1731 13.788C14.9607 13.0055 14.696 10.0146 13.6561 7.95067C12.9155 6.48035 10.6919 4.09133 10.0644 4.09133C9.91763 4.09133 9.12605 4.51463 8.30485 5.03186ZM3.24683 15.8714C2.39101 16.7217 3.87995 20.7067 5.87886 22.9154C7.59816 24.815 10.6696 26.4676 13.0793 26.789L14.6604 27L14.6604 25.189C14.6604 23.8308 14.4058 22.8718 13.6425 21.3542C12.4871 19.0571 11.2358 17.8725 8.83512 16.8033C7.10917 16.0344 3.66159 15.4597 3.24683 15.8714ZM16.0968 15.9991C14.508 16.635 14.3422 18.8183 15.6547 21.8244C16.3974 23.5256 18.5377 25.9179 19.3173 25.9179C20.1785 25.9179 22.9826 23.7452 24.2645 22.0844C24.8783 21.2894 25.6553 19.7807 25.9911 18.7314C26.5956 16.8424 26.595 16.8179 25.9202 16.2448C25.3457 15.757 24.5767 15.6693 21.0313 15.6869C18.7175 15.6985 16.4969 15.839 16.0968 15.9991Z"/></svg>
   <div class="bx">
     <div class="eb rv">Lo que viene</div>
     <h2 class="h rv" style="--d:1">Lo que BIX <em>ya anunció.</em></h2>
@@ -1011,7 +990,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <div class="foot"><span><b>KOREX by BIX CARD</b> · Partner independiente</span><span class="r"><img src="img/logo-bix-blanco.svg" alt="BIX">18 / 25</span></div></section>
 
 <section class="slide" id="s19">
-  <svg class="deco" viewBox="0 0 30 30" aria-hidden="true"><path d="M14.7723 5.0646C15.1854 8.98909 16.9912 11.6466 20.3932 13.3356C22.0236 14.1451 22.8438 14.3432 24.5628 14.3432H26.7025L26.4698 12.9377C25.6606 8.0522 21.2856 3.85223 16.3554 3.22819L14.5552 3L14.7723 5.0646ZM8.30485 5.03186C6.27765 6.30904 4.48279 8.47252 3.67823 10.6089C2.96455 12.5045 2.89331 12.9949 3.21188 13.82C3.52278 14.6246 13.3599 14.5959 14.1731 13.788C14.9607 13.0055 14.696 10.0146 13.6561 7.95067C12.9155 6.48035 10.6919 4.09133 10.0644 4.09133C9.91763 4.09133 9.12605 4.51463 8.30485 5.03186ZM3.24683 15.8714C2.39101 16.7217 3.87995 20.7067 5.87886 22.9154C7.59816 24.815 10.6696 26.4676 13.0793 26.789L14.6604 27L14.6604 25.189C14.6604 23.8308 14.4058 22.8718 13.6425 21.3542C12.4871 19.0571 11.2358 17.8725 8.83512 16.8033C7.10917 16.0344 3.66159 15.4597 3.24683 15.8714ZM16.0968 15.9991C14.508 16.635 14.3422 18.8183 15.6547 21.8244C16.3974 23.5256 18.5377 25.9179 19.3173 25.9179C20.1785 25.9179 22.9826 23.7452 24.2645 22.0844C24.8783 21.2894 25.6553 19.7807 25.9911 18.7314C26.5956 16.8424 26.595 16.8179 25.9202 16.2448C25.3457 15.757 24.5767 15.6693 21.0313 15.6869C18.7175 15.6985 16.4969 15.839 16.0968 15.9991Z"/></svg>
   <div class="bx">
     <div class="eb rv">Solo si tienes cuenta en TAG Markets</div>
     <h2 class="h rv" style="--d:1">Del IB-Portal <em>directo a tu tarjeta.</em></h2>
@@ -1053,34 +1031,26 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   <div class="bx">
     <div class="eb rv">Opcional · Programa de recomendaciones</div>
     <h2 class="h rv" style="--d:1">Recomiéndala y <em>gana con cada compra.</em></h2>
-    <p class="lead rv" style="--d:2">Puedes usar la tarjeta solo para tus compras. Si además la recomiendas, ganas cada vez que alguien de tu red paga con la suya.</p>
+    <p class="lead rv" style="--d:2">Si recomiendas la tarjeta, ganas una parte cada vez que alguien de tu red paga con la suya. Así se reparte una compra de US$ 100:</p>
     <div class="flow rv" style="--d:3">
-      <div class="bk"><span class="k"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="20" r="1.2"/><circle cx="17.5" cy="20" r="1.2"/><path d="M2.5 3.5h3l2.4 11.5h10.6L21 7H6.4"/></svg>Alguien de tu red compra</span><b>US$ 100</b><small>con su tarjeta BIX</small></div>
+      <div class="bk"><span class="k"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="20" r="1.2"/><circle cx="17.5" cy="20" r="1.2"/><path d="M2.5 3.5h3l2.4 11.5h10.6L21 7H6.4"/></svg>Alguien de tu red compra</span><b>US$ 100</b></div>
       <div class="ar"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      <div class="bk"><span class="k"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 5 5 19"/><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/></svg>BIX cobra el 3 %</span><b>US$ 3</b><small>de tarifa</small></div>
+      <div class="bk"><span class="k"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 5 5 19"/><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/></svg>BIX cobra el 3 % de tarifa</span><b>US$ 3</b></div>
       <div class="ar"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      <div class="bk hot"><span class="k"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M14.8 9.2c-.5-1-1.6-1.6-2.8-1.6-1.6 0-2.8.9-2.8 2.1 0 2.9 5.6 1.6 5.6 4.5 0 1.2-1.2 2.2-2.8 2.2-1.3 0-2.4-.6-2.9-1.7M12 6v1.6M12 16.4V18"/></svg>La mitad, a comisiones</span><b>US$ 1,50</b><small>el 50 % neto</small></div>
+      <div class="bk hot"><span class="k"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M14.8 9.2c-.5-1-1.6-1.6-2.8-1.6-1.6 0-2.8.9-2.8 2.1 0 2.9 5.6 1.6 5.6 4.5 0 1.2-1.2 2.2-2.8 2.2-1.3 0-2.4-.6-2.9-1.7M12 6v1.6M12 16.4V18"/></svg>La mitad va a comisiones</span><b>US$ 1,50</b></div>
       <div class="ar"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
       <div class="split">
         <div class="bk hot"><span class="k"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="18.5" r="2.5"/><circle cx="19" cy="18.5" r="2.5"/><path d="M12 7.5v4M12 11.5 6.5 16.5M12 11.5l5.5 5"/></svg>Tus 10 niveles</span><b>US$ 1,35</b></div>
         <div class="bk pool"><span class="k"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.4 5.6 6.1.5-4.6 4 1.4 6-5.3-3.2-5.3 3.2 1.4-6-4.6-4 6.1-.5z"/></svg>Pool BIX</span><b>US$ 0,15</b></div>
       </div>
     </div>
-    <div class="rep rv" style="--d:5">
-      <p>Así se reparte la tarifa de esa compra, <b>nivel por nivel:</b></p>
-      <div class="rb">
-        <i style="flex:15;background:#CAFE5C">15 %</i><i style="flex:10;background:#8FBF2E">10 %</i>
-        <i style="flex:2.5;background:#5F8224"></i><i style="flex:2.5;background:#5F8224"></i><i style="flex:2.5;background:#5F8224"></i><i style="flex:2.5;background:#5F8224"></i>
-        <i style="flex:2.5;background:#5F8224"></i><i style="flex:2.5;background:#5F8224"></i><i style="flex:2.5;background:#5F8224"></i><i style="flex:2.5;background:#5F8224"></i>
-        <i style="flex:5;background:#A2A3AD">5 %</i>
-      </div>
-      <div class="lab"><span style="flex:15">Nivel 1 · <b>US$ 0,45</b></span><span style="flex:10">Nivel 2 · <b>US$ 0,30</b></span><span style="flex:20">Niveles 3 a 10 · 2,5 % · <b>US$ 0,075</b> cada uno</span><span style="flex:5">Pool</span></div>
+    <div class="niv rv" style="--d:5">
+      <div class="tl def"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17" cy="9" r="2.5"/><path d="M16.5 14a5 5 0 0 1 5 5"/></svg><p><b>¿Qué es un nivel?</b> El nivel 1 son las personas que invitas tú. El nivel 2, las que invitan ellas. Y así hasta el nivel 10.</p></div>
+      <div class="lv"><span>Nivel 1 · 15 %</span><b>US$ 0,45</b><small>por cada US$ 100</small></div>
+      <div class="lv"><span>Nivel 2 · 10 %</span><b>US$ 0,30</b><small>por cada US$ 100</small></div>
+      <div class="lv"><span>Niveles 3 a 10 · 2,5 %</span><b>US$ 0,075</b><small>cada uno, por cada US$ 100</small></div>
     </div>
-    <div class="ways rv" style="--d:6">
-      <div><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19M6.5 15h4"/></svg><span><b>Cuando piden su tarjeta:</b> también comisiona la venta de tarjetas.</span></div>
-      <div><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 0 0-14.7-4.3L3.5 9"/><path d="M3.5 4v5h5"/><path d="M4 13a8 8 0 0 0 14.7 4.3l1.8-2.3"/><path d="M20.5 20v-5h-5"/></svg><span><b>Cuando la usan:</b> en cada compra, todos los meses.</span></div>
-      <div><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17" cy="9" r="2.5"/><path d="M16.5 14a5 5 0 0 1 5 5"/></svg><span><b>Cuando ellos recomiendan:</b> ganas hasta el nivel 10.</span></div>
-    </div>
+    <p class="note rv" style="--d:6">También se reparten comisiones por la venta de tarjetas. El programa es opcional: puedes usar la tarjeta solo para tus compras.</p>
   </div>
 <div class="foot"><span><b>KOREX by BIX CARD</b> · Partner independiente</span><span class="r"><img src="img/logo-bix-blanco.svg" alt="BIX">21 / 25</span></div></section>
 
@@ -1089,6 +1059,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <div class="izq">
       <div class="eb rv">Simulador · Programa de recomendaciones</div>
       <h2 class="h rv" style="--d:1">¿Cuánto podría generar <em>tu red?</em></h2>
+      <p class="how rv" style="--d:2">Mueve las barras: cuántas personas tiene tu red y cuánto gasta cada una por mes con su tarjeta.</p>
       <div class="res rv" style="--d:2">
         <span class="k">Podrías generar</span>
         <div class="tot"><b id="simTot">0</b><span>USD al mes</span></div>
@@ -1102,14 +1073,15 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
           <input type="range" id="simG" min="0" max="2000" step="50" value="800" aria-label="Gasto mensual por persona">
           <div class="lim"><span>0 USD</span><span>2.000 USD</span></div></div>
       </div>
-      <p class="note rv" style="--d:4">Cada nivel: personas × gasto × 3 % × % del nivel. No incluye la venta de tarjetas ni el Pool BIX. Ejemplo ilustrativo: no es una promesa ni una garantía de ingresos; depende de cuántas personas usen la tarjeta, cuánto gasten y de las condiciones vigentes del plan de BIX.</p>
+      <p class="note rv" style="--d:4">Ejemplo ilustrativo, no es una promesa de ingresos. Cuenta solo las compras: no incluye la venta de tarjetas ni el Pool.</p>
     </div>
     <div class="tl der rv" style="--d:3">
-      <div class="cab"><h3>Lo que deja cada nivel</h3><span>Escribe las personas de cada nivel</span></div>
+      <div class="cab"><h3>Lo que deja cada nivel</h3><span>Puedes escribir las personas de cada nivel</span></div>
       <div class="tb" id="simTb">
         <span class="hd">Nivel</span><span class="hd">%</span><span class="hd">Personas</span><span class="hd" style="text-align:right">Al mes</span>
       </div>
       <button class="reset" id="simReset" type="button" hidden>↺ Volver al reparto automático</button>
+      <p class="dfn">Nivel 1: las personas que invitas tú · Nivel 2: las que invitan ellas · y así hasta el nivel 10.</p>
     </div>
   </div>
 <script>
@@ -1168,37 +1140,31 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   <div class="bx">
     <div class="eb rv">Pool BIX · Pool Leader</div>
     <h2 class="h rv" style="--d:1">Un extra para <em>los que más tarjetas suman.</em></h2>
-    <p class="lead rv" style="--d:2">Además de los 10 niveles, BIX separa el <b>5 % de las tarifas de todas sus tarjetas</b> en un fondo global. Cada mes, ese fondo se reparte entre las participaciones que califican.</p>
+    <p class="lead rv" style="--d:2">BIX junta el <b>5 % de las tarifas de todas sus tarjetas</b> en un fondo. Cada mes lo reparte entre los que tienen participaciones. Es aparte de lo que ganas por tus 10 niveles.</p>
     <div class="body">
-      <div class="pool rv zoom" style="--d:3">
-        <div class="ring2"></div><div class="ring"></div>
-        <i class="coin"></i><i class="coin"></i><i class="coin"></i><i class="coin"></i>
-        <div class="ctr"><b>5 %</b><span>de las tarifas de<br>todas las tarjetas BIX</span></div>
-        <p class="pie">Se reparte <b>cada mes</b> entre las participaciones (<i>shares</i>) que califican.</p>
-      </div>
-      <div class="tl rv" style="--d:4"><h3><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17" cy="9" r="2.5"/><path d="M16.5 14a5 5 0 0 1 5 5"/></svg>Cómo ganas 1 participación</h3>
+      <div class="tl rv" style="--d:3"><h3><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17" cy="9" r="2.5"/><path d="M16.5 14a5 5 0 0 1 5 5"/></svg>Cómo consigues 1 participación</h3>
         <div class="rules">
           <div><b>10.000</b><span>tarjetas en total en tu red</span></div>
-          <div><b>5.000</b><span>como mínimo fuera de tu línea más fuerte</span></div>
+          <div><b>5.000</b><span>de esas, fuera de tu línea más grande</span></div>
         </div>
+        <p class="lin">Una <b>línea</b> es cada persona que invitaste tú, con todo su equipo.</p>
         <div class="ej">
-          <span class="t">Tus líneas (equipos directos)</span>
           <div class="leg ok">
             <div class="lb"><i style="flex:5;background:#CAFE5C">A · 5.000</i><i style="flex:3;background:#8FBF2E">B · 3.000</i><i style="flex:2;background:#5F8224">C · 2.000</i></div>
-            <span class="r"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>1 share</span></div>
+            <span class="r"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Califica</span></div>
           <div class="leg bad">
             <div class="lb"><i style="flex:8;background:#CAFE5C">A · 8.000</i><i style="flex:2;background:#5F8224">B+C</i></div>
             <span class="r"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>No califica</span></div>
         </div>
       </div>
-      <div class="tl mes rv" style="--d:5"><h3><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M14.8 9.2c-.5-1-1.6-1.6-2.8-1.6-1.6 0-2.8.9-2.8 2.1 0 2.9 5.6 1.6 5.6 4.5 0 1.2-1.2 2.2-2.8 2.2-1.3 0-2.4-.6-2.9-1.7M12 6v1.6M12 16.4V18"/></svg>Ejemplo de un mes</h3>
+      <div class="tl mes rv" style="--d:4"><h3><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M14.8 9.2c-.5-1-1.6-1.6-2.8-1.6-1.6 0-2.8.9-2.8 2.1 0 2.9 5.6 1.6 5.6 4.5 0 1.2-1.2 2.2-2.8 2.2-1.3 0-2.4-.6-2.9-1.7M12 6v1.6M12 16.4V18"/></svg>Ejemplo de un mes</h3>
         <div class="paso"><span>Tarifas de todas las tarjetas BIX</span><b>US$ 3.000.000</b></div>
-        <div class="paso"><span>5 % al Pool</span><b>US$ 150.000</b></div>
-        <div class="paso"><span>Participaciones que califican</span><b>300</b></div>
-        <div class="fin"><span>Cada participación cobra</span><b>US$ 500</b><small>ese mes</small></div>
+        <div class="paso"><span>El 5 % va al Pool</span><b>US$ 150.000</b></div>
+        <div class="paso"><span>Participaciones en total</span><b>300</b></div>
+        <div class="fin"><b>US$ 500</b><span>cobra cada participación ese mes</span></div>
       </div>
     </div>
-    <p class="note rv" style="--d:6">Ejemplo ilustrativo, no es una promesa de ingresos: el monto depende de las tarifas de todo BIX y de cuántas participaciones califiquen. Las reglas completas están en el plan de BIX y en tu panel.</p>
+    <p class="note rv" style="--d:5">Ejemplo ilustrativo, no es una promesa de ingresos. El monto depende de las tarifas de todo BIX y de cuántas participaciones haya. Las reglas completas están en tu panel.</p>
   </div>
 <div class="foot"><span><b>KOREX by BIX CARD</b> · Partner independiente</span><span class="r"><img src="img/logo-bix-blanco.svg" alt="BIX">23 / 25</span></div></section>
 
@@ -1285,11 +1251,17 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 (function(){
   var stage=document.getElementById('stage'), slides=[].slice.call(stage.querySelectorAll('.slide')), N=slides.length;
   var root=document.documentElement;
+  // Escala la slide al espacio visible. En iPhone, al girar el celular Safari avisa el cambio de tamaño
+  // antes de tener las medidas nuevas: se vuelve a medir varias veces después de girar.
   function fit(){
-    var s=Math.min(innerWidth/1920,innerHeight/1080);
-    root.style.setProperty('--s',s);
+    var w=document.documentElement.clientWidth||innerWidth, h=innerHeight||document.documentElement.clientHeight;
+    root.style.setProperty('--s',Math.min(w/1920,h/1080));
   }
-  addEventListener('resize',fit);fit();
+  function refit(){fit();[60,200,450,900].forEach(function(t){setTimeout(fit,t)})}
+  addEventListener('resize',refit);addEventListener('orientationchange',refit);addEventListener('pageshow',refit);
+  if(window.visualViewport)visualViewport.addEventListener('resize',refit);
+  if(screen.orientation&&screen.orientation.addEventListener)screen.orientation.addEventListener('change',refit);
+  fit();
   var cur=-1, count=document.getElementById('count'), bar=document.getElementById('bar'), hint=document.getElementById('hint'), ctrl=document.getElementById('ctrl');
   function pad(x){return (x<10?'0':'')+x}
   function go(i){
@@ -1359,12 +1331,18 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   });
   document.getElementById('prev').onclick=function(){go(cur-1)};
   document.getElementById('next').onclick=function(){go(cur+1)};
-  function full(){if(document.fullscreenElement)document.exitFullscreen();else if(root.requestFullscreen)root.requestFullscreen()}
+  function full(){
+    if(document.fullscreenElement||document.webkitFullscreenElement){(document.exitFullscreen||document.webkitExitFullscreen).call(document)}
+    else if(root.requestFullscreen)root.requestFullscreen();else if(root.webkitRequestFullscreen)root.webkitRequestFullscreen();
+  }
   document.getElementById('full').onclick=full;
+  // En iPhone Safari no deja poner una página en pantalla completa: se esconde el botón
+  if(!(document.fullscreenEnabled||document.webkitFullscreenEnabled))document.getElementById('full').style.display='none';
   document.getElementById('esp').onclick=function(){if(window.openIntro)window.openIntro()};
   // Los controles aparecen solo con el mouse cerca del borde de abajo (así no tapan la slide al presentar)
   var t;function wake(e){
     if(e&&e.type==='mousemove'&&e.clientY<innerHeight-150&&!ctrl.matches(':hover'))return;
+    if(e&&e.type==='touchstart'&&e.touches[0].clientY<innerHeight-90)return;
     ctrl.classList.remove('hide');clearTimeout(t);t=setTimeout(function(){if(!ctrl.matches(':hover'))ctrl.classList.add('hide')},2500)}
   addEventListener('mousemove',wake);addEventListener('touchstart',wake,{passive:true});wake();
   setTimeout(function(){hint.classList.add('off')},6000);

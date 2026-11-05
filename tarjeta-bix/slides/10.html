@@ -1,18 +1,22 @@
 <style>
-#s10 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:44px}
+#s10 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
 #s10 .tl{padding:28px 28px 30px;display:flex;flex-direction:column}
 #s10 .tl.off{background:linear-gradient(180deg,#0f0f13,#09090c)}
-#s10 .vis{margin:0 4px 26px}
+#s10 .vis{margin:0 auto 24px;width:78%}
+#s10 .duo{display:grid}
+#s10 .duo .mc{grid-area:1/1}
+#s10 .duo .metal{transform:translate(-6%,-4%) rotate(-4deg) scale(.9)}
+#s10 .duo .gold{transform:translate(7%,8%) rotate(3deg) scale(.9)}
 #s10 .mc{position:relative;aspect-ratio:856/540;border-radius:4.2%/6.7%;overflow:hidden;box-shadow:0 30px 40px -20px rgba(0,0,0,.8)}
 #s10 .mc img{position:absolute;left:6%;top:9%;width:30%}
-#s10 .mc b{position:absolute;right:6%;bottom:8%;font-family:Montserrat,Arial,sans-serif;font-style:italic;font-weight:900;font-size:36px}
+#s10 .mc b{position:absolute;right:6%;bottom:8%;font-family:Montserrat,Arial,sans-serif;font-style:italic;font-weight:900;font-size:40px}
 #s10 .metal{background:linear-gradient(135deg,#5b5d63,#2a2b2f 45%,#6d6f76 70%,#26272b);color:#e6e7ea}
 #s10 .gold{background:linear-gradient(135deg,#f3dc8c,#b9933a 45%,#f0d77f 70%,#9c7a2b);color:#2b2108}
 #s10 .k{font-family:var(--mono);font-size:17px;letter-spacing:.14em;text-transform:uppercase;color:var(--lime)}
 #s10 .tl h3{font-size:30px;margin-top:8px}
 #s10 .p{font-size:46px;font-weight:600;letter-spacing:-.03em;color:var(--lime);margin-top:14px;line-height:1}
 #s10 .p small{font-size:22px;color:var(--soft);font-weight:500;letter-spacing:0}
-#s10 .tl p{font-size:21px;margin-top:14px}
+#s10 .tl p{font-size:23px;margin-top:14px}
 #s10 .soon{margin-top:16px}
 #s10 .row{display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:22px;margin-top:26px}
 #s10 .row div{display:flex;gap:14px;align-items:flex-start;font-size:22px;color:var(--soft);line-height:1.4}
@@ -26,8 +30,7 @@
     <div class="grid">
       <div class="tl rv" style="--d:2"><div class="vis tarjeta"><!--TARJETA--></div><span class="k">Disponible</span><h3>Virtual</h3><div class="p">9,99 <small>USDT · pago único</small></div><p>Lista al instante en la app. Para compras online, Apple Pay y Google Pay. <b>No saca efectivo.</b></p></div>
       <div class="tl rv" style="--d:3"><div class="vis tarjeta"><!--TARJETA chip--></div><span class="k">Disponible</span><h3>Física</h3><div class="p">US$ 99 <small>+ envío</small></div><p>Para tiendas y <b>retiros en cajeros.</b> Envío a 77 destinos; en América Latina, a 9 países.</p></div>
-      <div class="tl off rv" style="--d:4"><div class="vis"><div class="mc metal"><img src="img/logo-bix-blanco.svg" alt=""><b>VISA</b></div></div><span class="k" style="color:var(--mut)">Anunciada</span><h3>Metal</h3><span class="soon">Próximamente</span></div>
-      <div class="tl off rv" style="--d:5"><div class="vis"><div class="mc gold"><img src="img/logo-bix-negro.svg" alt=""><b>VISA</b></div></div><span class="k" style="color:var(--mut)">Anunciada</span><h3>Gold</h3><span class="soon">Próximamente</span></div>
+      <div class="tl off rv" style="--d:4"><div class="vis duo"><div class="mc metal"><img src="img/logo-bix-blanco.svg" alt=""><b>VISA</b></div><div class="mc gold"><img src="img/logo-bix-negro.svg" alt=""><b>VISA</b></div></div><span class="k" style="color:var(--mut)">Anunciadas</span><h3>Metal y Gold</h3><span class="soon">Próximamente</span><p>Las mismas funciones, en otro material.</p></div>
     </div>
     <div class="row rv" style="--d:6">
       <div>{{ic:check}}<span>Todas hacen lo mismo: <b>cambia el diseño y el material.</b></span></div>

@@ -2,15 +2,16 @@
 #s22 .bx{flex-direction:row;gap:56px;padding-top:84px}
 #s22 .izq{width:700px;flex:none;display:flex;flex-direction:column}
 #s22 .h{font-size:70px}
-#s22 .res{margin-top:30px;padding:30px 34px 32px;border-radius:28px;border:1px solid rgba(202,254,92,.32);
+#s22 .how{font-size:23px;color:var(--soft);margin-top:14px;line-height:1.4}
+#s22 .res{margin-top:22px;padding:30px 34px 32px;border-radius:28px;border:1px solid rgba(202,254,92,.32);
   background:radial-gradient(600px 300px at 100% 0%,rgba(202,254,92,.14),transparent 70%),linear-gradient(180deg,var(--p2),var(--p1))}
 #s22 .res .k{font-family:var(--mono);font-size:17px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)}
 #s22 .res .tot{display:flex;align-items:baseline;gap:16px;margin-top:10px}
-#s22 .res .tot b{font-size:118px;font-weight:600;letter-spacing:-.05em;line-height:.95;color:var(--lime);font-variant-numeric:tabular-nums}
+#s22 .res .tot b{font-size:94px;font-weight:600;letter-spacing:-.05em;line-height:.95;color:var(--lime);font-variant-numeric:tabular-nums}
 #s22 .res .tot span{font-size:28px;color:var(--txt);font-weight:500}
 #s22 .res p{font-size:21px;color:var(--soft);margin-top:12px}
 #s22 .res p b{color:var(--txt)}
-#s22 .ctl{margin-top:26px;display:flex;flex-direction:column;gap:20px}
+#s22 .ctl{margin-top:22px;display:flex;flex-direction:column;gap:12px}
 #s22 .ctl .fila{display:flex;justify-content:space-between;align-items:baseline;font-size:22px;color:var(--soft)}
 #s22 .ctl .fila b{font-family:var(--mono);font-size:28px;font-weight:500;color:var(--txt)}
 #s22 .lim{display:flex;justify-content:space-between;font-family:var(--mono);font-size:15px;color:var(--mut);margin-top:-2px}
@@ -19,7 +20,7 @@
 #s22 input[type=range]::-moz-range-track{height:10px;border-radius:10px;background:linear-gradient(90deg,#CAFE5C var(--p,50%),rgba(255,255,255,.12) var(--p,50%))}
 #s22 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:34px;height:34px;margin-top:-12px;border-radius:50%;background:#CAFE5C;border:5px solid #020202;box-shadow:0 0 0 2px #CAFE5C,0 0 24px rgba(202,254,92,.6)}
 #s22 input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:#CAFE5C;border:5px solid #020202;box-shadow:0 0 0 2px #CAFE5C}
-#s22 .note{margin-top:auto;font-size:17px;line-height:1.45}
+#s22 .note{margin-top:auto;padding-top:16px;font-size:19px;line-height:1.45}
 #s22 .der{flex:1;padding:30px 34px 26px;display:flex;flex-direction:column}
 #s22 .cab{display:flex;justify-content:space-between;align-items:baseline}
 #s22 .cab h3{font-size:30px}
@@ -40,12 +41,14 @@
 #s22 .reset{margin-top:14px;align-self:flex-end;font-size:18px;color:var(--soft);padding:8px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.16)}
 #s22 .reset:hover{border-color:var(--lime);color:var(--lime)}
 #s22 .reset[hidden]{display:none}
+#s22 .dfn{margin-top:auto;padding-top:12px;font-size:19px;color:var(--mut)}
 </style>
 <section class="slide" id="s22">
   <div class="bx">
     <div class="izq">
       <div class="eb rv">Simulador · Programa de recomendaciones</div>
       <h2 class="h rv" style="--d:1">¿Cuánto podría generar <em>tu red?</em></h2>
+      <p class="how rv" style="--d:2">Mueve las barras: cuántas personas tiene tu red y cuánto gasta cada una por mes con su tarjeta.</p>
       <div class="res rv" style="--d:2">
         <span class="k">Podrías generar</span>
         <div class="tot"><b id="simTot">0</b><span>USD al mes</span></div>
@@ -59,14 +62,15 @@
           <input type="range" id="simG" min="0" max="2000" step="50" value="800" aria-label="Gasto mensual por persona">
           <div class="lim"><span>0 USD</span><span>2.000 USD</span></div></div>
       </div>
-      <p class="note rv" style="--d:4">Cada nivel: personas × gasto × 3 % × % del nivel. No incluye la venta de tarjetas ni el Pool BIX. Ejemplo ilustrativo: no es una promesa ni una garantía de ingresos; depende de cuántas personas usen la tarjeta, cuánto gasten y de las condiciones vigentes del plan de BIX.</p>
+      <p class="note rv" style="--d:4">Ejemplo ilustrativo, no es una promesa de ingresos. Cuenta solo las compras: no incluye la venta de tarjetas ni el Pool.</p>
     </div>
     <div class="tl der rv" style="--d:3">
-      <div class="cab"><h3>Lo que deja cada nivel</h3><span>Escribe las personas de cada nivel</span></div>
+      <div class="cab"><h3>Lo que deja cada nivel</h3><span>Puedes escribir las personas de cada nivel</span></div>
       <div class="tb" id="simTb">
         <span class="hd">Nivel</span><span class="hd">%</span><span class="hd">Personas</span><span class="hd" style="text-align:right">Al mes</span>
       </div>
       <button class="reset" id="simReset" type="button" hidden>↺ Volver al reparto automático</button>
+      <p class="dfn">Nivel 1: las personas que invitas tú · Nivel 2: las que invitan ellas · y así hasta el nivel 10.</p>
     </div>
   </div>
 <script>

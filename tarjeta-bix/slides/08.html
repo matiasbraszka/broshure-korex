@@ -1,23 +1,21 @@
 <style>
-#s08 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:52px}
-#s08 .tl{display:flex;gap:24px;align-items:flex-start;padding:30px 32px}
-#s08 .tl .ic{margin:0}
-#s08 .tl h3{font-size:29px}
-#s08 .tl p{font-size:22px;margin-top:8px}
-#s08 .call{margin-top:30px}
+#s08 .grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:50px}
+#s08 .tl{display:flex;gap:28px;align-items:flex-start;padding:36px 40px}
+#s08 .tl .ic{margin:0;width:72px;height:72px;font-size:34px}
+#s08 .tl h3{font-size:33px}
+#s08 .tl p{font-size:24px;margin-top:10px}
+#s08 .call{margin-top:28px;font-size:25px}
 </style>
 <section class="slide" id="s08">
   <div class="bx">
     <div class="eb rv">Seguridad</div>
     <h2 class="h rv" style="--d:1">Seguridad de banco.<br><em>Sin que nadie guarde tu dinero.</em></h2>
     <div class="grid">
-      <div class="tl rv" style="--d:2"><div class="ic">{{ic:cube}}</div><div><h3>Clave dividida</h3><p>Tu clave se parte en fragmentos cifrados guardados por separado. Solo se unen un instante para firmar.</p></div></div>
-      <div class="tl rv" style="--d:3"><div class="ic">{{ic:server}}</div><div><h3>Entornos aislados</h3><p>Los fragmentos viven en enclaves seguros de AWS Nitro.</p></div></div>
-      <div class="tl rv" style="--d:4"><div class="ic">{{ic:badge}}</div><div><h3>SOC 2 Tipo II</h3><p>Certificación verificada por auditores independientes.</p></div></div>
-      <div class="tl rv" style="--d:5"><div class="ic">{{ic:audit}}</div><div><h3>Triple auditoría</h3><p>Seguridad revisada por Cure53, Zellic y Doyensec.</p></div></div>
-      <div class="tl rv" style="--d:6"><div class="ic">{{ic:phonecheck}}</div><div><h3>Verificación en dos pasos</h3><p>App autenticadora, SMS, correo y passkeys. Activa al menos una passkey.</p></div></div>
-      <div class="tl rv" style="--d:7"><div class="ic">{{ic:eye}}</div><div><h3>Monitoreo 24/7</h3><p>La plataforma se vigila todo el día, todos los días.</p></div></div>
+      <div class="tl rv" style="--d:2"><div class="ic">{{ic:cube}}</div><div><h3>Nadie tiene tu clave completa</h3><p>Se parte en pedazos cifrados que se guardan por separado. Ni siquiera BIX la tiene entera.</p></div></div>
+      <div class="tl rv" style="--d:3"><div class="ic">{{ic:badge}}</div><div><h3>Revisada por expertos</h3><p>Certificación SOC 2 Tipo II y tres auditorías externas: Cure53, Zellic y Doyensec.</p></div></div>
+      <div class="tl rv" style="--d:4"><div class="ic">{{ic:phonecheck}}</div><div><h3>Doble verificación</h3><p>Además de tu contraseña, un código o una passkey. Actívala apenas abras tu cuenta.</p></div></div>
+      <div class="tl rv" style="--d:5"><div class="ic">{{ic:eye}}</div><div><h3>Vigilancia las 24 horas</h3><p>La plataforma se monitorea todo el día, todos los días.</p></div></div>
     </div>
-    <div class="call warn rv" style="--d:8">{{ic:alert}}<span>BIX nunca te pide tu contraseña ni tus códigos. Si alguien lo hace en su nombre, <b>es un fraude.</b></span></div>
+    <div class="call warn rv" style="--d:6">{{ic:alert}}<span>BIX nunca te pide tu contraseña ni tus códigos. Si alguien lo hace en su nombre, <b>es un fraude.</b></span></div>
   </div>
 </section>

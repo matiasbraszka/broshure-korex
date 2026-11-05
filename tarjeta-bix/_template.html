@@ -7,6 +7,10 @@
 <meta name="description" content="Todo sobre la tarjeta Visa de débito BIX: cómo funciona, seguridad, costos, límites, países y cómo pedirla.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#020202">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Tarjeta BIX">
 <meta property="og:title" content="Tarjeta BIX · Tu cripto, en el mundo real">
 <meta property="og:description" content="Cómo funciona, seguridad, costos, límites, países y cómo pedirla.">
 <meta property="og:image" content="https://info.metodokorex.com/tarjeta-bix/og.jpg">
@@ -109,7 +113,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .count{cursor:pointer}
 .count:hover b{color:var(--lime)}
 /* Pantallas bajas (celular horizontal, notebooks chicas): controles más chicos y sin el cartel de ayuda */
-@media (max-height:560px){.ctrl{transform:scale(.72);transform-origin:right bottom;right:8px;bottom:8px}.hint{display:none}}
+@media (max-height:560px){.ctrl{transform:scale(.6);transform-origin:right bottom;right:8px;bottom:8px}.hint{display:none}}
 /* Logos de marcas (simple-icons, vienen en blanco) */
 .mk img{height:1em;width:auto;display:inline-block;opacity:.92}
 
@@ -186,11 +190,17 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 (function(){
   var stage=document.getElementById('stage'), slides=[].slice.call(stage.querySelectorAll('.slide')), N=slides.length;
   var root=document.documentElement;
+  // Escala la slide al espacio visible. En iPhone, al girar el celular Safari avisa el cambio de tamaño
+  // antes de tener las medidas nuevas: se vuelve a medir varias veces después de girar.
   function fit(){
-    var s=Math.min(innerWidth/1920,innerHeight/1080);
-    root.style.setProperty('--s',s);
+    var w=document.documentElement.clientWidth||innerWidth, h=innerHeight||document.documentElement.clientHeight;
+    root.style.setProperty('--s',Math.min(w/1920,h/1080));
   }
-  addEventListener('resize',fit);fit();
+  function refit(){fit();[60,200,450,900].forEach(function(t){setTimeout(fit,t)})}
+  addEventListener('resize',refit);addEventListener('orientationchange',refit);addEventListener('pageshow',refit);
+  if(window.visualViewport)visualViewport.addEventListener('resize',refit);
+  if(screen.orientation&&screen.orientation.addEventListener)screen.orientation.addEventListener('change',refit);
+  fit();
   var cur=-1, count=document.getElementById('count'), bar=document.getElementById('bar'), hint=document.getElementById('hint'), ctrl=document.getElementById('ctrl');
   function pad(x){return (x<10?'0':'')+x}
   function go(i){
@@ -260,12 +270,18 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   });
   document.getElementById('prev').onclick=function(){go(cur-1)};
   document.getElementById('next').onclick=function(){go(cur+1)};
-  function full(){if(document.fullscreenElement)document.exitFullscreen();else if(root.requestFullscreen)root.requestFullscreen()}
+  function full(){
+    if(document.fullscreenElement||document.webkitFullscreenElement){(document.exitFullscreen||document.webkitExitFullscreen).call(document)}
+    else if(root.requestFullscreen)root.requestFullscreen();else if(root.webkitRequestFullscreen)root.webkitRequestFullscreen();
+  }
   document.getElementById('full').onclick=full;
+  // En iPhone Safari no deja poner una página en pantalla completa: se esconde el botón
+  if(!(document.fullscreenEnabled||document.webkitFullscreenEnabled))document.getElementById('full').style.display='none';
   document.getElementById('esp').onclick=function(){if(window.openIntro)window.openIntro()};
   // Los controles aparecen solo con el mouse cerca del borde de abajo (así no tapan la slide al presentar)
   var t;function wake(e){
     if(e&&e.type==='mousemove'&&e.clientY<innerHeight-150&&!ctrl.matches(':hover'))return;
+    if(e&&e.type==='touchstart'&&e.touches[0].clientY<innerHeight-90)return;
     ctrl.classList.remove('hide');clearTimeout(t);t=setTimeout(function(){if(!ctrl.matches(':hover'))ctrl.classList.add('hide')},2500)}
   addEventListener('mousemove',wake);addEventListener('touchstart',wake,{passive:true});wake();
   setTimeout(function(){hint.classList.add('off')},6000);
