@@ -1,38 +1,39 @@
 <style>
-#s11 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:44px}
-#s11 .tl{padding:28px 28px 30px;display:flex;flex-direction:column}
-#s11 .tl.off{background:linear-gradient(180deg,#0f0f13,#09090c)}
-#s11 .vis{margin:0 4px 26px}
-#s11 .mc{position:relative;aspect-ratio:856/540;border-radius:4.2%/6.7%;overflow:hidden;box-shadow:0 30px 40px -20px rgba(0,0,0,.8)}
-#s11 .mc img{position:absolute;left:6%;top:9%;width:30%}
-#s11 .mc b{position:absolute;right:6%;bottom:8%;font-family:Montserrat,Arial,sans-serif;font-style:italic;font-weight:900;font-size:36px}
-#s11 .metal{background:linear-gradient(135deg,#5b5d63,#2a2b2f 45%,#6d6f76 70%,#26272b);color:#e6e7ea}
-#s11 .gold{background:linear-gradient(135deg,#f3dc8c,#b9933a 45%,#f0d77f 70%,#9c7a2b);color:#2b2108}
-#s11 .k{font-family:var(--mono);font-size:17px;letter-spacing:.14em;text-transform:uppercase;color:var(--lime)}
-#s11 .tl h3{font-size:30px;margin-top:8px}
-#s11 .p{font-size:46px;font-weight:600;letter-spacing:-.03em;color:var(--lime);margin-top:14px;line-height:1}
-#s11 .p small{font-size:22px;color:var(--soft);font-weight:500;letter-spacing:0}
-#s11 .tl p{font-size:21px;margin-top:14px}
-#s11 .soon{margin-top:16px}
-#s11 .row{display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:22px;margin-top:26px}
-#s11 .row div{display:flex;gap:14px;align-items:flex-start;font-size:22px;color:var(--soft);line-height:1.4}
-#s11 .row .i{color:var(--lime);font-size:28px;stroke-width:2.2}
-#s11 .row b{color:var(--txt);font-weight:600}
+#s11 .h img{display:inline-block;width:.82em;height:.82em;border-radius:50%;vertical-align:-.08em;margin:0 .14em 0 .06em}
+#s11 .cols{display:grid;grid-template-columns:1.2fr 1fr;gap:28px;margin-top:44px;align-items:start}
+#s11 .nets{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+#s11 .net{display:flex;align-items:center;gap:22px;padding:28px 28px;border-radius:24px}
+#s11 .net .lg{width:66px;height:66px;border-radius:50%;flex:none;box-shadow:0 8px 24px -8px rgba(0,0,0,.8)}
+#s11 .net h3{font-size:31px}
+#s11 .net span{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:16px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin-top:6px}
+#s11 .net span .i{font-size:20px;stroke-width:2.4;color:var(--lime)}
+#s11 .net.fast span{color:var(--lime)}
+#s11 .net.bad{background:rgba(255,122,107,.06);border-color:rgba(255,122,107,.32)}
+#s11 .net.bad .lg{filter:grayscale(.3)}
+#s11 .net.bad span,#s11 .net.bad span .i{color:var(--no)}
+#s11 .side{display:flex;flex-direction:column;gap:18px}
+#s11 .call{font-size:23px;padding:26px 30px}
+#s11 .note{margin-top:4px}
 </style>
 <section class="slide" id="s11">
   <div class="bx">
-    <div class="eb rv">Las tarjetas</div>
-    <h2 class="h rv" style="--d:1">Elige <em>tu tarjeta.</em></h2>
-    <div class="grid">
-      <div class="tl rv" style="--d:2"><div class="vis tarjeta"><!--TARJETA--></div><span class="k">Disponible</span><h3>Virtual</h3><div class="p">9,99 <small>USDT · pago único</small></div><p>Lista al instante en la app. Para compras online, Apple Pay y Google Pay.</p></div>
-      <div class="tl rv" style="--d:3"><div class="vis tarjeta"><!--TARJETA chip--></div><span class="k">Disponible</span><h3>Física</h3><div class="p">US$ 99 <small>+ envío</small></div><p>Para tiendas y cajeros. Envío a 77 destinos; en América Latina, a 9 países.</p></div>
-      <div class="tl off rv" style="--d:4"><div class="vis"><div class="mc metal"><img src="img/logo-bix-blanco.svg" alt=""><b>VISA</b></div></div><span class="k" style="color:var(--mut)">Anunciada</span><h3>Metal</h3><span class="soon">Próximamente</span></div>
-      <div class="tl off rv" style="--d:5"><div class="vis"><div class="mc gold"><img src="img/logo-bix-negro.svg" alt=""><b>VISA</b></div></div><span class="k" style="color:var(--mut)">Anunciada</span><h3>Gold</h3><span class="soon">Próximamente</span></div>
-    </div>
-    <div class="row rv" style="--d:6">
-      <div>{{ic:check}}<span>Todas hacen lo mismo: <b>cambia el diseño y el material.</b></span></div>
-      <div>{{ic:check}}<span><b>Sin cuota anual.</b> Pagas el alta una sola vez.</span></div>
-      <div>{{ic:check}}<span>Hasta <b>5 virtuales y 2 físicas</b> por cuenta, cada una con su saldo y sus límites.</span></div>
+    <div class="eb rv">Cómo cargarla</div>
+    <h2 class="h rv" style="--d:1">Se carga con <img src="img/redes/usdt.webp" alt=""><em>USDT</em> o <img src="img/redes/usdc.webp" alt=""><em>USDC.</em></h2>
+    <p class="lead rv" style="--d:2">Son dólares digitales. La recarga de la tarjeta es <b>sin comisión</b>, por estas redes:</p>
+    <div class="cols">
+      <div class="nets">
+        <div class="tl net fast rv" style="--d:3"><img class="lg" src="img/redes/bnb.webp" alt=""><div><h3>BNB Chain</h3><span>{{ic:zap}}La más rápida</span></div></div>
+        <div class="tl net fast rv" style="--d:3"><img class="lg" src="img/redes/base.webp" alt=""><div><h3>Base</h3><span>{{ic:zap}}La más rápida</span></div></div>
+        <div class="tl net rv" style="--d:4"><img class="lg" src="img/redes/solana.webp" alt=""><div><h3>Solana</h3><span>{{ic:check}}Sirve</span></div></div>
+        <div class="tl net rv" style="--d:4"><img class="lg" src="img/redes/optimism.webp" alt=""><div><h3>Optimism</h3><span>{{ic:check}}Sirve</span></div></div>
+        <div class="tl net rv" style="--d:5"><img class="lg" src="img/redes/ethereum.webp" alt=""><div><h3>Ethereum</h3><span>{{ic:check}}Lenta y más cara</span></div></div>
+        <div class="tl net bad rv" style="--d:5"><img class="lg" src="img/redes/tron.webp" alt=""><div><h3>TRON (TRC20)</h3><span>{{ic:x}}No sirve para recargar</span></div></div>
+      </div>
+      <div class="side">
+        <div class="call warn rv" style="--d:6">{{ic:alert}}<span><b>¿Tus USDT están en TRON?</b> Desde tu exchange, envíalos por <b>BNB Chain (BEP20)</b> o <b>Base</b>. Revisa siempre la red y la dirección: un envío en la blockchain no se puede cancelar.</span></div>
+        <div class="call rv" style="--d:7">{{ic:zap}}<span>BIX paga el costo de red de tus <b>primeras transacciones</b> (cantidad limitada) en Solana y en redes como BNB, Base u Optimism.</span></div>
+        <p class="note rv" style="--d:8">Tu billetera guarda muchas más criptos y redes (incluida TRON). La tarjeta se recarga solo con USDT o USDC por estas cinco redes.</p>
+      </div>
     </div>
   </div>
 </section>

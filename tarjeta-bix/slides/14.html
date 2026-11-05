@@ -1,40 +1,46 @@
 <style>
-#s14 .cols{display:grid;grid-template-columns:1.6fr 1fr;gap:28px;margin-top:46px}
-#s14 .k{font-family:var(--mono);font-size:18px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);display:flex;gap:12px;align-items:center;margin-bottom:16px}
-#s14 .k .i{color:var(--lime);font-size:24px}
-#s14 .g{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:28px}
-#s14 .tl{padding:28px 30px}
-#s14 .n{font-size:58px;font-weight:600;letter-spacing:-.04em;line-height:1;color:var(--lime)}
-#s14 .tl p{font-size:21px;margin-top:12px}
-#s14 .side{display:flex;flex-direction:column;gap:16px;margin-top:38px}
-#s14 .it{display:flex;gap:18px;align-items:flex-start;padding:24px 26px}
-#s14 .it .i{color:var(--lime);font-size:30px;margin-top:2px}
-#s14 .it p{margin:0;font-size:22px}
+#s14 .deco{left:-320px;bottom:-380px;width:900px;height:900px}
+#s14 .h{font-size:96px}
+#s14 .cols{display:grid;grid-template-columns:1.5fr 1fr;gap:28px;margin-top:40px}
+#s14 .lat{padding:34px 38px;display:flex;flex-direction:column}
+#s14 .lat h3{display:flex;justify-content:space-between;align-items:baseline}
+#s14 .lat h3 span{font-family:var(--mono);font-size:16px;letter-spacing:.1em;color:var(--mut);font-weight:500;text-transform:uppercase}
+#s14 .pa{display:grid;grid-template-columns:repeat(4,1fr);gap:34px 18px;margin:36px 0 30px}
+#s14 .pa div{display:flex;align-items:center;gap:12px;font-size:23px;color:var(--txt);white-space:nowrap}
+#s14 .pa img,#s14 .fl img{width:40px;height:30px;border-radius:6px;object-fit:cover;flex:none;box-shadow:0 0 0 1px rgba(255,255,255,.12)}
+#s14 .pa .f::after{content:"";width:9px;height:9px;border-radius:50%;background:var(--lime);box-shadow:0 0 10px var(--lime);flex:none}
+#s14 .ley{display:flex;gap:34px;margin-top:auto;padding-top:20px;border-top:1px solid var(--line);font-size:20px;color:var(--mut)}
+#s14 .ley span{display:flex;gap:10px;align-items:center}
+#s14 .ley span::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--lime);box-shadow:0 0 10px var(--lime)}
+#s14 .side{display:flex;flex-direction:column;gap:16px}
+#s14 .side .tl{padding:24px 30px}
+#s14 .side h3{font-size:26px;display:flex;gap:12px;align-items:center}
+#s14 .side h3 .i{font-size:28px;color:var(--lime)}
+#s14 .side .bad h3 .i{color:var(--no)}
+#s14 .side p{font-size:20px;margin-top:8px}
+#s14 .fl{display:flex;gap:10px;margin-top:12px}
 </style>
 <section class="slide" id="s14">
+  <!--DECO-->
   <div class="bx">
-    <div class="eb rv">Límites</div>
-    <h2 class="h rv" style="--d:1">Límites amplios. <em>Y también los tuyos.</em></h2>
+    <div class="eb rv">Dónde está disponible</div>
+    <h2 class="h rv" style="--d:1"><em>99</em> países y territorios.</h2>
     <div class="cols">
-      <div>
-        <div class="k rv" style="--d:2">{{ic:cart}}Compras · por tarjeta</div>
-        <div class="g">
-          <div class="tl rv" style="--d:2"><div class="n">€30.000</div><p>por operación, por día y por mes</p></div>
-          <div class="tl rv" style="--d:3"><div class="n">€75.000</div><p>cada 3 meses</p></div>
-          <div class="tl rv" style="--d:4"><div class="n">€100.000</div><p>cada 6 meses</p></div>
+      <div class="tl lat rv" style="--d:2">
+        <h3>América Latina <span>16 países</span></h3>
+        <div class="pa">
+          <div class="f"><img src="img/banderas/ar.webp" alt="">Argentina</div><div><img src="img/banderas/bo.webp" alt="">Bolivia</div><div class="f"><img src="img/banderas/br.webp" alt="">Brasil</div><div class="f"><img src="img/banderas/cl.webp" alt="">Chile</div>
+          <div class="f"><img src="img/banderas/co.webp" alt="">Colombia</div><div><img src="img/banderas/cr.webp" alt="">Costa Rica</div><div class="f"><img src="img/banderas/ec.webp" alt="">Ecuador</div><div class="f"><img src="img/banderas/sv.webp" alt="">El Salvador</div>
+          <div><img src="img/banderas/gt.webp" alt="">Guatemala</div><div><img src="img/banderas/hn.webp" alt="">Honduras</div><div class="f"><img src="img/banderas/mx.webp" alt="">México</div><div class="f"><img src="img/banderas/pa.webp" alt="">Panamá</div>
+          <div><img src="img/banderas/py.webp" alt="">Paraguay</div><div class="f"><img src="img/banderas/pe.webp" alt="">Perú</div><div><img src="img/banderas/do.webp" alt="">Rep. Dominicana</div><div><img src="img/banderas/uy.webp" alt="">Uruguay</div>
         </div>
-        <div class="k rv" style="--d:5">{{ic:bank}}Cajero · tarjeta física</div>
-        <div class="g">
-          <div class="tl rv" style="--d:5"><div class="n">€750</div><p>por día</p></div>
-          <div class="tl rv" style="--d:6"><div class="n">€5.000</div><p>por mes</p></div>
-          <div class="tl rv" style="--d:7"><div class="n">5</div><p>retiros por día</p></div>
-        </div>
+        <div class="ley"><span>También llega la tarjeta física</span></div>
       </div>
       <div class="side">
-        <div class="tl it rv" style="--d:4">{{ic:sliders}}<p><b>Pon tus propios topes:</b> Tarjeta → Gestionar → Límites.</p></div>
-        <div class="tl it rv" style="--d:5">{{ic:layers}}<p>Los límites son <b>por tarjeta</b>, y puedes tener varias.</p></div>
-        <div class="tl it rv" style="--d:6">{{ic:globe}}<p>En <b>EE. UU.</b> los límites diarios y mensuales los eliges tú en la app.</p></div>
-        <div class="tl it rv" style="--d:7">{{ic:id}}<p>Para montos más altos, BIX puede pedirte una verificación extra.</p></div>
+        <div class="tl rv" style="--d:3"><h3>{{ic:globe}}También en</h3><p>España, Portugal, Italia, Francia, Alemania, Reino Unido, Emiratos Árabes, Canadá, Japón, Australia y 31 estados de EE. UU., entre otros.</p>
+          <div class="fl"><img src="img/banderas/es.webp" alt=""><img src="img/banderas/us.webp" alt=""></div></div>
+        <div class="tl bad rv" style="--d:4"><h3>{{ic:x}}No disponible</h3><p>Venezuela, Nicaragua y Cuba. Tampoco se puede comprar en Rusia, Irán, Siria, Corea del Norte ni Ucrania.</p></div>
+        <div class="tl rv" style="--d:5"><h3>{{ic:phone}}Apple Pay</h3><p>No funciona en 23 países, entre ellos Bolivia. Cuenta el país del documento con el que te verificas.</p></div>
       </div>
     </div>
   </div>

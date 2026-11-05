@@ -1,28 +1,28 @@
 <style>
-#s16 .stage{display:grid;grid-template-columns:1fr 330px 1fr;gap:56px;margin-top:34px;align-items:center}
-#s16 .col{display:flex;flex-direction:column;gap:18px}
-#s16 .it{display:flex;gap:22px;align-items:flex-start;padding:26px 28px}
-#s16 .it .ic{margin:0}
-#s16 .it h3{font-size:27px}
-#s16 .it p{font-size:21px;margin-top:6px}
-#s16 .phone{width:300px;margin:0 auto}
+#s16 .head{display:flex;justify-content:space-between;align-items:flex-end;gap:40px}
+#s16 .call{width:640px;font-size:22px;padding:22px 28px;flex:none}
+#s16 .grid{display:grid;grid-template-columns:repeat(6,1fr);gap:18px;margin-top:44px}
+#s16 .b{position:relative;height:560px;border-radius:24px;overflow:hidden;border:1px solid var(--line);background:#050505}
+#s16 .b img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+#s16 .b::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(2,2,2,.92) 78%)}
+#s16 .b h3{position:absolute;left:26px;right:22px;bottom:28px;z-index:1;font-size:27px;font-weight:600;letter-spacing:-.02em;line-height:1.2}
+#s16 .b.ic-b{background:radial-gradient(circle at 50% 38%,rgba(202,254,92,.16),transparent 60%),linear-gradient(180deg,#141318,#060608)}
+#s16 .b.ic-b .i{position:absolute;left:50%;top:34%;transform:translate(-50%,-50%);font-size:110px;color:var(--lime);stroke-width:1.2}
 </style>
 <section class="slide" id="s16">
   <div class="bx">
-    <div class="eb rv">Tú la manejas</div>
-    <h2 class="h rv" style="--d:1">Todo se maneja <em>desde la app.</em></h2>
-    <div class="stage">
-      <div class="col">
-        <div class="tl it rv" style="--d:2"><div class="ic">{{ic:snow}}</div><div><h3>Congelar y descongelar</h3><p>En un toque. Corta también Apple Pay y Google Pay.</p></div></div>
-        <div class="tl it rv" style="--d:3"><div class="ic">{{ic:sliders}}</div><div><h3>Tus propios límites</h3><p>Diarios y mensuales, para cada tarjeta.</p></div></div>
-        <div class="tl it rv" style="--d:4"><div class="ic">{{ic:dots}}</div><div><h3>PIN y nombre</h3><p>Los cambias cuando quieras.</p></div></div>
-      </div>
-      <div class="rv zoom" style="--d:2"><div class="phone flota"><img src="img/app-tarjeta.webp" alt="Pantalla de la tarjeta en la app de BIX"></div></div>
-      <div class="col">
-        <div class="tl it rv" style="--d:3"><div class="ic">{{ic:back}}</div><div><h3>Devolver saldo</h3><p>Pasa lo que no uses de la tarjeta a tu billetera.</p></div></div>
-        <div class="tl it rv" style="--d:4"><div class="ic">{{ic:eye}}</div><div><h3>Datos y CVV</h3><p>Los de la virtual los ves dentro de la app.</p></div></div>
-        <div class="tl it rv" style="--d:5"><div class="ic">{{ic:layers}}</div><div><h3>Una tarjeta para cada cosa</h3><p>Suscripciones, viajes, publicidad: hasta 5 virtuales y 2 físicas.</p></div></div>
-      </div>
+    <div class="head">
+      <div><div class="eb rv">Beneficios Visa Signature</div>
+      <h2 class="h rv" style="--d:1">Ventajas para <em>tus viajes.</em></h2></div>
+      <div class="call rv" style="--d:2">{{ic:globe}}<span><b>Hoy, en tarjetas de EE. UU.</b>, inscribiéndote en el portal de beneficios de Visa. En el resto del mundo la tarjeta todavía no los tiene: <b>próximamente.</b></span></div>
+    </div>
+    <div class="grid">
+      <div class="b rv" style="--d:3"><img src="img/ben-avion.webp" alt=""><h3>Salas VIP en aeropuertos</h3></div>
+      <div class="b rv" style="--d:4"><img src="img/ben-auto.webp" alt=""><h3>Seguro de alquiler de autos</h3></div>
+      <div class="b rv" style="--d:5"><img src="img/ben-valija.webp" alt=""><h3>Seguro de equipaje perdido o demorado</h3></div>
+      <div class="b rv" style="--d:6"><img src="img/ben-llave.webp" alt=""><h3>Descuentos en hoteles</h3></div>
+      <div class="b rv" style="--d:7"><img src="img/ben-ticket.webp" alt=""><h3>Acceso a eventos</h3></div>
+      <div class="b ic-b rv" style="--d:8">{{ic:star}}<h3>Concierge las 24 horas</h3></div>
     </div>
   </div>
 </section>

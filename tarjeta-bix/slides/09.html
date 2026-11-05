@@ -1,25 +1,26 @@
 <style>
-#s09 .txt{width:1080px}
-#s09 .steps{display:flex;flex-direction:column;gap:16px;margin-top:44px}
-#s09 .st{display:flex;gap:26px;align-items:center;padding:24px 32px}
-#s09 .st .n{font-family:var(--mono);font-size:22px;color:#020202;background:var(--lime);width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-weight:600;flex:none}
-#s09 .st p{margin:0;font-size:26px;color:var(--txt)}
-#s09 .call{margin-top:30px;font-size:23px}
-#s09 .mano{position:absolute;right:120px;bottom:0;width:560px;-webkit-mask-image:linear-gradient(#000 70%,transparent);mask-image:linear-gradient(#000 70%,transparent)}
+#s09 .txt{width:1120px}
+#s09 .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:40px}
+#s09 .tl{padding:28px 32px}
+#s09 .tl .ic{margin-bottom:18px}
+#s09 .note{margin-top:22px;max-width:1080px}
+#s09 .mks{display:flex;align-items:center;gap:28px;margin-top:14px;font-size:46px}
+#s09 .ph{position:absolute;right:190px;top:120px}
+#s09 .phone{width:340px}
 </style>
 <section class="slide" id="s09">
-  <img class="mano rv fade" style="--d:2" src="img/mano.webp" alt="">
   <div class="bx">
     <div class="txt">
-      <div class="eb rv">Recuperar el acceso</div>
-      <h2 class="h rv" style="--d:1">¿Perdiste el celular?<br><em>No pierdes tu dinero.</em></h2>
-      <p class="lead rv" style="--d:2">BIX no usa frase semilla: no hay 12 o 24 palabras que anotar y perder.</p>
-      <div class="steps">
-        <div class="tl st rv" style="--d:3"><span class="n">1</span><p>Instalas la app de BIX en el celular nuevo.</p></div>
-        <div class="tl st rv" style="--d:4"><span class="n">2</span><p>Inicias sesión con tu cuenta y tu verificación en dos pasos.</p></div>
-        <div class="tl st rv" style="--d:5"><span class="n">3</span><p>Vuelve todo: saldos, historial y tarjeta.</p></div>
+      <div class="eb rv">Dónde la usas</div>
+      <h2 class="h rv" style="--d:1">En más de <em>100 millones</em> de comercios Visa.</h2>
+      <div class="grid">
+        <div class="tl rv" style="--d:2"><div class="ic">{{ic:store}}</div><h3>En la tienda</h3><p>Con la tarjeta física o acercando el celular.</p></div>
+        <div class="tl rv" style="--d:3"><div class="ic">{{ic:cart}}</div><h3>Online</h3><p>Suscripciones, compras, apps, software y publicidad en redes.</p></div>
+        <div class="tl rv" style="--d:4"><div class="ic">{{ic:plane}}</div><h3>De viaje</h3><p>Vuelos, hoteles y compras en el exterior.</p></div>
+        <div class="tl rv" style="--d:5"><div class="ic">{{ic:nfc}}</div><h3>Con el celular</h3><p>Apple Pay y Google Pay: acercas el celular y pagas.</p><div class="mks mk"><img src="img/marcas/applepay.svg" alt="Apple Pay"><img src="img/marcas/googlepay.svg" alt="Google Pay"></div></div>
       </div>
-      <div class="call rv" style="--d:6">{{ic:lock}}<span>Por eso lo importante es cuidar tu cuenta: <b>contraseña fuerte y verificación en dos pasos.</b> Y si temes un mal uso, congela la tarjeta desde la app.</span></div>
+      <p class="note rv" style="--d:6">Apple Pay no está disponible en 23 países, entre ellos Bolivia. La tarjeta funciona igual donde acepten Visa.</p>
     </div>
   </div>
+  <div class="ph rv zoom" style="--d:3"><div class="phone flota"><img src="img/app-applepay.webp" alt="Tarjeta BIX en Apple Pay"></div></div>
 </section>

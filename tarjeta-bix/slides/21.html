@@ -1,27 +1,62 @@
 <style>
-#s21 .deco{left:-300px;bottom:-360px;width:860px;height:860px}
-#s21 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:52px}
-#s21 .tl{display:flex;gap:24px;align-items:flex-start;padding:40px 36px;min-height:170px}
-#s21 .n{font-family:var(--mono);font-size:22px;font-weight:600;color:#020202;background:var(--lime);width:50px;height:50px;border-radius:50%;display:grid;place-items:center;flex:none}
-#s21 .tl p{margin:4px 0 0;font-size:26px;color:var(--txt)}
-#s21 .tl p b{color:var(--lime)}
-#s21 .end{display:flex;gap:22px;align-items:center;margin-top:44px;font-size:24px;color:var(--soft)}
-#s21 .end .i{font-size:40px;color:var(--lime)}
+#s21 .lead{max-width:1400px}
+#s21 .flow{display:grid;grid-template-columns:1fr 54px 1fr 54px 1fr 54px 1.25fr;align-items:stretch;margin-top:40px}
+#s21 .ar{display:grid;place-items:center;font-size:34px;color:var(--lime)}
+#s21 .bk{border-radius:24px;padding:26px 28px;background:linear-gradient(180deg,var(--p2),var(--p1));border:1px solid var(--line);display:flex;flex-direction:column;justify-content:center}
+#s21 .bk .k{font-family:var(--mono);font-size:16px;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);display:flex;gap:10px;align-items:center}
+#s21 .bk .k .i{font-size:22px;color:var(--lime)}
+#s21 .bk b{font-size:64px;font-weight:600;letter-spacing:-.045em;line-height:1;margin-top:14px;color:var(--txt)}
+#s21 .bk small{font-size:20px;color:var(--soft);margin-top:8px}
+#s21 .bk.hot{border-color:rgba(202,254,92,.35);background:radial-gradient(400px 200px at 100% 0%,rgba(202,254,92,.12),transparent 70%),linear-gradient(180deg,var(--p2),var(--p1))}
+#s21 .bk.hot b{color:var(--lime)}
+#s21 .split{display:grid;grid-template-rows:1fr 1fr;gap:12px}
+#s21 .split .bk{padding:16px 24px;flex-direction:row;align-items:center;justify-content:space-between}
+#s21 .split .bk b{font-size:44px;margin:0}
+#s21 .split .pool b{color:#C9CAD2}
+#s21 .rep{margin-top:34px}
+#s21 .rep>p{font-size:22px;color:var(--soft)}
+#s21 .rep>p b{color:var(--txt)}
+#s21 .rb{display:flex;gap:4px;height:60px;margin-top:14px}
+#s21 .rb i{border-radius:10px;display:grid;place-items:center;font-style:normal;font-family:var(--mono);font-size:20px;font-weight:600;color:#020202}
+#s21 .lab{display:flex;gap:4px;margin-top:10px;font-size:18px;color:var(--soft)}
+#s21 .lab span{white-space:nowrap}
+#s21 .lab b{color:var(--txt);font-weight:600}
+#s21 .ways{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}
+#s21 .ways div{display:flex;gap:16px;align-items:center;padding:18px 22px;border-radius:20px;border:1px solid var(--line);background:rgba(255,255,255,.02);font-size:21px;color:var(--soft);line-height:1.35}
+#s21 .ways .i{font-size:30px;color:var(--lime)}
+#s21 .ways b{color:var(--txt);font-weight:600}
 </style>
 <section class="slide" id="s21">
-  <!--DECO-->
   <div class="bx">
-    <div class="eb rv">Solo si tienes cuenta en TAG Markets</div>
-    <h2 class="h rv" style="--d:1">Del IB-Portal <em>directo a tu tarjeta.</em></h2>
-    <p class="lead rv" style="--d:2">Vincula tu IB-Portal con BIX y pasa tus ganancias a la tarjeta sin dar vueltas por otras billeteras.</p>
-    <div class="grid">
-      <div class="tl rv" style="--d:3"><span class="n">1</span><p>Entra a tu IB-Portal y ve a <b>Perfil</b>.</p></div>
-      <div class="tl rv" style="--d:4"><span class="n">2</span><p>Baja hasta <b>BIX Wallets &amp; Debit Card</b> y toca <b>Register</b>: aparece un código QR.</p></div>
-      <div class="tl rv" style="--d:5"><span class="n">3</span><p>En la app de BIX: <b>Configuración → Escanear código QR</b>.</p></div>
-      <div class="tl rv" style="--d:6"><span class="n">4</span><p>Escanea el código QR que muestra el IB-Portal.</p></div>
-      <div class="tl rv" style="--d:7"><span class="n">5</span><p>Vuelve a la app de BIX y toca <b>Aprobar</b>.</p></div>
-      <div class="tl rv" style="--d:8"><span class="n">6</span><p>Listo: tu IB-Portal y BIX quedan <b>sincronizados</b>.</p></div>
+    <div class="eb rv">Opcional · Programa de recomendaciones</div>
+    <h2 class="h rv" style="--d:1">Recomiéndala y <em>gana con cada compra.</em></h2>
+    <p class="lead rv" style="--d:2">Puedes usar la tarjeta solo para tus compras. Si además la recomiendas, ganas cada vez que alguien de tu red paga con la suya.</p>
+    <div class="flow rv" style="--d:3">
+      <div class="bk"><span class="k">{{ic:cart}}Alguien de tu red compra</span><b>US$ 100</b><small>con su tarjeta BIX</small></div>
+      <div class="ar">{{ic:arrow}}</div>
+      <div class="bk"><span class="k">{{ic:percent}}BIX cobra el 3 %</span><b>US$ 3</b><small>de tarifa</small></div>
+      <div class="ar">{{ic:arrow}}</div>
+      <div class="bk hot"><span class="k">{{ic:coin}}La mitad, a comisiones</span><b>US$ 1,50</b><small>el 50 % neto</small></div>
+      <div class="ar">{{ic:arrow}}</div>
+      <div class="split">
+        <div class="bk hot"><span class="k">{{ic:red}}Tus 10 niveles</span><b>US$ 1,35</b></div>
+        <div class="bk pool"><span class="k">{{ic:star}}Pool BIX</span><b>US$ 0,15</b></div>
+      </div>
     </div>
-    <p class="end rv" style="--d:9">{{ic:qr}}<span>Es opcional: si no tienes cuenta en TAG, la tarjeta funciona igual.</span></p>
+    <div class="rep rv" style="--d:5">
+      <p>Así se reparte la tarifa de esa compra, <b>nivel por nivel:</b></p>
+      <div class="rb">
+        <i style="flex:15;background:#CAFE5C">15 %</i><i style="flex:10;background:#8FBF2E">10 %</i>
+        <i style="flex:2.5;background:#5F8224"></i><i style="flex:2.5;background:#5F8224"></i><i style="flex:2.5;background:#5F8224"></i><i style="flex:2.5;background:#5F8224"></i>
+        <i style="flex:2.5;background:#5F8224"></i><i style="flex:2.5;background:#5F8224"></i><i style="flex:2.5;background:#5F8224"></i><i style="flex:2.5;background:#5F8224"></i>
+        <i style="flex:5;background:#A2A3AD">5 %</i>
+      </div>
+      <div class="lab"><span style="flex:15">Nivel 1 · <b>US$ 0,45</b></span><span style="flex:10">Nivel 2 · <b>US$ 0,30</b></span><span style="flex:20">Niveles 3 a 10 · 2,5 % · <b>US$ 0,075</b> cada uno</span><span style="flex:5">Pool</span></div>
+    </div>
+    <div class="ways rv" style="--d:6">
+      <div>{{ic:card}}<span><b>Cuando piden su tarjeta:</b> también comisiona la venta de tarjetas.</span></div>
+      <div>{{ic:refresh}}<span><b>Cuando la usan:</b> en cada compra, todos los meses.</span></div>
+      <div>{{ic:users}}<span><b>Cuando ellos recomiendan:</b> ganas hasta el nivel 10.</span></div>
+    </div>
   </div>
 </section>

@@ -1,35 +1,34 @@
 <style>
-#s12 .cols{display:grid;grid-template-columns:1.15fr 1fr;gap:28px;margin-top:48px;align-items:start}
-#s12 .nets{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-#s12 .net{display:flex;align-items:center;gap:22px;padding:32px 30px;border-radius:22px}
-#s12 .net .i{font-size:34px;stroke-width:2.2}
-#s12 .net h3{font-size:31px}
-#s12 .net span{display:block;font-family:var(--mono);font-size:16px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin-top:4px}
-#s12 .net.fast span{color:var(--lime)}
-#s12 .net.bad{background:rgba(255,122,107,.06);border-color:rgba(255,122,107,.3)}
-#s12 .net.bad span{color:var(--no)}
-#s12 .side{display:flex;flex-direction:column;gap:18px}
-#s12 .call{font-size:23px;padding:28px 30px}
-#s12 .note{margin-top:4px}
+#s12 .cols{display:grid;grid-template-columns:1.25fr 1fr;gap:28px;margin-top:46px;align-items:start}
+#s12 .tbl{padding:12px 38px}
+#s12 .tr{display:flex;justify-content:space-between;align-items:center;height:80px;border-bottom:1px solid var(--line);font-size:26px;color:var(--soft)}
+#s12 .tr:last-child{border-bottom:0}
+#s12 .tr b{font-family:var(--mono);font-weight:500;font-size:28px;color:var(--txt)}
+#s12 .tr.free b{color:var(--lime)}
+#s12 .side{display:flex;flex-direction:column;gap:20px}
+#s12 .tl h3{display:flex;gap:14px;align-items:center}
+#s12 .tl h3 .i{color:var(--lime);font-size:32px}
+#s12 .call{font-size:23px}
 </style>
 <section class="slide" id="s12">
   <div class="bx">
-    <div class="eb rv">Cómo cargarla</div>
-    <h2 class="h rv" style="--d:1">Se carga con <em>USDT o USDC.</em></h2>
-    <p class="lead rv" style="--d:2">Son dólares digitales. La recarga de la tarjeta es <b>sin comisión</b>, por estas redes:</p>
+    <div class="eb rv">Costos claros</div>
+    <h2 class="h rv" style="--d:1">Lo que cuesta, <em>sin letra chica.</em></h2>
     <div class="cols">
-      <div class="nets">
-        <div class="tl net fast rv" style="--d:3"><svg class="i ok" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><div><h3>BNB Chain</h3><span>La más rápida</span></div></div>
-        <div class="tl net fast rv" style="--d:3"><svg class="i ok" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><div><h3>Base</h3><span>La más rápida</span></div></div>
-        <div class="tl net rv" style="--d:4"><svg class="i ok" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><div><h3>Solana</h3><span>Sirve</span></div></div>
-        <div class="tl net rv" style="--d:4"><svg class="i ok" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><div><h3>Optimism</h3><span>Sirve</span></div></div>
-        <div class="tl net rv" style="--d:5"><svg class="i ok" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><div><h3>Ethereum</h3><span>Puede ser lenta y cara</span></div></div>
-        <div class="tl net bad rv" style="--d:5"><svg class="i no" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg><div><h3>TRON</h3><span>No sirve para recargar</span></div></div>
+      <div class="tl tbl rv" style="--d:2">
+        <div class="tr free"><span>Recargar la tarjeta</span><b>Sin comisión</b></div>
+        <div class="tr free"><span>Cuota anual</span><b>No tiene</b></div>
+        <div class="tr"><span>Compra con la tarjeta</span><b>3 %</b></div>
+        <div class="tr"><span>Pago en otra moneda</span><b>+ 1 %</b></div>
+        <div class="tr"><span>Retiro en cajero</span><b>US$ 1 + 0,6 %</b></div>
+        <div class="tr"><span>Compra menor a US$ 50</span><b>US$ 0,75</b></div>
+        <div class="tr"><span>Compra rechazada</span><b>US$ 0,65</b></div>
+        <div class="tr"><span>Disputa de un cargo</span><b>hasta US$ 30</b></div>
       </div>
       <div class="side">
-        <div class="call warn rv" style="--d:6">{{ic:alert}}<span><b>¿Tus USDT están en TRON (TRC20)?</b> Desde tu exchange, envíalos por BNB Chain o Base. Revisa siempre la red y la dirección: un envío en la blockchain no se puede cancelar.</span></div>
-        <div class="call rv" style="--d:7">{{ic:zap}}<span>BIX paga el costo de red de tus <b>primeras transacciones</b> (cantidad limitada) en Solana y en redes como BNB, Base u Optimism.</span></div>
-        <p class="note rv" style="--d:8">Tu billetera guarda muchas más criptos y redes (incluida TRON). La tarjeta se recarga solo con USDT o USDC por estas cinco redes.</p>
+        <div class="tl rv" style="--d:3"><h3>{{ic:help}}¿Por qué 3 %?</h3><p>Pagas por tener el control de tu dinero y soporte con personas reales. Hay opciones más baratas, pero te piden dejarles tu dinero.</p></div>
+        <div class="call rv" style="--d:4">{{ic:zap}}<span><b>Para ahorrar:</b> si el datáfono o el cajero te pregunta «¿USD o moneda local?», elige siempre <b>moneda local.</b></span></div>
+        <p class="note rv" style="--d:5">La comisión exacta la ves en la app antes de confirmar (Configuración → Plan). BIX la presenta como referencia general: puede variar según el comercio o la red.</p>
       </div>
     </div>
   </div>

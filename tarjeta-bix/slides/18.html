@@ -1,27 +1,38 @@
 <style>
-#s18 .deco{right:-240px;top:-200px;width:900px;height:900px}
-#s18 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:46px}
-#s18 .tl{padding:32px 36px 34px}
-#s18 .top{display:flex;justify-content:space-between;align-items:flex-start}
-#s18 .top .ic{margin-bottom:20px}
-#s18 .tl h3{font-size:29px}
-#s18 .tl p{font-size:23px}
-#s18 .note{margin-top:26px}
+#s18 .head{display:flex;justify-content:space-between;align-items:flex-end;gap:40px}
+#s18 .call{width:600px;font-size:21px;padding:20px 26px;flex:none}
+#s18 .steps{display:grid;grid-template-columns:repeat(6,1fr);gap:20px;margin-top:40px}
+#s18 .phone{width:200px;border-radius:32px;padding:7px;margin:0 auto}
+#s18 .phone img{border-radius:26px;aspect-ratio:560/1146;object-fit:cover;object-position:top}
+#s18 .lk{aspect-ratio:560/1146;border-radius:26px;background:radial-gradient(circle at 50% 40%,rgba(202,254,92,.18),transparent 60%),#0a0a0c;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px}
+#s18 .lk .i{font-size:72px;color:var(--lime);stroke-width:1.5}
+#s18 .lk span{font-family:var(--mono);font-size:13px;color:var(--soft)}
+#s18 .t{margin-top:24px}
+#s18 .t .n{font-family:var(--mono);font-size:17px;letter-spacing:.12em;color:var(--lime)}
+#s18 .t h3{font-size:25px;font-weight:600;letter-spacing:-.02em;line-height:1.2;margin-top:6px}
+#s18 .t p{font-size:19px;line-height:1.4;color:var(--soft);margin-top:8px}
+#s18 .mk{display:flex;gap:18px;margin-top:14px;font-size:36px}
 </style>
 <section class="slide" id="s18">
-  <!--DECO-->
   <div class="bx">
-    <div class="eb rv">Lo que viene</div>
-    <h2 class="h rv" style="--d:1">Lo que BIX <em>ya anunció.</em></h2>
-    <p class="lead rv" style="--d:2">Todavía no está activo. Lo contamos para que sepas hacia dónde va la app.</p>
-    <div class="grid">
-      <div class="tl rv" style="--d:3"><div class="top"><div class="ic">{{ic:swap}}</div><span class="soon">Próximamente</span></div><h3>Swap en la app</h3><p>Cambiar una cripto por otra, incluso entre redes, sin salir de BIX.</p></div>
-      <div class="tl rv" style="--d:4"><div class="top"><div class="ic">{{ic:bank}}</div><span class="soon">Próximamente</span></div><h3>Cuenta bancaria virtual</h3><p>IBAN en euros (Europa) o cuenta ACH de EE. UU. Lo que recibas entra como USDC.</p></div>
-      <div class="tl rv" style="--d:5"><div class="top"><div class="ic">{{ic:star}}</div><span class="soon">Próximamente</span></div><h3>Suscripción BIX</h3><p>US$ 9,99 al mes: cuenta virtual, beneficios de viaje, eventos y descuentos al crear tarjetas.</p></div>
-      <div class="tl rv" style="--d:6"><div class="top"><div class="ic">{{ic:gift}}</div><span class="soon">Próximamente</span></div><h3>Recompensas</h3><p>Premios por tus compras con la tarjeta.</p></div>
-      <div class="tl rv" style="--d:7"><div class="top"><div class="ic">{{ic:coin}}</div><span class="soon">Próximamente</span></div><h3>Comprar cripto en la app</h3><p>Cargar dinero por transferencia bancaria o con otra tarjeta.</p></div>
-      <div class="tl rv" style="--d:8"><div class="top"><div class="ic">{{ic:card}}</div><span class="soon">Próximamente</span></div><h3>Tarjetas Metal y Gold</h3><p>Las mismas funciones, en otro material.</p></div>
+    <div class="head">
+      <div><div class="eb rv">Cómo pedirla</div>
+      <h2 class="h rv" style="--d:1">Tu tarjeta, <em>paso a paso.</em></h2></div>
+      <div class="call warn rv" style="--d:2">{{ic:mail}}<span>El correo con el que te registras <b>no se puede cambiar</b>: usa el de siempre. Una sola cuenta por persona.</span></div>
     </div>
-    <p class="note rv" style="--d:9">Sin fecha confirmada. Cuando BIX lo active, lo vas a ver en la app.</p>
+    <div class="steps">
+      <div class="rv" style="--d:2"><div class="phone"><div class="lk">{{ic:link}}<span>bix.fi/r?code=…</span></div></div>
+        <div class="t"><span class="n">01</span><h3>Entra por tu link</h3><p>Usa el link de quien te invitó: así quedas en su equipo.</p></div></div>
+      <div class="rv" style="--d:3"><div class="phone"><img src="img/app-registro.webp" alt=""></div>
+        <div class="t"><span class="n">02</span><h3>Descarga y regístrate</h3><p>App Store o Google Play. Entras con Google, Apple o tu correo.</p><div class="mk"><img src="img/marcas/appstore.svg" alt="App Store"><img src="img/marcas/googleplay.svg" alt="Google Play"></div></div></div>
+      <div class="rv" style="--d:4"><div class="phone"><img src="img/app-verificado.webp" alt=""></div>
+        <div class="t"><span class="n">03</span><h3>Verifica tu identidad</h3><p>Tarjetas → Iniciar verificación. Suele tardar pocos minutos.</p></div></div>
+      <div class="rv" style="--d:5"><div class="phone"><img src="img/app-saldo.webp" alt=""></div>
+        <div class="t"><span class="n">04</span><h3>Deposita USDT o USDC</h3><p>Billetera → Depositar. Mejor por BNB Chain o Base.</p></div></div>
+      <div class="rv" style="--d:6"><div class="phone"><img src="img/app-crear.webp" alt=""></div>
+        <div class="t"><span class="n">05</span><h3>Crea tu tarjeta</h3><p>Tarjetas → Crear tarjeta. La virtual cuesta 9,99 USDT.</p></div></div>
+      <div class="rv" style="--d:7"><div class="phone"><img src="img/app-applepay.webp" alt=""></div>
+        <div class="t"><span class="n">06</span><h3>Súmala al celular</h3><p>Gestionar → Agregar a Apple Wallet o Google Wallet.</p><div class="mk"><img src="img/marcas/applepay.svg" alt="Apple Pay"><img src="img/marcas/googlepay.svg" alt="Google Pay"></div></div></div>
+    </div>
   </div>
 </section>
