@@ -1,0 +1,28 @@
+<style>
+#s17 .head{display:flex;justify-content:space-between;align-items:flex-end;gap:40px}
+#s17 .call{width:640px;font-size:22px;padding:22px 28px;flex:none}
+#s17 .grid{display:grid;grid-template-columns:repeat(6,1fr);gap:18px;margin-top:44px}
+#s17 .b{position:relative;height:560px;border-radius:24px;overflow:hidden;border:1px solid var(--line);background:#050505}
+#s17 .b img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+#s17 .b::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(2,2,2,.92) 78%)}
+#s17 .b h3{position:absolute;left:26px;right:22px;bottom:28px;z-index:1;font-size:27px;font-weight:600;letter-spacing:-.02em;line-height:1.2}
+#s17 .b.ic-b{background:radial-gradient(circle at 50% 38%,rgba(202,254,92,.16),transparent 60%),linear-gradient(180deg,#141318,#060608)}
+#s17 .b.ic-b .i{position:absolute;left:50%;top:34%;transform:translate(-50%,-50%);font-size:110px;color:var(--lime);stroke-width:1.2}
+</style>
+<section class="slide" id="s17">
+  <div class="bx">
+    <div class="head">
+      <div><div class="eb rv">Beneficios Visa Signature</div>
+      <h2 class="h rv" style="--d:1">Ventajas para <em>tus viajes.</em></h2></div>
+      <div class="call rv" style="--d:2">{{ic:globe}}<span><b>Hoy, en tarjetas de EE. UU.</b>, inscribiéndote en el portal de beneficios de Visa. En el resto del mundo la tarjeta todavía no los tiene: <b>próximamente.</b></span></div>
+    </div>
+    <div class="grid">
+      <div class="b rv" style="--d:3"><img src="img/ben-avion.webp" alt=""><h3>Salas VIP en aeropuertos</h3></div>
+      <div class="b rv" style="--d:4"><img src="img/ben-auto.webp" alt=""><h3>Seguro de alquiler de autos</h3></div>
+      <div class="b rv" style="--d:5"><img src="img/ben-valija.webp" alt=""><h3>Seguro de equipaje perdido o demorado</h3></div>
+      <div class="b rv" style="--d:6"><img src="img/ben-llave.webp" alt=""><h3>Descuentos en hoteles</h3></div>
+      <div class="b rv" style="--d:7"><img src="img/ben-ticket.webp" alt=""><h3>Acceso a eventos</h3></div>
+      <div class="b ic-b rv" style="--d:8">{{ic:star}}<h3>Concierge las 24 horas</h3></div>
+    </div>
+  </div>
+</section>

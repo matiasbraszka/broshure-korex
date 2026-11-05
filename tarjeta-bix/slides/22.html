@@ -1,0 +1,35 @@
+<style>
+#s22 .cols{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:46px}
+#s22 .left{display:flex;flex-direction:column;gap:24px}
+#s22 .left .tl{padding:42px 40px}
+#s22 .left .tl p{font-size:25px}
+#s22 .tl h3{display:flex;gap:16px;align-items:center}
+#s22 .tl h3 .i{color:var(--lime);font-size:34px}
+#s22 .mail{font-family:var(--mono);color:var(--lime)}
+#s22 .btn{margin-top:26px;height:66px;font-size:23px;padding:0 30px}
+#s22 .fix{padding:30px 36px}
+#s22 .fx{display:grid;grid-template-columns:270px 1fr;gap:20px;padding:24px 0;border-bottom:1px solid var(--line)}
+#s22 .fx:last-child{border-bottom:0;padding-bottom:0}
+#s22 .fx b{font-size:24px;font-weight:600;color:var(--txt)}
+#s22 .fx span{font-size:23px;color:var(--soft);line-height:1.4}
+</style>
+<section class="slide" id="s22">
+  <div class="bx">
+    <div class="eb rv">Nunca estás solo</div>
+    <h2 class="h rv" style="--d:1">Personas reales, <em>las 24 horas.</em></h2>
+    <div class="cols">
+      <div class="left">
+        <div class="tl rv" style="--d:2"><h3>{{ic:headset}}Soporte de BIX 24/7</h3><p>En la app: Configuración → Soporte, o por correo a <span class="mail">support@bix.fi</span>. Del otro lado hay una persona.</p></div>
+        <div class="tl rv" style="--d:3"><h3>{{ic:users}}Tu equipo te acompaña</h3><p>Te ayudamos con el registro, la verificación, la primera carga y tu primer pago, por videollamada.</p>
+          <a class="btn ghost" href="/bixinstalacion/" target="_blank" rel="noopener">Ver el tutorial paso a paso {{ic:arrow}}</a></div>
+      </div>
+      <div class="tl fix rv" style="--d:4"><h3 style="margin-bottom:6px">{{ic:help}}Si algo falla</h3>
+        <div class="fx"><b>Pago rechazado</b><span>Casi siempre falta saldo en la tarjeta: recarga desde la billetera y vuelve a intentar.</span></div>
+        <div class="fx"><b>Falla una compra online</b><span>Escribe la dirección de facturación igual que en tu perfil.</span></div>
+        <div class="fx"><b>Cobro doble</b><span>Suele ser una autorización temporal que se borra sola.</span></div>
+        <div class="fx"><b>Reembolso</b><span>Vuelve a tu tarjeta en 3 a 10 días hábiles.</span></div>
+        <div class="fx"><b>Cargo desconocido</b><span>Congela la tarjeta y repórtalo desde la transacción.</span></div>
+      </div>
+    </div>
+  </div>
+</section>

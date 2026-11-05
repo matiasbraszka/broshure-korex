@@ -1,0 +1,25 @@
+<style>
+#s20 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:48px}
+#s20 .tl{padding:34px 36px}
+#s20 .tl p{font-size:23px}
+#s20 .rej{margin-top:30px;padding:28px 36px}
+#s20 .rej h3{font-size:26px}
+#s20 .rej ul{list-style:none;display:grid;grid-template-columns:repeat(4,auto);justify-content:start;gap:40px;margin-top:18px}
+#s20 .rej li{display:flex;gap:12px;align-items:center;font-size:23px;color:var(--txt)}
+#s20 .rej li .i{color:var(--no);font-size:26px;stroke-width:2.2}
+#s20 .note{margin-top:22px}
+</style>
+<section class="slide" id="s20">
+  <div class="bx">
+    <div class="eb rv">Verificación de identidad</div>
+    <h2 class="h rv" style="--d:1">Ten esto a mano y <em>te aprueban más rápido.</em></h2>
+    <div class="grid">
+      <div class="tl rv" style="--d:2"><div class="ic">{{ic:id}}</div><h3>Documento de identidad</h3><p>Pasaporte, documento nacional, licencia de conducir o permiso de residencia. <b>Original y vigente</b>: no sirven copias ni fotos guardadas.</p></div>
+      <div class="tl rv" style="--d:3"><div class="ic">{{ic:home}}</div><h3>Comprobante de domicilio</h3><p>Recibo de luz, agua, gas, internet o teléfono fijo, estado de cuenta o contrato de alquiler. Con tu nombre y dirección, <b>de este mes.</b></p></div>
+      <div class="tl rv" style="--d:4"><div class="ic">{{ic:camera}}</div><h3>Prueba de vida</h3><p>Un video corto de tu cara, siguiendo las instrucciones de la app. Después completas tu perfil y unas preguntas.</p></div>
+    </div>
+    <div class="tl rej rv" style="--d:5"><h3>Por qué rechazan una verificación</h3>
+      <ul><li>{{ic:x}}Foto borrosa</li><li>{{ic:x}}Documento vencido</li><li>{{ic:x}}Datos distintos a los de tu cuenta</li><li>{{ic:x}}Documento cortado</li></ul></div>
+    <p class="note rv" style="--d:6">Si te rechazan, corriges y la vuelves a enviar. Para límites más altos, BIX puede pedirte el origen de tus fondos.</p>
+  </div>
+</section>

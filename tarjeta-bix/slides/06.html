@@ -1,0 +1,25 @@
+<style>
+#s06 .flow{display:grid;grid-template-columns:1fr 70px 1fr 70px 1fr;align-items:stretch;margin-top:64px}
+#s06 .ar{display:grid;place-items:center;font-size:40px;color:var(--lime)}
+#s06 .tl{padding:52px 46px 56px}
+#s06 .top{display:flex;justify-content:space-between;align-items:flex-start}
+#s06 .top .ic{margin:0;width:76px;height:76px;font-size:36px}
+#s06 .num{font-family:var(--mono);font-size:22px;letter-spacing:.12em;color:var(--mut)}
+#s06 .tl h3{font-size:44px;margin-top:52px}
+#s06 .tl p{font-size:27px}
+#s06 .call{margin-top:60px;font-size:26px}
+</style>
+<section class="slide" id="s06">
+  <div class="bx">
+    <div class="eb rv">Cómo funciona</div>
+    <h2 class="h rv" style="--d:1">De tu billetera a tu compra, <em>en tres pasos.</em></h2>
+    <div class="flow">
+      <div class="tl rv" style="--d:2"><div class="top"><div class="ic">{{ic:download}}</div><span class="num">PASO 01</span></div><h3>Depositas</h3><p>Envías USDT o USDC a tu billetera BIX desde un exchange u otra billetera.</p></div>
+      <div class="ar rv fade" style="--d:3">{{ic:arrow}}</div>
+      <div class="tl rv" style="--d:4"><div class="top"><div class="ic">{{ic:up}}</div><span class="num">PASO 02</span></div><h3>Recargas la tarjeta</h3><p>Pasas a la tarjeta el saldo que quieras. Sin comisión de carga y casi al instante.</p></div>
+      <div class="ar rv fade" style="--d:5">{{ic:arrow}}</div>
+      <div class="tl rv" style="--d:6"><div class="top"><div class="ic">{{ic:nfc}}</div><span class="num">PASO 03</span></div><h3>Pagas</h3><p>Donde acepten Visa: en la tienda, online o acercando el celular.</p></div>
+    </div>
+    <div class="call rv" style="--d:7">{{ic:shield}}<span>El saldo de la tarjeta queda en dólares digitales, así que <b>no sube ni baja con el mercado</b>. Y si no lo usas, lo devuelves a tu billetera cuando quieras.</span></div>
+  </div>
+</section>

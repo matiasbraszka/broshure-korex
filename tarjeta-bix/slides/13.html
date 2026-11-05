@@ -1,0 +1,35 @@
+<style>
+#s13 .cols{display:grid;grid-template-columns:1.25fr 1fr;gap:28px;margin-top:46px;align-items:start}
+#s13 .tbl{padding:12px 38px}
+#s13 .tr{display:flex;justify-content:space-between;align-items:center;height:80px;border-bottom:1px solid var(--line);font-size:26px;color:var(--soft)}
+#s13 .tr:last-child{border-bottom:0}
+#s13 .tr b{font-family:var(--mono);font-weight:500;font-size:28px;color:var(--txt)}
+#s13 .tr.free b{color:var(--lime)}
+#s13 .side{display:flex;flex-direction:column;gap:20px}
+#s13 .tl h3{display:flex;gap:14px;align-items:center}
+#s13 .tl h3 .i{color:var(--lime);font-size:32px}
+#s13 .call{font-size:23px}
+</style>
+<section class="slide" id="s13">
+  <div class="bx">
+    <div class="eb rv">Costos claros</div>
+    <h2 class="h rv" style="--d:1">Lo que cuesta, <em>sin letra chica.</em></h2>
+    <div class="cols">
+      <div class="tl tbl rv" style="--d:2">
+        <div class="tr free"><span>Recargar la tarjeta</span><b>Sin comisión</b></div>
+        <div class="tr free"><span>Cuota anual</span><b>No tiene</b></div>
+        <div class="tr"><span>Compra con la tarjeta</span><b>3 %</b></div>
+        <div class="tr"><span>Pago en otra moneda</span><b>+ 1 %</b></div>
+        <div class="tr"><span>Retiro en cajero</span><b>US$ 1 + 0,6 %</b></div>
+        <div class="tr"><span>Compra menor a US$ 50</span><b>US$ 0,75</b></div>
+        <div class="tr"><span>Compra rechazada</span><b>US$ 0,65</b></div>
+        <div class="tr"><span>Disputa de un cargo</span><b>hasta US$ 30</b></div>
+      </div>
+      <div class="side">
+        <div class="tl rv" style="--d:3"><h3>{{ic:help}}¿Por qué 3 %?</h3><p>Pagas por tener el control de tu dinero y soporte con personas reales. Hay opciones más baratas, pero te piden dejarles tu dinero.</p></div>
+        <div class="call rv" style="--d:4">{{ic:zap}}<span><b>Para ahorrar:</b> si el datáfono o el cajero te pregunta «¿USD o moneda local?», elige siempre <b>moneda local.</b></span></div>
+        <p class="note rv" style="--d:5">La comisión exacta la ves en la app antes de confirmar (Configuración → Plan). BIX la presenta como referencia general: puede variar según el comercio o la red.</p>
+      </div>
+    </div>
+  </div>
+</section>

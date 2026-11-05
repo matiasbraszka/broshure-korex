@@ -1,0 +1,28 @@
+<style>
+#s07 .deco{right:-200px;bottom:-300px;width:900px;height:900px}
+#s07 .lead{max-width:1320px}
+#s07 .cols{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:48px}
+#s07 .tl h3{display:flex;align-items:center;gap:16px}
+#s07 .tl h3 .i{color:var(--lime);font-size:34px}
+#s07 ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:18px 24px;margin-top:26px}
+#s07 li{display:flex;gap:14px;align-items:center;font-size:27px;font-weight:500}
+#s07 li .i{color:var(--no);font-size:28px;stroke-width:2.2}
+#s07 .path{font-family:var(--mono);font-size:22px;color:var(--lime);margin-top:20px}
+#s07 .end{margin-top:auto;font-size:40px;font-weight:600;letter-spacing:-.03em}
+</style>
+<section class="slide" id="s07">
+  <!--DECO-->
+  <div class="bx">
+    <div class="eb rv">El control es tuyo</div>
+    <h2 class="h rv" style="--d:1">Solo tú puedes <em>mover tu dinero.</em></h2>
+    <p class="lead rv" style="--d:2">En un banco o en un exchange, ellos guardan tu dinero. En BIX, la clave de tu billetera se crea en tu celular y nadie más la tiene completa: <b>ni siquiera BIX.</b></p>
+    <div class="cols">
+      <div class="tl rv" style="--d:3"><h3>{{ic:lock}}Lo que BIX no puede hacer</h3>
+        <ul><li>{{ic:x}}Mover tu dinero</li><li>{{ic:x}}Gastarlo</li><li>{{ic:x}}Congelarlo</li><li>{{ic:x}}Prestarlo a otros</li></ul></div>
+      <div class="tl rv" style="--d:4"><h3>{{ic:key}}Y si un día quieres irte</h3>
+        <p class="path">Configuración → Exportar clave privada</p>
+        <p>La importas en MetaMask, Phantom u otra billetera estándar y sigues con tus fondos. Se muestra una sola vez: guárdala fuera de internet.</p></div>
+    </div>
+    <p class="end rv" style="--d:6">El control de tu dinero <em class="lime" style="font-style:normal">lo tienes tú.</em></p>
+  </div>
+</section>

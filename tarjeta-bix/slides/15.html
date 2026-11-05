@@ -1,0 +1,46 @@
+<style>
+#s15 .deco{left:-320px;bottom:-380px;width:900px;height:900px}
+#s15 .h{font-size:96px}
+#s15 .cols{display:grid;grid-template-columns:1.45fr 1fr;gap:28px;margin-top:40px}
+#s15 .lat{padding:34px 38px;display:flex;flex-direction:column}
+#s15 .lat h3{display:flex;justify-content:space-between;align-items:baseline}
+#s15 .lat h3 span{font-family:var(--mono);font-size:16px;letter-spacing:.1em;color:var(--mut);font-weight:500;text-transform:uppercase}
+#s15 .pa{display:grid;grid-template-columns:repeat(4,1fr);gap:26px 16px;margin:32px 0 30px}
+#s15 .pa div{display:flex;align-items:center;gap:12px;font-size:23px;color:var(--txt)}
+#s15 .pa div::before{content:"";width:12px;height:12px;border-radius:50%;border:2px solid var(--lime);flex:none}
+#s15 .pa .f::before{background:var(--lime)}
+#s15 .ley{display:flex;gap:34px;margin-top:auto;padding-top:22px;border-top:1px solid var(--line);font-size:20px;color:var(--mut)}
+#s15 .ley span{display:flex;gap:10px;align-items:center}
+#s15 .ley span::before{content:"";width:12px;height:12px;border-radius:50%;border:2px solid var(--lime)}
+#s15 .ley span:first-child::before{background:var(--lime)}
+#s15 .side{display:flex;flex-direction:column;gap:16px}
+#s15 .side .tl{padding:24px 30px}
+#s15 .side h3{font-size:26px;display:flex;gap:12px;align-items:center}
+#s15 .side h3 .i{font-size:28px;color:var(--lime)}
+#s15 .side .bad h3 .i{color:var(--no)}
+#s15 .side p{font-size:20px;margin-top:8px}
+</style>
+<section class="slide" id="s15">
+  <!--DECO-->
+  <div class="bx">
+    <div class="eb rv">Dónde está disponible</div>
+    <h2 class="h rv" style="--d:1"><em>99</em> países y territorios.</h2>
+    <div class="cols">
+      <div class="tl lat rv" style="--d:2">
+        <h3>América Latina <span>16 países</span></h3>
+        <div class="pa">
+          <div class="f">Argentina</div><div>Bolivia</div><div class="f">Brasil</div><div class="f">Chile</div>
+          <div class="f">Colombia</div><div>Costa Rica</div><div class="f">Ecuador</div><div class="f">El Salvador</div>
+          <div>Guatemala</div><div>Honduras</div><div class="f">México</div><div class="f">Panamá</div>
+          <div>Paraguay</div><div class="f">Perú</div><div>Rep. Dominicana</div><div>Uruguay</div>
+        </div>
+        <div class="ley"><span>Virtual y física</span><span>Virtual</span></div>
+      </div>
+      <div class="side">
+        <div class="tl rv" style="--d:3"><h3>{{ic:globe}}También en</h3><p>España, Portugal, Italia, Francia, Alemania, Reino Unido, Emiratos Árabes, Canadá, Japón, Australia y 31 estados de EE. UU., entre otros.</p></div>
+        <div class="tl bad rv" style="--d:4"><h3>{{ic:x}}No disponible</h3><p>Venezuela, Nicaragua y Cuba. Tampoco se puede comprar en Rusia, Irán, Siria, Corea del Norte ni Ucrania.</p></div>
+        <div class="tl rv" style="--d:5"><h3>{{ic:phone}}Apple Pay</h3><p>No funciona en 23 países, entre ellos Bolivia. Cuenta el país del documento con el que te verificas.</p></div>
+      </div>
+    </div>
+  </div>
+</section>

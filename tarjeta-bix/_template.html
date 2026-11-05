@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tarjeta BIX · Presentación</title>
+<meta name="description" content="Todo sobre la tarjeta Visa de débito BIX: cómo funciona, seguridad, costos, límites, países y cómo pedirla.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#020202">
+<meta property="og:title" content="Tarjeta BIX · Tu cripto, en el mundo real">
+<meta property="og:description" content="Cómo funciona, seguridad, costos, límites, países y cómo pedirla.">
+<meta property="og:image" content="https://info.metodokorex.com/tarjeta-bix/og.jpg">
+<link rel="icon" href="img/isotipo-bix-verde.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400;500;600&family=Montserrat:ital,wght@1,900&display=swap" rel="stylesheet">
+<style>
+/* ── Base compartida (marca BIX: negro + verde lima) ───────── */
+:root{
+  --f:'Geist',system-ui,sans-serif; --mono:'Geist Mono',ui-monospace,monospace;
+  --f-title:var(--f); --f-body:var(--f);
+  --lime:#CAFE5C; --lime2:#E8FFB8; --lime-d:#8FBF2E; --lime-dd:#5F8224;
+  --cyan:#CAFE5C; --cyan2:#E8FFB8;
+  --bg:#020202; --p1:#0C0B10; --p2:#15141B; --line:rgba(255,255,255,.08);
+  --txt:#F4F5F0; --soft:#BFC1BA; --mut:#86848F; --no:#FF7A6B;
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --s:1;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);color:var(--txt);font-family:var(--f)}
+body{overflow:hidden;touch-action:none;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{display:block;user-select:none;-webkit-user-drag:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+/* Escenario fijo 1920×1080 escalado a la pantalla */
+#stage{position:fixed;left:50%;top:50%;width:1920px;height:1080px;transform:translate(-50%,-50%) scale(var(--s));overflow:clip;background:var(--bg)}
+.slide{position:absolute;inset:0;overflow:clip;isolation:isolate;opacity:0;visibility:hidden;transition:opacity .6s var(--ease),visibility 0s .6s;background:var(--bg);font-size:26px;line-height:1.45}
+.slide.on{opacity:1;visibility:visible;transition:opacity .6s var(--ease),visibility 0s}
+.slide .abs{position:absolute}
+/* Fondo: brillo lima arriba a la izquierda + isotipo en línea */
+.slide::before{content:"";position:absolute;inset:0;z-index:-2;pointer-events:none;
+  background:radial-gradient(1000px 640px at -4% -8%,rgba(202,254,92,.11),transparent 62%),radial-gradient(900px 600px at 108% 112%,rgba(202,254,92,.05),transparent 60%)}
+.deco{position:absolute;z-index:-1;pointer-events:none;fill:none;stroke:rgba(202,254,92,.10);stroke-width:.06}
+
+/* Entrada escalonada: class="rv" + style="--d:N" */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .35s,transform .35s}
+.slide.on .rv{opacity:1;transform:none;transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:calc(var(--d,0) * 90ms + 120ms)}
+.rv.fade{transform:none}
+.rv.zoom{transform:scale(.94)}
+.slide.on .rv.zoom{transform:none}
+
+/* ── Piezas comunes ─────────────────────────────────────────── */
+.bx{position:absolute;inset:0;padding:92px 128px 150px;display:flex;flex-direction:column}
+.eb{font-family:var(--mono);font-size:19px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);display:flex;align-items:center;gap:14px}
+.eb::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--lime);box-shadow:0 0 16px var(--lime);flex:none}
+.h{font-size:82px;font-weight:600;letter-spacing:-.04em;line-height:1.03;margin-top:22px;text-wrap:balance}
+.h em,.lime{font-style:normal;color:var(--lime)}
+.lead{font-size:29px;line-height:1.45;color:var(--soft);margin-top:24px;max-width:1200px;text-wrap:pretty}
+.lead b,.tl p b,.note b{color:var(--txt);font-weight:600}
+.mono{font-family:var(--mono)}
+.tl{position:relative;background:linear-gradient(180deg,var(--p2),var(--p1));border:1px solid var(--line);border-radius:28px;padding:36px 38px}
+.tl h3{font-size:31px;font-weight:600;letter-spacing:-.02em;line-height:1.15}
+.tl p{font-size:23px;line-height:1.45;color:var(--soft);margin-top:12px;text-wrap:pretty}
+.ic{width:62px;height:62px;border-radius:18px;display:grid;place-items:center;font-size:30px;color:var(--lime);background:rgba(202,254,92,.08);border:1px solid rgba(202,254,92,.22);margin-bottom:24px;flex:none}
+.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.note{font-size:21px;line-height:1.45;color:var(--mut);text-wrap:pretty}
+.call{display:flex;gap:22px;align-items:flex-start;padding:26px 32px;border-radius:24px;background:rgba(202,254,92,.07);border:1px solid rgba(202,254,92,.24);font-size:24px;line-height:1.45;color:var(--txt)}
+.call>.i{color:var(--lime);font-size:32px;margin-top:2px}
+.call.warn{background:rgba(255,122,107,.07);border-color:rgba(255,122,107,.3)}
+.call.warn>.i{color:var(--no)}
+.soon{font-family:var(--mono);font-size:16px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);display:inline-flex;align-items:center;gap:10px}
+.soon::before{content:"";width:8px;height:8px;border-radius:50%;border:1.5px solid currentColor}
+.ok{color:var(--lime)} .no{color:var(--no)}
+.btn{display:inline-flex;align-items:center;gap:14px;height:76px;padding:0 38px;border-radius:999px;background:var(--lime);color:#020202;font-size:26px;font-weight:600;letter-spacing:-.01em;white-space:nowrap}
+.btn .i{font-size:28px;stroke-width:2.2}
+.btn.ghost{background:transparent;color:var(--txt);border:1.5px solid rgba(255,255,255,.25)}
+.slide a.btn{cursor:pointer;transition:filter .2s,transform .2s}
+.slide a.btn:hover{filter:brightness(1.1);transform:translateY(-2px)}
+/* Celular con captura real de la app */
+.phone{position:relative;width:320px;border-radius:50px;padding:11px;background:#0d0d10;border:1.5px solid #2b2b32;box-shadow:0 50px 100px -30px rgba(0,0,0,.95),0 0 90px -20px rgba(202,254,92,.18)}
+.phone img{width:100%;border-radius:39px}
+/* Tarjeta en vector (la pone build.py en <!--TARJETA-->) */
+.tarjeta svg{display:block;width:100%;height:auto;border-radius:4.2%/6.7%;filter:drop-shadow(0 40px 50px rgba(0,0,0,.6)) drop-shadow(0 0 70px rgba(202,254,92,.16))}
+.flota{animation:flota 6s ease-in-out infinite}
+@keyframes flota{50%{transform:translateY(-16px)}}
+.slide.on .brillo{animation:brillo 5s ease-in-out infinite}
+@keyframes brillo{0%{transform:translateX(-900px)}60%,100%{transform:translateX(900px)}}
+
+/* Pie (lo agrega build.py en todas menos la portada) */
+.foot{position:absolute;left:128px;right:128px;bottom:46px;display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:16px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
+.foot b{color:var(--soft);font-weight:500}
+.foot .r{display:flex;align-items:center;gap:22px}
+.foot img{height:24px;opacity:.9}
+
+/* Controles flotantes (se esconden solos) */
+.ctrl{position:fixed;right:22px;bottom:20px;z-index:5;display:flex;align-items:center;gap:10px;padding:8px 10px 8px 16px;border-radius:999px;
+  background:rgba(10,10,12,.72);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:opacity .4s}
+.ctrl.hide{opacity:0;pointer-events:none}
+.count{font-size:13px;font-weight:700;letter-spacing:.12em;color:rgba(255,255,255,.6);font-variant-numeric:tabular-nums;margin-right:4px;font-family:var(--mono)}
+.count b{color:#fff}
+.ctrl button{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;font-size:17px;border:1px solid rgba(255,255,255,.16);transition:.25s}
+.ctrl button:hover{border-color:var(--lime);background:rgba(202,254,92,.16)}
+.ctrl svg{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.bar{position:fixed;left:0;bottom:0;height:3px;width:100%;z-index:5;transform-origin:0 50%;transform:scaleX(0);transition:transform .5s;background:linear-gradient(90deg,#5F8224,#CAFE5C)}
+.hint{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:5;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55);
+  background:rgba(10,10,12,.6);padding:8px 14px;border-radius:999px;transition:opacity .6s;pointer-events:none}
+.hint.off{opacity:0}
+.count{cursor:pointer}
+.count:hover b{color:var(--lime)}
+
+/* Índice de slides (miniaturas) */
+#idx{position:fixed;inset:0;z-index:40;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:28px;
+  background:rgba(2,2,2,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);opacity:0;visibility:hidden;transition:opacity .35s,visibility 0s .35s}
+#idx.open{opacity:1;visibility:visible;transition:opacity .35s}
+#idx .top{width:min(1240px,100%);display:flex;align-items:center;justify-content:space-between;color:#fff}
+#idx .top b{font-family:var(--mono);font-weight:500;font-size:18px;letter-spacing:.14em}
+#idx .top b span{color:var(--lime)}
+#idx .idx-x{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(255,255,255,.2);font-size:18px;transition:.25s}
+#idx .idx-x:hover{border-color:var(--lime);background:rgba(202,254,92,.16)}
+#idx .idx-x svg{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+#idx .grid{width:min(1240px,100%);display:grid;grid-template-columns:repeat(6,1fr);gap:14px;overflow:auto;max-height:calc(100vh - 120px);padding:4px}
+@media (max-width:760px){#idx .grid{grid-template-columns:repeat(4,1fr);gap:10px}}
+#idx .th{position:relative;aspect-ratio:16/9;border-radius:8px;overflow:hidden;cursor:pointer;background:#000;
+  outline:1.5px solid rgba(255,255,255,.12);transition:outline-color .2s,transform .2s}
+#idx .th:hover{outline-color:rgba(202,254,92,.7);transform:translateY(-2px)}
+#idx .th.cur{outline:2px solid var(--lime);box-shadow:0 0 22px rgba(202,254,92,.4)}
+#idx .th-in{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;transform:scale(var(--ts,.1));pointer-events:none}
+#idx .th-in .slide{opacity:1;visibility:visible}
+#idx .th-in .slide,#idx .th-in .slide *{transition:none!important;animation:none!important}
+#idx .th i{position:absolute;left:6px;bottom:6px;font-style:normal;font-size:11px;font-weight:700;letter-spacing:.08em;color:#fff;
+  background:rgba(0,0,0,.65);padding:2px 7px;border-radius:999px}
+#idx .th.cur i{background:var(--lime);color:#000}
+
+/*__SLIDE_CSS__*/
+
+/* ── Aviso "gira tu móvil" (solo celular en vertical) ───────── */
+#rotate{position:fixed;inset:0;z-index:60;display:none;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+  background:#020202;color:#fff;font-family:var(--f);text-align:center;padding:24px}
+@media (orientation:portrait) and (max-width:820px){html:not(.keep) #rotate{display:flex}}
+#rotate .ic2{position:relative;width:120px;height:120px;margin-bottom:10px}
+#rotate .ph{position:absolute;left:37px;top:21px;width:46px;height:78px;border:2.5px solid #fff;border-radius:11px;animation:rt-rot 3.2s cubic-bezier(.65,0,.25,1) infinite}
+#rotate .ph::after{content:"";position:absolute;left:50%;bottom:6px;width:12px;height:2.5px;margin-left:-6px;border-radius:2px;background:#fff;opacity:.55}
+#rotate .ar{position:absolute;inset:0;width:120px;height:120px;fill:none;stroke:#CAFE5C;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;animation:rt-ar 3.2s ease-in-out infinite}
+#rotate .ttl{font-size:18px;font-weight:700;letter-spacing:.01em}
+#rotate .sub{font-size:13px;color:rgba(255,255,255,.55);max-width:240px;line-height:1.5}
+#rotate .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#CAFE5C;box-shadow:0 0 12px #CAFE5C;margin-right:8px;vertical-align:1px}
+#rotate button{margin-top:26px;font:inherit;font-size:12px;color:rgba(255,255,255,.4);background:none;border:0;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+@keyframes rt-rot{0%,18%{transform:rotate(0)}48%,78%{transform:rotate(-90deg)}100%{transform:rotate(0)}}
+@keyframes rt-ar{0%,12%{opacity:0;transform:rotate(20deg)}30%,70%{opacity:1;transform:rotate(0)}88%,100%{opacity:0;transform:rotate(-10deg)}}
+@media (prefers-reduced-motion:reduce){#rotate .ph{animation:none;transform:rotate(-90deg)}#rotate .ar{animation:none}.flota,.slide.on .brillo{animation:none}}
+</style>
+</head>
+<body>
+<script>window.introWanted=location.hash==='#espera';</script>
+<div id="rotate" role="dialog" aria-label="Gira tu móvil">
+  <div class="ic2"><svg class="ar" viewBox="0 0 120 120"><path d="M28 34a42 42 0 0 1 60-6"/><path d="M88 18v11H77"/></svg><div class="ph"></div></div>
+  <div class="ttl"><span class="dot"></span>Gira tu móvil</div>
+  <div class="sub">Esta presentación está pensada para verse en horizontal.</div>
+  <button onclick="document.documentElement.classList.add('keep')">Ver así de todos modos</button>
+</div>
+
+<div id="stage">
+<!--__SLIDES__-->
+</div>
+<div class="hint" id="hint">Scroll, flechas o desliza para avanzar</div>
+<div class="ctrl" id="ctrl">
+  <span class="count" id="count" title="Ver todas las slides"></span>
+  <button id="home" aria-label="Volver al inicio" title="Volver al inicio"><svg viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5M5.5 9.5V20h13V9.5"/></svg></button>
+  <button id="grid" aria-label="Ver todas las slides" title="Ver todas las slides"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></svg></button>
+  <button id="prev" aria-label="Slide anterior"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
+  <button id="next" aria-label="Slide siguiente"><svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
+  <button id="esp" aria-label="Pantalla de espera" title="Pantalla de espera"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg></button>
+  <button id="full" aria-label="Pantalla completa"><svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+</div>
+<div class="bar" id="bar"></div>
+<div id="idx" role="dialog" aria-label="Todas las slides">
+  <div class="top"><b>TODAS LAS <span>SLIDES</span></b><button class="idx-x" id="idxClose" aria-label="Cerrar"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+  <div class="grid" id="idxGrid"></div>
+</div>
+<script>
+(function(){
+  var stage=document.getElementById('stage'), slides=[].slice.call(stage.querySelectorAll('.slide')), N=slides.length;
+  var root=document.documentElement;
+  function fit(){
+    var s=Math.min(innerWidth/1920,innerHeight/1080);
+    root.style.setProperty('--s',s);
+  }
+  addEventListener('resize',fit);fit();
+  var cur=-1, count=document.getElementById('count'), bar=document.getElementById('bar'), hint=document.getElementById('hint'), ctrl=document.getElementById('ctrl');
+  function pad(x){return (x<10?'0':'')+x}
+  function go(i){
+    i=Math.max(0,Math.min(N-1,i));if(i===cur)return;
+    if(cur>-1)hint.classList.add('off');
+    slides.forEach(function(s,j){s.classList.toggle('on',j===i)});
+    cur=i;
+    count.innerHTML='<b>'+pad(i+1)+'</b> / '+N;
+    bar.style.transform='scaleX('+((i+1)/N)+')';
+    history.replaceState(null,'','#'+(i+1));
+  }
+  var h=parseInt(location.hash.slice(1),10);
+  go(h>=1&&h<=N?h-1:0);
+  window.goSlide=go;
+
+  var lockUntil=0,last=0;
+  addEventListener('wheel',function(e){
+    if(idx.classList.contains('open'))return;
+    e.preventDefault();
+    if(window.introActive)return;
+    var now=performance.now(),gap=now-last;last=now;
+    var d=Math.abs(e.deltaY)>=Math.abs(e.deltaX)?e.deltaY:e.deltaX;
+    if(Math.abs(d)<6)return;
+    if(now<lockUntil){if(gap<140)lockUntil=Math.max(lockUntil,now+140);return}
+    go(cur+(d>0?1:-1));lockUntil=now+650;
+  },{passive:false});
+  var tx=0,ty=0;
+  addEventListener('touchstart',function(e){tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});
+  addEventListener('touchend',function(e){if(window.introActive||idx.classList.contains('open'))return;var dx=tx-e.changedTouches[0].clientX,dy=ty-e.changedTouches[0].clientY;
+    if(Math.max(Math.abs(dx),Math.abs(dy))<40)return;go(cur+((Math.abs(dy)>Math.abs(dx)?dy:dx)>0?1:-1))},{passive:true});
+  // Índice: miniaturas de todas las slides (se arman la primera vez que se abre)
+  var idx=document.getElementById('idx'), grid=document.getElementById('idxGrid'), ths=[];
+  function sizeThumbs(){if(ths.length)grid.style.setProperty('--ts',ths[0].clientWidth/1920)}
+  function openIdx(){
+    if(!ths.length)slides.forEach(function(s,j){
+      var th=document.createElement('div');th.className='th';th.title='Ir a la slide '+(j+1);
+      var inn=document.createElement('div');inn.className='th-in';
+      var c=s.cloneNode(true);c.classList.add('on');c.setAttribute('aria-hidden','true');
+      inn.appendChild(c);th.appendChild(inn);
+      var n=document.createElement('i');n.textContent=pad(j+1);th.appendChild(n);
+      th.onclick=function(){go(j);closeIdx()};
+      grid.appendChild(th);ths.push(th);
+    });
+    ths.forEach(function(t,j){t.classList.toggle('cur',j===cur)});
+    idx.classList.add('open');sizeThumbs();
+    ths[cur].scrollIntoView({block:'nearest'});
+  }
+  function closeIdx(){idx.classList.remove('open')}
+  addEventListener('resize',sizeThumbs);
+  document.getElementById('grid').onclick=openIdx;
+  count.onclick=openIdx;
+  document.getElementById('idxClose').onclick=closeIdx;
+  idx.addEventListener('click',function(e){if(e.target===idx)closeIdx()});
+  document.getElementById('home').onclick=function(){go(0)};
+
+  addEventListener('keydown',function(e){
+    var k=e.key;
+    if(idx.classList.contains('open')){if(k==='Escape')closeIdx();return}
+    if(window.introActive&&k!=='f'&&k!=='F')return;
+    if(['ArrowDown','ArrowRight','PageDown',' ','Enter'].indexOf(k)>-1&&!e.shiftKey){e.preventDefault();go(cur+1)}
+    else if(['ArrowUp','ArrowLeft','PageUp'].indexOf(k)>-1||(k===' '&&e.shiftKey)){e.preventDefault();go(cur-1)}
+    else if(k==='Home')go(0);else if(k==='End')go(N-1);
+    else if(k==='f'||k==='F')full();
+  });
+  document.getElementById('prev').onclick=function(){go(cur-1)};
+  document.getElementById('next').onclick=function(){go(cur+1)};
+  function full(){if(document.fullscreenElement)document.exitFullscreen();else if(root.requestFullscreen)root.requestFullscreen()}
+  document.getElementById('full').onclick=full;
+  document.getElementById('esp').onclick=function(){if(window.openIntro)window.openIntro()};
+  var t;function wake(){ctrl.classList.remove('hide');clearTimeout(t);t=setTimeout(function(){ctrl.classList.add('hide')},2500)}
+  addEventListener('mousemove',wake);addEventListener('touchstart',wake,{passive:true});wake();
+})();
+</script>
+</body>
+</html>

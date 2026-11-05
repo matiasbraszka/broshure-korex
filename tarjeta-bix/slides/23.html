@@ -1,0 +1,43 @@
+<style>
+#s23 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:40px}
+#s23 .tl{display:flex;gap:22px;align-items:flex-start;padding:28px 30px}
+#s23 .tl .ic{margin:0}
+#s23 .tl h3{font-size:27px}
+#s23 .tl p{font-size:21px;margin-top:8px}
+#s23 .rep{margin-top:30px}
+#s23 .rep>p{font-size:23px;color:var(--soft)}
+#s23 .rep>p b{color:var(--txt)}
+#s23 .rb{display:flex;gap:4px;height:58px;margin-top:18px}
+#s23 .rb i{border-radius:10px;display:grid;place-items:center;font-style:normal;font-family:var(--mono);font-size:20px;font-weight:600;color:#020202}
+#s23 .lab{display:flex;gap:4px;margin-top:12px;font-size:19px;color:var(--soft)}
+#s23 .lab span{white-space:nowrap}
+#s23 .end{display:flex;align-items:center;gap:36px;margin-top:30px}
+#s23 .end .note{max-width:1100px;font-size:19px}
+#s23 .btn{height:66px;font-size:23px;padding:0 30px}
+</style>
+<section class="slide" id="s23">
+  <div class="bx">
+    <div class="eb rv">Opcional · Programa de recomendaciones</div>
+    <h2 class="h rv" style="--d:1">Recomiéndala y <em>también ganas.</em></h2>
+    <p class="lead rv" style="--d:2">Puedes usar la tarjeta solo para tus compras. Si además la recomiendas, BIX comparte con tu red parte de lo que cobra.</p>
+    <div class="grid">
+      <div class="tl rv" style="--d:3"><div class="ic">{{ic:card}}</div><div><h3>Cuando piden su tarjeta</h3><p>Por cada persona que entra con tu link y cumple las condiciones.</p></div></div>
+      <div class="tl rv" style="--d:4"><div class="ic">{{ic:refresh}}</div><div><h3>Cuando la usan</h3><p>Una parte de la comisión de sus compras, todos los meses.</p></div></div>
+      <div class="tl rv" style="--d:5"><div class="ic">{{ic:red}}</div><div><h3>Cuando ellos recomiendan</h3><p>Participas de otros niveles de tu red, hasta 10.</p></div></div>
+    </div>
+    <div class="rep rv" style="--d:6">
+      <p>De las comisiones de cada compra y de la venta de tarjetas, <b>el 50 % neto se reparte así:</b></p>
+      <div class="rb">
+        <i style="flex:15;background:#CAFE5C">15 %</i><i style="flex:10;background:#8FBF2E">10 %</i>
+        <i style="flex:2.5;background:#5F8224"></i><i style="flex:2.5;background:#5F8224"></i><i style="flex:2.5;background:#5F8224"></i><i style="flex:2.5;background:#5F8224"></i>
+        <i style="flex:2.5;background:#5F8224"></i><i style="flex:2.5;background:#5F8224"></i><i style="flex:2.5;background:#5F8224"></i><i style="flex:2.5;background:#5F8224"></i>
+        <i style="flex:5;background:#A2A3AD">5 %</i>
+      </div>
+      <div class="lab"><span style="flex:15">Nivel 1</span><span style="flex:10">Nivel 2</span><span style="flex:20">Niveles 3 a 10 · 2,5 % cada uno</span><span style="flex:5">Pool BIX</span></div>
+    </div>
+    <div class="end rv" style="--d:7">
+      <a class="btn" href="/bixsimulador/" target="_blank" rel="noopener">Abrir el simulador {{ic:arrow}}</a>
+      <p class="note">La participación es opcional y no garantiza ingresos. Las comisiones dependen de que las personas pidan y usen su tarjeta, y de las condiciones vigentes del programa de BIX.</p>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,32 @@
+<style>
+#s01 .bg{position:absolute;left:0;right:0;bottom:0;height:620px;z-index:-1;background:url(img/montanas.webp) center 70%/cover;opacity:.6;
+  -webkit-mask-image:linear-gradient(transparent,#000 55%);mask-image:linear-gradient(transparent,#000 55%)}
+#s01 .logo{position:absolute;left:128px;top:92px;height:56px}
+#s01 .sig{position:absolute;right:128px;top:108px;font-family:var(--mono);font-size:18px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+#s01 .sig b{color:var(--soft);font-weight:500}
+#s01 .txt{position:absolute;left:128px;top:236px;width:1080px}
+#s01 .h{font-size:122px;line-height:.96;letter-spacing:-.05em;margin-top:28px}
+#s01 .lead{font-size:32px;max-width:800px;margin-top:36px}
+#s01 .card{position:absolute;right:118px;top:250px;width:640px;transform:perspective(1800px) rotateY(-18deg) rotateX(9deg) rotateZ(-5deg)}
+#s01 .strip{position:absolute;left:128px;right:128px;bottom:70px;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;border-top:1px solid var(--line);padding-top:32px}
+#s01 .strip div{display:flex;gap:16px;align-items:center;font-size:23px;color:var(--soft)}
+#s01 .strip .i{color:var(--lime);font-size:32px}
+#s01 .strip b{color:var(--txt);font-weight:600}
+</style>
+<section class="slide" id="s01">
+  <div class="bg"></div>
+  <img class="logo rv fade" src="img/logo-bix-verde.svg" alt="BIX">
+  <div class="sig rv fade"><b>KOREX by BIX CARD</b> · Partner independiente</div>
+  <div class="txt">
+    <div class="eb rv" style="--d:1">Presentación · Tarjeta BIX</div>
+    <h1 class="h rv" style="--d:2">Tu cripto,<br>en el <em>mundo real.</em></h1>
+    <p class="lead rv" style="--d:3">La tarjeta Visa de débito para pagar con tus dólares digitales en cualquier comercio, sin entregarle tu dinero a nadie.</p>
+  </div>
+  <div class="card rv zoom" style="--d:3"><div class="tarjeta flota"><!--TARJETA--></div></div>
+  <div class="strip rv" style="--d:5">
+    <div>{{ic:store}}<span><b>+100 M</b> de comercios Visa</span></div>
+    <div>{{ic:globe}}<span><b>99</b> países y territorios</span></div>
+    <div>{{ic:nfc}}<span><b>Apple Pay</b> y <b>Google Pay</b></span></div>
+    <div>{{ic:headset}}<span>Soporte humano <b>24/7</b></span></div>
+  </div>
+</section>

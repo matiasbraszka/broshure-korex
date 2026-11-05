@@ -1,0 +1,26 @@
+<style>
+#s04 .txt{width:1020px}
+#s04 .list{display:flex;flex-direction:column;gap:20px;margin-top:48px}
+#s04 .row{display:flex;gap:28px;align-items:center;padding:28px 34px}
+#s04 .row .ic{margin:0;width:72px;height:72px;font-size:34px}
+#s04 .row p{margin-top:6px}
+#s04 .ph{position:absolute;right:200px;top:110px}
+#s04 .phone{width:330px}
+#s04 .halo{position:absolute;right:120px;top:180px;width:520px;height:720px;border-radius:50%;background:radial-gradient(closest-side,rgba(202,254,92,.18),transparent);filter:blur(30px);z-index:-1}
+</style>
+<section class="slide" id="s04">
+  <div class="halo"></div>
+  <div class="bx">
+    <div class="txt">
+      <div class="eb rv">Qué es BIX</div>
+      <h2 class="h rv" style="--d:1">Tres cosas en <em>una sola app.</em></h2>
+      <p class="lead rv" style="--d:2">BIX junta en tu celular una billetera para tus dólares digitales y una tarjeta Visa para gastarlos.</p>
+      <div class="list">
+        <div class="tl row rv" style="--d:3"><div class="ic">{{ic:wallet}}</div><div><h3>Billetera propia</h3><p>Guardas, recibes y envías tus criptos. Solo tú puedes mover ese dinero.</p></div></div>
+        <div class="tl row rv" style="--d:4"><div class="ic">{{ic:card}}</div><div><h3>Tarjeta Visa de débito</h3><p>Pagas con tu saldo en tiendas, online y en el exterior. No es crédito: gastas lo que cargas.</p></div></div>
+        <div class="tl row rv" style="--d:5"><div class="ic">{{ic:phone}}</div><div><h3>La app de BIX</h3><p>Recargas la tarjeta, la congelas, pones límites y la sumas a Apple Pay o Google Pay.</p></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="ph rv zoom" style="--d:3"><div class="phone flota"><img src="img/app-tarjeta.webp" alt="Tarjeta BIX en la app"></div></div>
+</section>

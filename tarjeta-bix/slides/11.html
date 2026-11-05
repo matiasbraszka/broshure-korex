@@ -1,0 +1,38 @@
+<style>
+#s11 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:44px}
+#s11 .tl{padding:28px 28px 30px;display:flex;flex-direction:column}
+#s11 .tl.off{background:linear-gradient(180deg,#0f0f13,#09090c)}
+#s11 .vis{margin:0 4px 26px}
+#s11 .mc{position:relative;aspect-ratio:856/540;border-radius:4.2%/6.7%;overflow:hidden;box-shadow:0 30px 40px -20px rgba(0,0,0,.8)}
+#s11 .mc img{position:absolute;left:6%;top:9%;width:30%}
+#s11 .mc b{position:absolute;right:6%;bottom:8%;font-family:Montserrat,Arial,sans-serif;font-style:italic;font-weight:900;font-size:36px}
+#s11 .metal{background:linear-gradient(135deg,#5b5d63,#2a2b2f 45%,#6d6f76 70%,#26272b);color:#e6e7ea}
+#s11 .gold{background:linear-gradient(135deg,#f3dc8c,#b9933a 45%,#f0d77f 70%,#9c7a2b);color:#2b2108}
+#s11 .k{font-family:var(--mono);font-size:17px;letter-spacing:.14em;text-transform:uppercase;color:var(--lime)}
+#s11 .tl h3{font-size:30px;margin-top:8px}
+#s11 .p{font-size:46px;font-weight:600;letter-spacing:-.03em;color:var(--lime);margin-top:14px;line-height:1}
+#s11 .p small{font-size:22px;color:var(--soft);font-weight:500;letter-spacing:0}
+#s11 .tl p{font-size:21px;margin-top:14px}
+#s11 .soon{margin-top:16px}
+#s11 .row{display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:22px;margin-top:26px}
+#s11 .row div{display:flex;gap:14px;align-items:flex-start;font-size:22px;color:var(--soft);line-height:1.4}
+#s11 .row .i{color:var(--lime);font-size:28px;stroke-width:2.2}
+#s11 .row b{color:var(--txt);font-weight:600}
+</style>
+<section class="slide" id="s11">
+  <div class="bx">
+    <div class="eb rv">Las tarjetas</div>
+    <h2 class="h rv" style="--d:1">Elige <em>tu tarjeta.</em></h2>
+    <div class="grid">
+      <div class="tl rv" style="--d:2"><div class="vis tarjeta"><!--TARJETA--></div><span class="k">Disponible</span><h3>Virtual</h3><div class="p">9,99 <small>USDT · pago único</small></div><p>Lista al instante en la app. Para compras online, Apple Pay y Google Pay.</p></div>
+      <div class="tl rv" style="--d:3"><div class="vis tarjeta"><!--TARJETA chip--></div><span class="k">Disponible</span><h3>Física</h3><div class="p">US$ 99 <small>+ envío</small></div><p>Para tiendas y cajeros. Envío a 77 destinos; en América Latina, a 9 países.</p></div>
+      <div class="tl off rv" style="--d:4"><div class="vis"><div class="mc metal"><img src="img/logo-bix-blanco.svg" alt=""><b>VISA</b></div></div><span class="k" style="color:var(--mut)">Anunciada</span><h3>Metal</h3><span class="soon">Próximamente</span></div>
+      <div class="tl off rv" style="--d:5"><div class="vis"><div class="mc gold"><img src="img/logo-bix-negro.svg" alt=""><b>VISA</b></div></div><span class="k" style="color:var(--mut)">Anunciada</span><h3>Gold</h3><span class="soon">Próximamente</span></div>
+    </div>
+    <div class="row rv" style="--d:6">
+      <div>{{ic:check}}<span>Todas hacen lo mismo: <b>cambia el diseño y el material.</b></span></div>
+      <div>{{ic:check}}<span><b>Sin cuota anual.</b> Pagas el alta una sola vez.</span></div>
+      <div>{{ic:check}}<span>Hasta <b>5 virtuales y 2 físicas</b> por cuenta, cada una con su saldo y sus límites.</span></div>
+    </div>
+  </div>
+</section>
