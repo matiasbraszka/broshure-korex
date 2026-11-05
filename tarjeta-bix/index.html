@@ -294,6 +294,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 #s12 .tl h3{display:flex;gap:14px;align-items:center}
 #s12 .tl h3 .i{color:var(--lime);font-size:32px}
 #s12 .call{font-size:23px}
+#s12 .sp{display:flex;height:52px;border-radius:14px;overflow:hidden;margin:20px 0 18px;font-family:var(--mono);font-size:19px;letter-spacing:.06em;text-transform:uppercase}
+#s12 .sp span{flex:1;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.08);color:var(--soft)}
+#s12 .sp span.on{background:var(--lime);color:#020202;font-weight:600}
 
 /* ── slide 13 ── */
 #s13 .cols{display:grid;grid-template-columns:1fr 1.15fr;gap:28px;margin-top:44px;align-items:stretch}
@@ -847,7 +850,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
         <div class="tr"><span>Disputa de un cargo</span><b>hasta US$ 30</b></div>
       </div>
       <div class="side">
-        <div class="tl rv" style="--d:3"><h3><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.3a2.6 2.6 0 0 1 5 .9c0 1.8-2.5 2.2-2.5 3.8M12 17h.01"/></svg>¿Por qué 3 %?</h3><p>Pagas por tener el control de tu dinero y soporte con personas reales. Hay opciones más baratas, pero te piden dejarles tu dinero.</p></div>
+        <div class="tl rv" style="--d:3"><h3><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.3a2.6 2.6 0 0 1 5 .9c0 1.8-2.5 2.2-2.5 3.8M12 17h.01"/></svg>¿A dónde va el 3 %?</h3>
+          <div class="sp"><span>50 % BIX</span><span class="on">50 % la red</span></div>
+          <p><b>La mitad va a la red:</b> BIX la reparte entre quienes recomendaron la tarjeta (45 % en 10 niveles y 5 % al Pool). La otra mitad queda en BIX para operar la tarjeta y el soporte.</p></div>
         <div class="call rv" style="--d:4"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2.5 4 14h7l-1 7.5L19 10h-7z"/></svg><span><b>Para ahorrar:</b> si el datáfono o el cajero te pregunta «¿USD o moneda local?», elige siempre <b>moneda local.</b></span></div>
         <p class="note rv" style="--d:5">Antes de confirmar cada pago, la app te muestra la comisión exacta.</p>
       </div>
