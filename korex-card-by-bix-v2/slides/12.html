@@ -1,0 +1,65 @@
+<style>
+#s12{background:radial-gradient(900px 600px at 50% 0%,rgba(255,255,255,.035),transparent 70%),linear-gradient(180deg,#0b0b0b,#050505 40%,#060606 100%)}
+#s12 .silk{left:0;top:0;width:1920px;height:1080px;pointer-events:none}
+#s12 .shield{left:700px;top:330px;width:510px;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent),linear-gradient(180deg,transparent,#000 5%);-webkit-mask-composite:source-in;
+  mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent),linear-gradient(180deg,transparent,#000 5%);mask-composite:intersect}
+#s12 .h{left:0;top:78px;width:1920px;text-align:center;line-height:1.08}
+#s12 .h span{display:block;white-space:nowrap;transform-origin:50% 0;-webkit-text-stroke:1.6px transparent}
+#s12 .h .a{font-size:52px;transform:scaleX(1.16)}
+#s12 .h .b{font-size:84px;transform:scaleX(1.14);background:linear-gradient(90deg,#10C3EE,#05CBEC 60%,#14D0EE);-webkit-background-clip:text;background-clip:text;color:transparent}
+#s12 .sub{left:0;right:0;top:250px;text-align:center;font-size:29.8px;font-weight:300;color:#fff}
+#s12 .sub b{font-weight:600}
+#s12 .reg{top:302px;width:200px;text-align:center}
+#s12 .reg b{display:block;font-size:30px;font-weight:500;line-height:42px;color:#fff}
+#s12 .reg span{display:block;margin-top:-2px;font-size:17.6px;font-weight:600;line-height:22px;color:#4FB2C6}
+#s12 .rdv{top:287px;width:1.6px;height:101px;background:#F2F2F2}
+#s12 .box{left:129px;width:105px;height:106px;border-radius:20px;display:grid;place-items:center;
+  background:linear-gradient(150deg,#222 0%,#0d0d0d 45%,#050505 100%);border:1.5px solid #3a3a3a;border-top-color:#555;border-left-color:#4a4a4a}
+#s12 .box svg{width:68px;height:68px;filter:drop-shadow(0 0 5px rgba(255,255,255,.25));fill:none;stroke:#F2F2F2;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round}
+#s12 .sec{left:264px}
+#s12 .sec h4{font-size:25.5px;font-weight:500;line-height:32px;letter-spacing:.01em;
+  background:linear-gradient(90deg,#F6F6F6 0,#EAF7FA 70px,#7BC3D8 120px,#5DB8D6 100%);-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block}
+#s12 .sec ul{list-style:none;margin-top:6px}
+#s12 .sec li{position:relative;padding-left:22px;font-size:18.3px;line-height:30px;font-weight:300;color:#EDEDED;white-space:nowrap}
+#s12 .sec li::before{content:"";position:absolute;left:0;top:12px;width:7px;height:7px;border-radius:50%;background:#45BEDB}
+#s12 .sec li.nb::before{display:none}
+#s12 .panel{left:1289px;top:486px;width:497px;height:228px;border-radius:30px;background:linear-gradient(170deg,#121212,#0c0c0c);border:1.5px solid #3b3b3b}
+#s12 .panel svg{position:absolute;fill:none;stroke:#BDBDBD;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#s12 .panel .t{position:absolute;left:132px;top:42px;font-size:25.3px;font-weight:700;color:#fff;letter-spacing:.005em}
+#s12 .row{position:absolute;left:35px;right:35px;height:95px;border-bottom:1.5px solid #383838}
+#s12 .row:last-child{border-bottom:0}
+#s12 .row p{position:absolute;left:97px;font-size:21.5px;line-height:30px;font-weight:300;color:#F2F2F2;white-space:nowrap}
+#s12 .row .ver{position:absolute;left:338px;width:80px;height:30px;border-radius:15px;display:grid;place-items:center;
+  background:linear-gradient(180deg,#3FDDF6,#1FCDEF);font-size:19px;font-weight:500;color:#0A2033}
+#s12 .row svg{left:6px}
+</style>
+<section class="slide" id="s12">
+  <svg class="abs silk" viewBox="0 0 1920 1080" aria-hidden="true"><defs><filter id="s12b" filterUnits="userSpaceOnUse" x="-200" y="-200" width="2320" height="1480"><feGaussianBlur stdDeviation="26"/></filter><filter id="s12c" filterUnits="userSpaceOnUse" x="-200" y="-200" width="2320" height="1480"><feGaussianBlur stdDeviation="7"/></filter></defs>
+    <g fill="none" stroke="#fff" stroke-linecap="round">
+      <path filter="url(#s12b)" stroke-opacity=".07" stroke-width="180" d="M-80 860 C200 780 420 760 700 820"/>
+      <path filter="url(#s12c)" stroke-opacity=".10" stroke-width="16" d="M-60 800 C200 740 420 730 680 780"/>
+      <path filter="url(#s12b)" stroke-opacity=".08" stroke-width="140" d="M1990 300 C1880 480 1760 600 1560 700"/>
+      <path filter="url(#s12c)" stroke-opacity=".10" stroke-width="12" d="M1960 330 C1860 480 1740 590 1560 680"/>
+      <path filter="url(#s12b)" stroke-opacity=".05" stroke-width="200" d="M1300 -80 C1500 60 1700 120 1990 150"/>
+    </g></svg>
+  <img class="abs shield rv zoom" src="img/s12-shield.webp" alt="Escudo de protección" style="--d:3">
+  <h2 class="abs t-title h rv"><span class="a g-silver">ESTRUCTURA Y</span><span class="b">DOCUMENTACIÓN</span></h2>
+  <p class="abs sub rv" style="--d:1">Revisa tú mismo la <b>documentación oficial</b> de la empresa.</p>
+
+
+
+
+  <div class="abs box rv" style="top:575px;--d:3"><svg viewBox="0 0 60 60"><rect x="12" y="12" width="30" height="38" rx="3.5"/><rect x="21" y="8" width="12" height="8" rx="2"/><path d="M18 24h11M18 31h15M18 38h9"/><circle cx="42" cy="42" r="8.5" fill="#101010"/><path d="M38.2 42.2 41 45 46 39.5"/></svg></div>
+  <div class="abs sec rv" style="top:562px;--d:3"><h4>ESTRUCTURA CORPORATIVA</h4><ul><li>TM-FINANCIALS LIMITED</li><li>Empresa registrada en Reino Unido</li><li>Companies House Nº 12629770</li></ul></div>
+
+  <div class="abs panel rv" style="--d:6">
+    <svg style="left:50px;top:33px;width:50px;height:60px" viewBox="0 0 50 60"><path d="M6 3h25l13 13v39a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M31 3v13h13"/><path d="M13 40h14M13 47h22" stroke="#5FC6E0"/></svg>
+    <div class="t">DOCUMENTACIÓN OFICIAL</div>
+    <div class="row" style="top:110px"><svg style="top:12px;width:50px;height:58px" viewBox="0 0 50 58"><path d="M25 4v6M25 4h7v4h-7"/><path d="M5 22 25 12l20 10z"/><path d="M7 22h36"/><path d="M11 26v20M18 26v20M25 26v20M32 26v20M39 26v20"/><path d="M6 49h38M4 54h42"/></svg><p style="top:11px">Registro en Gobierno<br>de Reino Unido</p><a class="ver" href="https://find-and-update.company-information.service.gov.uk/company/12629770" target="_blank" rel="noopener" style="top:28px">Ver</a></div>
+  </div>
+
+  <div class="foot-a">aitechone.io</div>
+  <img class="mk-a" src="/assets/mk-logo-cropped.png" alt="Método Korex">
+  <div class="pg-a">8</div>
+</section>

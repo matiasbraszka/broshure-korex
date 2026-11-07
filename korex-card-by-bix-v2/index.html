@@ -1,0 +1,2138 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Equipo Korex · AITech One · Presentación</title>
+<meta name="description" content="Equipo Korex · AITech One: presentación privada.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#000000">
+<meta property="og:title" content="Equipo Korex · AITech One">
+<meta property="og:description" content="Presentación privada · Grupo de líderes">
+<meta property="og:image" content="https://info.metodokorex.com/korex-card-by-bix-v2/og.jpg">
+<link rel="icon" href="/assets/mk-symbol.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Orbitron:wght@500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ── Base compartida ───────────────────────────────────────── */
+:root{
+  --f-title:'Audiowide',sans-serif;     /* títulos Korex: KOREX BY BIX CARD, ¿QUÉ ES KOREX? */
+  --f-wide:'Orbitron',sans-serif;       /* títulos anchos AI Tech */
+  --f-body:'Inter',system-ui,sans-serif;
+  --cyan:#29B6F6; --cyan2:#7FD8FF; --cyan-deep:#0E8BD6;
+  --txt:#FFFFFF; --soft:#C9CED8; --mut:#8A909C;
+  --card:rgba(22,24,30,.82); --card-line:rgba(255,255,255,.09);
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --s:1;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#000;color:var(--txt);font-family:var(--f-body)}
+body{overflow:hidden;touch-action:none;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{display:block;user-select:none;-webkit-user-drag:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+/* Escenario fijo 1920×1080 escalado a la pantalla */
+#stage{position:fixed;left:50%;top:50%;width:1920px;height:1080px;transform:translate(-50%,-50%) scale(var(--s));overflow:clip;background:#000}
+.slide{position:absolute;inset:0;overflow:clip;isolation:isolate;opacity:0;visibility:hidden;transition:opacity .6s var(--ease),visibility 0s .6s;background:#000;font-size:24px;line-height:1.4}
+.slide.on{opacity:1;visibility:visible;transition:opacity .6s var(--ease),visibility 0s}
+.slide .abs{position:absolute}
+
+/* Entrada escalonada: class="rv" + style="--d:N" */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .35s,transform .35s}
+.slide.on .rv{opacity:1;transform:none;transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:calc(var(--d,0) * 90ms + 120ms)}
+.rv.fade{transform:none}
+.rv.zoom{transform:scale(.94)}
+.slide.on .rv.zoom{transform:none}
+
+/* Utilidades comunes */
+.t-title{font-family:var(--f-title);font-weight:400;letter-spacing:.01em;line-height:1.05}
+.t-wide{font-family:var(--f-wide);font-weight:800;letter-spacing:.02em;line-height:1.05}
+.g-cyan{background:linear-gradient(90deg,#1FA2F0 0%,#45C2FF 55%,#9FE3FF 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.g-silver{background:linear-gradient(180deg,#FFFFFF 0%,#E6E9EE 45%,#9CA3AE 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cyan{color:var(--cyan)}
+.card{background:var(--card);border:1px solid var(--card-line);border-radius:16px}
+.glow-line{height:4px;border-radius:4px;background:radial-gradient(closest-side,#7FD8FF,#29B6F6 40%,transparent);filter:blur(1px)}
+
+/* Fondo "seda" de las slides Korex (pie KOREX by BIX CARD) */
+.bg-silk{background:
+  radial-gradient(1200px 520px at 78% -8%,rgba(255,255,255,.10),transparent 60%),
+  radial-gradient(900px 700px at 105% 60%,rgba(255,255,255,.07),transparent 60%),
+  radial-gradient(800px 600px at -10% 90%,rgba(255,255,255,.05),transparent 60%),
+  linear-gradient(180deg,#07080a,#030304)}
+.bg-silk::before{content:"";position:absolute;inset:-10%;z-index:-1;pointer-events:none;opacity:.55;
+  background:
+   conic-gradient(from 200deg at 120% -20%,transparent 0deg,rgba(255,255,255,.10) 18deg,transparent 40deg,rgba(255,255,255,.06) 60deg,transparent 80deg),
+   conic-gradient(from 20deg at -20% 120%,transparent 0deg,rgba(255,255,255,.07) 14deg,transparent 34deg);
+  filter:blur(28px)}
+
+/* Pies repetidos */
+.foot-k{position:absolute;left:128px;top:985px;font-size:22px;letter-spacing:.04em;color:#9AA0AA}
+.mk-k{position:absolute;left:1722px;top:982px;width:72px;filter:invert(1);opacity:.92}
+.foot-a{position:absolute;left:24px;top:1036px;font-size:19px;color:#8A909C}
+.mk-a{position:absolute;left:1788px;top:1026px;width:64px;filter:invert(1)}
+.pg-a{position:absolute;left:1872px;top:1024px;font-size:24px;color:#9AA0AA}
+
+/* Controles flotantes (se esconden solos) */
+.ctrl{position:fixed;right:22px;bottom:20px;z-index:5;display:flex;align-items:center;gap:10px;padding:8px 10px 8px 16px;border-radius:999px;
+  background:rgba(10,12,18,.72);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:opacity .4s}
+.ctrl.hide{opacity:0;pointer-events:none}
+.count{font-size:13px;font-weight:700;letter-spacing:.12em;color:rgba(255,255,255,.6);font-variant-numeric:tabular-nums;margin-right:4px}
+.count b{color:#fff}
+.ctrl button{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;font-size:17px;border:1px solid rgba(255,255,255,.16);transition:.25s}
+.ctrl button:hover{border-color:var(--cyan);background:rgba(41,182,246,.18)}
+.ctrl svg{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.bar{position:fixed;left:0;bottom:0;height:3px;width:100%;z-index:5;transform-origin:0 50%;transform:scaleX(0);transition:transform .5s;background:linear-gradient(90deg,#0E8BD6,#29B6F6)}
+.hint{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:5;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55);
+  background:rgba(10,12,18,.6);padding:8px 14px;border-radius:999px;transition:opacity .6s;pointer-events:none}
+.hint.off{opacity:0}
+.count{cursor:pointer}
+.count:hover b{color:var(--cyan)}
+
+/* Índice de slides (miniaturas) */
+#idx{position:fixed;inset:0;z-index:40;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:28px;
+  background:rgba(4,6,10,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);opacity:0;visibility:hidden;transition:opacity .35s,visibility 0s .35s}
+#idx.open{opacity:1;visibility:visible;transition:opacity .35s}
+#idx .top{width:min(1240px,100%);display:flex;align-items:center;justify-content:space-between;color:#fff}
+#idx .top b{font-family:var(--f-title);font-weight:400;font-size:22px;letter-spacing:.06em}
+#idx .top b span{color:var(--cyan)}
+#idx .idx-x{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(255,255,255,.2);font-size:18px;transition:.25s}
+#idx .idx-x:hover{border-color:var(--cyan);background:rgba(41,182,246,.18)}
+#idx .idx-x svg{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+#idx .grid{width:min(1240px,100%);display:grid;grid-template-columns:repeat(6,1fr);gap:14px;overflow:auto;max-height:calc(100vh - 120px);padding:4px}
+@media (max-width:760px){#idx .grid{grid-template-columns:repeat(4,1fr);gap:10px}}
+#idx .th{position:relative;aspect-ratio:16/9;border-radius:8px;overflow:hidden;cursor:pointer;background:#000;
+  outline:1.5px solid rgba(255,255,255,.12);transition:outline-color .2s,transform .2s}
+#idx .th:hover{outline-color:rgba(41,182,246,.7);transform:translateY(-2px)}
+#idx .th.cur{outline:2px solid var(--cyan);box-shadow:0 0 22px rgba(41,182,246,.45)}
+#idx .th-in{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;transform:scale(var(--ts,.1));pointer-events:none}
+#idx .th-in .slide{opacity:1;visibility:visible}
+#idx .th-in .slide,#idx .th-in .slide *{transition:none!important;animation:none!important}
+#idx .th i{position:absolute;left:6px;bottom:6px;font-style:normal;font-size:11px;font-weight:700;letter-spacing:.08em;color:#fff;
+  background:rgba(0,0,0,.65);padding:2px 7px;border-radius:999px}
+#idx .th.cur i{background:var(--cyan);color:#000}
+
+
+/* Botones con link */
+.slide a.ver,.slide a.btn{cursor:pointer;transition:filter .2s,transform .2s}
+.slide a.ver:hover,.slide a.btn:hover{filter:brightness(1.25)}
+
+/* ── slide 1 (02) ── */
+#s02{background:#050505}
+#s02 .globe{left:860px;top:0;width:1060px;height:1080px;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 60px);mask-image:linear-gradient(90deg,transparent 0,#000 60px)}
+#s02 .mk{left:128px;top:96px;width:124px;filter:invert(1)}
+#s02 .tag{left:129px;top:230px;font-size:24px;font-weight:700;letter-spacing:.164em;color:#45BCF0;white-space:nowrap}
+#s02 .h{left:127px;top:292px;font-size:80px;white-space:nowrap;line-height:1.06;letter-spacing:.012em;
+  background:linear-gradient(90deg,#2FB3F2 0%,#4CC5F8 35%,#6AD3FA 70%,#B4ECFC 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+#s02 .by{left:127px;top:436px;font-size:57px;white-space:nowrap;letter-spacing:.02em;
+  background:linear-gradient(180deg,#fafbfb 0%,#dfe2e6 55%,#c5c9cf 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+#s02 .p{left:129px;top:520px;width:860px;font-size:30px;line-height:45px;font-weight:300;letter-spacing:.028em;color:#B3B5BA}
+#s02 .h .by2{-webkit-text-fill-color:transparent;background:linear-gradient(180deg,#fafbfb 0%,#dfe2e6 55%,#c5c9cf 100%);-webkit-background-clip:text;background-clip:text}
+#s02 .h .bix{-webkit-text-fill-color:transparent;background:linear-gradient(90deg,#2FB3F2,#4CC5F8 60%,#6AD3FA);-webkit-background-clip:text;background-clip:text}
+#s02 .unused{background:linear-gradient(90deg,#2FB3F2,#6AD3FA 70%,#B4ECFC);-webkit-background-clip:text;background-clip:text;color:transparent}
+#s02 .ai{left:124px;top:796px;width:260px}
+
+/* ── slide 2 (01) ── */
+#s01{background:
+  radial-gradient(900px 260px at 22% 104%,rgba(20,90,130,.55),transparent 70%),
+  radial-gradient(700px 420px at 0% 100%,rgba(14,60,90,.45),transparent 70%),
+  radial-gradient(900px 300px at 10% -6%,rgba(10,40,70,.45),transparent 70%),
+  #070707}
+#s01 .ring{left:1340px;top:20px;width:580px;height:720px;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 22px),linear-gradient(0deg,transparent 0,#000 40px);-webkit-mask-composite:source-in;
+  mask-image:linear-gradient(90deg,transparent 0,#000 22px),linear-gradient(0deg,transparent 0,#000 40px);mask-composite:intersect}
+#s01 .h{left:0;top:0;width:1920px;height:300px;font-weight:800}
+#s01 .h span{position:absolute;white-space:nowrap;line-height:1;transform-origin:0 0}
+#s01 .h .a{left:436px;top:208px;font-size:60px;letter-spacing:.06em;transform:scaleX(1.03);background:linear-gradient(180deg,#fff 0%,#f4f4f4 50%,#8e8e8e 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+#s01 .h .b{left:708px;top:192px;font-size:88px;letter-spacing:.03em;transform:scaleX(1.12);background:linear-gradient(90deg,#0cc4ec 0%,#16aef2 30%,#2a8ef2 60%,#3270f8 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+#s01 .line{left:470px;top:286px;width:980px;height:34px;
+  background:radial-gradient(closest-side,rgba(10,150,210,.75),rgba(0,90,140,.35) 55%,transparent);filter:blur(3px)}
+#s01 .line::after{content:"";position:absolute;left:3%;right:3%;top:14px;height:5px;border-radius:5px;
+  background:linear-gradient(90deg,transparent,#2f6f96 15%,#7fd2ef 35%,#d5ffff 50%,#7fd2ef 65%,#2f6f96 85%,transparent);filter:blur(1.2px)}
+#s01 .txt{left:228px;top:356px;width:1560px;font-size:29.6px;line-height:47px;font-weight:300;color:#E4E7EC;letter-spacing:.02em}
+#s01 .txt p+p{margin-top:47px}
+#s01 .txt b{font-weight:600;color:#fff;letter-spacing:.006em;font-size:30.6px;line-height:1}
+
+/* ── slide 3 (n03) ── */
+#sn03{background:radial-gradient(1000px 600px at 95% 0%,rgba(255,255,255,.06),transparent 70%),linear-gradient(160deg,#08080a,#030304 60%,#020203)}
+#sn03 .silk{left:0;top:0;width:1920px;height:1080px;pointer-events:none}
+#sn03 .kick{left:0;right:0;top:98px;text-align:center;font-size:44px}
+#sn03 .h{left:0;right:0;top:156px;text-align:center;font-size:66px}
+#sn03 .c{top:330px;width:372px;height:380px;background:#17181C;border:1.5px solid rgba(255,255,255,.13);border-radius:14px;padding:44px 36px 0}
+#sn03 .c .ic{width:64px;height:64px;border-radius:16px;display:grid;place-items:center;background:rgba(41,182,246,.1);border:1px solid rgba(41,182,246,.35)}
+#sn03 .c .ic svg{width:34px;height:34px;fill:none;stroke:#3CBDF4;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+#sn03 .c .n{margin-top:40px;font-family:var(--f-title);font-size:58px;line-height:1;color:#3CBDF4}
+#sn03 .c h3{margin-top:24px;font-size:34px;font-weight:600;line-height:1.25;color:#fff}
+#sn03 .c.k{background:linear-gradient(160deg,rgba(14,58,96,.92),rgba(8,24,44,.95) 60%);border-color:rgba(41,182,246,.6);
+  box-shadow:0 0 0 1px rgba(41,182,246,.12),0 30px 80px -30px rgba(41,182,246,.6)}
+#sn03 .c.k .tag{position:absolute;left:36px;top:-17px;height:34px;padding:0 16px;border-radius:17px;display:flex;align-items:center;
+  font-size:15px;font-weight:700;letter-spacing:.14em;color:#04121d;background:linear-gradient(90deg,#29B6F6,#7FD8FF)}
+#sn03 .ar{top:512px;width:36px;height:16px}
+#sn03 .ar path{fill:#32C2FA;opacity:.8}
+#sn03 .goal{left:0;right:0;top:800px;text-align:center;font-size:32px;color:#E6E7EA}
+#sn03 .goal span{color:var(--cyan2)}
+
+/* ── slide 4 (n04) ── */
+#sn04 .kick{left:0;right:0;top:98px;text-align:center;font-size:44px}
+#sn04 .h{left:0;right:0;top:156px;text-align:center;font-size:62px}
+#sn04 .col{top:320px;width:720px;height:440px;padding:56px 60px 0}
+#sn04 .col .ic{width:96px;height:96px;border-radius:24px;display:grid;place-items:center;background:rgba(41,182,246,.1);border:1px solid rgba(41,182,246,.4);
+  box-shadow:0 0 40px -10px rgba(41,182,246,.6)}
+#sn04 .col .ic svg{width:50px;height:50px;fill:none;stroke:#3CBDF4;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+#sn04 .col h3{margin-top:36px;font-family:var(--f-title);font-weight:400;font-size:36px;line-height:1.15;letter-spacing:.01em}
+#sn04 .col p{margin-top:22px;font-size:29px;line-height:1.45;color:#C9CED8}
+#sn04 .plus{left:928px;top:508px;width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font-size:40px;font-weight:300;color:var(--cyan);
+  background:#0b0d12;border:1.5px solid rgba(41,182,246,.6);box-shadow:0 0 24px rgba(41,182,246,.45)}
+#sn04 .both{left:0;right:0;top:820px;text-align:center;font-family:var(--f-title);font-size:46px}
+
+/* ── slide 5 (03) ── */
+#s03 .kick{left:0;right:0;top:94px;text-align:center;font-size:44px}
+#s03 .h{left:0;right:0;top:158px;text-align:center;font-size:66px}
+#s03 .intro{left:300px;width:1320px;top:270px;text-align:center;font-size:31px;line-height:1.5;color:#E4E7EC}
+#s03 .card{top:414px;width:532px;height:310px;padding:56px 50px 0;text-align:center}
+#s03 .card .n{font-family:var(--f-title);font-size:68px;line-height:1;color:var(--cyan)}
+#s03 .card p{margin-top:36px;font-size:26px;line-height:1.46;color:#C9CED8}
+
+/* ── slide 6 (05) ── */
+#s05{background:
+  radial-gradient(420px 300px at 6% 86%,rgba(255,255,255,.045),transparent 70%),
+  #020203}
+#s05 .st{position:absolute;inset:0;pointer-events:none}
+#s05 .st1{background:radial-gradient(circle at 729px -316px,transparent 895px,rgba(255,255,255,.06) 995px,rgba(255,255,255,.14) 1055px,rgba(255,255,255,.26) 1095px,rgba(255,255,255,.33) 1115px,rgba(255,255,255,.35) 1133px,rgba(255,255,255,.18) 1149px,transparent 1161px);
+  -webkit-mask-image:conic-gradient(from 0deg at 729px -316px,transparent 95deg,#000 108deg,#000 124deg,rgba(0,0,0,.72) 131deg,rgba(0,0,0,.45) 148deg,rgba(0,0,0,.28) 165deg,rgba(0,0,0,.12) 180deg,transparent 196deg);
+  mask-image:conic-gradient(from 0deg at 729px -316px,transparent 95deg,#000 108deg,#000 124deg,rgba(0,0,0,.72) 131deg,rgba(0,0,0,.45) 148deg,rgba(0,0,0,.28) 165deg,rgba(0,0,0,.12) 180deg,transparent 196deg)}
+#s05 .st2{background:radial-gradient(circle at 729px -316px,transparent 1188px,rgba(255,255,255,.14) 1206px,rgba(255,255,255,.25) 1218px,transparent 1230px);filter:blur(1.5px);
+  -webkit-mask-image:conic-gradient(from 0deg at 729px -316px,transparent 98deg,rgba(0,0,0,.35) 106deg,#000 117deg,rgba(0,0,0,.6) 128deg,transparent 145deg);
+  mask-image:conic-gradient(from 0deg at 729px -316px,transparent 98deg,rgba(0,0,0,.35) 106deg,#000 117deg,rgba(0,0,0,.6) 128deg,transparent 145deg)}
+#s05 .st3{left:-711px;top:-1522px;right:auto;bottom:auto;width:2490px;height:2490px;border-radius:50%;border:14px solid transparent;border-bottom-color:rgba(255,255,255,.05);border-right-color:rgba(255,255,255,.04);filter:blur(8px)}
+#s05 .kick{left:0;right:0;top:97px;text-align:center;font-size:45px;line-height:1.05;
+  background:linear-gradient(180deg,#fbfbfd 0%,#eef0f2 45%,#cfd2d6 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+#s05 .h{left:0;right:0;top:154px;text-align:center;font-size:65.1px;line-height:1.05;white-space:nowrap;
+  background:linear-gradient(90deg,#2BB0F0 0%,#45C3F8 40%,#8ADDFB 75%,#E6FCFE 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+#s05 .dot{width:28px;height:28px;border-radius:50%;background:#2EC5FE;box-shadow:0 0 12px rgba(46,197,254,.45)}
+#s05 .ln{height:2px;background:#3E4140}
+#s05 .col{width:540px}
+#s05 .col .k{font-family:var(--f-title);font-size:32.2px;line-height:1;color:#40C0F2;white-space:nowrap;margin-top:2px}
+#s05 .col h3{margin-top:26px;font-size:35.9px;font-weight:600;line-height:1.2;color:#F7FAFC;white-space:nowrap}
+#s05 .col p{margin-top:19px;font-size:27.9px;line-height:39.3px;color:#B4B7BC}
+#s05 .end{left:0;right:0;top:675px;text-align:center;font-size:40.9px;line-height:1.05;white-space:nowrap}
+#s05 .end span{background:linear-gradient(90deg,#2BB0F0 0%,#55C9F8 50%,#A6E6FB 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+#s05 .end b{font-weight:400;color:#E5FBFE}
+
+/* ── slide 7 (04) ── */
+#s04{background:
+  radial-gradient(700px 520px at 8% 8%,rgba(255,255,255,.05),transparent 70%),
+  radial-gradient(900px 600px at 55% 75%,rgba(255,255,255,.035),transparent 70%),
+  #030304}
+#s04 .st{position:absolute;pointer-events:none;border-radius:50%;filter:blur(9px);-webkit-mask-image:linear-gradient(90deg,#000 0,#000 1150px,transparent 1350px);mask-image:linear-gradient(90deg,#000 0,#000 1150px,transparent 1350px)}
+#s04 .st1{left:125px;top:-1275px;width:2150px;height:2150px;border:34px solid transparent;border-left-color:rgba(255,255,255,.34);border-bottom-color:rgba(255,255,255,.16);filter:blur(11px)}
+#s04 .st2{left:250px;top:-1150px;width:1900px;height:1900px;border:12px solid transparent;border-bottom-color:rgba(255,255,255,.13);filter:blur(6px)}
+#s04 .st3{left:10px;top:-1390px;width:2380px;height:2380px;border:12px solid transparent;border-left-color:rgba(255,255,255,.14);border-bottom-color:rgba(255,255,255,.08);filter:blur(6px)}
+#s04 .st4{left:1700px;top:300px;width:1600px;height:1600px;border:16px solid transparent;border-left-color:rgba(255,255,255,.10);filter:blur(10px);-webkit-mask-image:none;mask-image:none}
+#s04 .kick{left:0;right:0;top:99px;text-align:center;font-size:44.5px;line-height:1.05;
+  background:linear-gradient(180deg,#fafafb 0%,#eceef0 45%,#c9ccd1 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+#s04 .h{left:0;right:0;top:146px;text-align:center;font-size:64.2px;line-height:1.05;white-space:nowrap;
+  background:linear-gradient(90deg,#2BB0F0 0%,#45C3F8 40%,#8ADDFB 75%,#E6FCFE 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+#s04 .sub{left:260px;right:260px;top:244px;text-align:center;font-size:29.2px;line-height:1.35;font-weight:300;color:#B0B3B8}
+#s04 .legal{left:300px;right:300px;top:338px;text-align:center;font-size:19px;line-height:1.4;color:#7E848E}
+#s04 .lbl small{font-size:18px;font-weight:600;letter-spacing:.06em;color:#8A909C}
+#s04 .sub b{font-weight:400;color:#F7F8FA}
+#s04 .bx{background:linear-gradient(180deg,#18191d 0%,#111317 50%,#0b0d0f 100%);border:1px solid rgba(255,255,255,.13);border-radius:16px}
+#s04 .bx .dv{position:absolute;top:31px;bottom:31px;width:1px;background:rgba(255,255,255,.12)}
+#s04 .lbl{position:absolute;font-size:24px;font-weight:700;letter-spacing:.13em;color:#3FB8EE;line-height:1}
+#s04 ul{position:absolute;list-style:none;font-size:26px;line-height:36.6px;color:#DADDE2}
+#s04 li{position:relative;padding-left:24px}
+#s04 li::before{content:"";position:absolute;left:0;top:16px;width:7px;height:7px;border-radius:50%;background:#DADDE2}
+#s04 .op{width:72px;height:72px;border-radius:50%;border:1.5px solid rgba(60,170,215,.85);background:#06121a;
+  box-shadow:0 0 14px rgba(41,182,246,.35),inset 0 0 10px rgba(41,182,246,.12);display:grid;place-items:center}
+#s04 .op i{position:absolute;background:#2EC1F4;border-radius:1px}
+#s04 .fin{left:128px;top:748px;width:1664px;height:170px;border-radius:12px;border:1px solid rgba(90,170,210,.55);
+  background:linear-gradient(100deg,#0f3558 0%,#0d2b48 22%,#0c1c2d 50%,#0b141f 72%,#0a0e10 100%);
+  box-shadow:0 0 22px rgba(41,182,246,.22),inset 0 0 30px rgba(41,182,246,.06)}
+#s04 .fin .t{position:absolute;left:47px;top:58px;font-size:53px;line-height:1.05;white-space:nowrap}
+#s04 .fin .t span{background:linear-gradient(90deg,#3cc3f8,#6ad6fc);-webkit-background-clip:text;background-clip:text;color:transparent}
+#s04 .fin .t b{font-weight:400;color:#F5FBFE}
+#s04 .fin .s{position:absolute;left:50px;top:132px;font-size:28px;color:#CBDAEA;white-space:nowrap;line-height:1.3}
+#s04 .pill{position:absolute;left:1122px;width:492px;height:50px;border-radius:25px;border:1px solid rgba(110,160,195,.5);background:rgba(16,40,56,.55);
+  padding-left:30px;font-size:23.7px;font-weight:700;line-height:48px;color:#EEF6FB;white-space:nowrap}
+
+/* ── slide 8 (09) ── */
+#s09{background:radial-gradient(900px 700px at 82% 40%,#0f0f0f,transparent 70%),linear-gradient(180deg,#0c0c0c 0%,#050505 30%,#010101 55%,#020202 100%)}
+#s09 .silk{left:0;top:0;width:1920px;height:1080px;pointer-events:none}
+#s09 .piggy{left:1100px;top:280px;width:800px;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 94%,transparent 100%),linear-gradient(180deg,transparent 0,#000 8%,#000 92%,transparent 100%);-webkit-mask-composite:source-in;
+  mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 94%,transparent 100%),linear-gradient(180deg,transparent 0,#000 8%,#000 92%,transparent 100%);mask-composite:intersect}
+#s09 .h1,#s09 .h2{left:0;right:0;text-align:center;white-space:nowrap}
+#s09 .h1{top:117px;font-size:52px}
+#s09 .h1 .x{transform:scaleX(1.17)}
+#s09 .h2{top:179px;font-size:68.5px}
+#s09 .h2 .x{transform:scaleX(1.133)}
+#s09 .x{display:inline-block;-webkit-text-stroke:1.8px transparent}
+#s09 .h2 .x{background:linear-gradient(90deg,#1FC3EC 0%,#3CD2EF 22%,#79DEF5 50%,#BFF0FB 75%,#E6FAFF 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+#s09 .p1{left:152px;top:309px;font-size:28.85px;line-height:44px;font-weight:300;color:#F5F5F5;letter-spacing:.003em}
+#s09 .p2{left:152px;top:449px;font-size:35px;font-weight:600;color:#fff}
+#s09 .p2 span{color:#33BCD5}
+#s09 .it{left:252px;font-size:28.4px;line-height:36.5px;font-weight:300;color:#F7F7F7}
+#s09 .it b{font-weight:600;color:#fff}
+#s09 .ic{left:150px;-webkit-mask-image:radial-gradient(closest-side,#000 75%,transparent);mask-image:radial-gradient(closest-side,#000 75%,transparent)}
+#s09 .vl{left:797px;top:570px;width:1.6px;height:345px;background:#747474}
+#s09 .go{left:771px;top:713px;width:54px;height:54px;border-radius:50%;background:#131313;
+  box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.35),0 0 8px rgba(160,210,120,.25);
+  border:1.5px solid transparent;background-image:linear-gradient(#131313,#131313),linear-gradient(200deg,rgba(255,255,255,.75),rgba(255,255,255,.15) 45%,#A9D47F);
+  background-origin:border-box;background-clip:padding-box,border-box;box-shadow:none;display:grid;place-items:center}
+#s09 .go svg{width:30px;height:30px;fill:none;stroke:#fff;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+#s09 .r{left:866px;top:646px;font-size:23.6px;line-height:36.6px;font-weight:300;color:#F7F7F7}
+#s09 .r b{font-weight:600;color:#fff}
+#s09 .r .cy{color:#3FB0CD}
+#s09 .foot{left:0;right:0;top:968px;text-align:center;font-size:33.7px;font-weight:300;color:#fff;white-space:pre}
+#s09 .foot b{font-weight:600}
+
+/* ── slide 9 (06) ── */
+#s06{background:
+  radial-gradient(1000px 300px at 14% 0%,rgba(26,46,66,.95),transparent 72%),
+  radial-gradient(1000px 300px at 80% 104%,rgba(16,30,42,.95),transparent 70%),
+  #000}
+#s06 .logo{left:90px;top:280px;width:670px;height:710px;
+  -webkit-mask-image:linear-gradient(0deg,transparent 0,#000 50px),linear-gradient(90deg,transparent 0,#000 20px);-webkit-mask-composite:source-in;
+  mask-image:linear-gradient(0deg,transparent 0,#000 50px),linear-gradient(90deg,transparent 0,#000 20px);mask-composite:intersect}
+#s06 .ttl span{position:absolute;white-space:nowrap;line-height:1;font-weight:800;transform-origin:0 0}
+#s06 .ttl .a{left:393px;top:116px;font-size:60px;letter-spacing:.03em;transform:scaleX(1.108);
+  background:linear-gradient(180deg,#fff 0%,#fbfdfe 30%,#ced1d2 65%,#8f9396 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+#s06 .ttl .b{left:771px;top:103px;font-size:85px;letter-spacing:.03em;transform:scaleX(1.112);
+  background:linear-gradient(90deg,#26CDEE 0%,#2ACBED 30%,#6AD7EF 60%,#C2F2FB 85%,#FFFFFF 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+#s06 .pill{height:66px;border-radius:33px;font-size:27px;font-weight:400;line-height:62px;color:#F2F5F8;white-space:nowrap;text-align:center;
+  border:1px solid rgba(150,195,230,.38);border-left-color:rgba(160,205,235,.7);background:linear-gradient(90deg,rgba(44,88,135,.5),rgba(10,20,34,.6) 45%,rgba(4,8,14,.66));
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+#s06 .h1{left:823px;top:279px;font-size:29.6px;font-weight:700;color:#fff;white-space:nowrap;line-height:1.3}
+#s06 .sub{left:823px;top:333px;font-size:22px;font-weight:300;color:#D6D9DE;white-space:nowrap;line-height:1.3}
+#s06 .cd{top:428px;width:307px;height:417px;border-radius:28px;border:1px solid transparent;
+  background:linear-gradient(#000,#000) padding-box,linear-gradient(170deg,#c8c8c8 0%,#7a7a7a 30%,#363636 65%,#1a1a1a 100%) border-box}
+#s06 .cd img{position:absolute}
+#s06 .cd .t{position:absolute;left:0;right:0;top:225px;text-align:center;font-size:21.9px;font-weight:500;line-height:27px;color:#F5F6EE}
+#s06 .cd .d{position:absolute;left:0;right:0;top:289px;text-align:center;font-size:19.8px;font-weight:300;line-height:30px;color:#D3D6DA;letter-spacing:.01em}
+#s06 .end{left:0;width:2608px;top:906px;text-align:center;font-size:32.9px;font-weight:300;color:#F4F6F8;white-space:nowrap;line-height:1.3}
+#s06 .end b{font-weight:500;color:#4FC2E4}
+
+/* ── slide 10 (11) ── */
+#s11{background:radial-gradient(700px 520px at 100% 88%,rgba(24,48,72,.9),transparent 70%),radial-gradient(500px 300px at 100% 0%,rgba(18,30,44,.5),transparent 70%),#000}
+#s11 .ph{left:0;top:0;width:1045px;
+  -webkit-mask-image:linear-gradient(90deg,#000 88%,transparent 100%);mask-image:linear-gradient(90deg,#000 88%,transparent 100%)}
+#s11 .h1,#s11 .h2{left:795px;width:1000px;text-align:center;white-space:nowrap}
+#s11 .h1{top:121px;font-size:48px}
+#s11 .h2{top:179px;font-size:71px}
+#s11 .x{display:inline-block;-webkit-text-stroke:2px transparent}
+#s11 .h1 .x{transform:scaleX(1.166)}
+#s11 .h2 .x{transform:scaleX(1.173)}
+#s11 .h2 .x{background:linear-gradient(90deg,#14C4EC,#05CCEA 50%,#22D2EE);-webkit-background-clip:text;background-clip:text;color:transparent}
+#s11 .gl{left:990px;top:250px;width:610px;height:22px;background:radial-gradient(closest-side,rgba(220,245,255,.95),rgba(41,182,246,.85) 30%,rgba(14,100,200,.35) 65%,transparent);filter:blur(1.5px)}
+#s11 .sub{left:795px;width:1000px;top:310px;text-align:center;font-size:29.6px;line-height:41px;font-weight:500;color:#fff}
+#s11 .ic{left:1045px;width:155px}
+#s11 .k{left:1226px;font-size:23.5px;font-weight:500;letter-spacing:.005em;
+  background:linear-gradient(90deg,#E6FAFC 0,#BDEBF4 55px,#5FC3DB 120px,#4CBCD8 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+#s11 .v{left:1226px;font-size:23.6px;line-height:34px;font-weight:300;color:#F3F3F3;white-space:nowrap}
+#s11 .v b{font-weight:700;color:#fff}
+#s11 .sep{left:1040px;width:540px;height:2px;background:linear-gradient(90deg,transparent,rgba(50,130,165,.9) 18%,rgba(45,125,160,.85) 60%,transparent);box-shadow:0 0 6px rgba(41,150,220,.35)}
+#s11 .de{left:1440px;top:835px;width:57px;border-radius:50%}
+#s11 .btn{left:1576px;top:839px;width:193px;height:50px;border-radius:25px;display:grid;place-items:center;
+  background:linear-gradient(180deg,#43DBF5,#1FCBEE);box-shadow:0 0 14px rgba(41,200,240,.35);font-size:22px;font-weight:500;color:#0A1B33}
+#s11 .face{left:1066px;top:806px;width:112px;height:112px;border-radius:22px;overflow:hidden;border:1.5px solid rgba(90,190,235,.75);
+  box-shadow:0 0 0 1px rgba(41,182,246,.15),0 8px 28px rgba(20,140,220,.35)}
+#s11 .face img{width:100%;height:100%;object-fit:cover}
+#s11 .nick{left:40px;top:930px;display:flex;align-items:center;gap:14px;padding:10px 22px 10px 10px;border-radius:40px;
+  background:rgba(8,14,22,.72);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(8px);font-size:22px;color:#D9DEE6;white-space:nowrap}
+#s11 .nick img{width:38px;height:38px;border-radius:50%}
+#s11 .nick b{color:#fff;font-weight:700}
+#s11 .foot{left:795px;width:1000px;top:992px;text-align:center;font-size:28.75px;font-weight:500;color:#fff;white-space:nowrap}
+
+/* ── slide 11 (12) ── */
+#s12{background:radial-gradient(900px 600px at 50% 0%,rgba(255,255,255,.035),transparent 70%),linear-gradient(180deg,#0b0b0b,#050505 40%,#060606 100%)}
+#s12 .silk{left:0;top:0;width:1920px;height:1080px;pointer-events:none}
+#s12 .shield{left:700px;top:330px;width:510px;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent),linear-gradient(180deg,transparent,#000 5%);-webkit-mask-composite:source-in;
+  mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent),linear-gradient(180deg,transparent,#000 5%);mask-composite:intersect}
+#s12 .h{left:0;top:78px;width:1920px;text-align:center;line-height:1.08}
+#s12 .h span{display:block;white-space:nowrap;transform-origin:50% 0;-webkit-text-stroke:1.6px transparent}
+#s12 .h .a{font-size:52px;transform:scaleX(1.16)}
+#s12 .h .b{font-size:84px;transform:scaleX(1.14);background:linear-gradient(90deg,#10C3EE,#05CBEC 60%,#14D0EE);-webkit-background-clip:text;background-clip:text;color:transparent}
+#s12 .sub{left:0;right:0;top:250px;text-align:center;font-size:29.8px;font-weight:300;color:#fff}
+#s12 .sub b{font-weight:600}
+#s12 .reg{top:302px;width:200px;text-align:center}
+#s12 .reg b{display:block;font-size:30px;font-weight:500;line-height:42px;color:#fff}
+#s12 .reg span{display:block;margin-top:-2px;font-size:17.6px;font-weight:600;line-height:22px;color:#4FB2C6}
+#s12 .rdv{top:287px;width:1.6px;height:101px;background:#F2F2F2}
+#s12 .box{left:129px;width:105px;height:106px;border-radius:20px;display:grid;place-items:center;
+  background:linear-gradient(150deg,#222 0%,#0d0d0d 45%,#050505 100%);border:1.5px solid #3a3a3a;border-top-color:#555;border-left-color:#4a4a4a}
+#s12 .box svg{width:68px;height:68px;filter:drop-shadow(0 0 5px rgba(255,255,255,.25));fill:none;stroke:#F2F2F2;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round}
+#s12 .sec{left:264px}
+#s12 .sec h4{font-size:25.5px;font-weight:500;line-height:32px;letter-spacing:.01em;
+  background:linear-gradient(90deg,#F6F6F6 0,#EAF7FA 70px,#7BC3D8 120px,#5DB8D6 100%);-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block}
+#s12 .sec ul{list-style:none;margin-top:6px}
+#s12 .sec li{position:relative;padding-left:22px;font-size:18.3px;line-height:30px;font-weight:300;color:#EDEDED;white-space:nowrap}
+#s12 .sec li::before{content:"";position:absolute;left:0;top:12px;width:7px;height:7px;border-radius:50%;background:#45BEDB}
+#s12 .sec li.nb::before{display:none}
+#s12 .panel{left:1289px;top:486px;width:497px;height:228px;border-radius:30px;background:linear-gradient(170deg,#121212,#0c0c0c);border:1.5px solid #3b3b3b}
+#s12 .panel svg{position:absolute;fill:none;stroke:#BDBDBD;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#s12 .panel .t{position:absolute;left:132px;top:42px;font-size:25.3px;font-weight:700;color:#fff;letter-spacing:.005em}
+#s12 .row{position:absolute;left:35px;right:35px;height:95px;border-bottom:1.5px solid #383838}
+#s12 .row:last-child{border-bottom:0}
+#s12 .row p{position:absolute;left:97px;font-size:21.5px;line-height:30px;font-weight:300;color:#F2F2F2;white-space:nowrap}
+#s12 .row .ver{position:absolute;left:338px;width:80px;height:30px;border-radius:15px;display:grid;place-items:center;
+  background:linear-gradient(180deg,#3FDDF6,#1FCDEF);font-size:19px;font-weight:500;color:#0A2033}
+#s12 .row svg{left:6px}
+
+/* ── slide 12 (13) ── */
+#s13{background:linear-gradient(180deg,#000308 0%,#01030b 60%,#010205 100%)}
+#s13 .bgl{left:0;top:0}
+#s13 .bgr{left:1582px;top:0}
+#s13 .bgt{left:286px;top:0}
+#s13 .bgf{left:338px;top:872px}
+#s13 .h1{left:0;right:0;top:76px;text-align:center;font-size:65px;letter-spacing:.035em}
+#s13 .h2{left:0;right:0;top:150px;text-align:center;font-size:81px;letter-spacing:.035em;white-space:nowrap}
+#s13 .sub{left:0;right:0;top:288px;text-align:center;font-size:40px;font-weight:700;letter-spacing:.012em}
+#s13 .sub b{color:#2CB8EE}
+#s13 .vol{left:0;right:0;top:402px;text-align:center;font-size:34px;letter-spacing:.1em;color:#E8EAEE;font-weight:400}
+#s13 .row{left:338px;width:1246px;height:77px;border-radius:18px;border:1.5px solid rgba(255,255,255,.22);
+  background:linear-gradient(180deg,rgba(18,20,26,.92),rgba(4,5,8,.96));box-shadow:0 2px 0 rgba(255,255,255,.04) inset}
+#s13 .row.fx{top:474px;height:104px;border:2px solid rgba(120,215,240,.75);border-radius:22px;
+  background:linear-gradient(180deg,rgba(12,22,32,.95),rgba(3,8,14,.97));box-shadow:0 0 18px rgba(60,190,230,.45),0 0 3px rgba(150,230,255,.8) inset}
+#s13 .row svg{position:absolute;left:52px;width:62px;height:62px;fill:none;stroke:#E6E9EE;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+#s13 .row .lb{position:absolute;left:141px;font-size:29px;color:#F2F4F7}
+#s13 .row .v{position:absolute;right:44px;font-size:27px;color:#F2F4F7;letter-spacing:.005em}
+#s13 .row .bar{position:absolute;left:418px;height:30px;background:#0BC4EA;transform-origin:0 50%;transform:scaleX(0);transition:transform .9s var(--ease)}
+#s13.on .row .bar{transform:none;transition-delay:calc(var(--d,0)*90ms + 450ms)}
+#s13 .fx .bar{left:310px;top:29px;width:628px;height:40px;border-radius:3px;background:linear-gradient(90deg,#0EC5E9 0%,#3EC7F0 35%,#7FCDF4 70%,#A3D8F2 100%);box-shadow:0 0 14px rgba(40,190,240,.65),0 6px 10px rgba(0,0,0,.4)}
+#s13 .fx .lb{font-size:42px;font-weight:700;top:24px}
+#s13 .fx .v{top:16px;text-align:center;font-size:34px;font-weight:700;line-height:1.1;right:48px}
+#s13 .fx .v small{display:block;font-size:22px;font-weight:400;color:#2CB8EE;margin-top:4px}
+#s13 .end{left:0;right:0;top:948px;text-align:center;font-size:41px;font-weight:300;letter-spacing:.008em;color:#F2F4F7}
+#s13 .end b{font-weight:600;color:#2CB8EE}
+#s13 .end i{font-style:normal;font-weight:600;color:#fff}
+
+/* ── slide 13 (14) ── */
+#s14{background:
+  radial-gradient(ellipse 820px 440px at 52% 52%,#000 62%,rgba(0,0,0,0) 100%),
+  radial-gradient(ellipse 1250px 700px at 52% 50%,#1e1e1e 0%,#191919 55%,#0d0d0d 80%,#040404 100%)}
+#s14 .bot{left:0;right:0;top:960px;height:120px;background:linear-gradient(180deg,rgba(0,0,0,0),#000 85%)}
+#s14 .h{left:-14px;right:0;top:92px;text-align:center;white-space:nowrap;letter-spacing:.02em}
+#s14 .h .a{font-size:55px}
+#s14 .h .b2{font-size:80px;color:#03CDE9;margin-left:14px}
+#s14 .chart{left:267px;top:212px;width:1385px;height:578px;background:#fff;border-radius:30px;color:#222;will-change:transform}
+#s14 .ct{position:absolute;left:0;right:0;top:32px;text-align:center;font-size:37px;font-weight:400;color:#111;letter-spacing:.005em}
+#s14 .gl{position:absolute;left:69px;width:1271px;height:1px;background:#d2d2d2}
+#s14 .ax{position:absolute;left:69px;top:88px;width:1px;height:416px;background:#333}
+#s14 .ax2{position:absolute;left:69px;top:503px;width:1271px;height:1px;background:#333}
+#s14 .yl{position:absolute;right:1325px;font-size:11px;color:#333;text-align:right}
+#s14 .b{position:absolute;bottom:75px;width:43px;transform-origin:50% 100%;transform:scaleY(0);transition:transform .9s var(--ease)}
+#s14.on .b{transform:none;transition-delay:calc(var(--i)*45ms + 350ms)}
+#s14 .b i{position:absolute;left:-10px;right:-10px;top:-24px;text-align:center;font-style:normal;font-size:11px;color:#333}
+#s14 .xl{position:absolute;top:510px;font-size:11.5px;color:#333;white-space:nowrap;transform:translateX(-100%) rotate(-45deg);transform-origin:100% 0}
+#s14 .sonic{left:22px;top:492px;width:240px;mix-blend-mode:lighten;-webkit-mask-image:radial-gradient(ellipse 60% 60% at 50% 50%,#000 80%,transparent);mask-image:radial-gradient(ellipse 60% 60% at 50% 50%,#000 80%,transparent)}
+#s14 .ss{left:269px;top:890px;font-size:41px;letter-spacing:.012em;white-space:nowrap}
+#s14 .fx{left:1080px;top:868px;width:246px;mix-blend-mode:lighten}
+#s14 .ver{left:1380px;width:270px;top:840px;text-align:center;font-size:20px;font-weight:600;color:#fff}
+#s14 .btn{left:1380px;top:878px;width:271px;height:75px;border-radius:38px;border:1.5px solid #5b5d61;background:linear-gradient(180deg,#141414,#050505);
+  display:flex;align-items:center;justify-content:center;font-size:29px;font-weight:600;color:#fff;letter-spacing:.01em}
+#s14 .end{left:0;right:0;top:989px;text-align:center;font-size:32px;font-weight:300;color:#F2F2F2}
+#s14 .end b{font-weight:600;color:#fff}
+#s14 .unit{position:absolute;left:24px;top:58px;font-size:14px;font-weight:600;color:#333}
+#s14 .disc{left:267px;width:1385px;top:802px;text-align:center;font-size:21px;color:#9AA0AA}
+
+/* ── slide 14 (15) ── */
+#s15{background:#010101}
+#s15 .silk{left:-200px;top:-100px;width:2400px;height:1300px;pointer-events:none;filter:blur(30px);opacity:.9;
+  background:
+   linear-gradient(118deg,transparent 30%,rgba(255,255,255,.035) 36%,transparent 41%),
+   linear-gradient(128deg,transparent 52%,rgba(255,255,255,.05) 58%,transparent 63%),
+   linear-gradient(140deg,transparent 18%,rgba(255,255,255,.04) 24%,transparent 29%),
+   radial-gradient(600px 400px at 80% 70%,rgba(255,255,255,.04),transparent 70%)}
+#s15 .h0{left:126px;top:68px;font-size:59px;letter-spacing:.03em}
+#s15 .h1,#s15 .h2{left:124px;font-size:78px;letter-spacing:.03em;white-space:nowrap;
+  background:linear-gradient(90deg,#14CFF5 0%,#3FD3F2 40%,#9BE6F7 75%,#FFFFFF 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+#s15 .h1{top:126px}
+#s15 .h2{top:201px;background-size:1350px 100%}
+#s15 .x24{left:1330px;top:192px;width:590px;mix-blend-mode:lighten}
+#s15 .p1{left:131px;top:309px;font-size:29px;font-weight:600;color:#fff;letter-spacing:-.002em}
+#s15 .p2{left:131px;top:351px;font-size:24px;font-weight:400;color:#E2E4E8;letter-spacing:.012em}
+#s15 .ej{left:0;right:0;top:441px;text-align:center;font-size:31px;font-weight:300;color:#fff;letter-spacing:.005em}
+#s15 .ej b{font-weight:700}
+#s15 .cd{top:500px;width:471px;height:372px;border-radius:28px;border:1.5px solid transparent;
+  background:linear-gradient(180deg,#090909,#050505) padding-box,linear-gradient(180deg,rgba(255,255,255,.14) 0%,rgba(255,255,255,.18) 45%,rgba(70,200,235,.75) 100%) border-box;
+  box-shadow:0 10px 22px -12px rgba(40,190,235,.55)}
+#s15 .cd .t{position:absolute;left:38px;top:22px;font-size:38px;font-weight:600;letter-spacing:-.003em}
+#s15 .cd .r{position:absolute;left:38px;font-size:18px;font-weight:300;color:#ECEEF0;letter-spacing:.022em}
+#s15 .cd .r b{position:absolute;left:var(--vx);top:0;font-weight:700;color:#fff;white-space:nowrap}
+#s15 .cd .res{position:absolute;left:38px;top:200px;font-size:19.5px;font-weight:700;color:#fff;letter-spacing:.01em}
+#s15 .cd .pl{position:absolute;top:189px;font-size:33px;font-weight:600;letter-spacing:.005em}
+#s15 .cd .base{position:absolute;bottom:28px;height:1.5px;width:84px;background:#9a9a9a}
+#s15 .cd .bar{position:absolute;bottom:30px;width:55px;transform-origin:50% 100%;transform:scaleY(0);transition:transform 1s var(--ease)}
+#s15.on .cd .bar{transform:none;transition-delay:calc(var(--d)*90ms + 500ms)}
+#s15 .cd .bl{position:absolute;font-size:19px;font-weight:700;color:#fff;transform:translateX(-50%);white-space:nowrap}
+#s15 .q{left:448px;top:912px;font-size:44px;font-weight:400;color:#fff;letter-spacing:0}
+#s15 .q span{background:linear-gradient(90deg,#3EC9EE,#C7F1FA);-webkit-background-clip:text;background-clip:text;color:transparent}
+#s15 .qt{left:808px;top:897px;font-size:18.8px;line-height:27px;color:#E3E5E8;letter-spacing:0}
+#s15 .qt b{font-weight:700;color:#fff}
+#s15 .end{left:0;right:0;top:1000px;text-align:center;font-size:30px;font-weight:400;color:#fff;word-spacing:.04em}
+#s15 .cd .sep{position:absolute;left:38px;width:250px;top:250px;height:1px;background:rgba(255,255,255,.12)}
+#s15 .cd .res.n{top:310px}
+#s15 .cd .pl.n{top:299px;background:linear-gradient(90deg,#FF6B6B,#FF9A8B);-webkit-background-clip:text;background-clip:text;color:transparent}
+#s15 .cd .r .neg{color:#FF8A80}
+#s15 .qt .neg{color:#FF8A80}
+#s15 .end b{font-weight:600;color:#2CC0EC;margin-left:6px}
+
+/* ── slide 15 (07) ── */
+#s07{background:
+  radial-gradient(900px 260px at 50% -4%,rgba(30,70,110,.28),transparent 70%),
+  radial-gradient(520px 520px at 6% 100%,rgba(28,52,78,.85),transparent 70%),
+  radial-gradient(420px 380px at 34% 92%,rgba(24,46,70,.6),transparent 70%),
+  #000}
+#s07 .h{left:0;right:0;top:63px;text-align:center;font-size:59px;white-space:nowrap}
+#s07 .h .x{display:inline-block;transform:scaleX(1.33)}
+#s07 .h .x span{-webkit-text-stroke:2.1px transparent}
+#s07 .h .b{background:linear-gradient(90deg,#0EC5ED 0%,#2FCDF0 20%,#62D9F3 36%,#E9FAFF 60%,#fff 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+#s07 .sub{left:0;right:0;top:137px;text-align:center;font-size:31.8px;color:#fff;letter-spacing:.005em}
+#s07 .sub b{color:#29BFE6;font-weight:700}
+#s07 .hand{left:60px;top:215px;width:680px;
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 6%,#000 88%,transparent 100%),linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%);
+  -webkit-mask-composite:source-in;mask-image:linear-gradient(180deg,transparent 0,#000 6%,#000 88%,transparent 100%),linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%);mask-composite:intersect}
+#s07 .lead{left:753px;top:238px;width:1020px;font-size:21.6px;line-height:34px;color:#F2F3F5;letter-spacing:.004em}
+#s07 .lead b{font-weight:700;color:#fff}
+#s07 .lead .lime{color:#BCDC55}
+#s07 .lead .cy{color:#2AB6E0}
+#s07 .lq{left:753px;top:360px;font-size:21.6px;font-weight:700}
+#s07 .c{top:414px;width:196px;height:270px;border-radius:20px;background:#050407;border:1.5px solid rgba(255,255,255,.2)}
+#s07 .c .ic{position:absolute;left:50%;transform:translateX(-50%)}
+#s07 .c p{position:absolute;left:8px;right:8px;top:139px;text-align:center;font-size:14.6px;line-height:22px;color:#CFCFD2}
+#s07 .c p b{color:#fff;font-weight:700}
+#s07 .c svg{fill:none;stroke:#E8EAEE;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 6px rgba(255,255,255,.35))}
+#s07 .w{top:707px;width:515px;height:217px}
+#s07 .w h4{position:absolute;top:30px;font-size:19.5px;font-weight:700;color:#fff}
+#s07 .w p{position:absolute;right:auto;text-align:left;top:64px;font-size:15px;line-height:24px;color:#D2D3D6}
+#s07 .w img{position:absolute}
+#s07 .foot{left:0;right:0;top:974px;text-align:center;font-size:33.5px;font-weight:300;color:#fff;letter-spacing:.003em}
+#s07 .foot b{font-weight:600}
+
+/* ── slide 16 (10) ── */
+#s10{background:radial-gradient(1100px 600px at 78% 8%,rgba(255,255,255,.06),transparent 70%),linear-gradient(180deg,#0a0a0a 0%,#040404 50%,#030303 100%)}
+#s10 .silk{left:0;top:0;width:1920px;height:1080px;pointer-events:none}
+#s10 .logo{left:112px;top:95px;width:370px}
+#s10 .h1,#s10 .h2{left:560px;white-space:nowrap}
+#s10 .h1{top:90px;font-size:59px}
+#s10 .h2{top:157px;font-size:68.5px}
+#s10 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+#s10 .x{display:inline-block;transform-origin:0 50%;-webkit-text-stroke:2px transparent}
+#s10 .h1 .x{transform:scaleX(1.149)}
+#s10 .h2 .x{transform:scaleX(1.141);background:linear-gradient(90deg,#F4FFDC 0%,#E0FCA0 35%,#CFFB70 70%,#C6F95C 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+#s10 .p1{left:118px;top:277px;font-size:26px;font-weight:500;color:#fff}
+#s10 .p2{left:118px;top:321px;font-size:21.7px;color:#F2F2F2}
+#s10 .p2 b{font-weight:700;color:#fff}
+#s10 .p2 .lime{color:#C3EC6A}
+#s10 .lab{left:0;width:1016px;text-align:center;font-size:21.5px;letter-spacing:.11em;color:#F1F1F1}
+#s10 .ci{top:590px;width:94px;height:94px;border-radius:50%;display:grid;place-items:center;
+  border:1.6px solid transparent;background:linear-gradient(#0c0c0e,#0c0c0e) padding-box,linear-gradient(180deg,#4a4a4e 0%,#5a5468 45%,#9C8FD0 100%) border-box}
+#s10 .ci svg{width:54px;height:54px;fill:none;stroke:#F2F2F2;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+#s10 .ct{top:706px;width:200px;text-align:center;font-size:20px;line-height:27px;font-weight:300;color:#E2E2E2}
+#s10 .dv{top:590px;width:1.6px;height:186px;background:#F5F5F5}
+#s10 .pill{top:816px;height:90px;border-radius:16px;background:#030304;border:1.5px solid rgba(255,255,255,.42)}
+#s10 .pill img{position:absolute;top:15px;width:59px;height:59px;border-radius:50%}
+#s10 .pill span{position:absolute;top:25px;font-size:25px;font-weight:300;color:#F4F4F4;white-space:nowrap}
+#s10 .pill b{font-weight:700;color:#fff}
+#s10 .dev{left:1000px;top:362px;width:797px;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent),linear-gradient(180deg,transparent,#000 3%,#000 96%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent),linear-gradient(180deg,transparent,#000 3%,#000 96%,transparent);mask-composite:intersect}
+#s10 .acc{left:1006px;top:897px;font-size:27.9px;font-weight:500;color:#fff}
+#s10 .foot{left:0;right:0;top:969px;text-align:center;font-size:43px;font-weight:300;color:#fff}
+#s10 .foot b{font-weight:600;background:linear-gradient(90deg,#F6FBEA,#E2F6B4 50%,#CDEF78);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ── slide 17 (08) ── */
+#s08{background:radial-gradient(1000px 600px at 95% 0%,rgba(255,255,255,.06),transparent 70%),linear-gradient(160deg,#08080a,#030304 60%,#020203)}
+#s08 .kick,#s08 .h{-webkit-text-stroke:.6px transparent}
+#s08 .silk{left:0;top:0;width:1920px;height:1080px;pointer-events:none}
+#s08 .kick{left:0;right:0;top:98px;text-align:center;font-size:44.5px}
+#s08 .h{left:0;right:0;top:156px;text-align:center;font-size:63px;letter-spacing:.03em;white-space:nowrap;
+  background:linear-gradient(90deg,#1FAFFA 0%,#3CC6FB 35%,#7FDBFB 62%,#D2F2FD 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+#s08 .c{width:490px;background:#17181C;border:1.5px solid rgba(255,255,255,.13);border-radius:12px;text-align:center}
+#s08 .c img{position:absolute;left:174px;top:40px;width:140px;border-radius:12px}
+#s08 .c .n{position:absolute;left:0;right:0;font-family:var(--f-title);font-size:31px;line-height:1;color:#3CBDF4}
+#s08 .c h3{position:absolute;left:0;right:0;font-size:32px;font-weight:600;line-height:1.2;color:#fff}
+#s08 .c p{position:absolute;left:20px;right:20px;font-size:26px;line-height:36.5px;color:#A8ACB3}
+#s08 .ar{top:476px;width:48px;height:20px}
+#s08 .ar path{fill:#32C2FA}
+#s08 .goal{left:0;right:0;top:748px;text-align:center;font-size:30px;color:#E6E7EA}
+#s08 .goal span{color:#4FB8E0}
+
+/* ── slide 18 (16) ── */
+#s16{background:
+  radial-gradient(900px 260px at 30% 60%,rgba(255,255,255,.035),transparent 70%),
+  radial-gradient(700px 300px at 85% 30%,rgba(255,255,255,.03),transparent 70%),
+  radial-gradient(1400px 200px at 50% 88%,rgba(255,255,255,.05),transparent 70%),#010101}
+#s16 .silk{left:-200px;top:-100px;width:2400px;height:1300px;pointer-events:none;filter:blur(26px);
+  background:linear-gradient(160deg,transparent 30%,rgba(255,255,255,.035) 34%,transparent 38%),
+   linear-gradient(20deg,transparent 46%,rgba(255,255,255,.03) 50%,transparent 54%),
+   linear-gradient(170deg,transparent 60%,rgba(255,255,255,.045) 66%,transparent 72%)}
+#s16 .h1{left:0;right:0;top:93px;text-align:center;font-size:54px;letter-spacing:.03em}
+#s16 .h2{left:0;right:0;top:150px;text-align:center;font-size:70px;letter-spacing:.036em;white-space:nowrap}
+#s16 .h2 span{background:linear-gradient(90deg,#14CFF5 0%,#3FD3F2 40%,#A8EAF8 75%,#FFFFFF 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+#s16 .sub{left:310px;width:1300px;top:270px;text-align:center;font-size:31.5px;line-height:1.4;font-weight:600;color:#fff}
+#s16 .kp{left:0;right:0;top:44px;text-align:center;font-size:19px;font-weight:700;letter-spacing:.22em;color:var(--cyan)}
+#s16 .par{left:0;right:0;top:322px;text-align:center;font-size:24px;line-height:35px;color:#D5D8DD;letter-spacing:.01em}
+#s16 .cd{height:194px;border-radius:14px;border:1.5px solid rgba(255,255,255,.22);
+  background:linear-gradient(205deg,rgba(70,70,70,.55) 0%,rgba(20,20,20,.6) 30%,#000 55%,#000 100%);box-shadow:0 8px 24px rgba(0,0,0,.6)}
+#s16 .cd img{position:absolute}
+#s16 .cd .tt{position:absolute;top:34px;display:flex;align-items:center;gap:8px;color:#fff;font-size:23px;font-weight:600;line-height:1.08}
+#s16 .cd .tt b{font-size:38px;font-weight:600;color:#2CB8EE;line-height:1}
+#s16 .cd .tt.two{top:44px;align-items:center}
+#s16 .cd p{position:absolute;font-size:15.5px;font-weight:300;line-height:22px;color:#E4E6EA;letter-spacing:.015em;white-space:nowrap}
+#s16 .end{left:0;right:0;top:950px;text-align:center;font-size:24px;font-weight:400;color:#9AA0AA;letter-spacing:.01em}
+#s16 .end i{font-style:normal;font-weight:500}
+#s16 .end b{font-weight:500;color:#5BC8EA}
+
+/* ── slide 19 (17) ── */
+#s17{background:
+  radial-gradient(ellipse 780px 560px at 52% 92%,transparent 86%,rgba(255,255,255,.075) 94%,transparent 100%),
+  radial-gradient(ellipse 1000px 700px at 50% 100%,transparent 84%,rgba(255,255,255,.035) 92%,transparent 100%),
+  linear-gradient(90deg,#0d0d0d 0%,#0b0b0b 40%,#050505 75%,#010101 100%)}
+#s17 .coin{mix-blend-mode:lighten;-webkit-mask-image:radial-gradient(closest-side,#000 78%,transparent);mask-image:radial-gradient(closest-side,#000 78%,transparent)}
+#s17 .kp{left:0;right:0;top:34px;text-align:center;font-size:19px;font-weight:700;letter-spacing:.22em;color:var(--cyan)}
+#s17 .h1{left:0;right:0;top:74px;text-align:center;font-size:57px;letter-spacing:.03em}
+#s17 .h2{left:0;right:0;top:132px;text-align:center;font-size:64px;letter-spacing:.03em;white-space:nowrap}
+#s17 .h2 span{background:linear-gradient(90deg,#23D1E8 0%,#5ED9EE 40%,#BDEFF8 75%,#FFFFFF 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+#s17 .sub{left:0;right:0;top:214px;text-align:center;font-size:24.6px;font-weight:500;color:#fff;letter-spacing:.003em}
+#s17 .dist{left:0;right:0;top:276px;text-align:center;font-size:30px;font-weight:300;color:#F4F4F4;letter-spacing:.035em}
+#s17 .box{left:281px;top:325px;width:1359px;height:130px;border-radius:22px;border:1.5px solid rgba(255,255,255,.28);
+  background:linear-gradient(180deg,rgba(14,14,16,.92),rgba(4,4,6,.96))}
+#s17 .box .dv{position:absolute;top:22px;width:1px;height:92px;background:rgba(255,255,255,.18)}
+#s17 .box svg{position:absolute;fill:none;stroke:url(#s17g);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+#s17 .box .pc{position:absolute;top:14px;font-size:52px;font-weight:400;line-height:1;letter-spacing:.01em;
+  background:linear-gradient(180deg,#fff 30%,#6ECEE7);-webkit-background-clip:text;background-clip:text;color:transparent}
+#s17 .box p{position:absolute;top:66px;font-size:16.5px;font-weight:300;line-height:20px;color:#F0F0F0;letter-spacing:.015em}
+#s17 .ad{left:0;right:0;top:494px;text-align:center;font-size:23.5px;font-weight:600;color:#fff;letter-spacing:.003em}
+#s17 .ad b{color:#31C4E5;font-size:25px;margin-left:6px}
+#s17 .th{top:564px;font-size:25px;font-weight:300;color:#F0F0F0;letter-spacing:.035em}
+#s17 .tb{top:602px;width:504px;height:322px;border-radius:28px;border:1.5px solid transparent;
+  background:radial-gradient(500px 120px at 50% 100%,rgba(40,90,140,.28),transparent 70%) padding-box,linear-gradient(180deg,#050608,#020305) padding-box,
+   linear-gradient(180deg,#4a4d57 0%,#2f323a 50%,#2e4a66 100%) border-box}
+#s17 .tb .hd{position:absolute;top:24px;font-size:18px;font-weight:600;color:#56C3DC}
+#s17 .tr{position:absolute;left:0;right:0;height:24px;font-size:18.5px;font-weight:300;color:#F6F6F6;letter-spacing:.012em}
+#s17 .tr span{position:absolute;top:-1px}
+#s17 .tr i{position:absolute;top:18px;height:1.3px;background:#d8d8d8}
+#s17 .tl{position:absolute;font-size:26px;font-weight:300;color:#fff;letter-spacing:.01em}
+#s17 .big{position:absolute;font-weight:600;line-height:1;background:linear-gradient(180deg,#fff 40%,#BFF0F8);-webkit-background-clip:text;background-clip:text;color:transparent}
+#s17 .disc{left:0;right:0;top:937px;text-align:center;font-size:15.5px;color:#9A9A9A;letter-spacing:.01em}
+#s17 .end{left:0;right:0;top:977px;text-align:center;font-size:25.5px;font-weight:300;color:#fff;letter-spacing:.01em}
+#s17 .end b{font-weight:600;color:#3FC8E6}
+#s17 .web{left:0;right:0;top:1034px;text-align:center;font-size:19px;color:#8A909C}
+
+/* ── slide 20 (18) ── */
+#s18{background:
+  radial-gradient(900px 520px at 0% 0%,rgba(52,96,140,.75),rgba(20,40,62,.35) 45%,transparent 75%),
+  linear-gradient(115deg,transparent 52%,rgba(255,255,255,.06) 58%,transparent 64%),
+  linear-gradient(180deg,#060708 0%,#070707 75%,#000 92%)}
+#s18 .h1{left:104px;top:54px;font-size:83px;letter-spacing:.025em}
+#s18 .h2{left:106px;top:139px;font-size:68px;letter-spacing:.03em;white-space:nowrap;
+  background:linear-gradient(90deg,#20C8E6 0%,#43C2D7 30%,#A8E6F2 70%,#FFFFFF 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+#s18 .sub{left:115px;top:228px;font-size:33px;font-weight:300;color:#F2F2F2;letter-spacing:.012em}
+#s18 .ped{background:linear-gradient(180deg,var(--pc) 0%,color-mix(in srgb,var(--pc) 45%,transparent) 45%,transparent 100%);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);opacity:.75}
+#s18 .ped::before{content:"";position:absolute;left:4%;right:4%;top:-14px;height:14px;background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--pc) 70%,#fff 10%));opacity:.6;transform:skewX(-20deg)}
+#s18 .cd{border-radius:22px;border:2px solid transparent;
+  background:linear-gradient(180deg,#0b0b0b,#070707) padding-box,linear-gradient(180deg,rgba(255,255,255,.75) 0%,rgba(255,255,255,.55) 35%,var(--c) 100%) border-box;
+  box-shadow:0 0 8px -3px var(--c),0 14px 22px -14px color-mix(in srgb,var(--c) 45%,transparent);text-align:center}
+#s18 .cd svg{position:absolute;fill:none;stroke:#B0B0B0;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round}
+#s18 .cd .cp{position:absolute;left:0;right:0;line-height:1.2;letter-spacing:.04em}
+#s18 .cd i{position:absolute;left:50%;transform:translateX(-50%);height:1.3px;background:rgba(255,255,255,.35)}
+#s18 .cd .lb{position:absolute;left:0;right:0;font-size:20px;font-weight:300;line-height:1.24;color:#F4F4F4;letter-spacing:.012em}
+#s18 .cd .vl{position:absolute;left:0;right:0;font-weight:600;line-height:1.24;color:#fff;letter-spacing:.005em}
+#s18 .rg{left:328px;top:914px;font-size:18.5px;font-weight:300;color:#F0F0F0;letter-spacing:.008em;white-space:nowrap}
+#s18 .rg strong{font-size:23px;font-weight:600;color:#fff;margin-right:8px}
+#s18 .rg strong span{color:#5CC6E6}
+#s18 .rg b{font-weight:700;color:#fff}
+#s18 .cal{left:0;right:0;top:958px;text-align:center;font-size:18.5px;font-weight:300;color:#F0F0F0;letter-spacing:.008em}
+#s18 .cal b{font-weight:700;color:#fff}
+#s18 .end{left:0;right:0;top:1010px;text-align:center;font-size:27px;font-weight:500;color:#5CC6E6;letter-spacing:.005em}
+#s18 .end b{font-weight:500;color:#fff}
+#s18 .plan{left:1010px;top:66px;font-size:18px;font-weight:700;letter-spacing:.16em;color:#45BCF0;padding:10px 22px;border-radius:999px;border:1.5px solid rgba(41,182,246,.5);background:rgba(41,182,246,.1);white-space:nowrap}
+
+/* ── slide 21 (19) ── */
+#s19{background:
+  radial-gradient(520px 300px at 1760px -20px,#2c4f72,rgba(28,52,78,.6) 40%,transparent 80%),
+  radial-gradient(340px 460px at -40px 740px,#2c5377,rgba(25,50,74,.55) 40%,transparent 80%),
+  #000;line-height:1}
+#s19 .t{position:absolute;white-space:nowrap}
+#s19 .h1{left:100px;top:79px;font-size:60px}
+#s19 .h1 span,#s19 .h2 .sx{display:inline-block;transform-origin:0 50%;-webkit-text-stroke:1.6px transparent}
+#s19 .h1 span{transform:scaleX(1.14)}
+#s19 .h2 .sx{transform:scaleX(1.11)}
+#s19 .h2{left:102px;top:145px;font-size:76px}
+#s19 .h2 .de{color:#fff;-webkit-text-stroke:1.6px #fff}
+#s19 .h2 .lz{background:linear-gradient(90deg,#d8f7fb 0%,#9eeaf6 35%,#45d6ee 70%,#0ec8e8 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+#s19 .sub{left:100px;top:240px;font-size:33px;color:#fff;letter-spacing:.005em}
+#s19 .sub b{font-weight:700}
+/* podio */
+#s19 .pod{position:absolute}
+#s19 .ic{position:absolute;width:80px;height:80px;border-radius:50%;border:1.5px solid transparent;display:grid;place-items:center;
+  background:radial-gradient(circle at 38% 30%,#1b2026,#050607 70%) padding-box,var(--ring) border-box;box-shadow:0 0 18px rgba(0,0,0,.6)}
+#s19 .ic svg{width:48px;height:48px;fill:none;stroke:#f2f4f6;stroke-width:1.15;stroke-linecap:round;stroke-linejoin:round}
+#s19 .nv{font-size:18px;font-weight:600;letter-spacing:.01em;-webkit-background-clip:text;background-clip:text;color:transparent}
+#s19 .tt{font-size:27px;font-weight:700;line-height:30px;color:#fff;letter-spacing:.005em}
+#s19 .cd{position:absolute;border-radius:16px;border:1.5px solid rgba(225,230,235,.72);background:linear-gradient(180deg,#0b0c0e,#040405 60%)}
+#s19 .lb{font-size:15px;font-weight:700;color:#fff;letter-spacing:.01em}
+#s19 .tx{font-size:16px;line-height:20px;color:#e2e2e2;letter-spacing:-.01em}
+#s19 .tx b{font-weight:700}
+#s19 .dv{position:absolute;height:1px;background:linear-gradient(90deg,rgba(255,255,255,.75),#fff 50%,rgba(255,255,255,.75))}
+#s19 .mi{position:absolute;width:32px;height:32px;fill:none;stroke:#a9bfd4;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+#s19 .ph{position:absolute;border-radius:10px;object-fit:cover}
+#s19 .c1{color:#46b2d8}#s19 .c2{color:#9cd0b0}#s19 .c4{color:#d6c196}
+#s19 .plan{left:680px;top:88px;font-size:18px;font-weight:700;letter-spacing:.16em;color:#45BCF0;padding:10px 22px;border-radius:999px;border:1.5px solid rgba(41,182,246,.5);background:rgba(41,182,246,.1);white-space:nowrap}
+
+/* ── slide 22 (n22) ── */
+#sn22 .kick{left:0;right:0;top:98px;text-align:center;font-size:44px}
+#sn22 .h{left:0;right:0;top:156px;text-align:center;font-size:66px}
+#sn22 .c{top:320px;width:520px;height:470px;padding:52px 50px 0}
+#sn22 .c .n{font-family:var(--f-title);font-size:22px;letter-spacing:.14em;color:#8A909C}
+#sn22 .c h3{margin-top:22px;font-family:var(--f-title);font-weight:400;font-size:44px;line-height:1.12;letter-spacing:.01em}
+#sn22 .c p{margin-top:26px;font-size:29px;line-height:1.45;color:#C9CED8}
+#sn22 .c .ic{position:absolute;right:44px;top:44px;width:72px;height:72px;border-radius:18px;display:grid;place-items:center;
+  background:rgba(41,182,246,.1);border:1px solid rgba(41,182,246,.4)}
+#sn22 .c .ic svg{width:38px;height:38px;fill:none;stroke:#3CBDF4;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+#sn22 .on1{border-color:rgba(41,182,246,.45)}
+#sn22 .on2{background:linear-gradient(160deg,rgba(14,58,96,.92),rgba(8,24,44,.95) 60%);border:1.5px solid rgba(41,182,246,.6);
+  box-shadow:0 0 0 1px rgba(41,182,246,.12),0 30px 80px -30px rgba(41,182,246,.6)}
+#sn22 .on1 .n,#sn22 .on2 .n{color:var(--cyan)}
+#sn22 .off{opacity:.55;filter:grayscale(1)}
+#sn22.on .off{opacity:.55}
+#sn22 .off h3{color:#9AA0AA}
+#sn22 .off p{color:#8A909C}
+#sn22 .off .ic{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.15)}
+#sn22 .off .ic svg{stroke:#8A909C}
+#sn22 .note{left:0;right:0;top:850px;text-align:center;font-size:21px;color:#8A909C}
+
+/* ── slide 23 (20) ── */
+#s20{background:
+  radial-gradient(720px 420px at 330px 1110px,#0c4462,rgba(11,58,81,.8) 30%,rgba(10,32,46,.5) 60%,transparent 88%),
+  radial-gradient(520px 130px at 300px -10px,#0c2236,transparent 85%),
+  #070707}
+#s20 .ring{left:0;top:0;width:1920px;height:1080px;pointer-events:none}
+#s20 .kick{left:0;right:0;top:278px;text-align:center;font-size:25px;line-height:1;font-weight:700;letter-spacing:.135em;color:#55b6e0}
+#s20 .h1{left:0;right:0;top:349px;text-align:center;font-size:58px}
+#s20 .h2{left:0;right:0;top:425px;text-align:center;font-size:82px}
+#s20 .h2 span{background:linear-gradient(90deg,#2fb8f8 0%,#40c8fb 30%,#5ad3fd 52%,#9fe5fe 76%,#dcf6ff 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+#s20 .gl{left:630px;top:549px;width:660px;height:10px;background:radial-gradient(closest-side,#7fdcff,#2fa9ea 25%,rgba(41,150,230,.3) 60%,transparent);filter:blur(.6px)}
+#s20 .txt{left:0;right:0;top:595px;text-align:center;font-size:31px;line-height:45px;color:#caccd0}
+#s20 .aio{left:719px;top:726px;width:242px;height:80px}
+#s20 .x{left:990px;top:750px;width:40px;text-align:center;font-size:33px;line-height:1;font-weight:700;color:#39c3f6}
+#s20 .mk{left:1060px;top:724px;width:142px;filter:invert(1)}
+
+/* ── slide 24 (21) ── */
+#s21{background:radial-gradient(1400px 900px at 30% 40%,#0c0c0f,#030304 70%)}
+#s21 .silk{left:0;top:0;width:1920px;height:1080px;pointer-events:none}
+#s21 .kick{left:0;right:0;top:98px;text-align:center;font-size:44px;letter-spacing:.02em}
+#s21 .foot-k{font-size:24px;top:987px}
+#s21 .h{left:0;right:0;top:155px;text-align:center;font-size:64px;letter-spacing:.02em}
+#s21 .h span{background:linear-gradient(90deg,#34b4f4 0%,#3dd5ff 35%,#8ddffa 66%,#d6f5fd 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+#s21 .sub{left:0;right:0;top:270px;text-align:center;font-size:29px;line-height:1;color:#a4a8ae;letter-spacing:.005em}
+#s21 .sub b{font-weight:400;color:#ececec}
+#s21 .c{width:538px;height:240px;border-radius:14px;border:1px solid rgba(255,255,255,.14);
+  background:linear-gradient(180deg,rgba(26,27,31,.94),rgba(13,14,17,.94))}
+#s21 .c.r2{height:240px}
+#s21 .ic{position:absolute;left:32px;top:32px;width:64px;height:64px;border-radius:50%;border:1.5px solid #3a8db3;
+  background:radial-gradient(circle at 50% 40%,#16303e,#0f1c25 75%);display:grid;place-items:center}
+#s21 .ic svg{width:26px;height:26px;fill:none;stroke:#41b6ec;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+#s21 .c h3{position:absolute;left:117px;top:50px;font-size:30px;font-weight:600;line-height:1;color:#ecf1f5;white-space:nowrap}
+#s21 .c p{position:absolute;left:32px;top:113px;width:478px;font-size:24px;line-height:34px;color:#a7abaf}
+
+/* ── slide 25 (22) ── */
+#s22{background:#020203}
+#s22 .silk{left:0;top:0;width:1920px;height:1080px;pointer-events:none}
+#s22 .h,#s22 .dia,#s22 .c .k{font-feature-settings:"zero" 1}
+#s22 .dia,#s22 .c .k{-webkit-text-stroke:.7px currentColor}
+#s22 .band{left:0;top:0;width:1920px;height:68px;background:#050505}
+#s22 .kick{left:0;right:0;top:98px;text-align:center;font-size:44px;letter-spacing:.02em}
+#s22 .h{left:0;right:0;top:155px;text-align:center;font-size:64px;letter-spacing:.011em}
+#s22 .h span{background:linear-gradient(90deg,#33a8fa 0%,#36cbff 30%,#53d2fe 52%,#99e4fd 74%,#dcf4ff 96%);-webkit-background-clip:text;background-clip:text;color:transparent}
+#s22 .sub{left:-31px;right:0;top:231px;text-align:center;font-size:30px;line-height:1;font-weight:500;color:#e8eaec}
+#s22 .dia{top:344px;font-family:var(--f-title);font-size:24px;line-height:1;color:#4fb8e6}
+#s22 .line{left:214px;top:355px;width:1462px;height:3px;border-radius:3px;background:linear-gradient(90deg,#4cbfe3,#3a93e6 50%,#3968cc);
+  box-shadow:0 0 10px 2px rgba(56,150,230,.45),0 0 24px 4px rgba(56,150,230,.18)}
+#s22 .c{top:423px;width:534px;height:369px;border-radius:14px;border:1px solid rgba(255,255,255,.13);
+  background:linear-gradient(180deg,rgba(26,28,32,.96),rgba(12,13,16,.96))}
+#s22 .c .k{position:absolute;left:47px;top:52px;font-family:var(--f-title);font-size:24px;line-height:1;color:#4dbbec;letter-spacing:.095em}
+#s22 .c h3{position:absolute;left:48px;top:104px;font-size:36px;font-weight:600;line-height:1;color:#ecf0f4;white-space:nowrap}
+#s22 .c p{position:absolute;left:48px;top:164px;font-size:28px;line-height:39px;color:#a7aab0;white-space:nowrap}
+#s22 .bot{left:0;right:0;top:845px;text-align:center;font-size:30px;line-height:1;font-weight:500;color:#eaeaec}
+#s22 .bot span{color:#4fb9e0}
+#s22 .c p.w{white-space:normal;width:446px}
+#s22 .soon{position:absolute;right:40px;top:42px;font-size:15px;font-weight:700;letter-spacing:.16em;color:#45BCF0;padding:7px 14px;border-radius:999px;border:1.5px solid rgba(41,182,246,.5);background:rgba(41,182,246,.1)}
+#s22 .foot-k{font-size:24px;top:987px}
+
+/* ── slide 26 (23) ── */
+#s23 .kick{left:0;right:0;top:94px;text-align:center;font-size:44px}
+#s23 .h{left:0;right:0;top:158px;text-align:center;font-size:58px}
+#s23 .sub{left:0;right:0;top:262px;text-align:center;font-size:31px;color:#E4E7EC}
+#s23 .col{top:350px;width:760px;height:480px;padding:46px 52px}
+#s23 .lab{font-size:19px;font-weight:700;letter-spacing:.18em;color:#8A909C}
+#s23 .row{display:flex;align-items:center;gap:18px;margin-top:22px;font-size:27px;color:#B9BEC8}
+#s23 .row svg{width:34px;height:34px;flex:none;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+#s23 .mine .row svg{stroke:#6B717C}
+#s23 .ref{position:absolute;left:52px;right:52px;bottom:44px;padding-top:26px;border-top:1px solid rgba(255,255,255,.1)}
+#s23 .ref small{display:block;font-size:19px;color:#8A909C}
+#s23 .ref b{display:block;margin-top:8px;font-family:var(--f-title);font-weight:400;font-size:46px;color:#9AA0AA;letter-spacing:.01em}
+#s23 .ref b span{font-family:var(--f-body);font-size:26px;font-weight:500;letter-spacing:0}
+#s23 .korex{background:linear-gradient(160deg,rgba(14,58,96,.92),rgba(8,24,44,.95) 60%);border:1.5px solid rgba(41,182,246,.55);
+  box-shadow:0 0 0 1px rgba(41,182,246,.12),0 30px 80px -30px rgba(41,182,246,.55)}
+#s23 .korex .lab{color:var(--cyan)}
+#s23 .korex .impl{margin-top:22px;font-size:32px;font-weight:700;color:#fff}
+#s23 .korex .big{margin-top:8px;font-size:40px;white-space:nowrap}
+#s23 .korex .row{color:#E4E7EC}
+#s23 .korex .row svg{stroke:var(--cyan)}
+#s23 .pill{position:absolute;left:52px;right:52px;bottom:44px;height:76px;border-radius:38px;display:flex;align-items:center;justify-content:center;
+  font-size:27px;font-weight:700;color:#fff;background:rgba(41,182,246,.14);border:1.5px solid rgba(41,182,246,.6)}
+#s23 .pill span{color:var(--cyan2)}
+#s23 .vs{left:924px;top:554px;width:72px;height:72px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-title);font-size:24px;color:var(--cyan);
+  background:#0b0d12;border:1.5px solid rgba(41,182,246,.6);box-shadow:0 0 24px rgba(41,182,246,.45)}
+#s23 .korex .row.sm{font-size:23px;line-height:1.35}
+#s23 .note{left:0;right:0;text-align:center;font-size:20px;color:#8A909C}
+
+/* ── slide 27 (24) ── */
+#s24 .kick{left:0;right:0;top:94px;text-align:center;font-size:44px}
+#s24 .h{left:0;right:0;top:158px;text-align:center;font-size:66px}
+#s24 .sub{left:0;right:0;top:266px;text-align:center;font-size:31px;color:#E4E7EC}
+#s24 .card{top:370px;width:398px;height:320px;padding:44px 40px}
+#s24 .card .n{font-family:var(--f-title);font-size:66px;line-height:1}
+#s24 .card h3{margin-top:30px;font-size:25px;font-weight:700;letter-spacing:.03em;line-height:1.3;color:#fff}
+#s24 .card p{margin-top:14px;font-size:23px;line-height:1.45;color:#B9BEC8}
+#s24 .card::after{content:"";position:absolute;left:40px;right:40px;top:0;height:3px;border-radius:0 0 3px 3px;background:linear-gradient(90deg,#0E8BD6,#7FD8FF);opacity:.85}
+#s24 .cta{left:530px;top:750px;width:860px;height:96px;border-radius:48px;display:flex;align-items:center;justify-content:center;
+  font-size:29px;font-weight:800;letter-spacing:.05em;color:#fff;background:linear-gradient(90deg,#0E8BD6,#29B6F6 55%,#45C2FF);
+  box-shadow:0 0 0 1px rgba(127,216,255,.35),0 18px 60px -12px rgba(41,182,246,.75)}
+#s24.on .cta{animation:s24pulse 2.6s 1.4s ease-in-out infinite}
+@keyframes s24pulse{50%{box-shadow:0 0 0 10px rgba(41,182,246,.0),0 0 0 1px rgba(127,216,255,.35),0 18px 70px -8px rgba(41,182,246,.95)}}
+#s24 .note{left:0;right:0;top:872px;text-align:center;font-size:20px;color:#8A909C}
+
+/* ── slide 28 (n28) ── */
+#sn28 .glow{left:660px;top:150px;width:600px;height:600px;border-radius:50%;background:radial-gradient(closest-side,rgba(41,182,246,.28),rgba(41,182,246,.08) 55%,transparent)}
+#sn28 .bub{left:860px;top:250px;width:200px;height:200px;border-radius:50%;display:grid;place-items:center;
+  background:rgba(41,182,246,.1);border:1.5px solid rgba(41,182,246,.55);box-shadow:0 0 60px -6px rgba(41,182,246,.6)}
+#sn28 .bub svg{width:100px;height:100px;fill:none;stroke:#7FD8FF;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+#sn28.on .bub{animation:sn28f 4s 1s ease-in-out infinite}
+@keyframes sn28f{50%{transform:translateY(-10px);box-shadow:0 0 80px 0 rgba(41,182,246,.7)}}
+#sn28 .h{left:0;right:0;top:520px;text-align:center;font-size:80px}
+#sn28 .sub{left:0;right:0;top:640px;text-align:center;font-size:36px;color:#E4E7EC}
+
+/* ── Aviso "gira tu móvil" (solo celular en vertical) ───────── */
+#rotate{position:fixed;inset:0;z-index:60;display:none;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+  background:#05060a;color:#fff;font-family:'Inter',system-ui,sans-serif;text-align:center;padding:24px}
+@media (orientation:portrait) and (max-width:820px){html:not(.keep) #rotate{display:flex}}
+#rotate .ic{position:relative;width:120px;height:120px;margin-bottom:10px}
+#rotate .ph{position:absolute;left:37px;top:21px;width:46px;height:78px;border:2.5px solid #fff;border-radius:11px;animation:rt-rot 3.2s cubic-bezier(.65,0,.25,1) infinite}
+#rotate .ph::after{content:"";position:absolute;left:50%;bottom:6px;width:12px;height:2.5px;margin-left:-6px;border-radius:2px;background:#fff;opacity:.55}
+#rotate .ar{position:absolute;inset:0;width:120px;height:120px;fill:none;stroke:#29B6F6;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;animation:rt-ar 3.2s ease-in-out infinite}
+#rotate .ttl{font-size:18px;font-weight:700;letter-spacing:.01em}
+#rotate .sub{font-size:13px;color:rgba(255,255,255,.55);max-width:240px;line-height:1.5}
+#rotate .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#29B6F6;box-shadow:0 0 12px #29B6F6;margin-right:8px;vertical-align:1px}
+#rotate button{margin-top:26px;font:inherit;font-size:12px;color:rgba(255,255,255,.4);background:none;border:0;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+@keyframes rt-rot{0%,18%{transform:rotate(0)}48%,78%{transform:rotate(-90deg)}100%{transform:rotate(0)}}
+@keyframes rt-ar{0%,12%{opacity:0;transform:rotate(20deg)}30%,70%{opacity:1;transform:rotate(0)}88%,100%{opacity:0;transform:rotate(-10deg)}}
+@media (prefers-reduced-motion:reduce){#rotate .ph{animation:none;transform:rotate(-90deg)}#rotate .ar{animation:none}}
+</style>
+
+<style>
+#intro{position:absolute;inset:0;z-index:30;overflow:hidden;background:#02050a;opacity:1;transition:opacity 1.1s var(--ease),transform 1.2s var(--ease)}
+#intro.out{opacity:0;transform:scale(1.04);pointer-events:none}
+#intro.gone{display:none}
+#intro canvas{position:absolute;inset:0;width:1920px;height:1080px;pointer-events:none}
+#intro .au{position:absolute;border-radius:50%;filter:blur(120px);opacity:.55;mix-blend-mode:screen}
+#intro .au1{width:900px;height:700px;left:-200px;top:-180px;background:#0E6BD6;animation:in-au1 18s ease-in-out infinite alternate}
+#intro .au2{width:800px;height:800px;right:-260px;bottom:-300px;background:#08A6D8;opacity:.4;animation:in-au2 22s ease-in-out infinite alternate}
+#intro .au3{width:600px;height:500px;left:700px;top:620px;background:#1B2C8F;opacity:.35;animation:in-au1 26s ease-in-out infinite alternate-reverse}
+@keyframes in-au1{to{transform:translate(260px,140px) scale(1.15)}}
+@keyframes in-au2{to{transform:translate(-220px,-160px) scale(.9)}}
+#intro .grid{position:absolute;inset:0;opacity:.18;background-image:linear-gradient(rgba(127,216,255,.18) 1px,transparent 1px),linear-gradient(90deg,rgba(127,216,255,.18) 1px,transparent 1px);
+  background-size:96px 96px;-webkit-mask-image:radial-gradient(ellipse 70% 60% at 30% 50%,#000,transparent 75%);mask-image:radial-gradient(ellipse 70% 60% at 30% 50%,#000,transparent 75%)}
+#intro .mk{position:absolute;left:128px;top:96px;width:124px;filter:invert(1);opacity:.95}
+#intro .tag{position:absolute;left:130px;top:262px;font-size:24px;font-weight:700;letter-spacing:.17em;color:#45BCF0}
+#intro .ttl{position:absolute;left:126px;top:318px;font-family:var(--f-title);font-size:96px;line-height:1.02;white-space:nowrap;
+  background:linear-gradient(100deg,#2FB3F2 0%,#6AD3FA 35%,#FFFFFF 50%,#6AD3FA 65%,#2FB3F2 100%);background-size:250% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;animation:in-shine 7s linear infinite}
+#intro .ttl span{background:linear-gradient(180deg,#fafbfb,#c5c9cf);-webkit-background-clip:text;background-clip:text;color:transparent}
+@keyframes in-shine{from{background-position:120% 0}to{background-position:-130% 0}}
+#intro .lab{position:absolute;left:130px;top:560px;font-size:26px;font-weight:600;letter-spacing:.32em;color:#AEB6C4}
+#intro .clock{position:absolute;left:120px;top:600px;font-family:var(--f-title);font-size:230px;line-height:1;letter-spacing:.02em;color:#fff;
+  text-shadow:0 0 40px rgba(41,182,246,.35),0 0 120px rgba(41,182,246,.18);font-variant-numeric:tabular-nums}
+#intro .clock.zero{animation:in-zero 1.4s ease-in-out infinite}
+@keyframes in-zero{50%{color:var(--cyan2);text-shadow:0 0 60px rgba(41,182,246,.8),0 0 160px rgba(41,182,246,.4)}}
+#intro .prog{position:absolute;left:130px;top:860px;width:760px;height:4px;border-radius:4px;background:rgba(255,255,255,.1);overflow:hidden}
+#intro .prog i{position:absolute;inset:0;transform-origin:0 50%;background:linear-gradient(90deg,#0E8BD6,#29B6F6,#9FE3FF);box-shadow:0 0 16px #29B6F6}
+#intro .msg{position:absolute;left:130px;top:892px;font-size:24px;color:#8A93A3}
+#intro .msg b{color:#DDE3EA;font-weight:600}
+/* Controles (se esconden solos) */
+#intro .ibar{position:absolute;left:50%;bottom:44px;transform:translateX(-50%);display:flex;align-items:center;gap:14px;padding:12px;border-radius:60px;
+  background:rgba(8,14,24,.72);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transition:opacity .5s,transform .5s}
+#intro .ibar.hide{opacity:0;transform:translate(-50%,20px);pointer-events:none}
+#intro .b{display:flex;align-items:center;gap:12px;height:62px;padding:0 26px;border-radius:40px;font-family:var(--f-body);font-size:21px;font-weight:600;color:#E8EDF3;
+  border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);cursor:pointer;transition:.25s;white-space:nowrap}
+#intro .b:hover{border-color:rgba(41,182,246,.7);background:rgba(41,182,246,.12)}
+#intro .b svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#intro .b.go{background:linear-gradient(90deg,#0E8BD6,#29B6F6);border-color:transparent;color:#fff;box-shadow:0 10px 30px -8px rgba(41,182,246,.8)}
+#intro .b.go:hover{filter:brightness(1.12)}
+#intro .eq{display:flex;align-items:flex-end;gap:3px;height:22px}
+#intro .eq i{width:4px;height:4px;border-radius:2px;background:var(--cyan);transition:height .08s}
+#intro .sep{width:1px;height:40px;background:rgba(255,255,255,.12)}
+#stage.intro-on~.ctrl,#stage.intro-on~.hint,#stage.intro-on~.bar{opacity:0!important;pointer-events:none}
+</style>
+</head>
+<body>
+<script>window.introWanted=location.hash==='#espera';</script>
+<div id="rotate" role="dialog" aria-label="Gira tu móvil">
+  <div class="ic"><svg class="ar" viewBox="0 0 120 120"><path d="M28 34a42 42 0 0 1 60-6"/><path d="M88 18v11H77"/></svg><div class="ph"></div></div>
+  <div class="ttl"><span class="dot"></span>Gira tu móvil</div>
+  <div class="sub">Esta presentación está pensada para verse en horizontal.</div>
+  <button onclick="document.documentElement.classList.add('keep')">Ver así de todos modos</button>
+</div>
+
+<div id="stage">
+<section class="slide" id="s02">
+  <img class="abs globe rv fade" src="img/s02-globe.webp" alt="" style="--d:0">
+  <img class="abs mk rv" src="/assets/mk-logo-cropped.png" alt="Método Korex" style="--d:1">
+  <div class="abs tag rv" style="--d:2">PRESENTACIÓN PRIVADA · EQUIPO KOREX</div>
+  <h1 class="abs t-title h rv" style="--d:3">UN ECOSISTEMA,<br><span class="by2">DOS FORMAS DE PARTICIPAR</span></h1>
+  <p class="abs p rv" style="--d:5">Invertir con copy trading, usar tu cripto con la tarjeta BIX y, si quieres, construir un negocio con el acompañamiento del Equipo Korex.</p>
+  <img class="abs ai rv" src="img/s02-aitech.webp" alt="AITech One" style="--d:6">
+</section>
+
+<section class="slide" id="s01">
+  <img class="abs ring rv fade" src="img/s01-ring.webp" alt="" style="--d:0">
+  <h2 class="abs t-wide h rv" style="--d:1"><span class="a">AVISO</span><span class="b">IMPORTANTE</span></h2>
+  <div class="abs line rv fade" style="--d:2"></div>
+  <div class="abs txt">
+    <p class="rv" style="--d:3"><b>Esta presentación es únicamente informativa y educativa.</b> No constituye una oferta,<br>recomendación personalizada ni asesoría financiera, legal, contable o tributaria.</p>
+    <p class="rv" style="--d:4"><b>Toda participación es voluntaria y conlleva riesgos.</b> Antes de decidir, revise la documentación<br>oficial y consulte asesores profesionales cuando lo considere necesario.</p>
+    <p class="rv" style="--d:5"><b>Los resultados pueden variar y el desempeño pasado no garantiza resultados futuros.</b></p>
+    <p class="rv" style="--d:6"><b>Cada participante es responsable de sus decisiones.</b> El expositor, los organizadores y<br>la comunidad no asumen responsabilidad por decisiones tomadas con base en esta presentación.</p>
+    <p class="rv" style="--d:7"><b>Al continuar, usted confirma que comprende este aviso y participa bajo su propia responsabilidad.</b></p>
+  </div>
+  <div class="foot-a">aitechone.io</div>
+  <img class="mk-a" src="/assets/mk-logo-cropped.png" alt="Método Korex">
+  <div class="pg-a">2</div>
+</section>
+
+<section class="slide" id="sn03">
+  <svg class="abs silk" viewBox="0 0 1920 1080" aria-hidden="true"><defs><filter id="sn03b" filterUnits="userSpaceOnUse" x="-200" y="-200" width="2320" height="1480"><feGaussianBlur stdDeviation="22"/></filter></defs>
+    <g fill="none" stroke="#fff" stroke-linecap="round">
+      <path filter="url(#sn03b)" stroke-opacity=".09" stroke-width="170" d="M1960 -40 C1880 300 1700 560 1320 680 S500 860 -80 960"/>
+      <path filter="url(#sn03b)" stroke-opacity=".05" stroke-width="120" d="M1990 260 C1900 560 1640 760 1180 860 S300 1000 -80 1080"/>
+    </g></svg>
+  <div class="abs t-title g-silver kick rv">LA AGENDA</div>
+  <h2 class="abs t-title g-cyan h rv" style="--d:1">QUÉ VAS A VER HOY</h2>
+
+  <div class="abs c rv" style="left:128px;--d:2">
+    <div class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 19c.6-3.3 3-5 6-5s5.4 1.7 6 5"/><circle cx="17" cy="9" r="2.5"/><path d="M16.5 14.2c2.4.2 4 1.7 4.5 4.3"/></svg></div>
+    <div class="n">01</div><h3>Quiénes somos</h3>
+  </div>
+  <svg class="abs ar rv" style="left:512px;--d:3" viewBox="0 0 48 20"><path d="M0 6h31V0l17 10-17 10v-6H0z"/></svg>
+  <div class="abs c rv" style="left:560px;--d:3">
+    <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.4 2.4 3.6 5.2 3.6 8.5s-1.2 6.1-3.6 8.5c-2.4-2.4-3.6-5.2-3.6-8.5S9.6 5.9 12 3.5z"/></svg></div>
+    <div class="n">02</div><h3>El ecosistema AITech One y sus productos</h3>
+  </div>
+  <svg class="abs ar rv" style="left:944px;--d:4" viewBox="0 0 48 20"><path d="M0 6h31V0l17 10-17 10v-6H0z"/></svg>
+  <div class="abs c rv" style="left:992px;--d:4">
+    <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 21v-7M12 14 6 8M12 14l6-6M6 8V4M6 4h4M18 8V4M18 4h-4"/></svg></div>
+    <div class="n">03</div><h3>Los caminos para participar</h3>
+  </div>
+  <svg class="abs ar rv" style="left:1376px;--d:5" viewBox="0 0 48 20"><path d="M0 6h31V0l17 10-17 10v-6H0z"/></svg>
+  <div class="abs c k rv" style="left:1424px;--d:5">
+    <div class="tag">SOLO PARA QUIEN CONSTRUYE</div>
+    <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 20h16M6 20V10l6-5 6 5v10"/><path d="M10 20v-5h4v5"/></svg></div>
+    <div class="n">04</div><h3>Lo que tiene el Equipo Korex</h3>
+  </div>
+
+  <p class="abs goal rv" style="--d:7">Si quieres construir un negocio, <span>quédate hasta el final.</span></p>
+  <div class="foot-k">EQUIPO KOREX</div>
+  <img class="mk-k" src="/assets/mk-logo-cropped.png" alt="Método Korex">
+</section>
+
+<section class="slide bg-silk" id="sn04">
+  <div class="abs t-title g-silver kick rv">PARA QUIÉN ES</div>
+  <h2 class="abs t-title g-cyan h rv" style="--d:1">ESTA PRESENTACIÓN ES PARA TI SI…</h2>
+
+  <div class="abs card col rv" style="left:168px;--d:2">
+    <div class="ic"><svg viewBox="0 0 24 24"><path d="M3.5 20.5h17"/><path d="M5 16l4.5-4.5 3.5 3 6-6.5"/><path d="M15 8h4v4"/></svg></div>
+    <h3 class="g-silver">QUIERES INVERTIR</h3>
+    <p>Participar en los mercados con copy trading, sin tener que operar tú.</p>
+  </div>
+  <div class="abs plus rv zoom" style="--d:3">+</div>
+  <div class="abs card col rv" style="left:1032px;--d:4">
+    <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="5.5" r="2.5"/><circle cx="5" cy="18" r="2.5"/><circle cx="19" cy="18" r="2.5"/><path d="M12 8v3.5M12 11.5 6.3 16M12 11.5l5.7 4.5"/></svg></div>
+    <h3 class="g-silver">QUIERES CONSTRUIR UN NEGOCIO</h3>
+    <p>Recomendar los productos del ecosistema y crecer como IB con tus propios referidos.</p>
+  </div>
+
+  <div class="abs t-title g-cyan both rv" style="--d:5">PUEDES SER LAS DOS COSAS.</div>
+  <div class="foot-k">EQUIPO KOREX</div>
+  <img class="mk-k" src="/assets/mk-logo-cropped.png" alt="Método Korex">
+</section>
+
+<section class="slide bg-silk" id="s03">
+  <div class="abs t-title g-silver kick rv">QUIÉNES SOMOS</div>
+  <h2 class="abs t-title g-cyan h rv" style="--d:1">SOMOS EL EQUIPO KOREX</h2>
+  <p class="abs intro rv" style="--d:2">Un equipo de marketing y tecnología que ayuda a empresas y líderes a conseguir prospectos y a <span class="cyan">hacer crecer comunidades enteras</span>.</p>
+  <div class="abs card rv" style="left:128px;--d:3"><div class="n">3 años</div><p>construyendo y probando metodologías, sistemas y tecnología.</p></div>
+  <div class="abs card rv" style="left:694px;--d:4"><div class="n">+10</div><p>personas en el equipo: programadores, estrategas y especialistas en publicidad.</p></div>
+  <div class="abs card rv" style="left:1258px;--d:5"><div class="n">33</div><p>clientes, muchos de ellos top líderes mundiales del network marketing.</p></div>
+  <div class="foot-k">EQUIPO KOREX</div>
+  <img class="mk-k" src="/assets/mk-logo-cropped.png" alt="Método Korex">
+</section>
+
+<section class="slide" id="s05">
+  <div class="st st1"></div><div class="st st2"></div><div class="st st3"></div>
+  <div class="abs t-title kick rv">NUESTRA DECISIÓN</div>
+  <h2 class="abs t-title h rv" style="--d:1">FOCO EN UN ECOSISTEMA</h2>
+
+  <div class="abs dot rv fade" style="left:128px;top:280px;--d:2"></div><div class="abs ln rv fade" style="left:168px;top:293px;width:487px;--d:2"></div>
+  <div class="abs dot rv fade" style="left:696px;top:280px;--d:3"></div><div class="abs ln rv fade" style="left:736px;top:293px;width:487px;--d:3"></div>
+  <div class="abs dot rv fade" style="left:1264px;top:280px;--d:4"></div><div class="abs ln rv fade" style="left:1304px;top:293px;width:487px;background:linear-gradient(90deg,#3E4140 60%,rgba(62,65,64,.25));--d:4"></div>
+
+  <div class="abs col rv" style="left:128px;top:333px;--d:3"><div class="k">3 AÑOS</div><h3>Muchos clientes</h3><p>Embudos, páginas y sistemas para<br>decenas de líderes y empresas.</p></div>
+  <div class="abs col rv" style="left:696px;top:333px;--d:4"><div class="k">LO APRENDIDO</div><h3>El impacto está en el foco</h3><p>Para llevar un equipo muy alto hay que<br>concentrar energía, tecnología y<br>conocimiento en un ecosistema,<br>por mucho tiempo.</p></div>
+  <div class="abs col rv" style="left:1264px;top:333px;--d:5"><div class="k">HACE 3 MESES</div><h3>Infraestructura dedicada</h3><p>Desarrollamos una infraestructura<br>tecnológica de alto nivel, dedicada<br>especialmente a potenciar la expansión<br>del ecosistema AITech One.</p></div>
+
+  <div class="abs t-title end rv" style="--d:6"><span>ASÍ NACE</span> <b>EL</b> <span>EQUIPO KOREX</span></div>
+
+  <div class="foot-k">EQUIPO KOREX</div>
+  <img class="mk-k" src="/assets/mk-logo-cropped.png" alt="Método Korex">
+</section>
+
+<section class="slide" id="s04">
+  <div class="st st1"></div><div class="st st2"></div><div class="st st3"></div><div class="st st4"></div>
+  <div class="abs t-title kick rv">DÓNDE ESTAMOS</div>
+  <h2 class="abs t-title h rv" style="--d:1">UN IB DENTRO DE AITECH ONE</h2>
+  <p class="abs sub rv" style="--d:2"><b>AITech One pone los productos.</b> Nosotros, como IB de TAG Markets, los presentamos y acompañamos a quienes quieren construir con nosotros.</p>
+  <p class="abs legal rv" style="--d:2">El Equipo Korex no emite los productos ni administra fondos. Como IB, recibe comisiones según el plan oficial de TAG Markets.</p>
+
+  <div class="abs bx rv" style="left:128px;top:408px;width:764px;height:256px;--d:3">
+    <img class="abs" src="/assets/mk-logo-cropped.png" alt="Método Korex" style="left:40px;top:83px;width:151px;filter:invert(1)">
+    <div class="dv" style="left:230px"></div>
+    <div class="lbl" style="left:268px;top:38px">EL EQUIPO <small>· Equipo Korex</small></div>
+    <ul style="left:284px;top:76px"><li>Tecnología e infraestructura</li><li>Marketing y captación</li><li>Acompañamiento de<br>grandes líderes</li></ul>
+  </div>
+
+  <div class="abs op rv zoom" style="left:924px;top:500px;--d:4"><i style="width:20px;height:6px"></i><i style="width:6px;height:20px"></i></div>
+
+  <div class="abs bx rv" style="left:1028px;top:427px;width:764px;height:218px;--d:5">
+    <img class="abs" src="img/s04-aitech.webp" alt="AITech One" style="left:40px;top:75px;width:200px">
+    <div class="dv" style="left:280px"></div>
+    <div class="lbl" style="left:318px;top:37px">EL ECOSISTEMA <small>· AITech One</small></div>
+    <ul style="left:334px;top:76px"><li>Inversiones con copy trading</li><li>Tarjeta BIX</li><li>Exchange Bit1</li></ul>
+  </div>
+
+  <div class="abs op rv zoom" style="left:928px;top:676px;width:64px;height:64px;--d:6"><i style="width:20px;height:5px;margin-top:-9px"></i><i style="width:20px;height:5px;margin-top:9px"></i></div>
+
+  <div class="abs fin rv" style="--d:7">
+    <div class="t t-title"><span>DOS FORMAS</span> <b>DE PARTICIPAR</b></div>
+    <div class="pill" style="top:24px">Invertir</div>
+    <div class="pill" style="top:96px">Construir un negocio</div>
+  </div>
+
+  <div class="foot-k">EQUIPO KOREX</div>
+  <img class="mk-k" src="/assets/mk-logo-cropped.png" alt="Método Korex">
+</section>
+
+<section class="slide" id="s09">
+  <svg class="abs silk" viewBox="0 0 1920 1080" aria-hidden="true"><defs><filter id="s09b" filterUnits="userSpaceOnUse" x="-200" y="-200" width="2320" height="1480"><feGaussianBlur stdDeviation="26"/></filter><filter id="s09c" filterUnits="userSpaceOnUse" x="-200" y="-200" width="2320" height="1480"><feGaussianBlur stdDeviation="8"/></filter></defs>
+    <g fill="none" stroke="#fff" stroke-linecap="round">
+      <path filter="url(#s09b)" stroke-opacity=".10" stroke-width="160" d="M-60 360 C120 220 280 90 420 -60"/>
+      <path filter="url(#s09c)" stroke-opacity=".12" stroke-width="18" d="M-40 250 C100 150 200 60 290 -40"/>
+      <path filter="url(#s09b)" stroke-opacity=".06" stroke-width="200" d="M-80 40 C500 120 1100 60 1980 0"/>
+      <path filter="url(#s09b)" stroke-opacity=".05" stroke-width="120" d="M300 1100 C600 1000 900 960 1250 900"/>
+    </g></svg>
+  <img class="abs piggy rv fade" src="img/s09-piggy.webp" alt="Alcancía de vidrio con monedas">
+  <h2 class="abs t-title h1 rv"><span class="x g-silver">TU DINERO ESTÁ TRABAJANDO</span></h2>
+  <h2 class="abs t-title h2 rv" style="--d:1"><span class="x">LA PREGUNTA ES: ¿PARA QUIÉN?</span></h2>
+  <p class="abs p1 rv" style="--d:2">Cada día, los mercados mueven billones. Participes o no, el movimiento continúa.<br>Mientras tanto, el dinero detenido pierde poder de compra.</p>
+  <p class="abs p2 rv" style="--d:3">La mayoría de las personas no participa por <span>tres razones</span></p>
+
+  <img class="abs ic rv" src="img/s09-ic1.webp" alt="" style="top:570px;width:83px;--d:4">
+  <p class="abs it rv" style="top:574px;--d:4">No sabe cómo empezar<br><b>sin exponerse demasiado.</b></p>
+  <img class="abs ic rv" src="img/s09-ic2.webp" alt="" style="left:149px;top:697px;width:82px;--d:5">
+  <p class="abs it rv" style="top:698px;--d:5">No tiene el <b>tiempo ni la experiencia</b><br>para operar.</p>
+  <img class="abs ic rv" src="img/s09-ic3.webp" alt="" style="left:151px;top:815px;width:79px;--d:6">
+  <p class="abs it rv" style="top:821px;--d:6">No encuentra <b>un sistema serio<br>y verificable.</b></p>
+
+  <div class="abs vl rv fade" style="--d:6"></div>
+  <div class="abs go rv fade" style="--d:7"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 5.5 19.5 12 13 18.5"/></svg></div>
+  <p class="abs r rv" style="--d:7"><b>AITech One</b> cierra esa brecha<br>con una trilogía financiera:<br><b class="cy">Trading, Exchange y Cashback Visa.</b><br>Tres unidades dentro de un<br>mismo ecosistema.</p>
+
+  <p class="abs foot rv" style="--d:8">No necesitas predecir el mercado.  <b>Necesitas un sistema para participar en él.</b></p>
+  <div class="foot-a">aitechone.io</div>
+  <img class="mk-a" src="/assets/mk-logo-cropped.png" alt="Método Korex">
+  <div class="pg-a">8</div>
+</section>
+
+<section class="slide" id="s06">
+  <img class="abs logo rv fade" src="img/s06-logo.webp" alt="" style="--d:2">
+  <h2 class="abs t-wide ttl rv" style="left:0;top:0;width:1920px;height:220px"><span class="a">¿QUÉ ES</span><span class="b">AITECH ONE?</span></h2>
+
+  <div class="abs pill rv" style="left:423px;top:362px;width:291px;padding-right:8px;--d:4">Copy Trading</div>
+  <div class="abs pill rv" style="left:117px;top:577px;width:195px;--d:5">Exchange</div>
+  <div class="abs pill rv" style="left:431px;top:749px;width:246px;--d:6">Cashback Visa</div>
+
+  <div class="abs h1 rv" style="--d:1">Una comunidad. Un ecosistema. Tres unidades de negocio.</div>
+  <div class="abs sub rv" style="--d:2">Una trilogía financiera con productos, mecanismos y planes de participación independientes.</div>
+
+  <div class="abs cd rv" style="left:817px;--d:3">
+    <img src="img/s06-tag.webp" alt="TAG Markets" style="left:25px;top:20px;width:78px">
+    <img src="img/s06-ic-tag.webp" alt="" style="left:49px;top:48px;width:208px">
+    <div class="t">COPY TRADING<br>Tag Markets</div>
+    <div class="d" style="top:280px;line-height:27px">Estrategias ejecutadas por<br>traders profesionales, sin<br>depender de tu tiempo<br>ni de tu experiencia.</div>
+  </div>
+  <div class="abs cd rv" style="left:1151px;--d:4">
+    <img src="img/s06-bit1.webp" alt="Bit1" style="left:23px;top:22px;width:84px">
+    <img src="img/s06-ic-bit1.webp" alt="" style="left:49px;top:46px;width:210px">
+    <div class="t">EXCHANGE<br>Bit1</div>
+    <div class="d">Compra, intercambio y<br>operación de activos<br>digitales.</div>
+  </div>
+  <div class="abs cd rv" style="left:1485px;--d:5">
+    <img src="img/s06-bix.webp" alt="BIX" style="left:23px;top:20px;width:82px">
+    <img src="img/s06-ic-bix.webp" alt="" style="left:49px;top:60px;width:210px">
+    <div class="t">CASHBACK VISA<br>BixCard</div>
+    <div class="d">Usa tus activos digitales<br>donde acepten Visa.</div>
+  </div>
+
+  <p class="abs end rv" style="--d:7">Tres unidades conectadas. <b>Más formas de generar valor.</b></p>
+
+  <div class="foot-a">aitechone.io</div>
+  <img class="mk-a" src="/assets/mk-logo-cropped.png" alt="Método Korex">
+  <div class="pg-a">9</div>
+</section>
+
+<section class="slide" id="s11">
+  <img class="abs ph rv fade" src="img/s11-person.webp" alt="Niklas Freihofer, fundador">
+  <div class="abs nick rv" style="--d:6"><img src="img/s11-de.webp" alt="Alemania"><span><b>Niklas Freihofer</b> · Founder</span></div>
+  <h2 class="abs t-title h1 rv"><span class="x g-silver">ESTRUCTURA GLOBAL</span></h2>
+  <h2 class="abs t-title h2 rv" style="--d:1"><span class="x">LIDERAZGO VISIBLE</span></h2>
+  <div class="abs gl rv fade" style="--d:2"></div>
+  <p class="abs sub rv" style="--d:2">Una empresa construida sobre presencia física,<br>comunidad y visión internacional.</p>
+
+  <img class="abs ic rv" src="img/s11-ic1.webp" alt="" style="top:435px;--d:3">
+  <div class="abs k rv" style="top:465px;--d:3">OFICINAS CORPORATIVAS</div>
+  <div class="abs v rv" style="top:505px;--d:3">Dubái · Colombia · Brasil</div>
+  <div class="abs sep rv fade" style="top:596px;--d:4"></div>
+
+  <img class="abs ic rv" src="img/s11-ic2.webp" alt="" style="top:614px;--d:4">
+  <div class="abs k rv" style="top:631px;--d:4">COMUNIDAD GLOBAL</div>
+  <div class="abs v rv" style="top:672px;--d:4">Más de <b>1.700.000</b> clientes<br><b>$1.200 millones</b> fondeados</div>
+  <div class="abs sep rv fade" style="top:776px;--d:5"></div>
+
+  <div class="abs face rv" style="--d:5"><img src="img/s11-craig.webp" alt="Craig Lund"></div>
+  <div class="abs k rv" style="top:812px;--d:5">LIDERAZGO</div>
+  <div class="abs v rv" style="top:853px;--d:5"><b>Craig Lund</b><br>CEO · TAG Markets</div>
+  <a class="abs btn rv" href="https://www.youtube.com/watch?v=dUwZgau9eyI" target="_blank" rel="noopener" style="--d:6">Ver entrevista</a>
+
+  <p class="abs foot rv" style="--d:7">Presencia, experiencia y una visión preparada para el siguiente nivel.</p>
+  <div class="foot-a">aitechone.io</div>
+  <img class="mk-a" src="/assets/mk-logo-cropped.png" alt="Método Korex">
+  <div class="pg-a">10</div>
+</section>
+
+<section class="slide" id="s12">
+  <svg class="abs silk" viewBox="0 0 1920 1080" aria-hidden="true"><defs><filter id="s12b" filterUnits="userSpaceOnUse" x="-200" y="-200" width="2320" height="1480"><feGaussianBlur stdDeviation="26"/></filter><filter id="s12c" filterUnits="userSpaceOnUse" x="-200" y="-200" width="2320" height="1480"><feGaussianBlur stdDeviation="7"/></filter></defs>
+    <g fill="none" stroke="#fff" stroke-linecap="round">
+      <path filter="url(#s12b)" stroke-opacity=".07" stroke-width="180" d="M-80 860 C200 780 420 760 700 820"/>
+      <path filter="url(#s12c)" stroke-opacity=".10" stroke-width="16" d="M-60 800 C200 740 420 730 680 780"/>
+      <path filter="url(#s12b)" stroke-opacity=".08" stroke-width="140" d="M1990 300 C1880 480 1760 600 1560 700"/>
+      <path filter="url(#s12c)" stroke-opacity=".10" stroke-width="12" d="M1960 330 C1860 480 1740 590 1560 680"/>
+      <path filter="url(#s12b)" stroke-opacity=".05" stroke-width="200" d="M1300 -80 C1500 60 1700 120 1990 150"/>
+    </g></svg>
+  <img class="abs shield rv zoom" src="img/s12-shield.webp" alt="Escudo de protección" style="--d:3">
+  <h2 class="abs t-title h rv"><span class="a g-silver">ESTRUCTURA Y</span><span class="b">DOCUMENTACIÓN</span></h2>
+  <p class="abs sub rv" style="--d:1">Revisa tú mismo la <b>documentación oficial</b> de la empresa.</p>
+
+
+
+
+  <div class="abs box rv" style="top:575px;--d:3"><svg viewBox="0 0 60 60"><rect x="12" y="12" width="30" height="38" rx="3.5"/><rect x="21" y="8" width="12" height="8" rx="2"/><path d="M18 24h11M18 31h15M18 38h9"/><circle cx="42" cy="42" r="8.5" fill="#101010"/><path d="M38.2 42.2 41 45 46 39.5"/></svg></div>
+  <div class="abs sec rv" style="top:562px;--d:3"><h4>ESTRUCTURA CORPORATIVA</h4><ul><li>TM-FINANCIALS LIMITED</li><li>Empresa registrada en Reino Unido</li><li>Companies House Nº 12629770</li></ul></div>
+
+  <div class="abs panel rv" style="--d:6">
+    <svg style="left:50px;top:33px;width:50px;height:60px" viewBox="0 0 50 60"><path d="M6 3h25l13 13v39a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M31 3v13h13"/><path d="M13 40h14M13 47h22" stroke="#5FC6E0"/></svg>
+    <div class="t">DOCUMENTACIÓN OFICIAL</div>
+    <div class="row" style="top:110px"><svg style="top:12px;width:50px;height:58px" viewBox="0 0 50 58"><path d="M25 4v6M25 4h7v4h-7"/><path d="M5 22 25 12l20 10z"/><path d="M7 22h36"/><path d="M11 26v20M18 26v20M25 26v20M32 26v20M39 26v20"/><path d="M6 49h38M4 54h42"/></svg><p style="top:11px">Registro en Gobierno<br>de Reino Unido</p><a class="ver" href="https://find-and-update.company-information.service.gov.uk/company/12629770" target="_blank" rel="noopener" style="top:28px">Ver</a></div>
+  </div>
+
+  <div class="foot-a">aitechone.io</div>
+  <img class="mk-a" src="/assets/mk-logo-cropped.png" alt="Método Korex">
+  <div class="pg-a">11</div>
+</section>
+
+<section class="slide" id="s13">
+  <img class="abs bgl" src="img/s13-bg-left.webp" alt="">
+  <img class="abs bgr" src="img/s13-bg-right.webp" alt="">
+  <img class="abs bgt" src="img/s13-bg-top.webp" alt="">
+  <img class="abs bgf" src="img/s13-bg-floor.webp" alt="">
+  <div class="abs t-title g-silver h1 rv">EL MERCADO MÁS GRANDE</div>
+  <h2 class="abs t-title h2 rv" style="--d:1"><span class="g-silver">QUE VAS A VER </span><span class="g-cyan">EN TU VIDA</span></h2>
+  <p class="abs sub rv" style="--d:2">Forex mueve aproximadamente <b>$9,6 billones</b> cada día.</p>
+  <div class="abs vol rv" style="--d:3">VOLUMEN DIARIO APROXIMADO</div>
+
+  <div class="abs row fx rv" style="--d:4">
+    <svg viewBox="0 0 64 64" style="top:20px;stroke:#CFE6F0"><circle cx="32" cy="13" r="8"/><circle cx="14" cy="47" r="8"/><circle cx="50" cy="47" r="8"/><path d="M32 9v8M30 11.5h3a1.6 1.6 0 0 1 0 3.2h-2a1.6 1.6 0 0 0 0 3.2h3"/><path d="M17 44a4 4 0 1 0 0 6M10.5 46h5M10.5 48.5h5"/><path d="M47 43l3 4 3-4M50 47v5M47.5 48.5h5"/><path d="M22 18a20 20 0 0 0-9 18M42 18a20 20 0 0 1 9 18M22 55a20 20 0 0 0 20 0"/><path d="M11 33l2 3 3-2M53 33l-2 3-3-2M39 53l3 2-1 3"/></svg>
+    <span class="lb">Forex</span>
+    <span class="bar"></span>
+    <span class="v">$9,6 billones<small>(trillions en inglés)</small></span>
+  </div>
+  <div class="abs row rv" style="top:604px;left:336px;--d:5">
+    <svg viewBox="0 0 64 64" style="top:8px"><circle cx="26" cy="28" r="17"/><path d="M9 28h34M26 11c-6 5-8 11-8 17s2 12 8 17M26 11c6 5 8 11 8 17s-2 12-8 17M12 19h28M12 37h18"/><path d="M34 44l6-7 5 4 9-12M50 29h4v4"/><path d="M38 58v-8M44 58V48M50 58V44M56 58V40"/></svg>
+    <span class="lb" style="top:19px">Bolsa global</span>
+    <span class="bar" style="top:24px;width:98px;--d:5"></span>
+    <span class="v" style="top:20px">entre $200.000 y $300.000 millones</span>
+  </div>
+  <div class="abs row rv" style="top:706px;--d:6">
+    <svg viewBox="0 0 64 64" style="top:6px"><path d="M24 22h16l3 10H21z"/><path d="M10 38h18l3 12H7zM36 38h18l3 12H33z"/><path d="M21 32l-2 6M43 32l2 6"/></svg>
+    <span class="lb" style="top:19px">Oro</span>
+    <span class="bar" style="top:24px;width:76px;--d:6"></span>
+    <span class="v" style="top:20px">entre $150.000 y $200.000 millones</span>
+  </div>
+  <div class="abs row rv" style="top:805px;--d:7">
+    <svg viewBox="0 0 64 64" style="top:8px"><path d="M14 22a20 20 0 0 1 34-6M50 42a20 20 0 0 1-34 6"/><path d="M45 12l3 4-5 1M19 52l-3-4 5-1"/><circle cx="32" cy="32" r="13"/><path d="M28 24v16M28 24h6a3.5 3.5 0 0 1 0 7h-6M28 31h7a4.5 4.5 0 0 1 0 9h-7M31 21v3M31 40v3"/></svg>
+    <span class="lb" style="top:19px">Mercado cripto</span>
+    <span class="bar" style="top:23px;width:53px;--d:7"></span>
+    <span class="v" style="top:20px">entre $100.000 y $150.000 millones</span>
+  </div>
+
+  <p class="abs end rv" style="--d:8">Esto no es una tendencia. <b>Es la base del sistema financiero</b> <i>mundial.</i></p>
+  <div class="foot-a">aitechone.io</div>
+  <img class="mk-a" src="/assets/mk-logo-cropped.png" alt="Método Korex">
+  <div class="pg-a">12</div>
+</section>
+
+<section class="slide" id="s14">
+  <div class="abs bot"></div>
+  <h2 class="abs t-title h rv"><span class="g-silver a">ES UN HISTORIAL</span><span class="b2">VERIFICABLE</span></h2>
+  <div class="abs chart rv zoom" style="--d:1">
+    <div class="ct">Ganancia mensual 2024 - 2026</div>
+    <div class="ax"></div><div class="ax2"></div><span class="unit">% mensual</span>
+<div class="gl" style="top:503px"></div><span class="yl" style="top:495px">0,00</span><div class="gl" style="top:452px"></div><span class="yl" style="top:444px">0,25</span><div class="gl" style="top:402px"></div><span class="yl" style="top:394px">0,50</span><div class="gl" style="top:351px"></div><span class="yl" style="top:343px">0,75</span><div class="gl" style="top:300px"></div><span class="yl" style="top:292px">1,00</span><div class="gl" style="top:249px"></div><span class="yl" style="top:241px">1,25</span><div class="gl" style="top:198px"></div><span class="yl" style="top:190px">1,50</span><div class="gl" style="top:148px"></div><span class="yl" style="top:140px">1,75</span><div class="gl" style="top:97px"></div><span class="yl" style="top:89px">2,00</span>
+<div class="b" style="left:128px;height:227px;background:#b485b5;--i:0"><i>1,12%</i></div><span class="xl" style="left:149px">Nov 2024</span>
+<div class="b" style="left:183px;height:238px;background:#e38686;--i:1"><i>1,17%</i></div><span class="xl" style="left:204px">Dic 2024</span>
+<div class="b" style="left:238px;height:250px;background:#b485b5;--i:2"><i>1,23%</i></div><span class="xl" style="left:259px">Ene 2025</span>
+<div class="b" style="left:295px;height:252px;background:#e38686;--i:3"><i>1,24%</i></div><span class="xl" style="left:316px">Feb 2025</span>
+<div class="b" style="left:350px;height:215px;background:#5ab5b4;--i:4"><i>1,06%</i></div><span class="xl" style="left:371px">Mar 2025</span>
+<div class="b" style="left:405px;height:256px;background:#fdbd97;--i:5"><i>1,26%</i></div><span class="xl" style="left:426px">Abr 2025</span>
+<div class="b" style="left:462px;height:361px;background:#bcd86f;--i:6"><i>1,78%</i></div><span class="xl" style="left:483px">May 2025</span>
+<div class="b" style="left:517px;height:240px;background:#f7d66f;--i:7"><i>1,18%</i></div><span class="xl" style="left:538px">Jun 2025</span>
+<div class="b" style="left:572px;height:292px;background:#d0e8fb;--i:8"><i>1,44%</i></div><span class="xl" style="left:593px">Jul 2025</span>
+<div class="b" style="left:628px;height:327px;background:#d1cc6c;--i:9"><i>1,61%</i></div><span class="xl" style="left:649px">Ago 2025</span>
+<div class="b" style="left:684px;height:331px;background:#c7b6d7;--i:10"><i>1,63%</i></div><span class="xl" style="left:705px">Sep 2025</span>
+<div class="b" style="left:739px;height:238px;background:#9cb87e;--i:11"><i>1,17%</i></div><span class="xl" style="left:760px">Oct 2025</span>
+<div class="b" style="left:794px;height:185px;background:#c97072;--i:12"><i>0,91%</i></div><span class="xl" style="left:815px">Nov 2025</span>
+<div class="b" style="left:850px;height:235px;background:#68bce8;--i:13"><i>1,16%</i></div><span class="xl" style="left:871px">Dic 2025</span>
+<div class="b" style="left:905px;height:124px;background:#b485b5;--i:14"><i>0,61%</i></div><span class="xl" style="left:926px">Ene 2026</span>
+<div class="b" style="left:961px;height:112px;background:#e38686;--i:15"><i>0,55%</i></div><span class="xl" style="left:982px">Feb 2026</span>
+<div class="b" style="left:1017px;height:162px;background:#58b6b6;--i:16"><i>0,80%</i></div><span class="xl" style="left:1038px">Mar 2026</span>
+<div class="b" style="left:1072px;height:258px;background:#fdbd97;--i:17"><i>1,27%</i></div><span class="xl" style="left:1093px">Abr 2026</span>
+<div class="b" style="left:1127px;height:221px;background:#bcd871;--i:18"><i>1,09%</i></div><span class="xl" style="left:1148px">May 2026</span>
+<div class="b" style="left:1183px;height:215px;background:#f9d56f;--i:19"><i>1,06%</i></div><span class="xl" style="left:1204px">Jun 2026</span>
+<div class="b" style="left:1239px;height:207px;background:#d0e8fb;--i:20"><i>1,02%</i></div><span class="xl" style="left:1260px">Jul 2026</span>
+  </div>
+  <p class="abs disc rv" style="--d:2">Rentabilidad pasada. No garantiza resultados futuros.</p>
+  <img class="abs sonic rv" style="--d:2" src="img/s14-sonic.webp" alt="Sonic">
+  <div class="abs t-title g-silver ss rv" style="--d:3">SONIC AI - TRADING STRATEGY</div>
+  <img class="abs fx rv" style="--d:4" src="img/s14-myfxbook.webp" alt="myfxbook">
+  <div class="abs ver rv" style="--d:5">Ver historial completo</div>
+  <a class="abs btn rv" href="https://www.myfxbook.com/members/SonicExperts/sonic-ai/12076857" target="_blank" rel="noopener" style="--d:5">REVISAR</a>
+  <p class="abs end rv" style="--d:6">Los resultados pueden variar. <b>La transparencia no debería hacerlo.</b></p>
+  <div class="foot-a">aitechone.io</div>
+  <img class="mk-a" src="/assets/mk-logo-cropped.png" alt="Método Korex">
+  <div class="pg-a">13</div>
+</section>
+
+<section class="slide" id="s15">
+  <div class="abs silk"></div>
+  <img class="abs x24 rv fade" style="--d:3" src="img/s15-x24.webp" alt="x24">
+  <div class="abs t-title g-silver h0 rv">APALANCAMIENTO</div>
+  <h2 class="abs t-title h1 rv" style="--d:1">MÁS CAPACIDAD OPERATIVA</h2>
+  <h2 class="abs t-title h2 rv" style="--d:2">CON EL MISMO CAPITAL</h2>
+  <p class="abs p1 rv" style="--d:3">El apalancamiento permite operar una posición mayor usando el mismo capital inicial.</p>
+  <p class="abs p2 rv" style="--d:4">En lugar de aumentar tu inversión, amplía la exposición de tu cuenta al mercado.</p>
+  <div class="abs ej rv" style="--d:5">EJEMPLO CON <b>$1.000</b> DE CAPITAL</div>
+
+  <div class="abs cd rv" style="left:226px;--vx:233px;--d:6">
+    <div class="t" style="background:linear-gradient(90deg,#25C1E1,#4A73D9);-webkit-background-clip:text;background-clip:text;color:transparent">Sin apalancamiento</div>
+    <div class="r" style="top:86px">Capital inicial:<b>$1.000</b></div>
+    <div class="r" style="top:120px">Capital operativo:<b>$1.000</b></div>
+    <div class="r" style="top:154px">Movimiento de mercado:<b>+1%</b></div>
+    <div class="res">RESULTADO:</div>
+    <div class="pl" style="left:243px;color:#3FA6E0;background:linear-gradient(90deg,#3E9BE0,#6BC2E6);-webkit-background-clip:text;background-clip:text;color:transparent">+$10</div>
+    <div class="sep"></div>
+    <div class="r" style="top:266px">Movimiento de mercado:<b class="neg">−1%</b></div>
+    <div class="res n">RESULTADO:</div>
+    <div class="pl n" style="left:243px">−$10</div>
+    <div class="base" style="left:352px"></div>
+    <div class="bar" style="left:365px;height:54px;background:linear-gradient(180deg,#14C0F0,#2B7FFE)"></div>
+    <div class="bl" style="left:392px;top:254px">$1.000</div>
+  </div>
+  <div class="abs cd rv" style="left:724px;--vx:225px;--d:7">
+    <div class="t" style="color:#fff;background:linear-gradient(90deg,#fff 40%,#CFF3FC);-webkit-background-clip:text;background-clip:text;color:transparent">Cuenta x12</div>
+    <div class="r" style="top:86px">Capital inicial:<b>$1.000</b></div>
+    <div class="r" style="top:120px">Capital operativo:<b>$12.000</b></div>
+    <div class="r" style="top:154px">Movimiento de mercado:<b>+1%</b></div>
+    <div class="res">RESULTADO:</div>
+    <div class="pl" style="left:230px;background:linear-gradient(90deg,#B8ECFA,#fff);-webkit-background-clip:text;background-clip:text;color:transparent">+$120</div>
+    <div class="sep"></div>
+    <div class="r" style="top:266px">Movimiento de mercado:<b class="neg">−1%</b></div>
+    <div class="res n">RESULTADO:</div>
+    <div class="pl n" style="left:230px">−$120</div>
+    <div class="base" style="left:356px"></div>
+    <div class="bar" style="left:370px;height:106px;background:linear-gradient(180deg,#1CCBFB,#7FE0FB 50%,#fff)"></div>
+    <div class="bl" style="left:398px;top:201px">$12.000</div>
+  </div>
+  <div class="abs cd rv" style="left:1223px;--vx:232px;--d:8">
+    <div class="t" style="background:linear-gradient(90deg,#99EAB4,#C3FCD4);-webkit-background-clip:text;background-clip:text;color:transparent">Cuenta x24</div>
+    <div class="r" style="top:86px">Capital inicial:<b>$1.000</b></div>
+    <div class="r" style="top:120px">Capital operativo:<b>$24.000</b></div>
+    <div class="r" style="top:154px">Movimiento de mercado:<b>+1%</b></div>
+    <div class="res">RESULTADO:</div>
+    <div class="pl" style="left:242px;background:linear-gradient(90deg,#7ED79E,#B7F5CB);-webkit-background-clip:text;background-clip:text;color:transparent">+$240</div>
+    <div class="sep"></div>
+    <div class="r" style="top:266px">Movimiento de mercado:<b class="neg">−1%</b></div>
+    <div class="res n">RESULTADO:</div>
+    <div class="pl n" style="left:242px">−$240</div>
+    <div class="base" style="left:356px"></div>
+    <div class="bar" style="left:371px;height:179px;background:linear-gradient(180deg,#B3FFCA,#6FE098 45%,#1AC862)"></div>
+    <div class="bl" style="left:398px;top:129px">$24.000</div>
+  </div>
+
+  <div class="abs q rv" style="--d:9">¿Qué <span>significa?</span></div>
+  <p class="abs qt rv" style="--d:9">Con una mayor capacidad operativa, los movimientos del mercado pueden<br>generar resultados más amplios. <b class="neg">También puede amplificar las pérdidas.</b><br><b>Los resultados son aproximados y variables.</b></p>
+  <p class="abs end rv" style="--d:10">El capital inicial puede ser el mismo. <b>Lo que cambia es la exposición al mercado.</b></p>
+  <div class="foot-a">aitechone.io</div>
+  <img class="mk-a" src="/assets/mk-logo-cropped.png" alt="Método Korex">
+  <div class="pg-a">14</div>
+</section>
+
+<section class="slide" id="s07">
+  <img class="abs hand rv fade" src="img/s07-hand.webp" alt="Mano sosteniendo la tarjeta BIX Visa">
+  <h2 class="abs t-title h rv"><span class="x"><span class="g-silver">TU CRIPTO,</span> <span class="b">EN EL MUNDO REAL</span></span></h2>
+  <p class="abs sub rv" style="--d:1">La tarjeta cripto que se acepta en <b>más de 100 millones de lugares</b> donde acepten Visa</p>
+  <p class="abs lead rv" style="--d:2"><b class="lime">BixCard</b> <b>es la unidad de movilidad financiera dentro del ecosistema</b> <b class="cy">AITech One:</b> una tarjeta<br>Visa respaldada por tus propios activos digitales, sin que nadie más tenga el control de tu dinero.</p>
+  <div class="abs lq rv" style="--d:3">Lo que la hace diferente:</div>
+
+  <div class="abs card c rv" style="left:752px;--d:4">
+    <svg class="ic" style="top:42px" width="62" height="70" viewBox="0 0 62 70"><path d="M31 3 L57 12 V34 C57 50 46 61 31 67 C16 61 5 50 5 34 V12 Z"/><rect x="20" y="33" width="22" height="17" rx="3" fill="#E8EAEE" stroke="none"/><path d="M24.5 33 V27.5 a6.5 6.5 0 0 1 13 0 V33"/><circle cx="31" cy="40.5" r="2.2" fill="#050407" stroke="none"/><path d="M31 42 v3.5" stroke="#050407" stroke-width="2"/></svg>
+    <p><b>No-custodial:</b><br>tus llaves, tu cripto<br>siempre. Tú mantienes<br>el control total de<br>tus activos.</p>
+  </div>
+  <div class="abs card c rv" style="left:964px;--d:5">
+    <img class="ic" src="img/s07-usdt.webp" alt="Tether y USDC" style="top:35px;width:129px">
+    <p><b>Colateral en<br>USDT y USDC</b>,<br>disponible en más de<br>4 redes blockchain<br>distintas.</p>
+  </div>
+  <div class="abs card c rv" style="left:1176px;--d:6">
+    <img class="ic" src="img/s07-pay.webp" alt="Apple Pay y Google Pay" style="top:31px;width:162px">
+    <p>Compatible<br>con <b>Apple Pay y<br>Google Pay</b>:<br>toca y listo.</p>
+  </div>
+  <div class="abs card c rv" style="left:1388px;--d:7">
+    <svg class="ic" style="top:43px" width="70" height="70" viewBox="0 0 70 70" stroke-width="2.6"><path d="M23 9.5 A27 27 0 0 1 47 9.5"/><path d="M42 5 L47.5 9.5 L42 14"/><path d="M61 23 A27 27 0 0 1 61 47"/><path d="M56.5 42 L61 47.5 L65.5 42"/><path d="M47 60.5 A27 27 0 0 1 23 60.5"/><path d="M28 56 L22.5 60.5 L28 65"/><path d="M9 47 A27 27 0 0 1 9 23"/><path d="M4.5 28 L9 22.5 L13.5 28"/></svg>
+    <p><b>Swaps</b> entre<br>cadenas al instante,<br>con comisiones<br>bajas.</p>
+  </div>
+  <div class="abs card c rv" style="left:1600px;--d:8">
+    <svg class="ic" style="top:48px" width="72" height="64" viewBox="0 0 72 64" stroke-width="2.1"><path d="M2 8 H25.5 M36.5 8 H70"/><circle cx="31" cy="8" r="5.2"/><path d="M2 32 H45 M57 32 H70"/><circle cx="51" cy="32" r="5.2"/><path d="M2 56 H17 M29 56 H70"/><circle cx="23" cy="56" r="5.2"/></svg>
+    <p><b>Límites de gasto</b><br>configurables, según<br>lo que tú necesites.</p>
+  </div>
+
+  <div class="abs card c w rv" style="left:752px;--d:9">
+    <img src="img/s07-plane.webp" alt="" style="left:34px;top:46px;width:125px">
+    <h4 style="left:181px">Beneficios Visa Signature</h4>
+    <p style="left:181px">Acceso a salas VIP en aeropuertos, seguro<br>de auto de alquiler, seguro de viaje, hasta<br>65% de descuento en hoteles, acceso a<br>eventos exclusivos y concierge personal<br>24/7.</p>
+  </div>
+  <div class="abs card c w rv" style="left:1282px;--d:10">
+    <img src="img/s07-shieldkey.webp" alt="" style="left:25px;top:50px;width:104px">
+    <h4 style="left:193px">Seguridad sin custodia</h4>
+    <p style="left:151px">Tus llaves nunca se almacenan completas<br>divididas mediante Shamir's Secret Sharing,<br>operando en entornos seguros certificados<br>SOC 2 Tipo II, con triple auditoría independiente<br>(Cure53, Zellic, Doyensec).</p>
+  </div>
+
+  <p class="abs foot rv" style="--d:11">No es cripto de vitrina. <b>Es cripto que se disfruta, en cualquier parte del mundo.</b></p>
+  <div class="foot-a">aitechone.io</div>
+  <img class="mk-a" src="/assets/mk-logo-cropped.png" alt="Método Korex">
+  <div class="pg-a">15</div>
+</section>
+
+<section class="slide" id="s10">
+  <svg class="abs silk" viewBox="0 0 1920 1080" aria-hidden="true"><defs><filter id="s10b" filterUnits="userSpaceOnUse" x="-200" y="-200" width="2320" height="1480"><feGaussianBlur stdDeviation="28"/></filter></defs>
+    <g fill="none" stroke="#fff" stroke-linecap="round">
+      <path filter="url(#s10b)" stroke-opacity=".07" stroke-width="160" d="M1990 120 C1700 300 1400 380 1000 420"/>
+      <path filter="url(#s10b)" stroke-opacity=".05" stroke-width="220" d="M1200 -80 C1300 100 1500 200 1990 260"/>
+      <path filter="url(#s10b)" stroke-opacity=".04" stroke-width="200" d="M-80 640 C300 560 600 520 960 470"/>
+    </g></svg>
+  <img class="abs logo rv" src="img/s10-bit1.webp" alt="Bit1">
+  <h2 class="abs t-title h1 rv"><span class="x g-silver">TU EXCHANGE</span></h2>
+  <h2 class="abs t-title h2 rv" style="--d:1"><span class="x">EN MÁS DE <span class="sr">100</span><span aria-hidden="true">1OO</span> PAÍSES</span></h2>
+  <p class="abs p1 rv" style="--d:2">Compra, intercambia y opera activos digitales desde una sola plataforma.</p>
+  <p class="abs p2 rv" style="--d:2"><b class="lime">Bit1</b> es el exchange de <b>AITech One</b> diseñado para usuarios nuevos y operadores con experiencia.</p>
+
+  <div class="abs lab rv" style="top:520px;--d:3">TODO EN UN SOLO LUGAR</div>
+  <div class="abs ci rv" style="left:201px;--d:4"><svg viewBox="0 0 48 48"><rect x="5" y="11" width="38" height="27" rx="4"/><path d="M5 19h38M5 23.5h38"/><path d="M10 31h5M18 31h5"/><circle cx="36.5" cy="31" r="2"/></svg></div>
+  <div class="abs ct rv" style="left:148px;--d:4">Compra de<br>criptomonedas<br>con tarjeta</div>
+  <div class="abs dv rv fade" style="left:377px;--d:4"></div>
+  <div class="abs ci rv" style="left:461px;--d:5"><svg viewBox="0 0 48 48"><path d="M7 18h33M33 10.5l8 7.5-8 7.5"/><path d="M41 31H8M15 23.5 7 31l8 7.5"/></svg></div>
+  <div class="abs ct rv" style="left:408px;--d:5">Trading spot y<br>comercio P2P</div>
+  <div class="abs dv rv fade" style="left:637px;--d:5"></div>
+  <div class="abs ci rv" style="left:721px;--d:6"><svg viewBox="0 0 48 48"><rect x="6" y="29" width="8" height="10" rx="1.5"/><rect x="20" y="20" width="8" height="19" rx="1.5"/><rect x="34" y="9" width="8" height="30" rx="1.5"/></svg></div>
+  <div class="abs ct rv" style="left:668px;--d:6">60 pares<br>de futuros</div>
+
+
+  <img class="abs dev rv fade" src="img/s10-devices.webp" alt="Plataforma Bit1 en laptop y celular" style="--d:3">
+  <p class="abs acc rv" style="--d:9">Acceso global. Operación simple.</p>
+  <p class="abs foot rv" style="--d:11">Simple para empezar. <b>Potente para operar.</b></p>
+  <div class="foot-a">aitechone.io</div>
+  <img class="mk-a" src="/assets/mk-logo-cropped.png" alt="Método Korex">
+  <div class="pg-a">16</div>
+</section>
+
+<section class="slide" id="s08">
+  <svg class="abs silk" viewBox="0 0 1920 1080" aria-hidden="true"><defs><filter id="s08b" filterUnits="userSpaceOnUse" x="-200" y="-200" width="2320" height="1480"><feGaussianBlur stdDeviation="22"/></filter><filter id="s08b2" filterUnits="userSpaceOnUse" x="-200" y="-200" width="2320" height="1480"><feGaussianBlur stdDeviation="6"/></filter></defs>
+    <g fill="none" stroke="#fff" stroke-linecap="round">
+      <path filter="url(#s08b)" stroke-opacity=".10" stroke-width="170" d="M1960 -40 C1880 300 1700 560 1320 680 S500 860 -80 960"/>
+      <path filter="url(#s08b2)" stroke-opacity=".16" stroke-width="16" d="M1900 -30 C1840 280 1690 540 1320 650 S520 830 -80 930"/>
+      <path filter="url(#s08b)" stroke-opacity=".06" stroke-width="120" d="M1990 260 C1900 560 1640 760 1180 860 S300 1000 -80 1080"/>
+      <path filter="url(#s08b)" stroke-opacity=".025" stroke-width="160" d="M-80 260 C150 150 360 60 620 -60"/>
+    </g></svg>
+  <div class="abs t-title g-silver kick rv">EL CAMINO</div>
+  <h2 class="abs t-title h rv" style="--d:1">DE LA TARJETA A LA INVERSIÓN</h2>
+
+  <div class="abs c rv" style="left:128px;top:272px;height:428px;--d:2">
+    <img src="img/s08-ic1.webp" alt="">
+    <div class="n" style="top:168px">01</div>
+    <h3 style="top:220px">Recomiendas la tarjeta</h3>
+    <p style="top:276px">Una entrada simple: usar activos<br>digitales donde acepten Visa.</p>
+  </div>
+  <svg class="abs ar rv" style="left:643px;--d:3" viewBox="0 0 48 20"><path d="M0 6h31V0l17 10-17 10v-6H0z"/></svg>
+  <div class="abs c rv" style="left:715px;top:272px;height:428px;--d:4">
+    <img src="img/s08-ic2.webp" alt="">
+    <div class="n" style="top:168px">02</div>
+    <h3 style="top:220px">Pasa al copy trading</h3>
+    <p style="top:276px">Abre su cuenta en TAG Markets y<br>conecta su capital a la estrategia<br>Sonic AI, ejecutada por traders.</p>
+  </div>
+  <svg class="abs ar rv" style="left:1229px;--d:5" viewBox="0 0 48 20"><path d="M0 6h31V0l17 10-17 10v-6H0z"/></svg>
+  <div class="abs c rv" style="left:1301px;top:272px;height:428px;--d:6">
+    <img src="img/s08-ic3.webp" alt="">
+    <div class="n" style="top:168px">03</div>
+    <h3 style="top:220px">Construyes tu estructura</h3>
+    <p style="top:276px">Puedes generar comisiones por las<br>transacciones de la tarjeta y por las<br>inversiones de tus referidos.</p>
+  </div>
+
+  <p class="abs goal rv" style="--d:7">El objetivo: un negocio con <span>dos fuentes de ingreso</span>, la tarjeta y las inversiones de tus referidos.</p>
+  <div class="foot-k">EQUIPO KOREX</div>
+  <img class="mk-k" src="/assets/mk-logo-cropped.png" alt="Método Korex">
+</section>
+
+<section class="slide" id="s16">
+  <div class="abs silk"></div>
+  <div class="abs kp rv">PLAN OFICIAL DE TAG MARKETS</div>
+  <div class="abs t-title g-silver h1 rv">8 FORMAS DE GENERAR INGRESOS</div>
+  <h2 class="abs t-title h2 rv" style="--d:1"><span>DENTRO DE UN SOLO ECOSISTEMA</span></h2>
+  <p class="abs sub rv" style="--d:2">El plan oficial de TAG Markets combina varias fuentes de comisión, cada una con su propia frecuencia de pago.</p>
+  <div class="abs cd rv" style="left:156px;top:440px;width:388px;--d:4">
+    <img src="img/s16-ic1.webp" alt="" style="left:28px;top:51px;width:94px">
+    <div class="tt" style="left:142px"><b>1</b><span>Lot Commissions</span></div>
+    <p style="left:142px;top:92px">Comisión por cada lote<br>operado en tu estructura,<br>hasta 10 niveles</p>
+  </div>
+  <div class="abs cd rv" style="left:559px;top:440px;width:378px;--d:5">
+    <img src="img/s16-ic2.webp" alt="" style="left:23px;top:47px;width:88px">
+    <div class="tt" style="left:147px"><b>2</b><span>Profit Share</span></div>
+    <p style="left:147px;top:92px">Participación en las<br>ganancias generadas<br>por tu estructura.</p>
+  </div>
+  <div class="abs cd rv" style="left:954px;top:440px;width:383px;--d:6">
+    <img src="img/s16-ic3.webp" alt="" style="left:20px;top:49px;width:110px">
+    <div class="tt" style="left:146px"><b>3</b><span>Leader Pool 1</span></div>
+    <p style="left:146px;top:92px">Fondo adicional para<br>líderes con equipo activo.</p>
+  </div>
+  <div class="abs cd rv" style="left:1353px;top:440px;width:410px;--d:7">
+    <img src="img/s16-ic4.webp" alt="" style="left:35px;top:49px;width:104px">
+    <div class="tt" style="left:165px"><b>4</b><span>Leader Pool 2</span></div>
+    <p style="left:165px;top:92px">Segundo fondo de líderes,<br>para niveles superiores.</p>
+  </div>
+  <div class="abs cd rv" style="left:156px;top:651px;width:388px;--d:8">
+    <img src="img/s16-ic5.webp" alt="" style="left:36px;top:50px;width:90px">
+    <div class="tt" style="left:142px"><b>5</b><span>CPA Earnings</span></div>
+    <p style="left:142px;top:92px">Comisión escalonada sobre<br>el volumen de depósitos<br>de tus referidos.</p>
+  </div>
+  <div class="abs cd rv" style="left:559px;top:651px;width:378px;--d:9">
+    <img src="img/s16-ic6.webp" alt="" style="left:21px;top:48px;width:96px">
+    <div class="tt" style="left:147px"><b>6</b><span>Sonic Pool</span></div>
+    <p style="left:147px;top:92px">Pool mensual compartido<br>entre los IBs calificados.</p>
+  </div>
+  <div class="abs cd rv" style="left:954px;top:651px;width:383px;--d:10">
+    <img src="img/s16-ic7.webp" alt="" style="left:32px;top:52px;width:88px">
+    <div class="tt" style="left:146px"><b>7</b><span>Profit Pool</span></div>
+    <p style="left:146px;top:92px">Comisión adicional sobre<br>volumen de operaciones.</p>
+  </div>
+  <div class="abs cd rv" style="left:1353px;top:651px;width:410px;--d:11">
+    <img src="img/s16-ic8.webp" alt="" style="left:29px;top:32px;width:104px">
+    <div class="tt two" style="left:165px"><b>8</b><span>Viajes e<br>Incentivos</span></div>
+    <p style="left:165px;top:106px">Dubái o República Dominicana</p>
+  </div>
+  <p class="abs end rv" style="--d:12">Sujeto a las condiciones vigentes del plan de TAG Markets.</p>
+  <div class="foot-a">aitechone.io</div>
+  <img class="mk-a" src="/assets/mk-logo-cropped.png" alt="Método Korex">
+  <div class="pg-a">18</div>
+</section>
+
+<section class="slide" id="s17">
+  <img class="abs coin rv fade" style="left:105px;top:565px;--d:6" src="img/s17-coin-a.webp" alt="">
+  <img class="abs coin rv fade" style="left:0;top:780px;--d:7" src="img/s17-coin-b.webp" alt="">
+  <img class="abs coin rv fade" style="left:1745px;top:440px;--d:6" src="img/s17-coin-c.webp" alt="">
+  <img class="abs coin rv fade" style="left:1660px;top:745px;--d:7" src="img/s17-coin-d.webp" alt="">
+  <div class="abs kp rv">PLAN OFICIAL DE TAG MARKETS</div>
+  <div class="abs t-title g-silver h1 rv">UNA ESTRUCTURA</div>
+  <h2 class="abs t-title h2 rv" style="--d:1"><span>QUE EXPANDE EL VALOR</span></h2>
+  <p class="abs sub rv" style="--d:2">Cada operación puede generar participación para quien opera, para los traders y para la estructura que construyes.</p>
+  <div class="abs dist rv" style="--d:3">DISTRIBUCIÓN DE RESULTADOS</div>
+  <div class="abs box rv" style="--d:4">
+    <svg width="0" height="0" style="position:absolute"><defs><linearGradient id="s17g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#3FB8D6"/></linearGradient></defs></svg>
+    <svg viewBox="0 0 72 72" style="left:42px;top:28px;width:72px;height:72px"><circle cx="30" cy="20" r="13"/><path d="M6 66V58a24 22 0 0 1 36-19"/><rect x="40" y="56" width="7" height="12" rx="3"/><rect x="51" y="49" width="7" height="19" rx="3"/><rect x="62" y="42" width="7" height="26" rx="3"/></svg>
+    <div class="pc" style="left:141px">70%</div>
+    <p style="left:141px">Para el inversor o IB<br>que participa directamente.</p>
+    <div class="dv" style="left:411px"></div>
+    <svg viewBox="0 0 80 72" style="left:462px;top:30px;width:80px;height:72px;stroke-width:2.4"><circle cx="40" cy="9" r="5"/><path d="M31 25a9 8 0 0 1 18 0z"/><circle cx="40" cy="44" r="6"/><path d="M29 66a11 10 0 0 1 22 0z"/><circle cx="12" cy="38" r="5"/><path d="M3 54a9 8 0 0 1 18 0z"/><circle cx="68" cy="38" r="5"/><path d="M59 54a9 8 0 0 1 18 0z"/><path d="M40 28v8M24 46h6M50 46h6" stroke-dasharray="2 3"/></svg>
+    <div class="pc" style="left:566px">25%</div>
+    <p style="left:566px">Distribuido en la estructura,<br>hasta 10 niveles. 2,5% por nivel.</p>
+    <div class="dv" style="left:869px"></div>
+    <svg viewBox="0 0 72 72" style="left:917px;top:30px;width:70px;height:70px;stroke-width:2.4"><circle cx="36" cy="36" r="11"/><path d="M31 5h10l2 8 6 3 7-5 7 7-5 7 3 6 8 2v10l-8 2-3 6 5 7-7 7-7-5-6 3-2 8H31l-2-8-6-3-7 5-7-7 5-7-3-6-8-2V31l8-2 3-6-5-7 7-7 7 5 6-3z"/></svg>
+    <div class="pc" style="left:1008px">5%</div>
+    <p style="left:1008px">Para los tres traders alemanes<br>responsables de ejecutar la estrategia.</p>
+  </div>
+  <p class="abs ad rv" style="--d:5">Además, cada lote operado dentro de tu estructura puede generar una comisión de hasta: <b>$8,50 POR LOTE</b></p>
+  <div class="abs th rv" style="left:498px;--d:6">PARTICIPACIÓN EN GANANCIAS</div>
+  <div class="abs th rv" style="left:1043px;--d:6">COMISIÓN DIRECTA POR LOTE</div>
+  <div class="abs tb rv" style="left:440px;--d:7">
+    <div class="hd" style="left:33px">Nivel</div><div class="hd" style="left:172px">% Participación</div>
+    <div class="tr" style="top:54px"><span style="left:33px">Nivel 1</span><i style="left:115px;width:94px"></i><span style="left:222px">2,5%</span></div>
+    <div class="tr" style="top:78px"><span style="left:33px">Nivel 2</span><i style="left:115px;width:94px"></i><span style="left:222px">2,5%</span></div>
+    <div class="tr" style="top:102px"><span style="left:33px">Nivel 3</span><i style="left:115px;width:94px"></i><span style="left:222px">2,5%</span></div>
+    <div class="tr" style="top:127px"><span style="left:33px">Nivel 4</span><i style="left:115px;width:94px"></i><span style="left:222px">2,5%</span></div>
+    <div class="tr" style="top:151px"><span style="left:33px">Nivel 5</span><i style="left:115px;width:94px"></i><span style="left:222px">2,5%</span></div>
+    <div class="tr" style="top:175px"><span style="left:33px">Nivel 6</span><i style="left:115px;width:94px"></i><span style="left:222px">2,5%</span></div>
+    <div class="tr" style="top:199px"><span style="left:33px">Nivel 7</span><i style="left:115px;width:94px"></i><span style="left:222px">2,5%</span></div>
+    <div class="tr" style="top:223px"><span style="left:33px">Nivel 8</span><i style="left:115px;width:94px"></i><span style="left:222px">2,5%</span></div>
+    <div class="tr" style="top:248px"><span style="left:33px">Nivel 9</span><i style="left:115px;width:94px"></i><span style="left:222px">2,5%</span></div>
+    <div class="tr" style="top:272px"><span style="left:33px">Nivel 10</span><i style="left:115px;width:94px"></i><span style="left:222px">2,5%</span></div>
+    <div class="tl" style="left:327px;top:133px">TOTAL:</div>
+    <div class="big" style="left:325px;top:172px;font-size:68px;letter-spacing:.01em">25%</div>
+  </div>
+  <div class="abs tb rv" style="left:976px;--d:8">
+    <div class="hd" style="left:36px">Nivel</div><div class="hd" style="left:203px">$ por lote</div>
+    <div class="tr" style="top:54px"><span style="left:36px">Nivel 1</span><i style="left:115px;width:93px"></i><span style="left:223px">$2,00</span></div>
+    <div class="tr" style="top:78px"><span style="left:36px">Nivel 2</span><i style="left:115px;width:93px"></i><span style="left:223px">$1,50</span></div>
+    <div class="tr" style="top:102px"><span style="left:36px">Nivel 3</span><i style="left:115px;width:93px"></i><span style="left:223px">$1,00</span></div>
+    <div class="tr" style="top:127px"><span style="left:36px">Nivel 4</span><i style="left:115px;width:93px"></i><span style="left:223px">$1,00</span></div>
+    <div class="tr" style="top:151px"><span style="left:36px">Nivel 5</span><i style="left:115px;width:93px"></i><span style="left:223px">$0,50</span></div>
+    <div class="tr" style="top:175px"><span style="left:36px">Nivel 6</span><i style="left:115px;width:93px"></i><span style="left:223px">$0,50</span></div>
+    <div class="tr" style="top:199px"><span style="left:36px">Nivel 7</span><i style="left:115px;width:93px"></i><span style="left:223px">$0,50</span></div>
+    <div class="tr" style="top:223px"><span style="left:36px">Nivel 8</span><i style="left:115px;width:93px"></i><span style="left:223px">$0,50</span></div>
+    <div class="tr" style="top:248px"><span style="left:36px">Nivel 9</span><i style="left:115px;width:93px"></i><span style="left:223px">$0,50</span></div>
+    <div class="tr" style="top:272px"><span style="left:36px">Nivel 10</span><i style="left:115px;width:93px"></i><span style="left:223px">$0,50</span></div>
+    <div class="tl" style="left:326px;top:113px">TOTAL MÁX:</div>
+    <div class="big" style="left:326px;top:153px;font-size:44px;line-height:1.05;letter-spacing:.01em">$8,50 /<br>LOTE</div>
+  </div>
+  <p class="abs disc rv" style="--d:9">Los resultados y comisiones son variables y dependen de la actividad operativa, la estructura y las condiciones vigentes del plan.</p>
+  <p class="abs end rv" style="--d:10"><b>Tu estructura participa en cada operación,</b> según las condiciones del plan.</p>
+  <div class="abs web">aitechone.io</div>
+  <img class="mk-a" src="/assets/mk-logo-cropped.png" alt="Método Korex">
+  <div class="pg-a">19</div>
+</section>
+
+<section class="slide" id="s18">
+  <div class="abs ped rv fade" style="left:108px;top:872px;width:330px;height:56px;--pc:#2a6f7a;--d:0"></div><div class="abs ped rv fade" style="left:430px;top:855px;width:345px;height:73px;--pc:#9a4a0c;--d:1"></div><div class="abs ped rv fade" style="left:780px;top:832px;width:345px;height:96px;--pc:#4a6a24;--d:2"></div><div class="abs ped rv fade" style="left:1128px;top:795px;width:350px;height:133px;--pc:#4c1f66;--d:3"></div><div class="abs ped rv fade" style="left:1478px;top:758px;width:368px;height:170px;--pc:#5f4a1e;--d:4"></div>
+  <div class="abs plan rv">PLAN OFICIAL DE TAG MARKETS</div>
+  <div class="abs t-title g-silver h1 rv">COMISIONES CPA</div>
+  <h2 class="abs t-title h2 rv" style="--d:1">EL BONO DE MAYOR ESCALA</h2>
+  <p class="abs sub rv" style="--d:2">A mayor volumen de red, mayor nivel de comisión.</p>
+  <div class="abs cd rv" style="left:123px;top:449px;width:283px;height:423px;--c:#2FC8E8;--d:3">
+    <svg viewBox="0 0 60 48" style="width:55px;top:34px;left:calc(50% - 27.5px)"><circle cx="22" cy="12" r="10"/><path d="M3 46v-6a12 12 0 0 1 12-12h14a12 12 0 0 1 12 12v6z"/><path d="M36 4.5a10 10 0 1 1 6 17.5"/><path d="M45 28h2a10 10 0 0 1 10 10v8H45"/></svg>
+    <div class="cp t-title" style="top:81px;font-size:37px;color:#2FC8E8">CPA 1</div>
+    <i style="top:136px;width:176px"></i>
+    <div class="lb" style="top:155px">VOLUMEN DE RED</div>
+    <div class="vl" style="top:176px;font-size:36px">$10,000</div>
+    <i style="top:236px;width:140px"></i>
+    <div class="lb" style="top:247px">%BONO</div>
+    <div class="vl" style="top:267px;font-size:36px;color:#3AD6E2">1%</div>
+    <i style="top:316px;width:108px"></i>
+    <div class="lb" style="top:326px">GANANCIA</div>
+    <div class="vl" style="top:348px;font-size:35px">$100</div>
+  </div>
+  <div class="abs cd rv" style="left:453px;top:402px;width:298px;height:453px;--c:#F07A2A;--d:4">
+    <svg viewBox="0 0 60 48" style="width:52px;top:28px;left:calc(50% - 26.0px)"><circle cx="22" cy="12" r="10"/><path d="M3 46v-6a12 12 0 0 1 12-12h14a12 12 0 0 1 12 12v6z"/><path d="M36 4.5a10 10 0 1 1 6 17.5"/><path d="M45 28h2a10 10 0 0 1 10 10v8H45"/></svg>
+    <div class="cp t-title" style="top:83px;font-size:37px;color:#F07A2A">CPA 2</div>
+    <i style="top:144px;width:176px"></i>
+    <div class="lb" style="top:162px">VOLUMEN DE RED</div>
+    <div class="vl" style="top:191px;font-size:37px">$50,000</div>
+    <i style="top:255px;width:140px"></i>
+    <div class="lb" style="top:268px">%BONO</div>
+    <div class="vl" style="top:294px;font-size:36px;color:#F2853A">2%</div>
+    <i style="top:346px;width:108px"></i>
+    <div class="lb" style="top:360px">GANANCIA</div>
+    <div class="vl" style="top:389px;font-size:36px">$1,000</div>
+  </div>
+  <div class="abs cd rv" style="left:806px;top:326px;width:297px;height:506px;--c:#C6F07A;--d:5">
+    <svg viewBox="0 0 60 48" style="width:57px;top:30px;left:calc(50% - 28.5px)"><circle cx="22" cy="12" r="10"/><path d="M3 46v-6a12 12 0 0 1 12-12h14a12 12 0 0 1 12 12v6z"/><path d="M36 4.5a10 10 0 1 1 6 17.5"/><path d="M45 28h2a10 10 0 0 1 10 10v8H45"/></svg>
+    <div class="cp t-title" style="top:95px;font-size:37px;color:#C6F07A">CPA 3</div>
+    <i style="top:157px;width:176px"></i>
+    <div class="lb" style="top:184px">VOLUMEN DE RED</div>
+    <div class="vl" style="top:213px;font-size:39px">$200,000</div>
+    <i style="top:278px;width:140px"></i>
+    <div class="lb" style="top:295px">%BONO</div>
+    <div class="vl" style="top:321px;font-size:44px;color:#C9F08A">3.5%</div>
+    <i style="top:386px;width:108px"></i>
+    <div class="lb" style="top:409px">GANANCIA</div>
+    <div class="vl" style="top:434px;font-size:38px">$7,000</div>
+  </div>
+  <div class="abs cd rv" style="left:1155px;top:236px;width:297px;height:559px;--c:#A766E9;--d:6">
+    <svg viewBox="0 0 60 48" style="width:67px;top:32px;left:calc(50% - 33.5px)"><circle cx="22" cy="12" r="10"/><path d="M3 46v-6a12 12 0 0 1 12-12h14a12 12 0 0 1 12 12v6z"/><path d="M36 4.5a10 10 0 1 1 6 17.5"/><path d="M45 28h2a10 10 0 0 1 10 10v8H45"/></svg>
+    <div class="cp t-title" style="top:108px;font-size:38px;color:#A766E9">CPA 4</div>
+    <i style="top:169px;width:177px"></i>
+    <div class="lb" style="top:195px">VOLUMEN DE RED</div>
+    <div class="vl" style="top:225px;font-size:40px">$1,000,000</div>
+    <i style="top:296px;width:140px"></i>
+    <div class="lb" style="top:324px">%BONO</div>
+    <div class="vl" style="top:351px;font-size:44px;color:#A464EA">5%</div>
+    <i style="top:428px;width:108px"></i>
+    <div class="lb" style="top:454px">GANANCIA</div>
+    <div class="vl" style="top:479px;font-size:39px">$50,000</div>
+  </div>
+  <div class="abs cd rv" style="left:1498px;top:77px;width:308px;height:693px;--c:#B89A62;--d:7">
+    <svg viewBox="0 0 60 48" style="width:73px;top:48px;left:calc(50% - 36.5px)"><circle cx="22" cy="12" r="10"/><path d="M3 46v-6a12 12 0 0 1 12-12h14a12 12 0 0 1 12 12v6z"/><path d="M36 4.5a10 10 0 1 1 6 17.5"/><path d="M45 28h2a10 10 0 0 1 10 10v8H45"/></svg>
+    <div class="cp t-title" style="top:146px;font-size:38px;color:#B89A62">CPA 5</div>
+    <i style="top:213px;width:177px"></i>
+    <div class="lb" style="top:250px">VOLUMEN DE RED</div>
+    <div class="vl" style="top:281px;font-size:40px">$3,500,000</div>
+    <i style="top:365px;width:140px"></i>
+    <div class="lb" style="top:400px">%BONO</div>
+    <div class="vl" style="top:431px;font-size:48px;color:#E2B866">5.5%</div>
+    <i style="top:518px;width:108px"></i>
+    <div class="lb" style="top:549px">GANANCIA</div>
+    <div class="vl" style="top:579px;font-size:39px">$192,500</div>
+  </div>
+  <p class="abs rg rv" style="--d:8"><strong>Regla <span>del 50 %:</span></strong>Máximo 50 % del volumen por una sola línea, aplica desde el <b>CPA 2</b>. Si una línea te iguala en rango, cobras el diferencial.</p>
+  <p class="abs cal rv" style="--d:9">Calificación mensual del día <b>1</b> al <b>30</b>; el volumen se reinicia cada mes.</p>
+  <p class="abs end rv" style="--d:10">Más líneas. Más equilibrio. <b>Más potencial.</b></p>
+  <div class="foot-a">aitechone.io</div>
+  <img class="mk-a" src="/assets/mk-logo-cropped.png" alt="Método Korex">
+  <div class="pg-a">20</div>
+</section>
+
+<section class="slide" id="s19">
+  <!-- podio -->
+  <div class="rv fade" style="--d:0">
+    <div class="pod" style="left:150px;top:977px;width:385px;height:16px;background:linear-gradient(180deg,#0d1622,#1c2a38);clip-path:polygon(4% 0,100% 0,99% 100%,0 100%)"></div>
+    <div class="pod" style="left:133px;top:992px;width:392px;height:88px;border-top:2px solid #46657f;border-left:2px solid #2f4d62;background:linear-gradient(180deg,#0f1c2c,#070d13)"></div>
+    <div class="pod" style="left:572px;top:954px;width:365px;height:15px;background:linear-gradient(180deg,#0b1a17,#183330);clip-path:polygon(4% 0,100% 0,100% 100%,0 100%)"></div>
+    <div class="pod" style="left:553px;top:968px;width:390px;height:112px;border-top:2px solid #417d69;border-left:2px solid #2e5a4c;background:linear-gradient(180deg,#0d2421,#071311)"></div>
+    <div class="pod" style="left:958px;top:928px;width:360px;height:15px;background:linear-gradient(180deg,#121212,#232323);clip-path:polygon(4% 0,100% 0,100% 100%,0 100%)"></div>
+    <div class="pod" style="left:943px;top:942px;width:373px;height:138px;border-top:2px solid #4a4a4a;background:linear-gradient(180deg,#1c1c1c,#0f0f0f)"></div>
+    <div class="pod" style="left:1316px;top:942px;width:16px;height:138px;background:#0c0c0c"></div>
+    <div class="pod" style="left:1348px;top:906px;width:412px;height:18px;background:linear-gradient(180deg,#1e170a,#3b2f17);clip-path:polygon(3% 0,100% 0,96% 100%,0 100%)"></div>
+    <div class="pod" style="left:1332px;top:924px;width:413px;height:156px;border-top:2px solid #7a6239;border-left:2px solid #5a4b2c;background:linear-gradient(180deg,#30281394,#1f170c),linear-gradient(180deg,#2e2712,#1f170c)"></div>
+    <div class="pod" style="left:1745px;top:868px;width:52px;height:212px;background:linear-gradient(180deg,#2a2111,#17110a);clip-path:polygon(0 26%,100% 0,100% 100%,0 100%)"></div>
+  </div>
+
+  <div class="abs plan rv">PLAN OFICIAL DE TAG MARKETS</div>
+  <div class="abs t-title h1 rv"><span class="g-silver">INCENTIVOS</span></div>
+  <h2 class="abs t-title h2 rv" style="--d:1"><span class="sx"><span class="de">DE </span><span class="lz">LIDERAZGO</span></span></h2>
+  <p class="abs sub rv" style="--d:2">Cumple los objetivos. Alcanza más, <b>vive en grande.</b></p>
+
+  <!-- Nivel 1 -->
+  <div class="rv" style="--d:3">
+    <div class="ic" style="left:192px;top:520px;--ring:linear-gradient(135deg,#4aa3dc 0%,#2a4e66 35%,#5a5f63 60%,#d9dde0 100%)">
+      <svg viewBox="0 0 24 24"><g transform="rotate(28 12 12)"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></g></svg></div>
+    <div class="t nv" style="left:291px;top:518px;background-image:linear-gradient(90deg,#46b2d8,#46b2d8)">NIVEL 1</div>
+    <div class="t tt" style="left:290px;top:544px">VIAJE PREMIUM<br>O USDT</div>
+    <div class="cd" style="left:164px;top:621px;width:372px;height:357px"></div>
+    <svg class="mi" style="left:207px;top:660px" viewBox="0 0 24 24"><circle cx="11" cy="13" r="9"/><circle cx="11" cy="13" r="5.5"/><circle cx="11" cy="13" r="2"/><path d="m11 13 8.5-8.5M17 3.5v3.5h3.5M19.5 4.5 22 2"/></svg>
+    <div class="t lb" style="left:253px;top:650px">META</div>
+    <div class="t tx" style="left:253px;top:671px"><b class="c1">$50,000</b> en volumen de red<br>durante 3 meses consecutivos.</div>
+    <div class="dv" style="left:208px;top:723px;width:278px"></div>
+    <svg class="mi" style="left:207px;top:752px" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg>
+    <div class="t lb" style="left:253px;top:741px">PREMIO</div>
+    <div class="t tx" style="left:253px;top:759px">Hasta <b class="c1">$2,000</b> en viaje<br>o equivalente en USDT.</div>
+    <img class="ph" style="left:184px;top:814px;width:332px;height:150px" src="img/s19-avion.webp" alt="Avión">
+  </div>
+
+  <!-- Nivel 2 -->
+  <div class="rv" style="--d:4">
+    <div class="ic" style="left:600px;top:398px;--ring:linear-gradient(135deg,#2c8a58 0%,#1f4a36 35%,#5a5f63 60%,#d9dde0 100%)">
+      <svg viewBox="0 0 24 24"><rect x="9" y="2.5" width="6" height="4.5" rx="1"/><rect x="9" y="17" width="6" height="4.5" rx="1"/><circle cx="12" cy="12" r="5.2"/><path d="M17.2 12h.9"/></svg></div>
+    <div class="t nv" style="left:699px;top:417px;background-image:linear-gradient(90deg,#9cd0b0,#7fc19b)">NIVEL 2</div>
+    <div class="t tt" style="left:698px;top:444px">RELOJ DE LUJO</div>
+    <div class="cd" style="left:587px;top:493px;width:335px;height:462px"></div>
+    <svg class="mi" style="left:615px;top:534px" viewBox="0 0 24 24"><circle cx="11" cy="13" r="9"/><circle cx="11" cy="13" r="5.5"/><circle cx="11" cy="13" r="2"/><path d="m11 13 8.5-8.5M17 3.5v3.5h3.5M19.5 4.5 22 2"/></svg>
+    <div class="t lb" style="left:661px;top:525px">META</div>
+    <div class="t tx" style="left:661px;top:545px">Grupo de Líderes 1 +<br><b class="c2">$500,000</b> de volumen de red.</div>
+    <div class="dv" style="left:617px;top:601px;width:272px"></div>
+    <svg class="mi" style="left:615px;top:626px" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg>
+    <div class="t lb" style="left:661px;top:616px">PREMIO</div>
+    <div class="t tx" style="left:661px;top:634px">Rolex o equivalente<br>hasta <b>$15,000</b>.</div>
+    <img class="ph" style="left:604px;top:692px;width:301px;height:245px" src="img/s19-reloj-verde.webp" alt="Reloj de lujo">
+  </div>
+
+  <!-- Nivel 3 -->
+  <div class="rv" style="--d:5">
+    <div class="ic" style="left:986px;top:310px;--ring:linear-gradient(135deg,#ffffff 0%,#6a6a6a 35%,#4a4a4a 60%,#d9dde0 100%)">
+      <svg viewBox="0 0 24 24"><rect x="9" y="2.5" width="6" height="4.5" rx="1"/><rect x="9" y="17" width="6" height="4.5" rx="1"/><circle cx="12" cy="12" r="5.2"/><path d="M17.2 12h.9"/></svg></div>
+    <div class="t nv" style="left:1086px;top:330px;background-image:linear-gradient(90deg,#fff 0,#fff 14px,#bdbdbd 18px)">NIVEL 3</div>
+    <div class="t tt" style="left:1085px;top:356px">RELOJ DE ÉLITE</div>
+    <div class="cd" style="left:973px;top:407px;width:335px;height:522px"></div>
+    <svg class="mi" style="left:1002px;top:448px" viewBox="0 0 24 24"><circle cx="11" cy="13" r="9"/><circle cx="11" cy="13" r="5.5"/><circle cx="11" cy="13" r="2"/><path d="m11 13 8.5-8.5M17 3.5v3.5h3.5M19.5 4.5 22 2"/></svg>
+    <div class="t lb" style="left:1048px;top:439px">META</div>
+    <div class="t tx" style="left:1048px;top:459px">Grupo de Líderes 2 +<br><b>$1,000,000</b> de volumen de red.</div>
+    <div class="dv" style="left:1004px;top:515px;width:283px"></div>
+    <svg class="mi" style="left:1002px;top:540px" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg>
+    <div class="t lb" style="left:1048px;top:530px">PREMIO</div>
+    <div class="t tx" style="left:1048px;top:548px">Rolex o equivalente<br>hasta <b>$25,000</b>.</div>
+    <img class="ph" style="left:990px;top:608px;width:301px;height:301px" src="img/s19-reloj-negro.webp" alt="Reloj de élite">
+  </div>
+
+  <!-- Nivel 4 -->
+  <div class="rv" style="--d:6">
+    <div class="ic" style="left:1405px;top:151px;--ring:linear-gradient(135deg,#d8b877 0%,#6b5a3a 35%,#4a4a4a 60%,#d9dde0 100%)">
+      <svg viewBox="0 0 24 24"><path d="M2.5 11 12 3l9.5 8"/><path d="M5 9v12h4.5v-5.5a2.5 2.5 0 0 1 5 0V21H19V9"/></svg></div>
+    <div class="t nv" style="left:1507px;top:146px;background-image:linear-gradient(90deg,#efe6cf 0,#efe6cf 14px,#d3be8e 18px)">NIVEL 4</div>
+    <div class="t tt" style="left:1504px;top:172px">LIBERTAD<br>PATRIMONIAL</div>
+    <div class="cd" style="left:1361px;top:253px;width:399px;height:655px"></div>
+    <svg class="mi" style="left:1415px;top:300px" viewBox="0 0 24 24"><circle cx="11" cy="13" r="9"/><circle cx="11" cy="13" r="5.5"/><circle cx="11" cy="13" r="2"/><path d="m11 13 8.5-8.5M17 3.5v3.5h3.5M19.5 4.5 22 2"/></svg>
+    <div class="t lb" style="left:1461px;top:291px">META</div>
+    <div class="t tx" style="left:1461px;top:312px">3 acciones de <b class="c4">1 millón</b><br>durante 6 meses consecutivos.</div>
+    <div class="dv" style="left:1417px;top:367px;width:286px"></div>
+    <svg class="mi" style="left:1415px;top:393px" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg>
+    <div class="t lb" style="left:1461px;top:382px">PREMIO</div>
+    <div class="t tx" style="left:1461px;top:400px">Casa hasta <b class="c4">$1,200,000.</b></div>
+    <img class="ph" style="left:1383px;top:465px;width:355px;height:426px" src="img/s19-casa.webp" alt="Casa">
+  </div>
+
+  <div class="foot-a">aitechone.io</div>
+  <img class="mk-a" src="/assets/mk-logo-cropped.png" alt="Método Korex">
+  <div class="pg-a">21</div>
+</section>
+
+<section class="slide bg-silk" id="sn22">
+  <div class="abs t-title g-silver kick rv">TU DECISIÓN</div>
+  <h2 class="abs t-title g-cyan h rv" style="--d:1">TIENES TRES CAMINOS</h2>
+
+  <div class="abs card c on1 rv" style="left:128px;--d:2">
+    <div class="ic"><svg viewBox="0 0 24 24"><path d="M3.5 20.5h17"/><path d="M5 16l4.5-4.5 3.5 3 6-6.5"/><path d="M15 8h4v4"/></svg></div>
+    <div class="n">CAMINO 1</div>
+    <h3 class="g-silver">PROBAR<br>EL PRODUCTO</h3>
+    <p>Empieza con 250 USD en copy trading y decide con tus propios resultados.</p>
+  </div>
+  <div class="abs card c on2 rv" style="left:700px;--d:3">
+    <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 20h16M6 20V10l6-5 6 5v10"/><path d="M10 20v-5h4v5"/></svg></div>
+    <div class="n">CAMINO 2</div>
+    <h3 class="g-cyan">CONSTRUIR<br>EL NEGOCIO</h3>
+    <p>Por tu cuenta, o con el Equipo Korex: solo 20 cupos.</p>
+  </div>
+  <div class="abs card c off rv" style="left:1272px;--d:4">
+    <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M9.5 9.5a2.6 2.6 0 1 1 3.6 2.4c-.7.3-1.1.9-1.1 1.6v.5M12 17h.01"/></svg></div>
+    <div class="n">CAMINO 3</div>
+    <h3>NO HACER<br>NADA</h3>
+    <p>Quedarte con la duda o dejarlo para después.</p>
+  </div>
+
+  <div class="abs note rv" style="--d:5">Toda inversión en trading implica riesgo de pérdida.</div>
+  <div class="foot-k">EQUIPO KOREX</div>
+  <img class="mk-k" src="/assets/mk-logo-cropped.png" alt="Método Korex">
+</section>
+
+<section class="slide" id="s20">
+  <svg class="abs ring rv fade" viewBox="0 0 1920 1080" aria-hidden="true">
+    <defs>
+      <linearGradient id="s20g" gradientUnits="userSpaceOnUse" x1="1590" y1="0" x2="1920" y2="0">
+        <stop offset="0" stop-color="#0b1a28" stop-opacity="0"/>
+        <stop offset=".3" stop-color="#0d1d2c"/>
+        <stop offset=".64" stop-color="#11324d"/>
+        <stop offset="1" stop-color="#174468"/>
+      </linearGradient>
+      <linearGradient id="s20v" gradientUnits="userSpaceOnUse" x1="0" y1="40" x2="0" y2="690">
+        <stop offset="0" stop-color="#fff"/><stop offset=".5" stop-color="#fff" stop-opacity=".85"/><stop offset="1" stop-color="#fff" stop-opacity=".45"/>
+      </linearGradient>
+      <mask id="s20m" maskUnits="userSpaceOnUse" x="0" y="0" width="1920" height="1080"><rect width="1920" height="1080" fill="url(#s20v)"/></mask>
+    </defs>
+    <g mask="url(#s20m)" fill="url(#s20g)">
+      <path fill-rule="evenodd" d="M1368 359a317 317 0 1 0 634 0a317 317 0 1 0 -634 0Z M1448 361a213 213 0 1 0 426 0a213 213 0 1 0 -426 0Z"/>
+      <polygon points="1640,45 1920,45 1920,120 1838,203 1780,182 1640,100"/>
+    </g>
+    <circle cx="1685" cy="359" r="316" fill="none" stroke="rgba(55,125,185,.28)" stroke-width="2"/>
+    <circle cx="1661" cy="361" r="213" fill="none" stroke="rgba(70,140,200,.06)" stroke-width="1.5"/>
+    <polygon points="1920,120 1838,203 1920,203" fill="#070707"/>
+  </svg>
+  <div class="abs kick rv">SOLO PARA QUIEN QUIERE CONSTRUIR</div>
+  <div class="abs t-title g-silver h1 rv" style="--d:1">NO LLEGAS A IMPROVISAR</div>
+  <h2 class="abs t-title h2 rv" style="--d:2"><span>LLEGAS A UNA ESTRUCTURA</span></h2>
+  <div class="abs gl rv fade" style="--d:3"></div>
+  <p class="abs txt rv" style="--d:4">AITech One pone el producto. El Equipo Korex pone el sistema para presentarlo,<br>darle seguimiento y duplicarlo.</p>
+  <img class="abs aio rv" style="--d:5" src="img/s20-aitech-one.webp" alt="AITech One">
+  <div class="abs x rv" style="--d:5">x</div>
+  <img class="abs mk rv" style="--d:5" src="/assets/mk-logo-cropped.png" alt="Método Korex">
+</section>
+
+<section class="slide" id="s21">
+  <svg class="abs silk" viewBox="0 0 1920 1080" aria-hidden="true">
+    <defs>
+      <filter id="s21b1" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="14"/></filter>
+      <filter id="s21b2" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="40"/></filter>
+    </defs>
+    <g fill="none" stroke-linecap="round">
+      <ellipse cx="90" cy="520" rx="210" ry="330" fill="rgba(255,255,255,.07)" filter="url(#s21b2)"/>
+      <ellipse cx="1780" cy="420" rx="220" ry="200" fill="rgba(255,255,255,.05)" filter="url(#s21b2)"/>
+      <path d="M30 -10 Q 110 330 600 480" stroke="rgba(255,255,255,.14)" stroke-width="90" filter="url(#s21b2)"/>
+      <path d="M34 -10 Q 112 320 600 474" stroke="rgba(255,255,255,.34)" stroke-width="16" filter="url(#s21b1)"/>
+      <path d="M150 -10 Q 210 250 520 380" stroke="rgba(255,255,255,.12)" stroke-width="12" filter="url(#s21b1)"/>
+      <path d="M60 1100 Q 300 760 760 700" stroke="rgba(255,255,255,.13)" stroke-width="22" filter="url(#s21b1)"/>
+      <path d="M560 1100 Q 1000 820 1500 790 T 1980 700" stroke="rgba(255,255,255,.07)" stroke-width="60" filter="url(#s21b2)"/>
+      <path d="M1280 1100 Q 1640 860 1960 800" stroke="rgba(255,255,255,.10)" stroke-width="14" filter="url(#s21b1)"/>
+    </g>
+  </svg>
+  <div class="abs t-title g-silver kick rv">MARKETING Y TECNOLOGÍA KOREX</div>
+  <h2 class="abs t-title h rv" style="--d:1"><span>NO ENTRAS SOLO</span></h2>
+  <p class="abs sub rv" style="--d:2">Ponemos todo un ecosistema de marketing a trabajar contigo. <b>Tú pones el compromiso.</b></p>
+
+  <div class="abs c rv" style="--d:3;left:128px;top:346px">
+    <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg></div>
+    <h3>Publicidad por etapas</h3><p>Campañas que generan registros de personas nuevas para la tarjeta y las inversiones. Se habilita de forma gradual.</p>
+  </div>
+  <div class="abs c rv" style="--d:4;left:691px;top:346px">
+    <div class="ic"><svg viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/><path d="M8 11.5c.7.8 1.3.8 2 0s1.3-.8 2 0 1.3.8 2 0 1.3-.8 2 0"/></svg></div>
+    <h3>Seguimiento</h3><p>Herramientas y automatizaciones para dar seguimiento a cada contacto.</p>
+  </div>
+  <div class="abs c rv" style="--d:5;left:1253px;top:346px">
+    <div class="ic"><svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg></div>
+    <h3>Marca y contenido</h3><p>Contenido listo para compartir y presentaciones del Equipo Korex.</p>
+  </div>
+  <div class="abs c r2 rv" style="--d:6;left:128px;top:610px">
+    <div class="ic"><svg viewBox="0 0 24 24"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg></div>
+    <h3>Formación</h3><p>Entrenamientos de venta y cierre, y<br>presentaciones en vivo cada semana.</p>
+  </div>
+  <div class="abs c r2 rv" style="--d:7;left:691px;top:610px">
+    <div class="ic"><svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3.5"/><circle cx="16.5" cy="7.5" r="3.5"/><path d="M2 19.5c0-2.5 2.2-4.5 6-4.5s6 2 6 4.5c0 .5-.4.8-1 .8H3c-.6 0-1-.3-1-.8z"/><path d="M15 14.6c.5-.1 1-.1 1.5-.1 3.8 0 5.5 2 5.5 4.5 0 .5-.4.8-1 .8h-5"/></svg></div>
+    <h3>Duplicación</h3><p>Un método paso a paso para que tu<br>equipo haga lo mismo que tú.</p>
+  </div>
+  <div class="abs c r2 rv" style="--d:8;left:1253px;top:610px">
+    <div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4"/><path d="m7 16 3-3 2.5 2L17 10.5"/></svg></div>
+    <h3>Medición</h3><p>Números claros para saber qué funciona<br>y mejorar cada semana.</p>
+  </div>
+  <div class="foot-k">EQUIPO KOREX</div>
+  <img class="mk-k" src="/assets/mk-logo-cropped.png" alt="Método Korex">
+</section>
+
+<section class="slide" id="s22">
+  <svg class="abs silk" viewBox="0 0 1920 1080" aria-hidden="true">
+    <defs>
+      <filter id="s22b1" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="12"/></filter>
+      <filter id="s22b2" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="45"/></filter>
+    </defs>
+    <g fill="none" stroke-linecap="round">
+      <ellipse cx="1800" cy="230" rx="260" ry="220" fill="rgba(255,255,255,.08)" filter="url(#s22b2)"/>
+      <ellipse cx="120" cy="420" rx="220" ry="360" fill="rgba(255,255,255,.06)" filter="url(#s22b2)"/>
+      <ellipse cx="420" cy="960" rx="420" ry="140" fill="rgba(255,255,255,.05)" filter="url(#s22b2)"/>
+      <path d="M1890 40 Q 1830 330 1640 470" stroke="rgba(255,255,255,.18)" stroke-width="70" filter="url(#s22b2)"/>
+      <path d="M1880 60 Q 1830 320 1660 450" stroke="rgba(255,255,255,.55)" stroke-width="9" filter="url(#s22b1)"/>
+      <path d="M1300 40 Q 1650 120 1960 300" stroke="rgba(255,255,255,.07)" stroke-width="80" filter="url(#s22b2)"/>
+      <path d="M-20 140 Q 200 300 260 620" stroke="rgba(255,255,255,.04)" stroke-width="18" filter="url(#s22b1)"/>
+      <path d="M40 1100 Q 380 820 900 900 T 1960 780" stroke="rgba(255,255,255,.08)" stroke-width="20" filter="url(#s22b1)"/>
+    </g>
+  </svg>
+  <div class="abs band"></div>
+  <div class="abs t-title g-silver kick rv">LA METODOLOGÍA</div>
+  <h2 class="abs t-title h rv" style="--d:1"><span>30 DÍAS PARA GENERAR MOMENTUM</span></h2>
+  <p class="abs sub rv" style="--d:2">Tu plan, día a día, para sumar tus primeros referidos</p>
+  <div class="abs dia rv" style="--d:3;left:128px">DÍA 1</div>
+  <div class="abs line rv fade" style="--d:3"></div>
+  <div class="abs dia rv" style="--d:4;left:1700px">DÍA 30</div>
+  <div class="abs c rv" style="--d:4;left:128px"><div class="k">PASO 1</div><h3>Tus contactos</h3>
+    <p>Armas tu lista con nuestro<br>sistema y la trabajas con el<br>método de Eric Worre: invitar,<br>presentar y dar seguimiento.</p></div>
+  <div class="abs c rv" style="--d:5;left:693px"><div class="k">PASO 2</div><div class="soon">PRÓXIMAMENTE</div><h3>El marketing Korex</h3>
+    <p class="w">Cuando se habilite, la publicidad y los embudos suman registros de personas nuevas a tu trabajo orgánico.</p></div>
+  <div class="abs c rv" style="--d:6;left:1259px"><div class="k">PASO 3</div><h3>Duplicación</h3>
+    <p>Cada persona nueva repite<br>los mismos pasos desde su<br>primer día.</p></div>
+  <p class="abs bot rv" style="--d:7">Primero, tu trabajo orgánico. <span>Después, el marketing suma.</span> Un solo método.</p>
+  <div class="foot-k">EQUIPO KOREX</div>
+  <img class="mk-k" src="/assets/mk-logo-cropped.png" alt="Método Korex">
+</section>
+
+<section class="slide bg-silk" id="s23">
+  <div class="abs t-title g-silver kick rv">LA OFERTA · SOLO 20 CUPOS</div>
+  <h2 class="abs t-title g-cyan h rv" style="--d:1">NO CONSTRUYAS EL SISTEMA DESDE CERO</h2>
+  <p class="abs sub rv" style="--d:2">Nosotros ponemos la infraestructura. Tú la pones en movimiento.</p>
+
+  <div class="abs card col mine rv" style="left:128px;--d:3">
+    <div class="lab">ARMAR TU PROPIO SISTEMA</div>
+    <div class="row"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>Marketing, embudos y landings</div>
+    <div class="row"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>CRM y automatizaciones</div>
+    <div class="row"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>Estrategia, formación y soporte</div>
+    <div class="ref"><small>Costo estimado:</small><b>+3.250 USD/mes <span>+ publicidad</span></b></div>
+  </div>
+
+  <div class="abs vs rv zoom" style="--d:4">VS</div>
+
+  <div class="abs card col korex rv" style="left:1032px;--d:5">
+    <div class="lab">CON EL EQUIPO KOREX</div>
+    <div class="impl">Implementación KOREX</div>
+    <div class="t-title g-cyan big">SIN TARIFA DE SETUP</div>
+    <div class="row"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Sistema + método + mentorías</div>
+    <div class="row sm"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Para 20 personas que puedan dedicarse al proyecto los próximos 30 días.</div>
+    <div class="pill">250 USD <span>&nbsp;·&nbsp;</span> 100% capital de trading</div>
+  </div>
+
+  <div class="abs note rv" style="top:868px;--d:6">Los 250 USD son tu capital de trading, no un pago al Equipo Korex, y están sujetos a riesgo de pérdida.</div>
+  <div class="abs note rv" style="top:902px;--d:6">Acceso y funcionalidades sujetos a las condiciones escritas del programa.</div>
+  <div class="foot-k">EQUIPO KOREX</div>
+  <img class="mk-k" src="/assets/mk-logo-cropped.png" alt="Método Korex">
+</section>
+
+<section class="slide bg-silk" id="s24">
+  <div class="abs t-title g-silver kick rv">EL COMPROMISO · PLAN DE EJECUCIÓN</div>
+  <h2 class="abs t-title g-cyan h rv" style="--d:1">TÚ PONES 90 MINUTOS AL DÍA</h2>
+  <p class="abs sub rv" style="--d:2">Nosotros ponemos el método, las herramientas y el acompañamiento.</p>
+
+  <div class="abs card rv" style="left:128px;--d:3"><div class="n g-cyan">01</div><h3>PROSPECCIÓN ORGÁNICA</h3><p>Contacta e invita siguiendo el método.</p></div>
+  <div class="abs card rv" style="left:550px;--d:4"><div class="n g-cyan">02</div><h3>PRESENTACIONES EN ZOOM</h3><p>Invita, presenta y da seguimiento.</p></div>
+  <div class="abs card rv" style="left:972px;--d:5"><div class="n g-cyan">03</div><h3>MENTORÍAS Y PRÁCTICA</h3><p>Cómo invitar, presentar y cerrar.</p></div>
+  <div class="abs card rv" style="left:1394px;--d:6"><div class="n g-cyan">04</div><h3>TUS NÚMEROS CADA DÍA</h3><p>Registras tu actividad, la revisamos juntos y mejoras.</p></div>
+
+  <div class="abs cta rv zoom" style="--d:7">SOLICITA TU CUPO · SOLO 20 PERSONAS</div>
+  <div class="abs note rv" style="--d:8">Selección por compromiso y aceptación de las condiciones del programa.</div>
+  <div class="foot-k">EQUIPO KOREX</div>
+  <img class="mk-k" src="/assets/mk-logo-cropped.png" alt="Método Korex">
+</section>
+
+<section class="slide bg-silk" id="sn28">
+  <div class="abs glow rv fade"></div>
+  <div class="abs bub rv zoom" style="--d:1"><svg viewBox="0 0 24 24"><path d="M20 12.5c0 3.9-3.6 7-8 7-1.1 0-2.2-.2-3.1-.5L4 20.5l1.4-3.6C4.5 15.7 4 14.2 4 12.5c0-3.9 3.6-7 8-7s8 3.1 8 7z"/><path d="M10 10.3a2.1 2.1 0 1 1 2.9 1.9c-.6.3-.9.7-.9 1.3v.3M12 15.6h.01"/></svg></div>
+  <h2 class="abs t-title g-cyan h rv" style="--d:2">¿TE QUEDÓ ALGUNA DUDA?</h2>
+  <p class="abs sub rv" style="--d:3">No te vayas con una duda sin preguntarla.</p>
+  <div class="foot-k">EQUIPO KOREX</div>
+  <img class="mk-k" src="/assets/mk-logo-cropped.png" alt="Método Korex">
+</section>
+
+<div id="intro" aria-label="Pantalla de espera">
+  <div class="au au1"></div><div class="au au2"></div><div class="au au3"></div>
+  <div class="grid"></div>
+  <canvas id="globe" width="1920" height="1080"></canvas>
+  <img class="mk" src="/assets/mk-logo-cropped.png" alt="Método Korex">
+  <div class="tag">PRESENTACIÓN PRIVADA · GRUPO DE LÍDERES</div>
+  <div class="ttl">EQUIPO KOREX<br><span>AITECH ONE</span></div>
+  <div class="lab" id="introLab">EMPEZAMOS EN</div>
+  <div class="clock" id="clock" aria-label="05:00">O5:OO</div>
+  <div class="prog"><i id="progBar"></i></div>
+  <div class="msg"><b>Gracias por conectarte.</b> En unos minutos comenzamos.</div>
+  <div class="ibar" id="introBar">
+    <button class="b" id="mus" aria-label="Activar música"><span class="eq" id="eq"><i></i><i></i><i></i><i></i><i></i></span><span id="musTxt">Activar música</span></button>
+    <div class="sep"></div>
+    <button class="b" id="rst"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>Reiniciar contador</button>
+    <button class="b go" id="skip">Quitar contador<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </div>
+  <audio id="bgm" loop preload="none"></audio>
+</div>
+
+</div>
+<div class="hint" id="hint">Scroll, flechas o desliza para avanzar</div>
+<div class="ctrl" id="ctrl">
+  <span class="count" id="count" title="Ver todas las slides"></span>
+  <button id="home" aria-label="Volver al inicio" title="Volver al inicio"><svg viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5M5.5 9.5V20h13V9.5"/></svg></button>
+  <button id="grid" aria-label="Ver todas las slides" title="Ver todas las slides"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></svg></button>
+  <button id="prev" aria-label="Slide anterior"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
+  <button id="next" aria-label="Slide siguiente"><svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
+  <button id="esp" aria-label="Pantalla de espera" title="Pantalla de espera"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg></button>
+  <button id="full" aria-label="Pantalla completa"><svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+</div>
+<div class="bar" id="bar"></div>
+<div id="idx" role="dialog" aria-label="Todas las slides">
+  <div class="top"><b>TODAS LAS <span>SLIDES</span></b><button class="idx-x" id="idxClose" aria-label="Cerrar"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+  <div class="grid" id="idxGrid"></div>
+</div>
+<script>
+(function(){
+  var stage=document.getElementById('stage'), slides=[].slice.call(stage.querySelectorAll('.slide')), N=slides.length;
+  var root=document.documentElement;
+  function fit(){
+    var s=Math.min(innerWidth/1920,innerHeight/1080);
+    root.style.setProperty('--s',s);
+  }
+  addEventListener('resize',fit);fit();
+  var cur=-1, count=document.getElementById('count'), bar=document.getElementById('bar'), hint=document.getElementById('hint'), ctrl=document.getElementById('ctrl');
+  function pad(x){return (x<10?'0':'')+x}
+  function go(i){
+    i=Math.max(0,Math.min(N-1,i));if(i===cur)return;
+    if(cur>-1)hint.classList.add('off');
+    slides.forEach(function(s,j){s.classList.toggle('on',j===i)});
+    cur=i;
+    count.innerHTML='<b>'+pad(i+1)+'</b> / '+N;
+    bar.style.transform='scaleX('+((i+1)/N)+')';
+    history.replaceState(null,'','#'+(i+1));
+  }
+  var h=parseInt(location.hash.slice(1),10);
+  go(h>=1&&h<=N?h-1:0);
+  window.goSlide=go;
+
+  var lockUntil=0,last=0;
+  addEventListener('wheel',function(e){
+    if(idx.classList.contains('open'))return;
+    e.preventDefault();
+    if(window.introActive)return;
+    var now=performance.now(),gap=now-last;last=now;
+    var d=Math.abs(e.deltaY)>=Math.abs(e.deltaX)?e.deltaY:e.deltaX;
+    if(Math.abs(d)<6)return;
+    if(now<lockUntil){if(gap<140)lockUntil=Math.max(lockUntil,now+140);return}
+    go(cur+(d>0?1:-1));lockUntil=now+650;
+  },{passive:false});
+  var tx=0,ty=0;
+  addEventListener('touchstart',function(e){tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});
+  addEventListener('touchend',function(e){if(window.introActive||idx.classList.contains('open'))return;var dx=tx-e.changedTouches[0].clientX,dy=ty-e.changedTouches[0].clientY;
+    if(Math.max(Math.abs(dx),Math.abs(dy))<40)return;go(cur+((Math.abs(dy)>Math.abs(dx)?dy:dx)>0?1:-1))},{passive:true});
+  // Índice: miniaturas de todas las slides (se arman la primera vez que se abre)
+  var idx=document.getElementById('idx'), grid=document.getElementById('idxGrid'), ths=[];
+  function sizeThumbs(){if(ths.length)grid.style.setProperty('--ts',ths[0].clientWidth/1920)}
+  function openIdx(){
+    if(!ths.length)slides.forEach(function(s,j){
+      var th=document.createElement('div');th.className='th';th.title='Ir a la slide '+(j+1);
+      var inn=document.createElement('div');inn.className='th-in';
+      var c=s.cloneNode(true);c.classList.add('on');c.setAttribute('aria-hidden','true');
+      inn.appendChild(c);th.appendChild(inn);
+      var n=document.createElement('i');n.textContent=pad(j+1);th.appendChild(n);
+      th.onclick=function(){go(j);closeIdx()};
+      grid.appendChild(th);ths.push(th);
+    });
+    ths.forEach(function(t,j){t.classList.toggle('cur',j===cur)});
+    idx.classList.add('open');sizeThumbs();
+    ths[cur].scrollIntoView({block:'nearest'});
+  }
+  function closeIdx(){idx.classList.remove('open')}
+  addEventListener('resize',sizeThumbs);
+  document.getElementById('grid').onclick=openIdx;
+  count.onclick=openIdx;
+  document.getElementById('idxClose').onclick=closeIdx;
+  idx.addEventListener('click',function(e){if(e.target===idx)closeIdx()});
+  document.getElementById('home').onclick=function(){go(0)};
+
+  addEventListener('keydown',function(e){
+    var k=e.key;
+    if(idx.classList.contains('open')){if(k==='Escape')closeIdx();return}
+    if(window.introActive&&k!=='f'&&k!=='F')return;
+    if(['ArrowDown','ArrowRight','PageDown',' ','Enter'].indexOf(k)>-1&&!e.shiftKey){e.preventDefault();go(cur+1)}
+    else if(['ArrowUp','ArrowLeft','PageUp'].indexOf(k)>-1||(k===' '&&e.shiftKey)){e.preventDefault();go(cur-1)}
+    else if(k==='Home')go(0);else if(k==='End')go(N-1);
+    else if(k==='f'||k==='F')full();
+  });
+  document.getElementById('prev').onclick=function(){go(cur-1)};
+  document.getElementById('next').onclick=function(){go(cur+1)};
+  function full(){if(document.fullscreenElement)document.exitFullscreen();else if(root.requestFullscreen)root.requestFullscreen()}
+  document.getElementById('full').onclick=full;
+  document.getElementById('esp').onclick=function(){if(window.openIntro)window.openIntro()};
+  var t;function wake(){ctrl.classList.remove('hide');clearTimeout(t);t=setTimeout(function(){ctrl.classList.add('hide')},2500)}
+  addEventListener('mousemove',wake);addEventListener('touchstart',wake,{passive:true});wake();
+})();
+</script>
+
+<script>
+(function(){
+  var intro=document.getElementById('intro'), stage=document.getElementById('stage');
+  if(!intro)return;
+  // La pantalla de espera aparece al abrir la presentación (sin #número) o con #espera
+  var show=!!window.introWanted;
+
+  /* ── Contador ─────────────────────────── */
+  var TOTAL=5*60, endAt=Date.now()+TOTAL*1000, clock=document.getElementById('clock'), prog=document.getElementById('progBar'), lab=document.getElementById('introLab');
+  function pad(n){return (n<10?'0':'')+n}
+  function tick(){
+    var left=Math.max(0,Math.round((endAt-Date.now())/1000));
+    var txt=pad(Math.floor(left/60))+':'+pad(left%60);
+    clock.textContent=txt.replace(/0/g,'O'); clock.setAttribute('aria-label',txt); // el cero de Audiowide viene tachado
+    prog.style.transform='scaleX('+(1-left/TOTAL)+')';
+    var z=left===0; clock.classList.toggle('zero',z); lab.textContent=z?'¡EMPEZAMOS!':'EMPEZAMOS EN';
+  }
+  var timer=null;
+  document.getElementById('rst').onclick=function(){endAt=Date.now()+TOTAL*1000;tick()};
+
+  /* ── Música (el navegador exige un clic para sonar) ─────────────── */
+  var audio=document.getElementById('bgm'), musBtn=document.getElementById('mus'), musTxt=document.getElementById('musTxt'), eqBars=[].slice.call(document.querySelectorAll('#eq i'));
+  var ctx, gain, an, data, playing=false, track='audio/techno.mp3';
+  function setupAudio(){
+    if(ctx)return;
+    var AC=window.AudioContext||window.webkitAudioContext; if(!AC)return;
+    ctx=new AC(); var src=ctx.createMediaElementSource(audio); gain=ctx.createGain(); an=ctx.createAnalyser(); an.fftSize=256;
+    src.connect(gain); gain.connect(an); an.connect(ctx.destination); data=new Uint8Array(an.frequencyBinCount);
+  }
+  function fadeTo(v,sec){ if(!gain){audio.volume=v;return} var t=ctx.currentTime; gain.gain.cancelScheduledValues(t); gain.gain.setValueAtTime(gain.gain.value,t); gain.gain.linearRampToValueAtTime(v,t+sec); }
+  function play(){
+    setupAudio(); if(ctx&&ctx.state==='suspended')ctx.resume();
+    if(!audio.src||audio.getAttribute('src')!==track){audio.src=track}
+    if(gain)gain.gain.value=0; audio.play().then(function(){fadeTo(.9,1.2)}).catch(function(){});
+    playing=true; musTxt.textContent='Pausar música'; musBtn.setAttribute('aria-label','Pausar música');
+  }
+  function pause(sec){ playing=false; musTxt.textContent='Activar música'; musBtn.setAttribute('aria-label','Activar música');
+    fadeTo(0,sec||.6); setTimeout(function(){if(!playing)audio.pause()},(sec||.6)*1000+50); }
+  musBtn.onclick=function(){playing?pause():play()};
+
+  /* ── Salir: se apaga la música, se va el contador y entra la portada ─── */
+  function finish(){
+    if(!window.introActive)return;
+    window.introActive=false; clearInterval(timer); if(playing)pause(1.2);
+    intro.classList.add('out'); stage.classList.remove('intro-on');
+    var cover=stage.querySelector('.slide'); if(cover){cover.classList.remove('on'); void cover.offsetWidth; setTimeout(function(){cover.classList.add('on')},350)}
+    history.replaceState(null,'','#1');
+    setTimeout(function(){if(!window.introActive){intro.classList.add('gone'); cancelAnimationFrame(raf)}},1300);
+  }
+  document.getElementById('skip').onclick=finish;
+
+  /* ── Volver a abrir la pantalla de espera (botón ⏱ de la presentación) ─── */
+  function start(){
+    window.introActive=true;
+    if(window.goSlide)window.goSlide(0);
+    intro.classList.remove('gone'); void intro.offsetWidth; intro.classList.remove('out');
+    stage.classList.add('intro-on');
+    endAt=Date.now()+TOTAL*1000; tick(); clearInterval(timer); timer=setInterval(tick,250);
+    cancelAnimationFrame(raf); frame();
+    history.replaceState(null,'','#espera'); wake();
+  }
+  window.openIntro=start;
+
+  /* ── Controles que se esconden solos ─── */
+  var bar=document.getElementById('introBar'), ht;
+  function wake(){bar.classList.remove('hide');clearTimeout(ht);ht=setTimeout(function(){bar.classList.add('hide')},3500)}
+  addEventListener('mousemove',wake);addEventListener('touchstart',wake,{passive:true});wake();
+  addEventListener('keydown',function(e){
+    if(!window.introActive)return;
+    if(e.key==='m'||e.key==='M'){playing?pause():play()}
+  });
+
+  /* ── Globo de puntos que gira (reacciona a la música) ─── */
+  var cv=document.getElementById('globe'), g=cv.getContext('2d'), N=900, R=330, CX=1420, CY=520, pts=[], i;
+  for(i=0;i<N;i++){ var y=1-(i/(N-1))*2, r=Math.sqrt(1-y*y), th=Math.PI*(3-Math.sqrt(5))*i; pts.push([Math.cos(th)*r,y,Math.sin(th)*r]); }
+  var arcs=[]; for(i=0;i<9;i++){ arcs.push({a:pts[(i*97+13)%N],b:pts[(i*211+401)%N],t:Math.random(),sp:.0025+Math.random()*.003}); }
+  var rot=0, tilt=-0.38, raf, energy=0, smooth=0;
+  function proj(p,ry){ var x=p[0]*Math.cos(ry)-p[2]*Math.sin(ry), z=p[0]*Math.sin(ry)+p[2]*Math.cos(ry), y=p[1];
+    var y2=y*Math.cos(tilt)-z*Math.sin(tilt), z2=y*Math.sin(tilt)+z*Math.cos(tilt); return [x,y2,z2]; }
+  function slerp(a,b,t){ var d=a[0]*b[0]+a[1]*b[1]+a[2]*b[2], om=Math.acos(Math.max(-1,Math.min(1,d))), so=Math.sin(om)||1e-6,
+    k1=Math.sin((1-t)*om)/so, k2=Math.sin(t*om)/so, lift=1+Math.sin(t*Math.PI)*.22; return [(a[0]*k1+b[0]*k2)*lift,(a[1]*k1+b[1]*k2)*lift,(a[2]*k1+b[2]*k2)*lift]; }
+  function frame(){
+    raf=requestAnimationFrame(frame);
+    if(an&&playing){ an.getByteFrequencyData(data); var s=0; for(var k=1;k<10;k++)s+=data[k]; energy=s/(9*255);
+      eqBars.forEach(function(b,j){ b.style.height=(4+data[3+j*7]/255*18)+'px' }); } else { energy*=.94; eqBars.forEach(function(b){b.style.height='4px'}) }
+    smooth+= (energy-smooth)*.25; rot+=.0016+smooth*.004;
+    var rr=R*(1+smooth*.05);
+    g.clearRect(0,0,1920,1080);
+    var halo=g.createRadialGradient(CX,CY,rr*.6,CX,CY,rr*1.55); halo.addColorStop(0,'rgba(41,182,246,'+(.10+smooth*.18)+')'); halo.addColorStop(1,'rgba(41,182,246,0)');
+    g.fillStyle=halo; g.beginPath(); g.arc(CX,CY,rr*1.55,0,7); g.fill();
+    for(var n=0;n<N;n++){ var q=proj(pts[n],rot), d=(q[2]+1)/2; if(q[2]<-0.15&&n%3)continue;
+      g.fillStyle='rgba('+(120+d*100|0)+','+(200+d*40|0)+',255,'+(.12+d*.78)+')';
+      var sz=.8+d*2.1; g.fillRect(CX+q[0]*rr-sz/2,CY+q[1]*rr-sz/2,sz,sz); }
+    arcs.forEach(function(a){ a.t+=a.sp*(1+smooth*2); if(a.t>1.35)a.t=-.2;
+      g.lineWidth=1.6; var prev=null;
+      for(var s=0;s<=28;s++){ var tt=s/28; if(tt>a.t||tt<a.t-.55){prev=null;continue}
+        var p=proj(slerp(a.a,a.b,tt),rot); if(p[2]<-.2){prev=null;continue}
+        var X=CX+p[0]*rr, Y=CY+p[1]*rr; if(prev){ g.strokeStyle='rgba(127,216,255,'+(.55*(1-(a.t-tt)/.55))+')'; g.beginPath(); g.moveTo(prev[0],prev[1]); g.lineTo(X,Y); g.stroke(); } prev=[X,Y]; }
+      if(a.t>=0&&a.t<=1){ var hp=proj(slerp(a.a,a.b,a.t),rot); if(hp[2]>-.2){ g.fillStyle='#E9FAFF'; g.shadowColor='#29B6F6'; g.shadowBlur=14; g.beginPath(); g.arc(CX+hp[0]*rr,CY+hp[1]*rr,3.2,0,7); g.fill(); g.shadowBlur=0; } } });
+    g.strokeStyle='rgba(127,216,255,'+(.10+smooth*.25)+')'; g.lineWidth=1.2; g.beginPath(); g.ellipse(CX,CY,rr*1.32,rr*.36,-.18,0,7); g.stroke();
+  }
+  if(show)start(); else intro.classList.add('gone');
+})();
+</script>
+</body>
+</html>

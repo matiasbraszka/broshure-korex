@@ -1,0 +1,175 @@
+<!-- ═══ Pantalla de espera (antes de la portada) ═══════════════════════
+     Se inserta en _template.html con build.py. Tiene 3 partes: STYLE, HTML (dentro de #stage) y SCRIPT. -->
+<!--INTRO_STYLE-->
+<style>
+#intro{position:absolute;inset:0;z-index:30;overflow:hidden;background:#02050a;opacity:1;transition:opacity 1.1s var(--ease),transform 1.2s var(--ease)}
+#intro.out{opacity:0;transform:scale(1.04);pointer-events:none}
+#intro.gone{display:none}
+#intro canvas{position:absolute;inset:0;width:1920px;height:1080px;pointer-events:none}
+#intro .au{position:absolute;border-radius:50%;filter:blur(120px);opacity:.55;mix-blend-mode:screen}
+#intro .au1{width:900px;height:700px;left:-200px;top:-180px;background:#0E6BD6;animation:in-au1 18s ease-in-out infinite alternate}
+#intro .au2{width:800px;height:800px;right:-260px;bottom:-300px;background:#08A6D8;opacity:.4;animation:in-au2 22s ease-in-out infinite alternate}
+#intro .au3{width:600px;height:500px;left:700px;top:620px;background:#1B2C8F;opacity:.35;animation:in-au1 26s ease-in-out infinite alternate-reverse}
+@keyframes in-au1{to{transform:translate(260px,140px) scale(1.15)}}
+@keyframes in-au2{to{transform:translate(-220px,-160px) scale(.9)}}
+#intro .grid{position:absolute;inset:0;opacity:.18;background-image:linear-gradient(rgba(127,216,255,.18) 1px,transparent 1px),linear-gradient(90deg,rgba(127,216,255,.18) 1px,transparent 1px);
+  background-size:96px 96px;-webkit-mask-image:radial-gradient(ellipse 70% 60% at 30% 50%,#000,transparent 75%);mask-image:radial-gradient(ellipse 70% 60% at 30% 50%,#000,transparent 75%)}
+#intro .mk{position:absolute;left:128px;top:96px;width:124px;filter:invert(1);opacity:.95}
+#intro .tag{position:absolute;left:130px;top:262px;font-size:24px;font-weight:700;letter-spacing:.17em;color:#45BCF0}
+#intro .ttl{position:absolute;left:126px;top:318px;font-family:var(--f-title);font-size:96px;line-height:1.02;white-space:nowrap;
+  background:linear-gradient(100deg,#2FB3F2 0%,#6AD3FA 35%,#FFFFFF 50%,#6AD3FA 65%,#2FB3F2 100%);background-size:250% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;animation:in-shine 7s linear infinite}
+#intro .ttl span{background:linear-gradient(180deg,#fafbfb,#c5c9cf);-webkit-background-clip:text;background-clip:text;color:transparent}
+@keyframes in-shine{from{background-position:120% 0}to{background-position:-130% 0}}
+#intro .lab{position:absolute;left:130px;top:560px;font-size:26px;font-weight:600;letter-spacing:.32em;color:#AEB6C4}
+#intro .clock{position:absolute;left:120px;top:600px;font-family:var(--f-title);font-size:230px;line-height:1;letter-spacing:.02em;color:#fff;
+  text-shadow:0 0 40px rgba(41,182,246,.35),0 0 120px rgba(41,182,246,.18);font-variant-numeric:tabular-nums}
+#intro .clock.zero{animation:in-zero 1.4s ease-in-out infinite}
+@keyframes in-zero{50%{color:var(--cyan2);text-shadow:0 0 60px rgba(41,182,246,.8),0 0 160px rgba(41,182,246,.4)}}
+#intro .prog{position:absolute;left:130px;top:860px;width:760px;height:4px;border-radius:4px;background:rgba(255,255,255,.1);overflow:hidden}
+#intro .prog i{position:absolute;inset:0;transform-origin:0 50%;background:linear-gradient(90deg,#0E8BD6,#29B6F6,#9FE3FF);box-shadow:0 0 16px #29B6F6}
+#intro .msg{position:absolute;left:130px;top:892px;font-size:24px;color:#8A93A3}
+#intro .msg b{color:#DDE3EA;font-weight:600}
+/* Controles (se esconden solos) */
+#intro .ibar{position:absolute;left:50%;bottom:44px;transform:translateX(-50%);display:flex;align-items:center;gap:14px;padding:12px;border-radius:60px;
+  background:rgba(8,14,24,.72);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transition:opacity .5s,transform .5s}
+#intro .ibar.hide{opacity:0;transform:translate(-50%,20px);pointer-events:none}
+#intro .b{display:flex;align-items:center;gap:12px;height:62px;padding:0 26px;border-radius:40px;font-family:var(--f-body);font-size:21px;font-weight:600;color:#E8EDF3;
+  border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);cursor:pointer;transition:.25s;white-space:nowrap}
+#intro .b:hover{border-color:rgba(41,182,246,.7);background:rgba(41,182,246,.12)}
+#intro .b svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#intro .b.go{background:linear-gradient(90deg,#0E8BD6,#29B6F6);border-color:transparent;color:#fff;box-shadow:0 10px 30px -8px rgba(41,182,246,.8)}
+#intro .b.go:hover{filter:brightness(1.12)}
+#intro .eq{display:flex;align-items:flex-end;gap:3px;height:22px}
+#intro .eq i{width:4px;height:4px;border-radius:2px;background:var(--cyan);transition:height .08s}
+#intro .sep{width:1px;height:40px;background:rgba(255,255,255,.12)}
+#stage.intro-on~.ctrl,#stage.intro-on~.hint,#stage.intro-on~.bar{opacity:0!important;pointer-events:none}
+</style>
+<!--/INTRO_STYLE-->
+<!--INTRO_HTML-->
+<div id="intro" aria-label="Pantalla de espera">
+  <div class="au au1"></div><div class="au au2"></div><div class="au au3"></div>
+  <div class="grid"></div>
+  <canvas id="globe" width="1920" height="1080"></canvas>
+  <img class="mk" src="/assets/mk-logo-cropped.png" alt="Método Korex">
+  <div class="tag">PRESENTACIÓN PRIVADA · GRUPO DE LÍDERES</div>
+  <div class="ttl">EQUIPO KOREX<br><span>AITECH ONE</span></div>
+  <div class="lab" id="introLab">EMPEZAMOS EN</div>
+  <div class="clock" id="clock" aria-label="05:00">O5:OO</div>
+  <div class="prog"><i id="progBar"></i></div>
+  <div class="msg"><b>Gracias por conectarte.</b> En unos minutos comenzamos.</div>
+  <div class="ibar" id="introBar">
+    <button class="b" id="mus" aria-label="Activar música"><span class="eq" id="eq"><i></i><i></i><i></i><i></i><i></i></span><span id="musTxt">Activar música</span></button>
+    <div class="sep"></div>
+    <button class="b" id="rst"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>Reiniciar contador</button>
+    <button class="b go" id="skip">Quitar contador<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </div>
+  <audio id="bgm" loop preload="none"></audio>
+</div>
+<!--/INTRO_HTML-->
+<!--INTRO_SCRIPT-->
+<script>
+(function(){
+  var intro=document.getElementById('intro'), stage=document.getElementById('stage');
+  if(!intro)return;
+  // La pantalla de espera aparece al abrir la presentación (sin #número) o con #espera
+  var show=!!window.introWanted;
+
+  /* ── Contador ─────────────────────────── */
+  var TOTAL=5*60, endAt=Date.now()+TOTAL*1000, clock=document.getElementById('clock'), prog=document.getElementById('progBar'), lab=document.getElementById('introLab');
+  function pad(n){return (n<10?'0':'')+n}
+  function tick(){
+    var left=Math.max(0,Math.round((endAt-Date.now())/1000));
+    var txt=pad(Math.floor(left/60))+':'+pad(left%60);
+    clock.textContent=txt.replace(/0/g,'O'); clock.setAttribute('aria-label',txt); // el cero de Audiowide viene tachado
+    prog.style.transform='scaleX('+(1-left/TOTAL)+')';
+    var z=left===0; clock.classList.toggle('zero',z); lab.textContent=z?'¡EMPEZAMOS!':'EMPEZAMOS EN';
+  }
+  var timer=null;
+  document.getElementById('rst').onclick=function(){endAt=Date.now()+TOTAL*1000;tick()};
+
+  /* ── Música (el navegador exige un clic para sonar) ─────────────── */
+  var audio=document.getElementById('bgm'), musBtn=document.getElementById('mus'), musTxt=document.getElementById('musTxt'), eqBars=[].slice.call(document.querySelectorAll('#eq i'));
+  var ctx, gain, an, data, playing=false, track='audio/techno.mp3';
+  function setupAudio(){
+    if(ctx)return;
+    var AC=window.AudioContext||window.webkitAudioContext; if(!AC)return;
+    ctx=new AC(); var src=ctx.createMediaElementSource(audio); gain=ctx.createGain(); an=ctx.createAnalyser(); an.fftSize=256;
+    src.connect(gain); gain.connect(an); an.connect(ctx.destination); data=new Uint8Array(an.frequencyBinCount);
+  }
+  function fadeTo(v,sec){ if(!gain){audio.volume=v;return} var t=ctx.currentTime; gain.gain.cancelScheduledValues(t); gain.gain.setValueAtTime(gain.gain.value,t); gain.gain.linearRampToValueAtTime(v,t+sec); }
+  function play(){
+    setupAudio(); if(ctx&&ctx.state==='suspended')ctx.resume();
+    if(!audio.src||audio.getAttribute('src')!==track){audio.src=track}
+    if(gain)gain.gain.value=0; audio.play().then(function(){fadeTo(.9,1.2)}).catch(function(){});
+    playing=true; musTxt.textContent='Pausar música'; musBtn.setAttribute('aria-label','Pausar música');
+  }
+  function pause(sec){ playing=false; musTxt.textContent='Activar música'; musBtn.setAttribute('aria-label','Activar música');
+    fadeTo(0,sec||.6); setTimeout(function(){if(!playing)audio.pause()},(sec||.6)*1000+50); }
+  musBtn.onclick=function(){playing?pause():play()};
+
+  /* ── Salir: se apaga la música, se va el contador y entra la portada ─── */
+  function finish(){
+    if(!window.introActive)return;
+    window.introActive=false; clearInterval(timer); if(playing)pause(1.2);
+    intro.classList.add('out'); stage.classList.remove('intro-on');
+    var cover=stage.querySelector('.slide'); if(cover){cover.classList.remove('on'); void cover.offsetWidth; setTimeout(function(){cover.classList.add('on')},350)}
+    history.replaceState(null,'','#1');
+    setTimeout(function(){if(!window.introActive){intro.classList.add('gone'); cancelAnimationFrame(raf)}},1300);
+  }
+  document.getElementById('skip').onclick=finish;
+
+  /* ── Volver a abrir la pantalla de espera (botón ⏱ de la presentación) ─── */
+  function start(){
+    window.introActive=true;
+    if(window.goSlide)window.goSlide(0);
+    intro.classList.remove('gone'); void intro.offsetWidth; intro.classList.remove('out');
+    stage.classList.add('intro-on');
+    endAt=Date.now()+TOTAL*1000; tick(); clearInterval(timer); timer=setInterval(tick,250);
+    cancelAnimationFrame(raf); frame();
+    history.replaceState(null,'','#espera'); wake();
+  }
+  window.openIntro=start;
+
+  /* ── Controles que se esconden solos ─── */
+  var bar=document.getElementById('introBar'), ht;
+  function wake(){bar.classList.remove('hide');clearTimeout(ht);ht=setTimeout(function(){bar.classList.add('hide')},3500)}
+  addEventListener('mousemove',wake);addEventListener('touchstart',wake,{passive:true});wake();
+  addEventListener('keydown',function(e){
+    if(!window.introActive)return;
+    if(e.key==='m'||e.key==='M'){playing?pause():play()}
+  });
+
+  /* ── Globo de puntos que gira (reacciona a la música) ─── */
+  var cv=document.getElementById('globe'), g=cv.getContext('2d'), N=900, R=330, CX=1420, CY=520, pts=[], i;
+  for(i=0;i<N;i++){ var y=1-(i/(N-1))*2, r=Math.sqrt(1-y*y), th=Math.PI*(3-Math.sqrt(5))*i; pts.push([Math.cos(th)*r,y,Math.sin(th)*r]); }
+  var arcs=[]; for(i=0;i<9;i++){ arcs.push({a:pts[(i*97+13)%N],b:pts[(i*211+401)%N],t:Math.random(),sp:.0025+Math.random()*.003}); }
+  var rot=0, tilt=-0.38, raf, energy=0, smooth=0;
+  function proj(p,ry){ var x=p[0]*Math.cos(ry)-p[2]*Math.sin(ry), z=p[0]*Math.sin(ry)+p[2]*Math.cos(ry), y=p[1];
+    var y2=y*Math.cos(tilt)-z*Math.sin(tilt), z2=y*Math.sin(tilt)+z*Math.cos(tilt); return [x,y2,z2]; }
+  function slerp(a,b,t){ var d=a[0]*b[0]+a[1]*b[1]+a[2]*b[2], om=Math.acos(Math.max(-1,Math.min(1,d))), so=Math.sin(om)||1e-6,
+    k1=Math.sin((1-t)*om)/so, k2=Math.sin(t*om)/so, lift=1+Math.sin(t*Math.PI)*.22; return [(a[0]*k1+b[0]*k2)*lift,(a[1]*k1+b[1]*k2)*lift,(a[2]*k1+b[2]*k2)*lift]; }
+  function frame(){
+    raf=requestAnimationFrame(frame);
+    if(an&&playing){ an.getByteFrequencyData(data); var s=0; for(var k=1;k<10;k++)s+=data[k]; energy=s/(9*255);
+      eqBars.forEach(function(b,j){ b.style.height=(4+data[3+j*7]/255*18)+'px' }); } else { energy*=.94; eqBars.forEach(function(b){b.style.height='4px'}) }
+    smooth+= (energy-smooth)*.25; rot+=.0016+smooth*.004;
+    var rr=R*(1+smooth*.05);
+    g.clearRect(0,0,1920,1080);
+    var halo=g.createRadialGradient(CX,CY,rr*.6,CX,CY,rr*1.55); halo.addColorStop(0,'rgba(41,182,246,'+(.10+smooth*.18)+')'); halo.addColorStop(1,'rgba(41,182,246,0)');
+    g.fillStyle=halo; g.beginPath(); g.arc(CX,CY,rr*1.55,0,7); g.fill();
+    for(var n=0;n<N;n++){ var q=proj(pts[n],rot), d=(q[2]+1)/2; if(q[2]<-0.15&&n%3)continue;
+      g.fillStyle='rgba('+(120+d*100|0)+','+(200+d*40|0)+',255,'+(.12+d*.78)+')';
+      var sz=.8+d*2.1; g.fillRect(CX+q[0]*rr-sz/2,CY+q[1]*rr-sz/2,sz,sz); }
+    arcs.forEach(function(a){ a.t+=a.sp*(1+smooth*2); if(a.t>1.35)a.t=-.2;
+      g.lineWidth=1.6; var prev=null;
+      for(var s=0;s<=28;s++){ var tt=s/28; if(tt>a.t||tt<a.t-.55){prev=null;continue}
+        var p=proj(slerp(a.a,a.b,tt),rot); if(p[2]<-.2){prev=null;continue}
+        var X=CX+p[0]*rr, Y=CY+p[1]*rr; if(prev){ g.strokeStyle='rgba(127,216,255,'+(.55*(1-(a.t-tt)/.55))+')'; g.beginPath(); g.moveTo(prev[0],prev[1]); g.lineTo(X,Y); g.stroke(); } prev=[X,Y]; }
+      if(a.t>=0&&a.t<=1){ var hp=proj(slerp(a.a,a.b,a.t),rot); if(hp[2]>-.2){ g.fillStyle='#E9FAFF'; g.shadowColor='#29B6F6'; g.shadowBlur=14; g.beginPath(); g.arc(CX+hp[0]*rr,CY+hp[1]*rr,3.2,0,7); g.fill(); g.shadowBlur=0; } } });
+    g.strokeStyle='rgba(127,216,255,'+(.10+smooth*.25)+')'; g.lineWidth=1.2; g.beginPath(); g.ellipse(CX,CY,rr*1.32,rr*.36,-.18,0,7); g.stroke();
+  }
+  if(show)start(); else intro.classList.add('gone');
+})();
+</script>
+<!--/INTRO_SCRIPT-->
