@@ -4,104 +4,75 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0d0f0a">
-<meta name="description" content="Cómo activar y usar tu tarjeta BIX en un video de 3 minutos, paso a paso.">
+<meta name="robots" content="noindex">
+<title>Tutorial Tarjeta BIX · Equipo Korex</title>
+<meta name="description" content="Cómo activar y usar tu tarjeta BIX paso a paso. Salta al paso que necesites.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Tutorial Tarjeta BIX">
 <meta property="og:description" content="Activa y usa tu tarjeta BIX en 3 minutos, paso a paso.">
 <meta property="og:url" content="https://info.metodokorex.com/bixinstalacion/">
 <meta property="og:image" content="https://info.metodokorex.com/bixinstalacion/og.jpg">
-<meta name="robots" content="noindex">
-<title>Tutorial Tarjeta BIX</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@700;800&family=IBM+Plex+Sans:wght@500;600&display=swap">
+<link rel="stylesheet" href="/reproductor/korex-player.css">
 <style>
-/* Un solo video vertical a pantalla completa en el celular (con forma de teléfono en la compu). */
-:root {
-  --bg: #070806;
-  --stage: #0d0f0a;
-  --ink: #f2f5ea;
-  --muted: #a3a998;
-  --line: #2b3022;
-  --lime: #cafe5c;
-  --lime-ink: #10140a;
-  --font-display: "Sora", "Segoe UI", system-ui, sans-serif;
-  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
-  color-scheme: dark;
+:root { --lima: #cafe5c; --tinta: #10140a; --fondo: #070806; --gris: #a3a998; color-scheme: dark; }
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: radial-gradient(120% 50% at 0% 0%, #20330a 0%, transparent 60%), var(--fondo); color: #f2f5ea;
+  font: 500 15px/1.45 "IBM Plex Sans", system-ui, sans-serif; -webkit-tap-highlight-color: transparent;
+  user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; min-height: 100vh; }
+.pagina { max-width: 1040px; margin: 0 auto; padding: 10px 0 26px; }
+header { display: flex; align-items: center; gap: 10px; padding: 0 16px 10px; }
+header .tit { font: 800 18px/1.1 Sora, sans-serif; } header .tit b { color: var(--lima); }
+header .firma { margin-left: auto; font-size: 11.5px; font-weight: 600; color: var(--gris); text-align: right; line-height: 1.2; } header .firma b { color: #fff; }
+#reproductor { --kp-acento: #cafe5c; --kp-texto-acento: #10140a; --kp-ratio: 9 / 16; width: min(100%, calc((100svh - 70px) * 9 / 16)); margin: 0 auto; }
+.lado h2 { margin: 18px 16px 10px; font: 800 18px/1.2 Sora, sans-serif; } .lado h2 small { display: block; font: 600 13px "IBM Plex Sans", sans-serif; color: var(--gris); margin-top: 3px; }
+.kp-capitulos { padding: 0 16px; } .kp-capitulos button { color: #f2f5ea; }
+footer { margin: 16px 16px 0; font-size: 12px; line-height: 1.5; color: var(--gris); text-align: center; } footer b { color: #fff; }
+@media (min-width: 860px) {
+  .cuerpo { display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: start; padding: 0 16px; }
+  #reproductor { width: calc((100vh - 90px) * 9 / 16); max-width: 460px; border-radius: 18px; box-shadow: 0 0 0 1px #2b3022, 0 30px 80px rgba(0,0,0,.6); }
+  .lado h2 { margin-top: 4px; } .lado h2, .kp-capitulos, footer { margin-left: 0; margin-right: 0; padding-left: 0; padding-right: 0; }
+  footer { text-align: left; }
 }
-html, body { height: 100%; margin: 0; }
-[hidden] { display: none !important; }
-body {
-  background: var(--bg); color: var(--ink); font: 400 16px/1.45 var(--font-body);
-  display: grid; place-items: center; overflow: hidden; -webkit-tap-highlight-color: transparent;
-}
-.stage {
-  position: relative; width: 100%; height: 100%; background: #000; overflow: hidden;
-}
-@media (min-width: 640px) {
-  body { padding: 16px; box-sizing: border-box; }
-  .stage { height: min(900px, 100%); width: auto; aspect-ratio: 9 / 16; border-radius: 28px; border: 1px solid var(--line);
-           box-shadow: 0 30px 80px rgba(0,0,0,.6); }
-}
-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #000; display: block; }
-
-/* Portada: botón grande para empezar con sonido */
-.portada {
-  position: absolute; inset: 0; display: grid; place-items: center; cursor: pointer; border: 0; padding: 0; width: 100%;
-  background: linear-gradient(180deg, rgba(7,8,6,.15) 0%, rgba(7,8,6,.55) 55%, rgba(7,8,6,.92) 100%), url(poster.jpg) center / cover no-repeat;
-  color: var(--ink); font: inherit;
-}
-.portada .play {
-  width: 104px; height: 104px; border-radius: 50%; background: var(--lime); display: grid; place-items: center;
-  box-shadow: 0 0 0 10px rgba(202,254,92,.18), 0 18px 50px rgba(0,0,0,.6); animation: late 1.8s ease-in-out infinite;
-}
-.portada .play svg { width: 40px; height: 40px; margin-left: 6px; }
-@keyframes late { 50% { box-shadow: 0 0 0 20px rgba(202,254,92,.08), 0 18px 50px rgba(0,0,0,.6); } }
-.portada .txt { position: absolute; left: 0; right: 0; bottom: max(36px, env(safe-area-inset-bottom, 0px)); padding: 0 24px; text-align: center; }
-.portada h1 { margin: 0 0 6px; font: 800 26px/1.15 var(--font-display); letter-spacing: -.02em; }
-.portada h1 b { color: var(--lime); }
-.portada p { margin: 0; color: var(--muted); font-size: 15px; }
-.portada:focus-visible { outline: 3px solid var(--lime); outline-offset: -3px; }
-@media (prefers-reduced-motion: reduce) { .portada .play { animation: none; } }
-
-/* Al terminar */
-.fin { position: absolute; inset: 0; display: grid; place-items: end center; padding: 24px 22px max(28px, env(safe-area-inset-bottom, 0px));
-       background: linear-gradient(180deg, transparent 82%, rgba(7,8,6,.9) 100%); }
-.fin-box { width: 100%; max-width: 380px; text-align: center; display: grid; gap: 12px; }
-.fin h2 { margin: 0; font: 800 24px/1.2 var(--font-display); }
-.fin h2 b { color: var(--lime); }
-.fin p { margin: 0; color: var(--muted); font-size: 15px; }
-.cta { appearance: none; border: 0; border-radius: 14px; padding: 15px 18px; font: 700 16px/1 var(--font-display); cursor: pointer;
-       background: var(--lime); color: var(--lime-ink); }
-.cta:focus-visible { outline: 2px solid var(--lime); outline-offset: 3px; }
-.firma { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
-.firma b { color: var(--lime); font-weight: 600; }
 </style>
 </head>
-<body>
-<main class="stage">
-  <video id="video" src="tutorial-bix.mp4" poster="poster.jpg" playsinline preload="metadata" controls hidden></video>
-
-  <button class="portada" id="portada" type="button" aria-label="Ver el tutorial con sonido">
-    <span class="play"><svg viewBox="0 0 24 24" fill="#10140a"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg></span>
-    <span class="txt">
-      <h1>Toca para verlo <b>con sonido</b></h1>
-      <p>Tutorial de 3 minutos, paso a paso</p>
-    </span>
-  </button>
-
-  <div class="fin" id="fin" hidden>
-    <div class="fin-box">
-      <button class="cta" id="otra" type="button">Ver de nuevo</button>
+<body oncontextmenu="return false">
+<div class="pagina">
+  <header><div class="tit">Activa tu <b>tarjeta BIX</b></div><div class="firma">por <b>Equipo Korex</b><br>afiliados independientes</div></header>
+  <div class="cuerpo">
+    <div id="reproductor"></div>
+    <div class="lado">
+      <h2>Salta al paso que necesites<small>Toca un paso y el video va directo ahí</small></h2>
+      <div class="kp-capitulos" id="capitulos"></div>
+      <footer>Tutorial elaborado por <b>Equipo Korex</b>, afiliados independientes de BIX. No somos la empresa y no brindamos asesoramiento financiero. ¿Quieres saber más? Pídele información a quien te invitó.</footer>
     </div>
   </div>
-</main>
+</div>
+<script src="/reproductor/korex-player.js"></script>
 <script>
-const v = document.getElementById('video'), portada = document.getElementById('portada'), fin = document.getElementById('fin');
-const ver = () => { portada.hidden = true; fin.hidden = true; v.hidden = false; v.currentTime = 0; v.play().catch(() => {}); };
-portada.addEventListener('click', ver);
-document.getElementById('otra').addEventListener('click', ver);
-v.addEventListener('ended', () => { fin.hidden = false; });
-v.addEventListener('play', () => { fin.hidden = true; });
+const CAPS = [
+  { t: 0, n: '▶', titulo: 'Qué es la tarjeta BIX' },
+  { t: 20.9, n: '1', titulo: 'Crea tu cuenta con el link' },
+  { t: 53.2, n: '2', titulo: 'Verifica tu identidad' },
+  { t: 82.0, n: '3', titulo: 'Carga USDT y crea tu tarjeta' },
+  { t: 106.4, n: '4', titulo: 'Paga con el celular' },
+  { t: 123.5, n: '✓', titulo: 'Así se ve una compra real' },
+  { t: 132.4, n: '+', titulo: 'Extra: vincula con TAG' },
+  { t: 144.2, n: '%', titulo: 'Invita y gana' },
+];
+const lista = document.getElementById('capitulos');
+lista.innerHTML = CAPS.map((c, i) => `<button data-i="${i}"><span class="n">${c.n}</span>${c.titulo}<span class="t">${Math.floor(c.t / 60)}:${String(Math.floor(c.t % 60)).padStart(2, '0')}</span></button>`).join('');
+const p = KorexPlayer(document.getElementById('reproductor'), {
+  src: ['tutorial', 'bix.mp4'].join('-'), poster: 'poster.jpg', capitulos: CAPS, clave: 'bix-v5', titulo: 'Tutorial tarjeta BIX',
+  alCambiar: (k) => lista.querySelectorAll('button').forEach((b, i) => b.classList.toggle('act', i === k)),
+});
+lista.addEventListener('click', (e) => {
+  const b = e.target.closest('[data-i]'); if (!b) return;
+  p.ir(CAPS[+b.dataset.i].t);
+  document.getElementById('reproductor').scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
 </script>
 </body>
 </html>
