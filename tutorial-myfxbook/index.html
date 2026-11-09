@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#060B1A">
+<meta name="robots" content="noindex">
+<title>Cómo leer el MyFXBook de Sonic AI · Equipo Korex</title>
+<meta name="description" content="Qué es MyFXBook y cómo revisar si un trader es real: ganancia, riesgo y cómo opera Sonic AI. Guía de Equipo Korex.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Cómo leer el MyFXBook de Sonic AI">
+<meta property="og:description" content="Qué es MyFXBook, si la cuenta es real, cuánto gana y cuánto arriesga. Salta a la parte que necesites.">
+<meta property="og:url" content="https://info.metodokorex.com/tutorial-myfxbook/">
+<meta property="og:image" content="https://info.metodokorex.com/tutorial-myfxbook/og.jpg">
+<link rel="stylesheet" href="/reproductor/korex-player.css">
+<style>
+@font-face { font-family: Satoshi; font-weight: 700; src: url(../tutorial-aitech/satoshi-700.woff2) format('woff2'); font-display: swap; }
+@font-face { font-family: Satoshi; font-weight: 900; src: url(../tutorial-aitech/satoshi-900.woff2) format('woff2'); font-display: swap; }
+:root { --noche: #060B1A; --marino: #0E1D45; --cian: #0EC8F0; --azul: #2D6BFF; --gris: #9AA6C4; color-scheme: dark; }
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: radial-gradient(900px 500px at 10% -10%, rgba(45,107,255,.28), transparent 70%), var(--noche); color: #fff;
+  font: 500 16px/1.45 Satoshi, system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-tap-highlight-color: transparent;
+  user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; min-height: 100vh; }
+.envuelve { max-width: 980px; margin: 0 auto; padding: 14px 0 28px; }
+header { display: flex; align-items: center; gap: 10px; padding: 0 16px 12px; }
+header img { width: 34px; height: 34px; }
+header .tit { font-weight: 900; font-size: 18px; letter-spacing: -.2px; line-height: 1.1; }
+header .tit small { display: block; font-weight: 700; font-size: 12px; color: var(--gris); letter-spacing: .4px; }
+header .firma { margin-left: auto; font-size: 11.5px; font-weight: 700; color: var(--gris); text-align: right; line-height: 1.2; }
+header .firma b { color: #fff; }
+#reproductor { --kp-acento: #0EC8F0; --kp-texto-acento: #04121f; }
+@media (min-width: 700px) { #reproductor { border-radius: 16px; box-shadow: 0 0 0 1px rgba(126,164,255,.25), 0 30px 80px rgba(0,0,0,.55); } .envuelve { padding-top: 24px; } }
+h2 { margin: 20px 16px 10px; font-weight: 900; font-size: 19px; letter-spacing: -.2px; }
+h2 small { display: block; font-weight: 700; font-size: 13px; color: var(--gris); margin-top: 2px; }
+.kp-capitulos { padding: 0 16px; display: grid; gap: 0; }
+@media (min-width: 700px) { .kp-capitulos { grid-template-columns: 1fr 1fr; column-gap: 10px; } }
+.kp-capitulos button { color: #fff; }
+.kp-capitulos button .n { background: linear-gradient(135deg, #0EC8F0, #2D6BFF) !important; color: #fff !important; }
+.kp-capitulos button.act { box-shadow: 0 0 24px rgba(14,200,240,.25); }
+.aviso { margin: 18px 16px 0; padding: 12px 14px; border-radius: 12px; background: rgba(255,90,95,.1); border: 1px solid rgba(255,90,95,.35); font-size: 14px; }
+.aviso b { color: #ff8a8e; }
+footer { margin: 22px 16px 0; font-size: 12px; line-height: 1.5; color: var(--gris); text-align: center; }
+footer b { color: #fff; }
+</style>
+</head>
+<body oncontextmenu="return false">
+<div class="envuelve">
+  <header>
+    <img src="logo.png" alt="" draggable="false">
+    <div class="tit">MyFXBook de Sonic AI<small>GUÍA RÁPIDA</small></div>
+    <div class="firma">por <b>Equipo Korex</b><br>afiliados independientes</div>
+  </header>
+  <div id="reproductor"></div>
+  <h2>Salta a la parte que necesites<small>Toca una parte y el video va directo ahí</small></h2>
+  <div class="kp-capitulos" id="capitulos"></div>
+  <div class="aviso"><b>Importante:</b> los números del video son de la cuenta original, sin amplificar. Si amplificas x24, ganancias y pérdidas se multiplican. Los resultados pasados no garantizan resultados futuros.</div>
+  <footer>Guía elaborada por <b>Equipo Korex</b>, afiliados independientes. Datos públicos de MyFXBook al 09/11/2026. No somos AI Tech, Sonic, MyFXBook, TAG Markets ni ninguna de las empresas mencionadas, y no brindamos asesoramiento financiero. Este video es solo informativo: operar con CFD y productos apalancados implica riesgo de pérdida.</footer>
+</div>
+<script src="/reproductor/korex-player.js"></script>
+<script>
+const CAPS = [
+  { t: 0, n: '▶', titulo: 'Introducción' },
+  { t: 12.3, n: '1', titulo: '¿Qué es MyFXBook?' },
+  { t: 36.6, n: '2', titulo: '¿La cuenta es real?' },
+  { t: 58.3, n: '3', titulo: '¿Cuánto ganó? (mes a mes y calendario)' },
+  { t: 136.3, n: '4', titulo: '¿Cuánto arriesgó? (drawdown y Risk of Ruin)' },
+  { t: 183.8, n: '5', titulo: '¿Cómo opera?' },
+  { t: 235.7, n: '6', titulo: '¿Qué significa para ti?' },
+];
+const lista = document.getElementById('capitulos');
+lista.innerHTML = CAPS.map((c, i) => `<button data-i="${i}"><span class="n">${c.n}</span>${c.titulo}<span class="t">${Math.floor(c.t / 60)}:${String(Math.floor(c.t % 60)).padStart(2, '0')}</span></button>`).join('');
+const p = KorexPlayer(document.getElementById('reproductor'), {
+  src: ['video', 'tutorial.mp4'].join('-'), poster: 'portada.jpg', capitulos: CAPS, clave: 'myfxbook-v1', horizontal: true, titulo: 'MyFXBook de Sonic AI',
+  alCambiar: (k) => lista.querySelectorAll('button').forEach((b, i) => b.classList.toggle('act', i === k)),
+});
+lista.addEventListener('click', (e) => {
+  const b = e.target.closest('[data-i]'); if (!b) return;
+  p.ir(CAPS[+b.dataset.i].t);
+  document.getElementById('reproductor').scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+</script>
+</body>
+</html>
