@@ -7,7 +7,7 @@ here = os.path.dirname(os.path.abspath(__file__))
 tpl = open(os.path.join(here, '_template.html'), encoding='utf-8').read()
 css, html = [], []
 # Versión 2: orden nuevo de 29 slides (pantalla de espera aparte). Nombres = archivos en slides/ (los 'n..' son nuevas).
-ORDER = ['02','01','n03','n04','03','05','04','09','06','11','12','13','14','15','07','10','08','16','17','18','19','n22','20','21','22','23','24','n28']
+ORDER = ['02','01','n03','n04','03','05','04','06','09','11','12','13','14','15','07','10','08','16','17','18','19','n22','n23','20','21','22','23','24','n28','n29']
 for k, n in enumerate(ORDER, 1):
     f = os.path.join(here, 'slides', f'{n}.html')
     if os.path.exists(f):
