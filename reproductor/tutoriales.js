@@ -3,8 +3,8 @@
 // Para sumar un video nuevo: agregarlo a VIDEOS y poner esa misma línea en su página.
 (function () {
   const VIDEOS = [
-    { href: '/tutorial-aitech/', nombre: 'Registro AI Tech', dur: '5:00', a: 'linear-gradient(135deg,#0EC8F0,#2D6BFF)', t: '#fff', sombra: 'rgba(14,200,240,.45)' },
-    { href: '/tutorial-myfxbook/', nombre: 'MyFXBook Sonic', dur: '5:29', a: 'linear-gradient(135deg,#0EC8F0,#2D6BFF)', t: '#fff', sombra: 'rgba(14,200,240,.45)' },
+    { href: '/tutorial-aitech/', nombre: 'Registro AI Tech', dur: '4:59', a: 'linear-gradient(135deg,#0EC8F0,#2D6BFF)', t: '#fff', sombra: 'rgba(14,200,240,.45)' },
+    { href: '/tutorial-myfxbook/', nombre: 'MyFXBook Sonic', dur: '5:28', a: 'linear-gradient(135deg,#0EC8F0,#2D6BFF)', t: '#fff', sombra: 'rgba(14,200,240,.45)' },
     { href: '/bixinstalacion/', nombre: 'Tarjeta BIX', dur: '3:04', a: '#cafe5c', t: '#10140a', sombra: 'rgba(202,254,92,.4)' },
   ];
   const css = `

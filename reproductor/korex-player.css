@@ -35,6 +35,22 @@
 .kp-b.vel { border: 1.5px solid rgba(255,255,255,.55); height: 30px; padding: 0 9px; }
 .kp-tiempo { font-variant-numeric: tabular-nums; font-size: 12.5px; opacity: .9; margin-left: 4px; white-space: nowrap; }
 .kp-esp { flex: 1; }
+/* volumen: barra que sale arriba del parlante (celular: al tocar; computadora: al pasar el mouse) */
+.kp-volc { position: relative; }
+.kp-volp { position: absolute; left: -6px; bottom: 46px; padding: 12px 16px; border-radius: 14px; background: rgba(0,0,0,.88);
+  box-shadow: 0 8px 26px rgba(0,0,0,.5); opacity: 0; pointer-events: none; transition: opacity .18s; }
+.kp-volc.abierta .kp-volp { opacity: 1; pointer-events: auto; }
+@media (hover: hover) and (pointer: fine) { .kp-volc:hover .kp-volp { opacity: 1; pointer-events: auto; } .kp-volp::after { content: ''; position: absolute; left: 0; right: 0; top: 100%; height: 14px; } }
+.kp-volp input { -webkit-appearance: none; appearance: none; display: block; width: 130px; height: 28px; margin: 0; background: transparent; cursor: pointer; touch-action: none; }
+.kp-volp input::-webkit-slider-runnable-track { height: 6px; border-radius: 6px; background: linear-gradient(90deg, var(--kp-acento) var(--p, 100%), rgba(255,255,255,.3) var(--p, 100%)); }
+.kp-volp input::-moz-range-track { height: 6px; border-radius: 6px; background: rgba(255,255,255,.3); }
+.kp-volp input::-moz-range-progress { height: 6px; border-radius: 6px; background: var(--kp-acento); }
+.kp-volp input::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; margin-top: -7px; border-radius: 50%; background: #fff; border: 0; box-shadow: 0 0 0 3px var(--kp-acento); }
+.kp-volp input::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: #fff; border: 0; box-shadow: 0 0 0 3px var(--kp-acento); }
+/* reproductor angosto (celular): los ±10 s quedan en el doble toque a los lados, para que entren todos los botones */
+.kp { container-type: inline-size; }
+@container (max-width: 430px) { .kp-b[data-a=atras], .kp-b[data-a=adelante] { display: none; } }
+@container (max-width: 330px) { .kp-tiempo { display: none; } }
 /* lista de capítulos dentro del reproductor (pantalla completa) */
 .kp-lista { position: absolute; inset: 0; z-index: 6; background: rgba(0,0,0,.88); display: none; overflow: auto; padding: 16px; }
 .kp-lista.abierta { display: block; }

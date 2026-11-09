@@ -2,7 +2,7 @@
 //   const p = KorexPlayer(contenedor, { src, poster, capitulos: [{ t: 13.7, titulo: 'Crea tu cuenta', n: '1' }], clave: 'aitech' });
 //   p.ir(segundos)  — salta a ese momento y reproduce.
 // Sin controles nativos (no hay botón ni menú de descarga), sin clic derecho, sin "guardar video" al mantener apretado,
-// sin imagen en imagen. Velocidad, pantalla completa, capítulos y "seguir donde quedaste".
+// sin imagen en imagen. Velocidad, volumen, pantalla completa, capítulos y "seguir donde quedaste".
 (function () {
   const ICO = {
     play: '<svg viewBox="0 0 24 24"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg>',
@@ -12,6 +12,14 @@
     lista: '<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="2.4" rx="1.2"/><rect x="3" y="10.8" width="18" height="2.4" rx="1.2"/><rect x="3" y="16.6" width="12" height="2.4" rx="1.2"/></svg>',
     pantalla: '<svg viewBox="0 0 24 24"><path d="M4 9V4h5v2H6v3H4zm11-5h5v5h-2V6h-3V4zM4 15h2v3h3v2H4v-5zm14 3v-3h2v5h-5v-2h3z"/></svg>',
   };
+  // volumen: parlante + ondas según el nivel (0 = tachado)
+  const icoVol = (n) => '<svg viewBox="0 0 24 24"><path d="M3.5 9.2v5.6h3.8l5 4.2V5l-5 4.2H3.5z"/>' +
+    (n === 0 ? '<path d="M15.5 9.5l5 5m0-5l-5 5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" fill="none"/>'
+      : '<path d="M15.6 9a4 4 0 0 1 0 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" fill="none"/>' +
+        (n > 1 ? '<path d="M18.2 6.4a7.6 7.6 0 0 1 0 11.2" stroke="#fff" stroke-width="2.2" stroke-linecap="round" fill="none"/>' : '')) + '</svg>';
+  // iPhone/iPad no dejan cambiar el volumen desde la página (siempre 1): ahí solo se puede silenciar
+  const VOL_OK = (() => { try { const t = document.createElement('video'); t.volume = .5; return t.volume === .5; } catch (e) { return false; } })();
+  const CON_MOUSE = window.matchMedia && matchMedia('(hover: hover) and (pointer: fine)').matches;
   const VELS = [1, 1.25, 1.5, 1.75, 2];
   const mmss = (s) => { s = Math.max(0, Math.floor(s || 0)); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`; };
 
@@ -32,6 +40,8 @@
           <button class="kp-b" data-a="play" aria-label="Reproducir o pausar">${ICO.play}</button>
           <button class="kp-b" data-a="atras" aria-label="Atrás 10 segundos">${ICO.atras}</button>
           <button class="kp-b" data-a="adelante" aria-label="Adelante 10 segundos">${ICO.adelante}</button>
+          <div class="kp-volc"><button class="kp-b" data-a="vol" aria-label="Volumen">${icoVol(2)}</button>
+            ${VOL_OK ? '<div class="kp-volp"><input type="range" min="0" max="1" step="0.05" value="1" aria-label="Volumen"></div>' : ''}</div>
           <span class="kp-tiempo">0:00 / 0:00</span><span class="kp-esp"></span>
           <button class="kp-b vel" data-a="vel" aria-label="Velocidad">1x</button>
           ${caps.length ? `<button class="kp-b" data-a="lista" aria-label="Capítulos">${ICO.lista}</button>` : ''}
@@ -50,8 +60,22 @@
 
     let ocultarT = 0, vel = 1, iniciado = false;
     const clave = 'kp-pos-' + (o.clave || o.src);
-    const mostrar = () => { raiz.classList.remove('oculta'); clearTimeout(ocultarT); if (!v.paused) ocultarT = setTimeout(() => raiz.classList.add('oculta'), 2800); };
-    const aviso = (txt) => { const a = $('.kp-aviso'); a.textContent = txt; a.classList.add('ver'); clearTimeout(a._t); a._t = setTimeout(() => a.classList.remove('ver'), 700); };
+    const mostrar = () => { raiz.classList.remove('oculta'); clearTimeout(ocultarT);
+      if (!v.paused) ocultarT = setTimeout(() => { raiz.classList.add('oculta'); $('.kp-volc').classList.remove('abierta'); }, 2800); };
+    const aviso = (txt, ms = 700) => { const a = $('.kp-aviso'); a.textContent = txt; a.classList.add('ver'); clearTimeout(a._t); a._t = setTimeout(() => a.classList.remove('ver'), ms); };
+    // volumen (se recuerda entre videos)
+    let vol = 1;
+    try { const g = localStorage.getItem('kp-vol'); if (g !== null && VOL_OK) vol = Math.min(1, Math.max(0, +g)); } catch (e) {}
+    const pintarVol = () => {
+      const n = v.muted || (VOL_OK && v.volume === 0) ? 0 : (VOL_OK && v.volume < .5 ? 1 : 2);
+      $('.kp-b[data-a=vol]').innerHTML = icoVol(n);
+      const r = $('.kp-volp input'); if (r) { r.value = v.muted ? 0 : v.volume; r.style.setProperty('--p', (r.value * 100) + '%'); }
+    };
+    const ponerVol = (x) => {
+      x = Math.min(1, Math.max(0, Math.round(x * 100) / 100));
+      if (VOL_OK) { v.volume = x; if (x > 0) { vol = x; try { localStorage.setItem('kp-vol', x); } catch (e) {} } }
+      v.muted = x === 0; pintarVol();
+    };
     const capActual = () => { let k = -1; caps.forEach((c, i) => { if (v.currentTime >= c.t - .3) k = i; }); return k; };
     const lanzar = () => { if (!iniciado) { iniciado = true; $('.kp-inicio').remove(); raiz.classList.remove('espera'); } v.play().catch(() => {}); };
     const api = {
@@ -83,8 +107,20 @@
       if (a === 'vel') { vel = VELS[(VELS.indexOf(vel) + 1) % VELS.length]; v.playbackRate = vel; b.textContent = vel + 'x'; aviso('Velocidad ' + vel + 'x'); }
       if (a === 'lista') $('.kp-lista').classList.add('abierta');
       if (a === 'pantalla') pantalla();
+      if (a === 'vol') {
+        if (!VOL_OK) { v.muted = !v.muted; pintarVol(); aviso(v.muted ? 'Sin sonido' : 'Volumen: usa los botones del celular', v.muted ? 700 : 1800); }
+        else if (CON_MOUSE) ponerVol(v.muted || v.volume === 0 ? vol : 0);   // computadora: clic = silenciar; la barra sale al pasar el mouse
+        else $('.kp-volc').classList.toggle('abierta');                    // celular: toca y aparece la barra
+      }
       mostrar();
     });
+    const rango = $('.kp-volp input');
+    if (rango) {
+      rango.addEventListener('input', () => { ponerVol(+rango.value); mostrar(); });
+      rango.addEventListener('pointerdown', (e) => e.stopPropagation());
+    }
+    if (VOL_OK) v.volume = vol;
+    pintarVol();
     $('.kp-lista').addEventListener('click', (e) => {
       const b = e.target.closest('[data-i]'); $('.kp-lista').classList.remove('abierta');
       if (b) api.ir(caps[+b.dataset.i].t);
@@ -127,6 +163,8 @@
       if (!iniciado) return;
       if (e.key === ' ' || e.key === 'k') { e.preventDefault(); v.paused ? v.play() : v.pause(); }
       if (e.key === 'ArrowRight') v.currentTime += 5; if (e.key === 'ArrowLeft') v.currentTime -= 5; if (e.key === 'f') pantalla();
+      if (e.key === 'ArrowUp' || e.key === 'ArrowDown') { e.preventDefault(); ponerVol((v.muted ? 0 : v.volume) + (e.key === 'ArrowUp' ? .1 : -.1)); aviso('Volumen ' + Math.round((v.muted ? 0 : v.volume) * 100) + ' %'); }
+      if (e.key === 'm') { ponerVol(v.muted ? vol : 0); aviso(v.muted ? 'Sin sonido' : 'Con sonido'); }
       mostrar();
     });
     return api;
