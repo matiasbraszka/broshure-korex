@@ -26,19 +26,20 @@ body { background: radial-gradient(120% 50% at 0% 0%, #20330a 0%, transparent 60
 header { display: flex; align-items: center; gap: 10px; padding: 0 16px 10px; }
 header .tit { font: 800 18px/1.1 Sora, sans-serif; } header .tit b { color: var(--lima); }
 header .firma { margin-left: auto; font-size: 11.5px; font-weight: 600; color: var(--gris); text-align: right; line-height: 1.2; } header .firma b { color: #fff; }
-#reproductor { --kp-acento: #cafe5c; --kp-texto-acento: #10140a; --kp-ratio: 9 / 16; width: min(100%, calc((100svh - 70px) * 9 / 16)); margin: 0 auto; }
+#reproductor { --kp-acento: #cafe5c; --kp-texto-acento: #10140a; --kp-ratio: 9 / 16; width: min(100%, calc((100svh - 136px) * 9 / 16)); margin: 0 auto; }
 .lado h2 { margin: 18px 16px 10px; font: 800 18px/1.2 Sora, sans-serif; } .lado h2 small { display: block; font: 600 13px "IBM Plex Sans", sans-serif; color: var(--gris); margin-top: 3px; }
 .kp-capitulos { padding: 0 16px; } .kp-capitulos button { color: #f2f5ea; }
 footer { margin: 16px 16px 0; font-size: 12px; line-height: 1.5; color: var(--gris); text-align: center; } footer b { color: #fff; }
 @media (min-width: 860px) {
   .cuerpo { display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: start; padding: 0 16px; }
-  #reproductor { width: calc((100vh - 90px) * 9 / 16); max-width: 460px; border-radius: 18px; box-shadow: 0 0 0 1px #2b3022, 0 30px 80px rgba(0,0,0,.6); }
+  #reproductor { width: calc((100vh - 156px) * 9 / 16); max-width: 460px; border-radius: 18px; box-shadow: 0 0 0 1px #2b3022, 0 30px 80px rgba(0,0,0,.6); }
   .lado h2 { margin-top: 4px; } .lado h2, .kp-capitulos, footer { margin-left: 0; margin-right: 0; padding-left: 0; padding-right: 0; }
   footer { text-align: left; }
 }
 </style>
 </head>
 <body oncontextmenu="return false">
+<script src="/reproductor/tutoriales.js"></script>
 <div class="pagina">
   <header><div class="tit">Activa tu <b>tarjeta BIX</b></div><div class="firma">por <b>Equipo Korex</b><br>afiliados independientes</div></header>
   <div class="cuerpo">

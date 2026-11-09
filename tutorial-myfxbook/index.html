@@ -40,11 +40,18 @@ h2 small { display: block; font-weight: 700; font-size: 13px; color: var(--gris)
 .kp-capitulos button.act { box-shadow: 0 0 24px rgba(14,200,240,.25); }
 .aviso { margin: 18px 16px 0; padding: 12px 14px; border-radius: 12px; background: rgba(255,90,95,.1); border: 1px solid rgba(255,90,95,.35); font-size: 14px; }
 .aviso b { color: #ff8a8e; }
+.link-mfx { display: flex; align-items: center; gap: 12px; margin: 14px 16px 0; padding: 14px 16px; border-radius: 14px; text-decoration: none; color: #fff;
+  background: linear-gradient(135deg, rgba(14,200,240,.16), rgba(45,107,255,.16)); border: 1px solid rgba(14,200,240,.45); }
+.link-mfx span { flex: 1; font-size: 16px; line-height: 1.25; }
+.link-mfx small { display: block; font-weight: 700; font-size: 13px; color: var(--gris); margin-top: 2px; }
+.link-mfx i { font-style: normal; font-weight: 900; font-size: 22px; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
+  background: linear-gradient(135deg, #0EC8F0, #2D6BFF); }
 footer { margin: 22px 16px 0; font-size: 12px; line-height: 1.5; color: var(--gris); text-align: center; }
 footer b { color: #fff; }
 </style>
 </head>
 <body oncontextmenu="return false">
+<script src="/reproductor/tutoriales.js"></script>
 <div class="envuelve">
   <header>
     <img src="logo.png" alt="" draggable="false">
@@ -52,26 +59,28 @@ footer b { color: #fff; }
     <div class="firma">por <b>Equipo Korex</b><br>afiliados independientes</div>
   </header>
   <div id="reproductor"></div>
+  <a class="link-mfx" href="https://www.myfxbook.com/members/SonicExperts/sonic-ai/12076857" target="_blank" rel="noopener">
+    <span><b>Compruébalo tú mismo</b><small>Abre el MyFXBook de Sonic AI con los datos en vivo</small></span><i>↗</i></a>
   <h2>Salta a la parte que necesites<small>Toca una parte y el video va directo ahí</small></h2>
   <div class="kp-capitulos" id="capitulos"></div>
-  <div class="aviso"><b>Importante:</b> los números del video son de la cuenta original, sin amplificar. Si amplificas x24, ganancias y pérdidas se multiplican. Los resultados pasados no garantizan resultados futuros.</div>
+  <div class="aviso"><b>Importante:</b> los números del video son de la cuenta original, sin amplificar. Si amplificas x24, todo se multiplica por 24: las ganancias y también las pérdidas. Los resultados pasados no garantizan resultados futuros.</div>
   <footer>Guía elaborada por <b>Equipo Korex</b>, afiliados independientes. Datos públicos de MyFXBook al 09/11/2026. No somos AI Tech, Sonic, MyFXBook, TAG Markets ni ninguna de las empresas mencionadas, y no brindamos asesoramiento financiero. Este video es solo informativo: operar con CFD y productos apalancados implica riesgo de pérdida.</footer>
 </div>
 <script src="/reproductor/korex-player.js"></script>
 <script>
 const CAPS = [
   { t: 0, n: '▶', titulo: 'Introducción' },
-  { t: 12.3, n: '1', titulo: '¿Qué es MyFXBook?' },
-  { t: 36.6, n: '2', titulo: '¿La cuenta es real?' },
-  { t: 58.3, n: '3', titulo: '¿Cuánto ganó? (mes a mes y calendario)' },
-  { t: 136.3, n: '4', titulo: '¿Cuánto arriesgó? (drawdown y Risk of Ruin)' },
-  { t: 183.8, n: '5', titulo: '¿Cómo opera?' },
-  { t: 235.7, n: '6', titulo: '¿Qué significa para ti?' },
+  { t: 27.1, n: '1', titulo: '¿Qué es MyFXBook?' },
+  { t: 56.9, n: '2', titulo: '¿La cuenta es real?' },
+  { t: 78.5, n: '3', titulo: '¿Cuánto ganó? (mes a mes y calendario)' },
+  { t: 168.9, n: '4', titulo: '¿Cuánto arriesgó? (drawdown y Risk of Ruin)' },
+  { t: 236.2, n: '5', titulo: '¿Cómo opera?' },
+  { t: 288.1, n: '6', titulo: '¿Qué significa para ti?' },
 ];
 const lista = document.getElementById('capitulos');
 lista.innerHTML = CAPS.map((c, i) => `<button data-i="${i}"><span class="n">${c.n}</span>${c.titulo}<span class="t">${Math.floor(c.t / 60)}:${String(Math.floor(c.t % 60)).padStart(2, '0')}</span></button>`).join('');
 const p = KorexPlayer(document.getElementById('reproductor'), {
-  src: ['video', 'tutorial.mp4'].join('-'), poster: 'portada.jpg', capitulos: CAPS, clave: 'myfxbook-v1', horizontal: true, titulo: 'MyFXBook de Sonic AI',
+  src: ['video', 'tutorial.mp4'].join('-'), poster: 'portada.jpg', capitulos: CAPS, clave: 'myfxbook-v2', horizontal: true, titulo: 'MyFXBook de Sonic AI',
   alCambiar: (k) => lista.querySelectorAll('button').forEach((b, i) => b.classList.toggle('act', i === k)),
 });
 lista.addEventListener('click', (e) => {
