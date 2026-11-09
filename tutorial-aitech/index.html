@@ -65,13 +65,13 @@ const CAPS = [
   { t: 72.9, n: '2', titulo: 'Verifica tu identidad y valida los Términos' },
   { t: 121.3, n: '3', titulo: 'Deposita en TAG Markets' },
   { t: 155.7, n: '4', titulo: 'Amplifica tu cuenta x24 (Sonic + #aitech)' },
-  { t: 193.5, n: '5', titulo: 'MetaTrader 5: tus operaciones y tu beneficio' },
-  { t: 259.5, n: '6', titulo: 'Comparte tu link de AI Tech' },
+  { t: 193.5, n: '5', titulo: 'MetaTrader 5: depósito, operaciones y beneficio' },
+  { t: 283.7, n: '6', titulo: 'Comparte tu link de AI Tech' },
 ];
 const lista = document.getElementById('capitulos');
 lista.innerHTML = CAPS.map((c, i) => `<button data-i="${i}"><span class="n">${c.n}</span>${c.titulo}<span class="t">${Math.floor(c.t / 60)}:${String(Math.floor(c.t % 60)).padStart(2, '0')}</span></button>`).join('');
 const p = KorexPlayer(document.getElementById('reproductor'), {
-  src: ['video', 'tutorial.mp4'].join('-'), poster: 'portada.jpg', capitulos: CAPS, clave: 'aitech-v3', horizontal: true, titulo: 'Tutorial AI Tech',
+  src: ['video', 'tutorial.mp4'].join('-'), poster: 'portada.jpg', capitulos: CAPS, clave: 'aitech-v4', horizontal: true, titulo: 'Tutorial AI Tech',
   alCambiar: (k) => lista.querySelectorAll('button').forEach((b, i) => b.classList.toggle('act', i === k)),
 });
 lista.addEventListener('click', (e) => {
