@@ -17,7 +17,8 @@
 .tm-it small { font-size: 11px; font-weight: 700; opacity: .65; margin-top: 3px; }
 .tm-it.act { border-color: transparent; }
 .tm-it.act small { opacity: .85; }
-@media (hover: hover) { .tm-it:not(.act):hover { background: rgba(255,255,255,.11); } }`;
+@media (hover: hover) { .tm-it:not(.act):hover { background: rgba(255,255,255,.11); } }
+#reproductor { scroll-margin-top: calc(78px + env(safe-area-inset-top)); }`;
   const st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
   const aqui = location.pathname.replace(/\/+$/, '') + '/';
   const nav = document.createElement('nav');
