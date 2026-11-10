@@ -1,0 +1,60 @@
+<style>
+#srt .kick{left:0;right:0;top:98px;text-align:center;font-size:44px}
+#srt .h{left:0;right:0;top:156px;text-align:center;font-size:62px}
+#srt .c{top:310px;height:540px;padding:46px 52px 0}
+#srt .c .lb{font-family:var(--f-title);font-size:26px;letter-spacing:.12em;color:var(--cyan)}
+#srt .row{display:flex;align-items:center;gap:34px;margin-top:40px}
+#srt .row + .row{margin-top:34px;padding-top:34px;border-top:1px solid rgba(255,255,255,.09)}
+#srt .big{flex:none;width:190px;height:150px;border-radius:22px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:rgba(41,182,246,.1);border:1px solid rgba(41,182,246,.4);box-shadow:0 0 40px -12px rgba(41,182,246,.6)}
+#srt .big b{font-family:var(--f-title);font-weight:400;font-size:64px;line-height:1;color:#45C2FF}
+#srt .big small{margin-top:8px;font-family:var(--f-title);font-size:22px;letter-spacing:.1em;color:#9FE3FF}
+#srt .big.w b{font-size:34px;letter-spacing:.02em}
+#srt .row h3{font-family:var(--f-title);font-weight:400;font-size:32px;line-height:1.1;color:#fff}
+#srt .row p{margin-top:12px;font-size:28px;line-height:1.4;color:#C9CED8}
+#srt .row p b{color:#fff}
+#srt .k2{background:linear-gradient(160deg,rgba(14,58,96,.92),rgba(8,24,44,.95) 60%);border-color:rgba(41,182,246,.6);
+  box-shadow:0 0 0 1px rgba(41,182,246,.12),0 30px 80px -30px rgba(41,182,246,.6)}
+#srt .rpb{display:flex;height:64px;margin-top:44px;border-radius:32px;overflow:hidden;box-shadow:0 0 30px -6px rgba(41,182,246,.6)}
+#srt .rpb i{display:block;height:100%;transform-origin:left;transform:scaleX(0)}
+#srt.on .rpb i{transform:scaleX(1);transition:transform 1.2s cubic-bezier(.2,.7,.2,1) .7s}
+#srt .rpb i:nth-child(1){width:70%;background:linear-gradient(90deg,#1FA2F0,#45C2FF)}
+#srt .rpb i:nth-child(2){width:25%;background:#2D6BFF;transition-delay:1s}
+#srt .rpb i:nth-child(3){width:5%;background:#9AA6C4;transition-delay:1.2s}
+#srt .leg{margin-top:36px}
+#srt .leg div{display:flex;align-items:baseline;gap:24px;margin-top:18px}
+#srt .leg b{width:150px;font-family:var(--f-title);font-weight:400;font-size:58px;line-height:1}
+#srt .leg span{font-size:30px;color:#E6E7EA}
+#srt .leg span em{font-style:normal;color:#9AA0AA}
+#srt .legal{left:0;right:0;top:892px;text-align:center;font-size:21px;color:#8A909C}
+</style>
+<section class="slide bg-silk" id="srt">
+  <div class="abs t-title g-silver kick rv">TU DINERO</div>
+  <h2 class="abs t-title g-cyan h rv" style="--d:1">RETIROS Y REPARTO</h2>
+
+  <div class="abs card c rv" style="left:128px;width:840px;--d:2">
+    <div class="lb">RETIROS</div>
+    <div class="row">
+      <div class="big"><b>30</b><small>DÍAS</small></div>
+      <div><h3>CAPITAL INICIAL</h3><p>Se puede retirar <b>íntegro</b> a partir de los <b>30 días</b>.</p></div>
+    </div>
+    <div class="row">
+      <div class="big w"><b>LUN</b><small>A LUNES</small></div>
+      <div><h3>RENTABILIDAD</h3><p>Se puede retirar <b>de lunes a lunes</b>.</p></div>
+    </div>
+  </div>
+
+  <div class="abs card c k2 rv" style="left:1012px;width:780px;--d:3">
+    <div class="lb">REPARTO DE LA RENTABILIDAD</div>
+    <div class="rpb"><i></i><i></i><i></i></div>
+    <div class="leg">
+      <div><b style="color:#45C2FF">70%</b><span>Para el inversor <em>(tú)</em></span></div>
+      <div><b style="color:#5B8CFF">25%</b><span>Para los IB</span></div>
+      <div><b style="color:#9AA6C4">5%</b><span>Para el trader</span></div>
+    </div>
+  </div>
+
+  <p class="abs legal rv" style="--d:5">Toda inversión en trading implica riesgo de pérdida.</p>
+  <div class="foot-k">MÉTODO KOREX</div>
+  <img class="mk-k" src="/assets/mk-logo-cropped.png" alt="Método Korex">
+</section>
