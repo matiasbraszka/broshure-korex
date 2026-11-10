@@ -8,8 +8,8 @@ tpl = open(os.path.join(here, '_template.html'), encoding='utf-8').read()
 css, html = [], []
 # Versión 2: orden nuevo de 29 slides (pantalla de espera aparte). Nombres = archivos en slides/ (los 'n..' son nuevas).
 # Versión 3: dos partes. Apertura → PARTE 1 inversión (solo AITech y copy trading) → PARTE 2 negocio (IB + Método Korex).
-ORDER = ['02','01','n04','n03',
-         'p1','09','06','11','12','13','ct','14','15','07','10','n22','n23',
+ORDER = ['02','01','n03',
+         'p1','06','09','11','12','13','ct','14','15','07','10','n22','n23',
          'p2','03','05','04','08','16','17','18','19','20','21','22','23','24','n29']
 for k, n in enumerate(ORDER, 1):
     f = os.path.join(here, 'slides', f'{n}.html')
