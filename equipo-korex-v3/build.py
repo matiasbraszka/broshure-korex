@@ -10,7 +10,7 @@ css, html = [], []
 # Versión 3: dos partes. Apertura → PARTE 1 inversión (solo AITech y copy trading) → PARTE 2 negocio (IB + Método Korex).
 ORDER = ['02','01','n03',
          'p1','06','09','11','12','13','ct','14','15','rt','07','10','n23',
-         'p2','03','05','04','08','16','17','18','19','20','21','22','23','24','n29']
+         'p2','03','05','04','08','16','17','18','19','20','21','22','23','nx','n29']
 for k, n in enumerate(ORDER, 1):
     f = os.path.join(here, 'slides', f'{n}.html')
     if os.path.exists(f):

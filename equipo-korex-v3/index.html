@@ -864,21 +864,28 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 #s23 .korex .row.sm{font-size:23px;line-height:1.35}
 #s23 .note{left:0;right:0;text-align:center;font-size:20px;color:#8A909C}
 
-/* ── slide 30 (24) ── */
-#s24 .kick{left:0;right:0;top:94px;text-align:center;font-size:44px}
-#s24 .h{left:0;right:0;top:158px;text-align:center;font-size:66px}
-#s24 .sub{left:0;right:0;top:266px;text-align:center;font-size:31px;color:#E4E7EC}
-#s24 .card{top:370px;width:398px;height:320px;padding:44px 40px}
-#s24 .card .n{font-family:var(--f-title);font-size:66px;line-height:1}
-#s24 .card h3{margin-top:30px;font-size:25px;font-weight:700;letter-spacing:.03em;line-height:1.3;color:#fff}
-#s24 .card p{margin-top:14px;font-size:23px;line-height:1.45;color:#B9BEC8}
-#s24 .card::after{content:"";position:absolute;left:40px;right:40px;top:0;height:3px;border-radius:0 0 3px 3px;background:linear-gradient(90deg,#0E8BD6,#7FD8FF);opacity:.85}
-#s24 .cta{left:410px;top:750px;width:1100px;height:96px;border-radius:48px;display:flex;align-items:center;justify-content:center;gap:16px;text-decoration:none;
-  font-size:29px;font-weight:800;letter-spacing:.05em;color:#fff;background:linear-gradient(90deg,#0E8BD6,#29B6F6 55%,#45C2FF);
-  box-shadow:0 0 0 1px rgba(127,216,255,.35),0 18px 60px -12px rgba(41,182,246,.75)}
-#s24.on .cta{animation:s24pulse 2.6s 1.4s ease-in-out infinite}
-@keyframes s24pulse{50%{box-shadow:0 0 0 10px rgba(41,182,246,.0),0 0 0 1px rgba(127,216,255,.35),0 18px 70px -8px rgba(41,182,246,.95)}}
-#s24 .note{left:0;right:0;top:872px;text-align:center;font-size:20px;color:#8A909C}
+/* ── slide 30 (nx) ── */
+#snx .kick{left:0;right:0;top:98px;text-align:center;font-size:40px}
+#snx .h{left:0;right:0;top:152px;text-align:center;font-size:68px}
+#snx .c{top:300px;width:790px;height:520px;padding:50px 56px 0}
+#snx .c2{background:linear-gradient(160deg,rgba(14,58,96,.92),rgba(8,24,44,.95) 60%);border-color:rgba(41,182,246,.6);
+  box-shadow:0 0 0 1px rgba(41,182,246,.12),0 30px 80px -30px rgba(41,182,246,.6)}
+#snx .top{display:flex;align-items:center;justify-content:space-between}
+#snx .num{font-family:var(--f-title);font-size:56px;line-height:1;color:#fff}
+#snx .num span{color:var(--cyan)}
+#snx .ic{width:84px;height:84px;border-radius:22px;display:grid;place-items:center;background:rgba(41,182,246,.1);border:1px solid rgba(41,182,246,.4);box-shadow:0 0 40px -10px rgba(41,182,246,.6)}
+#snx .ic svg{width:44px;height:44px;fill:none;stroke:#3CBDF4;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+#snx .c p{margin-top:34px;font-size:37px;line-height:1.35;font-weight:500;color:#E6E8EC}
+#snx .c p b{color:#fff;font-weight:700}
+#snx .c p em{font-style:normal;color:#7FD8FF;font-weight:700}
+#snx .chips{position:absolute;left:56px;right:56px;bottom:50px;display:flex;gap:16px}
+#snx .chip{height:64px;padding:0 26px;border-radius:32px;display:flex;align-items:center;font-family:var(--f-title);font-size:28px;letter-spacing:.04em;
+  color:#04121d;background:linear-gradient(90deg,#29B6F6,#7FD8FF);box-shadow:0 10px 30px -10px rgba(41,182,246,.8)}
+#snx .chip.o{color:#7FD8FF;background:rgba(41,182,246,.08);border:1.5px solid rgba(41,182,246,.5);box-shadow:none}
+#snx .arr{left:912px;top:513px;width:96px;height:96px;border-radius:50%;display:grid;place-items:center;background:#0b0d12;border:1.5px solid rgba(255,255,255,.28);z-index:2}
+#snx .arr svg{width:46px;height:46px;fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+#snx .goal{left:0;right:0;top:858px;text-align:center;font-family:var(--f-title);font-size:40px}
+#snx .legal{left:0;right:0;top:930px;text-align:center;font-size:20px;color:#8A909C}
 
 /* ── slide 31 (n29) ── */
 #sn29 .kick{left:0;right:0;top:90px;text-align:center;font-size:40px}
@@ -2042,18 +2049,26 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   <img class="mk-k" src="/assets/mk-logo-cropped.png" alt="Método Korex">
 </section>
 
-<section class="slide bg-silk" id="s24">
-  <div class="abs t-title g-silver kick rv">EL COMPROMISO · PLAN DE EJECUCIÓN</div>
-  <h2 class="abs t-title g-cyan h rv" style="--d:1">TÚ PONES 90 MINUTOS AL DÍA</h2>
-  <p class="abs sub rv" style="--d:2">Nosotros ponemos el método, las herramientas y el acompañamiento.</p>
+<section class="slide bg-silk" id="snx">
+  <div class="abs t-title g-silver kick rv">PARA QUIENES QUIEREN CONSTRUIR</div>
+  <h2 class="abs t-title g-cyan h rv" style="--d:1">CÓMO EMPEZAR YA CON EL NEGOCIO</h2>
 
-  <div class="abs card rv" style="left:128px;--d:3"><div class="n g-cyan">01</div><h3>PROSPECCIÓN ORGÁNICA</h3><p>Contacta e invita siguiendo el método.</p></div>
-  <div class="abs card rv" style="left:550px;--d:4"><div class="n g-cyan">02</div><h3>PRESENTACIONES EN ZOOM</h3><p>Invita, presenta y da seguimiento.</p></div>
-  <div class="abs card rv" style="left:972px;--d:5"><div class="n g-cyan">03</div><h3>MENTORÍAS Y PRÁCTICA</h3><p>Cómo invitar, presentar y cerrar.</p></div>
-  <div class="abs card rv" style="left:1394px;--d:6"><div class="n g-cyan">04</div><h3>TUS NÚMEROS CADA DÍA</h3><p>Registras tu actividad, la revisamos juntos y mejoras.</p></div>
+  <div class="abs card c rv" style="left:128px;--d:2">
+    <div class="top"><div class="num">PASO <span>1</span></div>
+      <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 5.5h16v10H9l-5 4z"/><path d="M8.5 10.5h7"/></svg></div></div>
+    <p>Dile a la persona que te invitó que quieres ser <em>de los 20 seleccionados</em>.</p>
+    <div class="chips"><div class="chip o">SOLO 20 CUPOS</div></div>
+  </div>
+  <div class="abs arr rv zoom" style="--d:3"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+  <div class="abs card c c2 rv" style="left:1002px;--d:4">
+    <div class="top"><div class="num">PASO <span>2</span></div>
+      <div class="ic"><svg viewBox="0 0 24 24"><path d="M3.5 20.5h17"/><path d="M5 16l4.5-4.5 3.5 3 6-6.5"/><path d="M15 8h4v4"/></svg></div></div>
+    <p>Regístrate en AITECH con el enlace que te van a enviar y haz el depósito de <b>250 USD</b> apalancado <b>x24</b> en el copy trading.</p>
+    <div class="chips"><div class="chip">250 USD</div><div class="chip o">x24 · COPY TRADING</div></div>
+  </div>
 
-  <a class="abs cta rv zoom" style="--d:7" href="https://equipo.metodokorex.com/agendar/p/5503675a6b0c78975da4" target="_blank" rel="noopener">AGENDA TU SESIÓN DE ONBOARDING PARA COMENZAR<svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-  <div class="abs note rv" style="--d:8">Selección por compromiso y aceptación de las condiciones del programa.</div>
+  <div class="abs t-title g-cyan goal rv" style="--d:6">HAZLO HOY.</div>
+  <p class="abs legal rv" style="--d:7">Toda inversión en trading implica riesgo de pérdida. El apalancamiento amplifica tanto las ganancias como las pérdidas.</p>
   <div class="foot-k">MÉTODO KOREX</div>
   <img class="mk-k" src="/assets/mk-logo-cropped.png" alt="Método Korex">
 </section>
