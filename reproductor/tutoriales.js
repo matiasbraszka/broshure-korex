@@ -18,7 +18,9 @@
 .tm-it.act { border-color: transparent; }
 .tm-it.act small { opacity: .85; }
 @media (hover: hover) { .tm-it:not(.act):hover { background: rgba(255,255,255,.11); } }
-#reproductor { scroll-margin-top: calc(78px + env(safe-area-inset-top)); }`;
+#reproductor { scroll-margin-top: calc(var(--tm-alto, 68px) + 10px); }
+@media (max-height: 560px) { .tm-nav { padding-top: calc(5px + env(safe-area-inset-top)); padding-bottom: 5px; }
+  .tm-it { min-height: 34px; flex-direction: row; gap: 6px; padding: 4px 8px; } .tm-it small { margin-top: 0; } }`;
   const st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
   const aqui = location.pathname.replace(/\/+$/, '') + '/';
   const nav = document.createElement('nav');
@@ -29,4 +31,7 @@
     return `<a class="tm-it${act ? ' act' : ''}" href="${v.href}"${act ? ' aria-current="page"' : ''}${est}><b>${v.nombre}</b><small>${act ? '▶ Viendo · ' : ''}${v.dur}</small></a>`;
   }).join('') + '</div>';
   document.body.prepend(nav);
+  // El alto real de la barra (cambia con el zoom o la pantalla) lo usan las páginas para que el video entre entero.
+  const medir = () => document.documentElement.style.setProperty('--tm-alto', nav.offsetHeight + 'px');
+  medir(); addEventListener('resize', medir);
 })();
