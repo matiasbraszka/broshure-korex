@@ -199,11 +199,37 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.7;stroke
 #sp1 .sub{left:0;right:0;top:680px;text-align:center;font-size:36px;line-height:1.4;color:#D3D8C9}
 #sp1 .sub b{color:#fff;font-weight:700}
 
-/* ── slide 5 (b01) ── */
-#sb01 .c{top:350px;width:516px;height:340px;padding:46px 44px 0}
-#sb01 .c h3{margin-top:34px;font-family:var(--f-title);font-weight:400;font-size:33px;line-height:1.15;color:#fff}
-#sb01 .c p{margin-top:18px;font-size:27px;line-height:1.45;color:#C9CED8}
-#sb01 .goal{left:0;right:0;top:770px;text-align:center;font-family:var(--f-title);font-size:44px}
+/* ── slide 5 (07) ── */
+#s07{background:
+  radial-gradient(900px 260px at 50% -4%,rgba(85,112,28,.28),transparent 70%),
+  radial-gradient(520px 520px at 6% 100%,rgba(63,79,27,.85),transparent 70%),
+  radial-gradient(420px 380px at 34% 92%,rgba(56,71,23,.6),transparent 70%),
+  #000}
+#s07 .h{left:0;right:0;top:63px;text-align:center;font-size:59px;white-space:nowrap}
+#s07 .h .x{display:inline-block;transform:scaleX(1.33)}
+#s07 .h .x span{-webkit-text-stroke:2.1px transparent}
+#s07 .h .b{background:linear-gradient(90deg,#A8F308 0%,#B5F52A 20%,#C6F75E 36%,#F8FFE9 60%,#fff 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+#s07 .sub{left:0;right:0;top:137px;text-align:center;font-size:31.8px;color:#fff;letter-spacing:.005em}
+#s07 .sub b{color:#ACEB24;font-weight:700}
+#s07 .hand{left:60px;top:215px;width:680px;
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 6%,#000 88%,transparent 100%),linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%);
+  -webkit-mask-composite:source-in;mask-image:linear-gradient(180deg,transparent 0,#000 6%,#000 88%,transparent 100%),linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%);mask-composite:intersect}
+#s07 .lead{left:753px;top:238px;width:1020px;font-size:21.6px;line-height:34px;color:#F4F5F2;letter-spacing:.004em}
+#s07 .lead b{font-weight:700;color:#fff}
+#s07 .lead .lime{color:#BCDC55}
+#s07 .lead .cy{color:#A8E525}
+#s07 .lq{left:753px;top:360px;font-size:21.6px;font-weight:700}
+#s07 .c{top:414px;width:196px;height:270px;border-radius:20px;background:#050407;border:1.5px solid rgba(255,255,255,.2)}
+#s07 .c .ic{position:absolute;left:50%;transform:translateX(-50%)}
+#s07 .c p{position:absolute;left:8px;right:8px;top:139px;text-align:center;font-size:14.6px;line-height:22px;color:#CFCFD2}
+#s07 .c p b{color:#fff;font-weight:700}
+#s07 .c svg{fill:none;stroke:#ECEEE8;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 6px rgba(255,255,255,.35))}
+#s07 .w{top:707px;width:515px;height:217px}
+#s07 .w h4{position:absolute;top:30px;font-size:19.5px;font-weight:700;color:#fff}
+#s07 .w p{position:absolute;right:auto;text-align:left;top:64px;font-size:15px;line-height:24px;color:#D2D3D6}
+#s07 .w img{position:absolute}
+#s07 .foot{left:0;right:0;top:974px;text-align:center;font-size:33.5px;font-weight:300;color:#fff;letter-spacing:.003em}
+#s07 .foot b{font-weight:600}
 
 /* ── slide 6 (b02) ── */
 #sb02 .halo{left:85px;top:260px;width:820px;height:620px;border-radius:50%;background:radial-gradient(closest-side,rgba(202,254,92,.18),transparent 70%);filter:blur(24px)}
@@ -713,29 +739,49 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.7;stroke
   <img class="mk-k" src="/assets/mk-logo-cropped.png" alt="Método Korex">
 </section>
 
-<section class="slide bg-silk" id="sb01">
-  <div class="abs t-title g-silver hd-k rv">TIENES DÓLARES DIGITALES</div>
-  <h2 class="abs t-title g-cyan hd-h rv" style="--d:1">¿Y CÓMO LOS USAS?</h2>
+<section class="slide" id="s07">
+  <img class="abs hand rv fade" src="img/s07-hand.webp" alt="Mano sosteniendo la tarjeta BIX Visa">
+  <h2 class="abs t-title h rv"><span class="x"><span class="g-silver">TU CRIPTO,</span> <span class="b">EN EL MUNDO REAL</span></span></h2>
+  <p class="abs sub rv" style="--d:1">La tarjeta cripto que se acepta en <b>más de 100 millones de lugares</b> donde acepten Visa</p>
+  <p class="abs lead rv" style="--d:2"><b class="lime">BixCard</b> <b>es la unidad de movilidad financiera dentro del ecosistema</b> <b class="cy">AITech One:</b> una tarjeta<br>Visa respaldada por tus propios activos digitales, sin que nadie más tenga el control de tu dinero.</p>
+  <div class="abs lq rv" style="--d:3">Lo que la hace diferente:</div>
 
-  <div class="abs card c rv" style="left:128px;--d:2">
-    <div class="bxi no"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></div>
-    <h3>Quedan en un exchange</h3>
-    <p>Dependes de sus reglas para retirar, transferir o pagar.</p>
+  <div class="abs card c rv" style="left:752px;--d:4">
+    <svg class="ic" style="top:42px" width="62" height="70" viewBox="0 0 62 70"><path d="M31 3 L57 12 V34 C57 50 46 61 31 67 C16 61 5 50 5 34 V12 Z"/><rect x="20" y="33" width="22" height="17" rx="3" fill="#ECEEE8" stroke="none"/><path d="M24.5 33 V27.5 a6.5 6.5 0 0 1 13 0 V33"/><circle cx="31" cy="40.5" r="2.2" fill="#050407" stroke="none"/><path d="M31 42 v3.5" stroke="#050407" stroke-width="2"/></svg>
+    <p><b>No-custodial:</b><br>tus llaves, tu cripto<br>siempre. Tú mantienes<br>el control total de<br>tus activos.</p>
   </div>
-  <div class="abs card c rv" style="left:702px;--d:3">
-    <div class="bxi no"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></div>
-    <h3>Para gastar, vendes por P2P</h3>
-    <p>Cada pago te cuesta tiempo y plata en el cambio.</p>
+  <div class="abs card c rv" style="left:964px;--d:5">
+    <img class="ic" src="img/s07-usdt.webp" alt="Tether y USDC" style="top:35px;width:129px">
+    <p><b>Colateral en<br>USDT y USDC</b>,<br>disponible en más de<br>4 redes blockchain<br>distintas.</p>
   </div>
-  <div class="abs card c rv" style="left:1276px;--d:4">
-    <div class="bxi no"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></div>
-    <h3>Otro guarda tu dinero</h3>
-    <p>Si te congelan la cuenta o la app cierra, no puedes hacer nada.</p>
+  <div class="abs card c rv" style="left:1176px;--d:6">
+    <img class="ic" src="img/s07-pay.webp" alt="Apple Pay y Google Pay" style="top:31px;width:162px">
+    <p>Compatible<br>con <b>Apple Pay y<br>Google Pay</b>:<br>toca y listo.</p>
+  </div>
+  <div class="abs card c rv" style="left:1388px;--d:7">
+    <svg class="ic" style="top:43px" width="70" height="70" viewBox="0 0 70 70" stroke-width="2.6"><path d="M23 9.5 A27 27 0 0 1 47 9.5"/><path d="M42 5 L47.5 9.5 L42 14"/><path d="M61 23 A27 27 0 0 1 61 47"/><path d="M56.5 42 L61 47.5 L65.5 42"/><path d="M47 60.5 A27 27 0 0 1 23 60.5"/><path d="M28 56 L22.5 60.5 L28 65"/><path d="M9 47 A27 27 0 0 1 9 23"/><path d="M4.5 28 L9 22.5 L13.5 28"/></svg>
+    <p><b>Swaps</b> entre<br>cadenas:<br>próximamente<br>en la app.</p>
+  </div>
+  <div class="abs card c rv" style="left:1600px;--d:8">
+    <svg class="ic" style="top:48px" width="72" height="64" viewBox="0 0 72 64" stroke-width="2.1"><path d="M2 8 H25.5 M36.5 8 H70"/><circle cx="31" cy="8" r="5.2"/><path d="M2 32 H45 M57 32 H70"/><circle cx="51" cy="32" r="5.2"/><path d="M2 56 H17 M29 56 H70"/><circle cx="23" cy="56" r="5.2"/></svg>
+    <p><b>Límites de gasto</b><br>configurables, según<br>lo que tú necesites.</p>
   </div>
 
-  <div class="abs t-title g-cyan goal rv" style="--d:6">BIX RESUELVE LAS TRES.</div>
-  <div class="foot-k">MÉTODO KOREX</div>
-  <img class="mk-k" src="/assets/mk-logo-cropped.png" alt="Método Korex">
+  <div class="abs card c w rv" style="left:752px;--d:9">
+    <img src="img/s07-plane.webp" alt="" style="filter:hue-rotate(-120deg);left:34px;top:46px;width:125px">
+    <h4 style="left:181px">Beneficios Visa Signature</h4>
+    <p style="left:181px">Acceso a salas VIP en aeropuertos, seguro<br>de auto de alquiler, seguro de viaje, hasta<br>65% de descuento en hoteles, acceso a<br>eventos exclusivos y concierge personal<br>24/7.</p>
+  </div>
+  <div class="abs card c w rv" style="left:1282px;--d:10">
+    <img src="img/s07-shieldkey.webp" alt="" style="filter:hue-rotate(-120deg);left:25px;top:50px;width:104px">
+    <h4 style="left:193px">Seguridad sin custodia</h4>
+    <p style="left:151px">Tus llaves nunca se almacenan completas<br>divididas mediante Shamir's Secret Sharing,<br>operando en entornos seguros certificados<br>SOC 2 Tipo II, con triple auditoría independiente<br>(Cure53, Zellic, Doyensec).</p>
+  </div>
+
+  <p class="abs foot rv" style="--d:11">No es cripto de vitrina. <b>Es cripto que se disfruta, en cualquier parte del mundo.</b></p>
+  <div class="foot-a">bix.fi</div>
+  <img class="mk-a" src="/assets/mk-logo-cropped.png" alt="Método Korex">
+  <div class="pg-a">5</div>
 </section>
 
 <section class="slide bg-silk" id="sb02">

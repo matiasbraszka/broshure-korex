@@ -8,7 +8,7 @@ tpl = open(os.path.join(here, '_template.html'), encoding='utf-8').read()
 css, html = [], []
 # Versión TARJETA BIX (copia de la v3): apertura → PARTE 1 la tarjeta (b01–b08) → PARTE 2 negocio (b09–b11 + Método Korex).
 ORDER = ['02','01','n03',
-         'p1','b01','b02','b03','b04','b06','b07','b08',
+         'p1','07','b02','b03','b04','b06','b07','b08',
          'p2','b09','b10','b11','03','05','04','20','21','22','23','24','nx']
 # Tarjeta en vector e íconos: se toman de la presentación tarjeta-bix (misma fuente, sin copiar código).
 _tb = os.path.join(here, '..', 'tarjeta-bix', 'build.py')
