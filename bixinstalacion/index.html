@@ -27,8 +27,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .vid .voomly-embed { width: 100%; }
 @media (min-width: 860px) { .vid { width: calc((100svh - var(--tm-alto, 68px) - 28px) * 9 / 16); margin-top: 12px; border-radius: 18px; overflow: hidden; box-shadow: 0 0 0 1px #2b3022, 0 30px 80px rgba(0,0,0,.6); } }
 
-/* ── Reproductor de Voomly a nuestro estilo: barra de vidrio, solo barra de tiempo + volumen + pantalla completa ── */
-.vid [data-cy="togglePlayButton"], .vid [class*="styles_selectSpeedWrap"], .vid [class*="styles_selectQualityWrap"], .vid [class*="logo_root"] { display: none !important; }
+/* ── Reproductor de Voomly a nuestro estilo: barra de vidrio, barra de tiempo + volumen + velocidad + pantalla completa ── */
+.vid [data-cy="togglePlayButton"], .vid [class*="styles_selectQualityWrap"], .vid [class*="logo_root"] { display: none !important; }
 .vid [data-cy="controls-root"] { background: rgba(8,10,6,.38) !important; -webkit-backdrop-filter: blur(12px) saturate(140%); backdrop-filter: blur(12px) saturate(140%);
   border-radius: 14px; border: 1px solid rgba(255,255,255,.1); padding-left: 6px; padding-right: 6px; }
 .vid [class*="progressBar_root"], .vid [class*="controls_buttons"] { background: transparent !important; }

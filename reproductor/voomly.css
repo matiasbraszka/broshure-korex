@@ -1,9 +1,9 @@
-/* Reproductor de Voomly con el estilo de Equipo Korex: barra de vidrio y solo barra de tiempo + volumen + pantalla completa.
+/* Reproductor de Voomly con el estilo de Equipo Korex: barra de vidrio y barra de tiempo + volumen + velocidad + pantalla completa.
    Uso: <div class="vy" style="--vy-acento:#0EC8F0;--vy-tinta:#04121f"><div class="voomly-embed" data-id="…" data-ratio="1.777778" data-type="v"></div></div>
    (el embed de Voomly en div vive en nuestra página, por eso se puede pisar su CSS) */
 .vy { overflow: hidden; }
 .vy .voomly-embed { width: 100%; }
-.vy [data-cy="togglePlayButton"], .vy [class*="styles_selectSpeedWrap"], .vy [class*="styles_selectQualityWrap"], .vy [class*="logo_root"], .vy [class*="popoverTip_root"] { display: none !important; }
+.vy [data-cy="togglePlayButton"], .vy [class*="styles_selectQualityWrap"], .vy [class*="logo_root"], .vy [class*="popoverTip_root"] { display: none !important; }
 .vy [data-cy="controls-root"] { background: rgba(6,9,16,.38) !important; -webkit-backdrop-filter: blur(12px) saturate(140%); backdrop-filter: blur(12px) saturate(140%);
   border-radius: 14px; border: 1px solid rgba(255,255,255,.1); padding-left: 6px; padding-right: 6px; }
 .vy [class*="progressBar_root"], .vy [class*="controls_buttons"] { background: transparent !important; }
