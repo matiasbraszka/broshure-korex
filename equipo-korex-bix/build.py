@@ -9,7 +9,7 @@ css, html = [], []
 # Versión TARJETA BIX (copia de la v3): apertura → PARTE 1 la tarjeta (b01–b08) → PARTE 2 negocio (b09–b11 + Método Korex).
 ORDER = ['02','01','n03',
          'p1','07','b02','b03','b04','b06','est','b07','b08',
-         'p2','b09','sim','03','21','05','04','20']
+         'p2','b09','sim','pool','03','21','05','04','20']
 # Tarjeta en vector e íconos: se toman de la presentación tarjeta-bix (misma fuente, sin copiar código).
 _tb = os.path.join(here, '..', 'tarjeta-bix', 'build.py')
 _src = open(_tb, encoding='utf-8').read()
