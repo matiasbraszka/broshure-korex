@@ -1,0 +1,42 @@
+<style>
+#sest .c{top:350px;width:540px;height:470px;overflow:hidden}
+#sest .ph{position:relative;height:250px;overflow:hidden}
+#sest .ph img{width:100%;height:100%;object-fit:cover;display:block}
+#sest .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(10,11,9,.85))}
+#sest .pin{position:absolute;left:26px;top:24px;z-index:1;width:62px;height:62px;border-radius:50%;display:grid;place-items:center;background:#CAFE5C;color:#020202}
+#sest .pin svg{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+#sest .tx{padding:28px 36px 0}
+#sest .tx h3{font-family:var(--f-title);font-weight:400;font-size:34px;line-height:1.1;color:#fff}
+#sest .tx p{margin-top:14px;font-size:25px;line-height:1.4;color:#C9CED8}
+#sest .tx p b{color:#fff}
+#sest .em{padding:44px 40px 0}
+#sest .em .bxi{width:96px;height:96px;font-size:50px;border-radius:50%}
+#sest .em h3{margin-top:34px;font-family:var(--f-title);font-weight:400;font-size:36px;line-height:1.1;color:#fff}
+#sest .em p{margin-top:18px;font-size:25px;line-height:1.45;color:#C9CED8}
+#sest .em p b{color:#fff}
+#sest .src{left:128px;right:128px;top:868px;display:flex;align-items:center;justify-content:center;gap:14px;font-size:19px;line-height:1.4;color:#8A909C;text-align:center}
+#sest .src svg{flex:none;font-size:24px}
+</style>
+<section class="slide bg-silk" id="sest">
+  <div class="abs t-title g-silver hd-k rv">INFORMACIÓN CORPORATIVA</div>
+  <h2 class="abs t-title g-cyan hd-h rv" style="--d:1">¿DÓNDE ESTÁ ESTABLECIDA BIX?</h2>
+  <p class="abs hd-s rv" style="--d:2">Una empresa tecnológica global de <b>pagos con criptomonedas</b>, que opera en distintas jurisdicciones.</p>
+
+  <div class="abs card c rv" style="left:128px;--d:3">
+    <div class="ph"><img src="img/est-caiman.webp" alt="Islas Caimán"><div class="pin"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div></div>
+    <div class="tx"><h3>ISLAS CAIMÁN</h3><p>Registro societario declarado:<br><b>Bix Ltd</b></p></div>
+  </div>
+  <div class="abs card c rv" style="left:690px;--d:4">
+    <div class="ph"><img src="img/est-dubai.webp" alt="Dubái"><div class="pin"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div></div>
+    <div class="tx"><h3>DUBÁI · EAU</h3><p>Oficinas operativas declaradas en<br><b>Emiratos Árabes Unidos</b></p></div>
+  </div>
+  <div class="abs card c hl em rv" style="left:1252px;--d:5">
+    <div class="bxi">{{ic:bank}}</div>
+    <h3>¿QUIÉN EMITE<br>LA TARJETA?</h3>
+    <p>BIX es una empresa tecnológica, <b>no un banco</b>. Los servicios financieros regulados los prestan entidades terceras.</p>
+  </div>
+
+  <p class="abs src rv" style="--d:7">{{ic:help}}<span>Fuentes: bix.fi y publicaciones corporativas (septiembre de 2026). Registro mercantil y emisor Visa no verificados de forma independiente. Fotos: Wikimedia Commons.</span></p>
+  <div class="foot-k">MÉTODO KOREX</div>
+  <img class="mk-k" src="/assets/mk-logo-cropped.png" alt="Método Korex">
+</section>
