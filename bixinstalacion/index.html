@@ -6,55 +6,69 @@
 <meta name="theme-color" content="#0d0f0a">
 <meta name="robots" content="noindex">
 <title>Tutorial Tarjeta BIX · Equipo Korex</title>
-<meta name="description" content="Cómo activar y usar tu tarjeta BIX paso a paso. Salta al paso que necesites.">
+<meta name="description" content="Cómo activar y usar tu tarjeta BIX paso a paso.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Tutorial Tarjeta BIX">
 <meta property="og:description" content="Activa y usa tu tarjeta BIX en 3 minutos, paso a paso.">
 <meta property="og:url" content="https://info.metodokorex.com/bixinstalacion/">
 <meta property="og:image" content="https://info.metodokorex.com/bixinstalacion/og.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@700;800&family=IBM+Plex+Sans:wght@500;600&display=swap">
-<link rel="stylesheet" href="/reproductor/korex-player.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@700;800&family=IBM+Plex+Sans:wght@500;600;700&display=swap">
 <style>
 :root { --lima: #cafe5c; --tinta: #10140a; --fondo: #070806; --gris: #a3a998; color-scheme: dark; }
 * { box-sizing: border-box; }
 html, body { margin: 0; }
 body { background: radial-gradient(120% 50% at 0% 0%, #20330a 0%, transparent 60%), var(--fondo); color: #f2f5ea;
-  font: 500 15px/1.45 "IBM Plex Sans", system-ui, sans-serif; -webkit-tap-highlight-color: transparent;
-  user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; min-height: 100vh; }
-.pagina { max-width: 1040px; margin: 0 auto; padding: 10px 0 26px; }
-header { display: flex; align-items: center; gap: 10px; padding: 0 16px 10px; }
-header .tit { font: 800 18px/1.1 Sora, sans-serif; } header .tit b { color: var(--lima); }
-header .firma { margin-left: auto; font-size: 11.5px; font-weight: 600; color: var(--gris); text-align: right; line-height: 1.2; } header .firma b { color: #fff; }
-#reproductor { --kp-acento: #cafe5c; --kp-texto-acento: #10140a; --kp-ratio: 9 / 16; width: min(100%, calc((100svh - var(--tm-alto, 68px) - 70px) * 9 / 16)); margin: 0 auto; }
-.lado h2 { margin: 18px 16px 10px; font: 800 18px/1.2 Sora, sans-serif; } .lado h2 small { display: block; font: 600 13px "IBM Plex Sans", sans-serif; color: var(--gris); margin-top: 3px; }
-.kp-capitulos { padding: 0 16px; } .kp-capitulos button { color: #f2f5ea; }
-footer { margin: 16px 16px 0; font-size: 12px; line-height: 1.5; color: var(--gris); text-align: center; } footer b { color: #fff; }
-@media (min-width: 860px) {
-  /* compu: video a la izquierda desde arriba (el título pasa a la derecha) y del alto de lo que se ve */
-  .pagina { display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto 1fr; column-gap: 28px; align-items: start; padding: 12px 16px 26px; }
-  header { grid-column: 2; grid-row: 1; padding: 0 0 6px; } .cuerpo { display: contents; } .lado { grid-column: 2; grid-row: 2; }
-  #reproductor { grid-column: 1; grid-row: 1 / span 2; width: calc((100svh - var(--tm-alto, 68px) - 24px) * 9 / 16); min-width: 200px; max-width: 460px;
-    position: sticky; top: calc(var(--tm-alto, 68px) + 12px); border-radius: 18px; box-shadow: 0 0 0 1px #2b3022, 0 30px 80px rgba(0,0,0,.6); }
-  .lado h2 { margin-top: 4px; } .lado h2, .kp-capitulos, footer { margin-left: 0; margin-right: 0; padding-left: 0; padding-right: 0; }
-  footer { text-align: left; }
-}
+  font: 500 15px/1.45 "IBM Plex Sans", system-ui, sans-serif; -webkit-tap-highlight-color: transparent; min-height: 100vh; }
+button { font: inherit; color: inherit; cursor: pointer; }
+.tm-nav { position: static !important; }   /* el menú de tutoriales no queda pegado arriba: el video tiene más alto */
+/* Video: del alto de la pantalla */
+.vid { position: relative; width: min(100%, calc((100svh - 12px) * 9 / 16)); margin: 0 auto; }
+.vid .voomly-embed { width: 100%; }
+@media (min-width: 860px) { .vid { width: calc((100svh - var(--tm-alto, 68px) - 28px) * 9 / 16); margin-top: 12px; border-radius: 18px; overflow: hidden; box-shadow: 0 0 0 1px #2b3022, 0 30px 80px rgba(0,0,0,.6); } }
+
+/* ── Reproductor de Voomly a nuestro estilo: barra de vidrio, solo barra de tiempo + volumen + pantalla completa ── */
+.vid [data-cy="togglePlayButton"], .vid [class*="styles_selectSpeedWrap"], .vid [class*="styles_selectQualityWrap"], .vid [class*="logo_root"] { display: none !important; }
+.vid [data-cy="controls-root"] { background: rgba(8,10,6,.38) !important; -webkit-backdrop-filter: blur(12px) saturate(140%); backdrop-filter: blur(12px) saturate(140%);
+  border-radius: 14px; border: 1px solid rgba(255,255,255,.1); padding-left: 6px; padding-right: 6px; }
+.vid [class*="progressBar_root"], .vid [class*="controls_buttons"] { background: transparent !important; }
+.vid [class*="progressBar_track"] { background: rgba(255,255,255,.2) !important; border-radius: 6px; overflow: hidden; }
+.vid [class*="progressBar_bar__"] { background: var(--lima) !important; }   /* solo lo ya visto (no "barWrap", que es todo el ancho) */
+.vid [class*="progressBar_secondsLoaded"] { background: rgba(255,255,255,.28) !important; }
+.vid [class*="progressBar_tipTime"], .vid [class*="select_popover"], .vid [class*="volume_slider"] { background: rgba(8,10,6,.72) !important; -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-radius: 8px; }
+.vid [class*="sliderHandle_value"] { background: var(--lima) !important; color: var(--tinta) !important; }
+.vid [class*="volume_trackBg"] { background: rgba(255,255,255,.25) !important; }
+.vid [class*="volume_bar"] { background: var(--lima) !important; }
+.vid [class*="popoverTip_root"] { display: none !important; }
+/* botón grande de play: verde BIX y redondo */
+.vid [class*="playButton_icon"] rect { fill: var(--lima) !important; rx: 32px; ry: 32px; }
+.vid [class*="playButton_icon"] path { fill: var(--tinta) !important; }
+
+/* Lista de pasos debajo del video */
+.lista { max-width: 560px; margin: 18px auto 0; padding: 0 16px; }
+.lista h2 { margin: 0 0 2px; font: 800 17px/1.2 Sora, sans-serif; }
+.lista h2 + p { margin: 0 0 12px; font-size: 13px; color: var(--gris); }
+.lista button { display: flex; align-items: center; gap: 12px; width: 100%; margin-bottom: 8px; padding: 12px 14px; border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.04); text-align: left; font-size: 15px; }
+.lista button .n { flex: none; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: rgba(255,255,255,.08); font-weight: 700; font-size: 13px; }
+.lista button .t { margin-left: auto; color: var(--gris); font-size: 13px; }
+.lista button.act { border-color: var(--lima); } .lista button.act .n { background: var(--lima); color: var(--tinta); }
+footer { max-width: 560px; margin: 16px auto 0; padding: 0 16px 24px; font-size: 12px; line-height: 1.5; color: var(--gris); text-align: center; }
+footer b { color: #fff; }
 </style>
 </head>
-<body oncontextmenu="return false">
+<body>
 <script src="/reproductor/tutoriales.js"></script>
-<div class="pagina">
-  <header><div class="tit">Activa tu <b>tarjeta BIX</b></div><div class="firma">por <b>Equipo Korex</b><br>afiliados independientes</div></header>
-  <div class="cuerpo">
-    <div id="reproductor"></div>
-    <div class="lado">
-      <h2>Salta al paso que necesites<small>Toca un paso y el video va directo ahí</small></h2>
-      <div class="kp-capitulos" id="capitulos"></div>
-      <footer>Tutorial elaborado por <b>Equipo Korex</b>, afiliados independientes de BIX. No somos la empresa y no brindamos asesoramiento financiero. ¿Quieres saber más? Pídele información a quien te invitó.</footer>
-    </div>
-  </div>
+<div class="vid" id="vid">
+  <div class="voomly-embed" data-id="0Y9ZUh5I5jLJjVLKhxjlBjTcD72D1BQ1ZnNxeYooNTqmfj0c-" data-ratio="0.5625" data-type="v" data-skin-color="rgb(202,254,92)"></div>
 </div>
-<script src="/reproductor/korex-player.js"></script>
+<section class="lista">
+  <h2>Salta al paso que necesites</h2>
+  <p>Toca un paso y el video va directo ahí</p>
+  <div id="capitulos"></div>
+</section>
+<footer>Tutorial elaborado por <b>Equipo Korex</b>, afiliados independientes de BIX. No somos la empresa y no brindamos asesoramiento financiero. ¿Quieres saber más? Pídele información a quien te invitó.</footer>
+<script src="https://embed.voomly.com/embed/embed-build.js"></script>
 <script>
 const CAPS = [
   { t: 0, n: '▶', titulo: 'Qué es la tarjeta BIX' },
@@ -67,16 +81,21 @@ const CAPS = [
   { t: 144.2, n: '%', titulo: 'Invita y gana' },
 ];
 const lista = document.getElementById('capitulos');
-lista.innerHTML = CAPS.map((c, i) => `<button data-i="${i}"><span class="n">${c.n}</span>${c.titulo}<span class="t">${Math.floor(c.t / 60)}:${String(Math.floor(c.t % 60)).padStart(2, '0')}</span></button>`).join('');
-const p = KorexPlayer(document.getElementById('reproductor'), {
-  src: ['tutorial', 'bix.mp4'].join('-'), poster: 'poster.jpg', capitulos: CAPS, clave: 'bix-v5', titulo: 'Tutorial tarjeta BIX',
-  alCambiar: (k) => lista.querySelectorAll('button').forEach((b, i) => b.classList.toggle('act', i === k)),
-});
-lista.addEventListener('click', (e) => {
-  const b = e.target.closest('[data-i]'); if (!b) return;
-  p.ir(CAPS[+b.dataset.i].t);
-  document.getElementById('reproductor').scrollIntoView({ behavior: 'smooth', block: 'start' });
-});
+lista.innerHTML = CAPS.map((c, i) => `<button type="button" data-i="${i}"><span class="n">${c.n}</span>${c.titulo}<span class="t">${Math.floor(c.t / 60)}:${String(Math.floor(c.t % 60)).padStart(2, '0')}</span></button>`).join('');
+const botones = [...lista.children];
+let api = null, actual = -1;
+function marcar(t) { let k = 0; CAPS.forEach((c, i) => { if (t >= c.t - 0.05) k = i; }); if (k !== actual) { actual = k; botones.forEach((b, i) => b.classList.toggle('act', i === k)); } }
+lista.onclick = (e) => {
+  const b = e.target.closest('[data-i]'); if (!b || !api) return;
+  const t = CAPS[+b.dataset.i].t; api.seek({ time: t + 0.05 }); api.play(); marcar(t);
+  document.getElementById('vid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+(function conectar() {
+  if (!window.attachVoomlyPlayer || !window.voomlyEmbedPlayerPreloader) return setTimeout(conectar, 150);
+  const el = document.querySelector('.voomly-embed');
+  const p = window.attachVoomlyPlayer(el, el.dataset.id, 'v', el.dataset.ratio);
+  p.onReady(() => { api = p; p.onTimeUpdate(({ time }) => marcar(time)); p.onSeeked(({ time }) => marcar(time)); });
+})();
 </script>
 </body>
 </html>
