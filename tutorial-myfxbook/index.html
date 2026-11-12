@@ -13,6 +13,7 @@
 <meta property="og:url" content="https://info.metodokorex.com/tutorial-myfxbook/">
 <meta property="og:image" content="https://info.metodokorex.com/tutorial-myfxbook/og.jpg">
 <link rel="stylesheet" href="/reproductor/korex-player.css">
+<link rel="stylesheet" href="/reproductor/voomly.css">
 <style>
 @font-face { font-family: Satoshi; font-weight: 700; src: url(../tutorial-aitech/satoshi-700.woff2) format('woff2'); font-display: swap; }
 @font-face { font-family: Satoshi; font-weight: 900; src: url(../tutorial-aitech/satoshi-900.woff2) format('woff2'); font-display: swap; }
@@ -58,7 +59,7 @@ footer b { color: #fff; }
     <div class="tit">MyFXBook de Sonic AI<small>GUÍA RÁPIDA</small></div>
     <div class="firma">por <b>Equipo Korex</b><br>afiliados independientes</div>
   </header>
-  <div id="reproductor"></div>
+  <div id="reproductor" class="vy" style="--vy-acento:#0EC8F0;--vy-tinta:#04121f"><div class="voomly-embed" data-id="VYsM0B7MM2Md3lrTMM6wNk2LDYSGHbC5zzdZDEdEDrVbL2VxK" data-ratio="1.777778" data-type="v"></div></div>
   <a class="link-mfx" href="https://www.myfxbook.com/members/SonicExperts/sonic-ai/12076857" target="_blank" rel="noopener">
     <span><b>Compruébalo tú mismo</b><small>Abre el MyFXBook de Sonic AI con los datos en vivo</small></span><i>↗</i></a>
   <h2>Salta a la parte que necesites<small>Toca una parte y el video va directo ahí</small></h2>
@@ -66,7 +67,7 @@ footer b { color: #fff; }
   <div class="aviso"><b>Importante:</b> los números del video son de la cuenta original, sin amplificar. Si amplificas x24, todo se multiplica por 24: las ganancias y también las pérdidas. Los resultados pasados no garantizan resultados futuros.</div>
   <footer>Guía elaborada por <b>Equipo Korex</b>, afiliados independientes. Datos públicos de MyFXBook al 09/11/2026. No somos AI Tech, Sonic, MyFXBook, TAG Markets ni ninguna de las empresas mencionadas, y no brindamos asesoramiento financiero. Este video es solo informativo: operar con CFD y productos apalancados implica riesgo de pérdida.</footer>
 </div>
-<script src="/reproductor/korex-player.js"></script>
+<script src="https://embed.voomly.com/embed/embed-build.js"></script>
 <script>
 const CAPS = [
   { t: 0, n: '▶', titulo: 'Introducción' },
@@ -79,15 +80,21 @@ const CAPS = [
 ];
 const lista = document.getElementById('capitulos');
 lista.innerHTML = CAPS.map((c, i) => `<button data-i="${i}"><span class="n">${c.n}</span>${c.titulo}<span class="t">${Math.floor(c.t / 60)}:${String(Math.floor(c.t % 60)).padStart(2, '0')}</span></button>`).join('');
-const p = KorexPlayer(document.getElementById('reproductor'), {
-  src: ['video', 'tutorial.mp4'].join('-'), poster: 'portada.jpg', capitulos: CAPS, clave: 'myfxbook-v2', horizontal: true, titulo: 'MyFXBook de Sonic AI',
-  alCambiar: (k) => lista.querySelectorAll('button').forEach((b, i) => b.classList.toggle('act', i === k)),
-});
+const botones = [...lista.children];
+let api = null, actual = -1;
+function marcar(t) { let k = 0; CAPS.forEach((c, i) => { if (t >= c.t - 0.05) k = i; }); if (k !== actual) { actual = k; botones.forEach((b, i) => b.classList.toggle('act', i === k)); } }
 lista.addEventListener('click', (e) => {
-  const b = e.target.closest('[data-i]'); if (!b) return;
-  p.ir(CAPS[+b.dataset.i].t);
+  const b = e.target.closest('[data-i]'); if (!b || !api) return;
+  const t = CAPS[+b.dataset.i].t; api.seek({ time: t + 0.05 }); api.play(); marcar(t);
   document.getElementById('reproductor').scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
+// Reproductor de Voomly: marca en la lista el paso que se está viendo
+(function conectar() {
+  if (!window.attachVoomlyPlayer || !window.voomlyEmbedPlayerPreloader) return setTimeout(conectar, 150);
+  const el = document.querySelector('.voomly-embed');
+  const p = window.attachVoomlyPlayer(el, el.dataset.id, 'v', el.dataset.ratio);
+  p.onReady(() => { api = p; p.onTimeUpdate(({ time }) => marcar(time)); p.onSeeked(({ time }) => marcar(time)); });
+})();
 </script>
 </body>
 </html>

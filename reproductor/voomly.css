@@ -1,0 +1,18 @@
+/* Reproductor de Voomly con el estilo de Equipo Korex: barra de vidrio y solo barra de tiempo + volumen + pantalla completa.
+   Uso: <div class="vy" style="--vy-acento:#0EC8F0;--vy-tinta:#04121f"><div class="voomly-embed" data-id="…" data-ratio="1.777778" data-type="v"></div></div>
+   (el embed de Voomly en div vive en nuestra página, por eso se puede pisar su CSS) */
+.vy { overflow: hidden; }
+.vy .voomly-embed { width: 100%; }
+.vy [data-cy="togglePlayButton"], .vy [class*="styles_selectSpeedWrap"], .vy [class*="styles_selectQualityWrap"], .vy [class*="logo_root"], .vy [class*="popoverTip_root"] { display: none !important; }
+.vy [data-cy="controls-root"] { background: rgba(6,9,16,.38) !important; -webkit-backdrop-filter: blur(12px) saturate(140%); backdrop-filter: blur(12px) saturate(140%);
+  border-radius: 14px; border: 1px solid rgba(255,255,255,.1); padding-left: 6px; padding-right: 6px; }
+.vy [class*="progressBar_root"], .vy [class*="controls_buttons"] { background: transparent !important; }
+.vy [class*="progressBar_track"] { background: rgba(255,255,255,.2) !important; border-radius: 6px; overflow: hidden; }
+.vy [class*="progressBar_bar__"] { background: var(--vy-acento) !important; }   /* solo lo ya visto ("barWrap" es todo el ancho) */
+.vy [class*="progressBar_secondsLoaded"] { background: rgba(255,255,255,.28) !important; }
+.vy [class*="progressBar_tipTime"], .vy [class*="select_popover"], .vy [class*="volume_slider"] { background: rgba(6,9,16,.72) !important; -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-radius: 8px; }
+.vy [class*="sliderHandle_value"] { background: var(--vy-acento) !important; color: var(--vy-tinta) !important; }
+.vy [class*="volume_trackBg"] { background: rgba(255,255,255,.25) !important; }
+.vy [class*="volume_bar"] { background: var(--vy-acento) !important; }
+.vy [class*="playButton_icon"] rect { fill: var(--vy-acento) !important; rx: 32px; ry: 32px; }
+.vy [class*="playButton_icon"] path { fill: var(--vy-tinta) !important; }
