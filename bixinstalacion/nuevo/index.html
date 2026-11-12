@@ -14,141 +14,86 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@700;800&family=IBM+Plex+Sans:wght@500;600;700&display=swap">
 <style>
-:root { --lima: #cafe5c; --tinta: #10140a; --fondo: #070806; --gris: #a3a998; --barra: 76px; color-scheme: dark; }
+:root { --lima: #cafe5c; --tinta: #10140a; --fondo: #070806; --gris: #a3a998; color-scheme: dark; }
 * { box-sizing: border-box; }
 html, body { margin: 0; }
 body { background: radial-gradient(120% 50% at 0% 0%, #20330a 0%, transparent 60%), var(--fondo); color: #f2f5ea;
-  font: 500 15px/1.45 "IBM Plex Sans", system-ui, sans-serif; -webkit-tap-highlight-color: transparent; min-height: 100vh;
-  padding-bottom: calc(var(--barra) + env(safe-area-inset-bottom)); }
+  font: 500 15px/1.45 "IBM Plex Sans", system-ui, sans-serif; -webkit-tap-highlight-color: transparent; min-height: 100vh; }
 button { font: inherit; color: inherit; cursor: pointer; }
 .tm-nav { position: static !important; }   /* el menú de tutoriales no queda pegado arriba: el video tiene más alto */
-/* Video: lo más grande posible, dejando lugar solo para la barra de pasos */
-.vid { position: relative; width: min(100%, calc((100svh - var(--barra) - 8px) * 9 / 16)); margin: 0 auto; scroll-margin-top: 0; }
+/* Video: del alto de la pantalla */
+.vid { position: relative; width: min(100%, calc((100svh - 12px) * 9 / 16)); margin: 0 auto; }
 .vid .voomly-embed { width: 100%; }
-/* Tarjeta de "¿Listo?" que aparece al terminar cada paso */
-.listo { position: absolute; inset: 0; z-index: 5; display: none; align-items: flex-end; padding: 14px;
-  background: linear-gradient(180deg, transparent 30%, rgba(5,7,3,.92) 70%); }
-.listo.ver { display: flex; }
-.listo .cj { width: 100%; padding: 20px 18px 18px; border-radius: 20px; background: #12160c; border: 1px solid rgba(202,254,92,.35);
-  box-shadow: 0 20px 60px rgba(0,0,0,.6); animation: sube .3s ease-out; }
-@keyframes sube { from { transform: translateY(16px); opacity: 0 } }
-.listo .k { font: 700 11.5px/1 "IBM Plex Sans"; letter-spacing: .14em; color: var(--lima); }
-.listo h3 { margin: 8px 0 6px; font: 800 21px/1.15 Sora, sans-serif; }
-.listo p { margin: 0 0 16px; color: #c9cec0; font-size: 14.5px; }
-.listo .si { display: block; width: 100%; padding: 15px; border: 0; border-radius: 14px; background: var(--lima); color: var(--tinta); font-weight: 700; font-size: 16px; }
-.listo .otra { display: block; width: 100%; margin-top: 8px; padding: 11px; border: 0; background: none; color: #c9cec0; font-weight: 600; font-size: 14px; }
-/* Barra de pasos fija abajo (donde llega el pulgar) */
-.pasos { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
-  background: rgba(7,8,6,.92); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-top: 1px solid rgba(255,255,255,.09); }
-.pasos .in { display: flex; align-items: center; gap: 8px; max-width: 560px; margin: 0 auto; height: calc(var(--barra) - 20px); }
-.pasos .fl { flex: none; width: 52px; height: 100%; border-radius: 14px; border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.05); font-size: 20px; }
-.pasos .fl:disabled { opacity: .3; cursor: default; }
-.pasos .fl.sig { width: auto; padding: 0 16px; border: 0; background: var(--lima); color: var(--tinta); font-weight: 700; font-size: 15px; white-space: nowrap; }
-.pasos .ah { flex: 1; min-width: 0; height: 100%; padding: 0 12px; border-radius: 14px; border: 0; background: rgba(255,255,255,.05); text-align: left; display: flex; flex-direction: column; justify-content: center; }
-.pasos .ah small { font-size: 11px; font-weight: 700; letter-spacing: .12em; color: var(--lima); }
-.pasos .ah b { font-size: 14px; line-height: 1.2; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-/* Lista de todos los pasos (se abre desde la barra) */
+@media (min-width: 860px) { .vid { width: calc((100svh - var(--tm-alto, 68px) - 28px) * 9 / 16); margin-top: 12px; border-radius: 18px; overflow: hidden; box-shadow: 0 0 0 1px #2b3022, 0 30px 80px rgba(0,0,0,.6); } }
+
+/* ── Reproductor de Voomly a nuestro estilo: barra de vidrio, solo barra de tiempo + volumen + pantalla completa ── */
+.vid [data-cy="togglePlayButton"], .vid [class*="styles_selectSpeedWrap"], .vid [class*="styles_selectQualityWrap"], .vid [class*="logo_root"] { display: none !important; }
+.vid [data-cy="controls-root"] { background: rgba(8,10,6,.38) !important; -webkit-backdrop-filter: blur(12px) saturate(140%); backdrop-filter: blur(12px) saturate(140%);
+  border-radius: 14px; border: 1px solid rgba(255,255,255,.1); padding-left: 6px; padding-right: 6px; }
+.vid [class*="progressBar_root"], .vid [class*="controls_buttons"] { background: transparent !important; }
+.vid [class*="progressBar_track"] { background: rgba(255,255,255,.2) !important; border-radius: 6px; overflow: hidden; }
+.vid [class*="progressBar_bar"] { background: var(--lima) !important; }
+.vid [class*="progressBar_secondsLoaded"] { background: rgba(255,255,255,.28) !important; }
+.vid [class*="progressBar_tipTime"], .vid [class*="select_popover"], .vid [class*="volume_slider"] { background: rgba(8,10,6,.72) !important; -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-radius: 8px; }
+.vid [class*="sliderHandle_value"] { background: var(--lima) !important; color: var(--tinta) !important; }
+.vid [class*="volume_trackBg"] { background: rgba(255,255,255,.25) !important; }
+.vid [class*="volume_bar"] { background: var(--lima) !important; }
+.vid [class*="popoverTip_root"] { display: none !important; }
+/* botón grande de play: verde BIX y redondo */
+.vid [class*="playButton_icon"] rect { fill: var(--lima) !important; rx: 32px; ry: 32px; }
+.vid [class*="playButton_icon"] path { fill: var(--tinta) !important; }
+
+/* Lista de pasos debajo del video */
 .lista { max-width: 560px; margin: 18px auto 0; padding: 0 16px; }
-.lista h2 { margin: 0 0 10px; font: 800 17px/1.2 Sora, sans-serif; }
+.lista h2 { margin: 0 0 2px; font: 800 17px/1.2 Sora, sans-serif; }
+.lista h2 + p { margin: 0 0 12px; font-size: 13px; color: var(--gris); }
 .lista button { display: flex; align-items: center; gap: 12px; width: 100%; margin-bottom: 8px; padding: 12px 14px; border-radius: 14px;
   border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.04); text-align: left; font-size: 15px; }
 .lista button .n { flex: none; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: rgba(255,255,255,.08); font-weight: 700; font-size: 13px; }
 .lista button .t { margin-left: auto; color: var(--gris); font-size: 13px; }
 .lista button.act { border-color: var(--lima); } .lista button.act .n { background: var(--lima); color: var(--tinta); }
-.lista button.hecho .n { background: rgba(202,254,92,.18); color: var(--lima); }
-footer { max-width: 560px; margin: 16px auto 0; padding: 0 16px 20px; font-size: 12px; line-height: 1.5; color: var(--gris); text-align: center; }
+footer { max-width: 560px; margin: 16px auto 0; padding: 0 16px 24px; font-size: 12px; line-height: 1.5; color: var(--gris); text-align: center; }
 footer b { color: #fff; }
-@media (min-width: 860px) { .vid { width: calc((100svh - var(--barra) - var(--tm-alto, 68px) - 28px) * 9 / 16); margin-top: 12px; border-radius: 18px; overflow: hidden; box-shadow: 0 0 0 1px #2b3022, 0 30px 80px rgba(0,0,0,.6); } }
 </style>
 </head>
 <body>
 <script src="/reproductor/tutoriales.js"></script>
 <div class="vid" id="vid">
   <div class="voomly-embed" data-id="0Y9ZUh5I5jLJjVLKhxjlBjTcD72D1BQ1ZnNxeYooNTqmfj0c-" data-ratio="0.5625" data-type="v" data-skin-color="rgb(202,254,92)"></div>
-  <div class="listo" id="listo" role="dialog" aria-live="polite">
-    <div class="cj"><div class="k" id="lk"></div><h3 id="lt"></h3><p>Hazlo ahora en la app de BIX. Cuando esté listo, sigue con el próximo paso.</p>
-      <button class="si" id="lsi" type="button">Listo, siguiente paso ▶</button>
-      <button class="otra" id="lotra" type="button">↺ Ver este paso de nuevo</button></div>
-  </div>
 </div>
-<section class="lista" id="todos">
-  <h2>Todos los pasos</h2>
+<section class="lista">
+  <h2>Salta al paso que necesites</h2>
+  <p>Toca un paso y el video va directo ahí</p>
   <div id="capitulos"></div>
 </section>
 <footer>Tutorial elaborado por <b>Equipo Korex</b>, afiliados independientes de BIX. No somos la empresa y no brindamos asesoramiento financiero. ¿Quieres saber más? Pídele información a quien te invitó.</footer>
-<nav class="pasos" aria-label="Pasos del tutorial"><div class="in">
-  <button class="fl" id="ant" type="button" aria-label="Paso anterior">◀</button>
-  <button class="ah" id="ah" type="button"><small id="ahk"></small><b id="aht"></b></button>
-  <button class="fl sig" id="sig" type="button">Siguiente ▶</button>
-</div></nav>
 <script src="https://embed.voomly.com/embed/embed-build.js"></script>
 <script>
-// Pasos del video (mismos tiempos que la versión anterior). "hacer": al terminar ese paso el video se pausa y pregunta si ya lo hizo.
 const CAPS = [
   { t: 0, n: '▶', titulo: 'Qué es la tarjeta BIX' },
-  { t: 20.9, n: '1', titulo: 'Crea tu cuenta con el link', hacer: true },
-  { t: 53.2, n: '2', titulo: 'Verifica tu identidad', hacer: true },
-  { t: 82.0, n: '3', titulo: 'Carga USDT y crea tu tarjeta', hacer: true },
-  { t: 106.4, n: '4', titulo: 'Paga con el celular', hacer: true },
+  { t: 20.9, n: '1', titulo: 'Crea tu cuenta con el link' },
+  { t: 53.2, n: '2', titulo: 'Verifica tu identidad' },
+  { t: 82.0, n: '3', titulo: 'Carga USDT y crea tu tarjeta' },
+  { t: 106.4, n: '4', titulo: 'Paga con el celular' },
   { t: 123.5, n: '✓', titulo: 'Así se ve una compra real' },
   { t: 132.4, n: '+', titulo: 'Extra: vincula con TAG' },
   { t: 144.2, n: '%', titulo: 'Invita y gana' },
 ];
-const $ = (id) => document.getElementById(id);
-const mmss = (t) => `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, '0')}`;
-const etiqueta = (c) => /\d/.test(c.n) ? `PASO ${c.n} DE 4` : (c.n === '▶' ? 'INTRO' : 'EXTRA');
-$('capitulos').innerHTML = CAPS.map((c, i) => `<button type="button" data-i="${i}"><span class="n">${c.n}</span>${c.titulo}<span class="t">${mmss(c.t)}</span></button>`).join('');
-const botones = [...document.querySelectorAll('#capitulos button')];
-
-let api = null, actual = 0, tiempo = 0, enPausa = -1;
-const parado = new Set();       // pasos donde ya se pausó (no vuelve a frenar salvo que lo vea de nuevo)
-const hechos = new Set();
-function paso(t) { let k = 0; CAPS.forEach((c, i) => { if (t >= c.t - 0.05) k = i; }); return k; }
-function pintar() {
-  const c = CAPS[actual];
-  $('ahk').textContent = etiqueta(c); $('aht').textContent = c.titulo;
-  $('ant').disabled = actual === 0; $('sig').disabled = actual === CAPS.length - 1;
-  botones.forEach((b, i) => { b.classList.toggle('act', i === actual); b.classList.toggle('hecho', hechos.has(i)); });
-}
-function verVideo() { const r = $('vid').getBoundingClientRect(); if (r.top < -4 || r.bottom > innerHeight - $('ah').closest('.pasos').offsetHeight + 4) $('vid').scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-function ir(k) {
-  k = Math.max(0, Math.min(CAPS.length - 1, k));
-  cerrar(); parado.delete(k); actual = k; pintar();
-  if (api) { api.seek({ time: CAPS[k].t + 0.05 }); api.play(); }
-  verVideo();
-}
-function cerrar() { enPausa = -1; $('listo').classList.remove('ver'); }
-function preguntar(k) {
-  enPausa = k; parado.add(k); api.pause();
-  $('lk').textContent = `TERMINASTE EL PASO ${CAPS[k].n} DE 4`; $('lt').textContent = CAPS[k].titulo;
-  $('listo').classList.add('ver'); verVideo();
-}
-$('lsi').onclick = () => { const k = enPausa; hechos.add(k); cerrar(); actual = k + 1; pintar(); api.seek({ time: CAPS[k + 1].t + 0.05 }); api.play(); };
-$('lotra').onclick = () => ir(enPausa);
-$('ant').onclick = () => ir(enPausa >= 0 ? enPausa : (tiempo - CAPS[actual].t > 3 ? actual : actual - 1));
-$('sig').onclick = () => { if (enPausa >= 0) return $('lsi').onclick(); hechos.add(actual); ir(actual + 1); };
-$('ah').onclick = () => $('todos').scrollIntoView({ behavior: 'smooth', block: 'start' });
-$('capitulos').onclick = (e) => { const b = e.target.closest('[data-i]'); if (b) ir(+b.dataset.i); };
-pintar();
-
-// Conexión con el reproductor de Voomly
+const lista = document.getElementById('capitulos');
+lista.innerHTML = CAPS.map((c, i) => `<button type="button" data-i="${i}"><span class="n">${c.n}</span>${c.titulo}<span class="t">${Math.floor(c.t / 60)}:${String(Math.floor(c.t % 60)).padStart(2, '0')}</span></button>`).join('');
+const botones = [...lista.children];
+let api = null, actual = -1;
+function marcar(t) { let k = 0; CAPS.forEach((c, i) => { if (t >= c.t - 0.05) k = i; }); if (k !== actual) { actual = k; botones.forEach((b, i) => b.classList.toggle('act', i === k)); } }
+lista.onclick = (e) => {
+  const b = e.target.closest('[data-i]'); if (!b || !api) return;
+  const t = CAPS[+b.dataset.i].t; api.seek({ time: t + 0.05 }); api.play(); marcar(t);
+  document.getElementById('vid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
 (function conectar() {
   if (!window.attachVoomlyPlayer || !window.voomlyEmbedPlayerPreloader) return setTimeout(conectar, 150);
   const el = document.querySelector('.voomly-embed');
   const p = window.attachVoomlyPlayer(el, el.dataset.id, 'v', el.dataset.ratio);
-  p.onReady(() => {
-    api = p;
-    p.onTimeUpdate(({ time }) => {
-      tiempo = time;
-      const k = paso(time);
-      // ¿terminó un paso de "hacer"? → pausa y pregunta (solo si llegó mirando, no si saltó más adelante)
-      const c = CAPS[k - 1];
-      if (c && c.hacer && enPausa < 0 && !parado.has(k - 1) && time - CAPS[k].t < 1.2) { preguntar(k - 1); return; }
-      if (k !== actual && enPausa < 0) { if (k > actual) hechos.add(actual); actual = k; pintar(); }
-    });
-    p.onSeeked(({ time }) => { tiempo = time; const k = paso(time); if (enPausa >= 0 && Math.abs(time - CAPS[enPausa + 1].t) > 2) cerrar(); parado.forEach((i) => { if (i >= k) parado.delete(i); }); actual = k; pintar(); });
-    p.onPlay(() => { if (enPausa >= 0) cerrar(); });
-  });
+  p.onReady(() => { api = p; p.onTimeUpdate(({ time }) => marcar(time)); p.onSeeked(({ time }) => marcar(time)); });
 })();
 </script>
 </body>
