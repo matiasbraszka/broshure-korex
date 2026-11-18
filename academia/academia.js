@@ -445,7 +445,7 @@
   var DIAS = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
   var DCOD = { lu: 1, ma: 2, mi: 3, ju: 4, vi: 5, sa: 6, "do": 0 };
   var FUENTES = ["Plus Jakarta Sans", "Inter", "Montserrat", "Poppins", "Sora", "Manrope", "Archivo"];
-  var FICHAS = [["{rango}", "Semana"], ["{lu}", "Lu"], ["{ma}", "Ma"], ["{mi}", "Mi"], ["{ju}", "Ju"], ["{vi}", "Vi"], ["{sa}", "Sá"], ["{do}", "Do"], ["{fecha}", "Fecha"], ["{dia}", "Día"], ["{hoy}", "Hoy / mañana"], ["{num}", "Nº del día"]];
+  var FICHAS = [["{rango}", "Semana"], ["{lu}", "Lu"], ["{ma}", "Ma"], ["{mi}", "Mi"], ["{ju}", "Ju"], ["{vi}", "Vi"], ["{sa}", "Sá"], ["{do}", "Do"], ["{fecha}", "Fecha"], ["{dia}", "Día"], ["{hoy}", "Hoy o día"], ["{num}", "Nº del día"]];
   var RX_SEM = /\{(rango|lu|ma|mi|ju|vi|sa|do)\}/, RX_DIA = /\{(fecha|dia|hoy|num)\}/;
   function plantilla(x) {
     if (!x || x.tipo !== "image" || x.panel || String(x.texto || "").charAt(0) !== "{") return null;
@@ -469,7 +469,7 @@
       if (k === "fecha") return f.dia.getDate() + " de " + MESES[f.dia.getMonth()];
       if (k === "dia") return DIAS[f.dia.getDay()];
       if (k === "num") return String(f.dia.getDate());
-      if (k === "hoy") { var n = diasEntre(hoy0(), f.dia); return n === 0 ? "hoy" : n === 1 ? "mañana" : DIAS[f.dia.getDay()]; }
+      if (k === "hoy") { var n = diasEntre(hoy0(), f.dia); return n === 0 ? "hoy" : DIAS[f.dia.getDay()]; }
       return m;
     });
     return b.may === "may" ? s.toUpperCase() : b.may === "tal" ? s : s.charAt(0).toUpperCase() + s.slice(1);
@@ -567,7 +567,7 @@
       return '<button class="chip' + (n ? "" : " on") + '" data-v="' + n + '" type="button">' + et + "<small>" + sub + "</small></button>";
     }).join("") + "</div>";
     if (usa(p, RX_DIA)) ops += '<div class="chips fl-ch" data-q="dia">' + [0, 1, 2, 3, 4, 5, 6].map(function (n) {
-      var d = sumar(h0, n), et = n === 0 ? "Hoy" : n === 1 ? "Mañana" : DIAS[d.getDay()].charAt(0).toUpperCase() + DIAS[d.getDay()].slice(1, 3);
+      var d = sumar(h0, n), et = n === 0 ? "Hoy" : DIAS[d.getDay()].charAt(0).toUpperCase() + DIAS[d.getDay()].slice(1, 3);
       return '<button class="chip' + (n ? "" : " on") + '" data-v="' + n + '" type="button">' + et + "<small>" + d.getDate() + " " + MES3[d.getMonth()] + "</small></button>";
     }).join("") + "</div>";
     $("#layer").innerHTML = '<div class="viewer fl-v" role="dialog" aria-modal="true" aria-label="' + esc(x.titulo) + '"><div class="vw-h"><b>' + esc(x.titulo) + '</b><button class="mini ico" data-vcerrar type="button" aria-label="Cerrar">' + ic("x") + '</button></div>' +
@@ -636,7 +636,7 @@
         '<div class="fle-zn"><span>Zona ' + (sel + 1) + " de " + p.cajas.length + '</span><button class="mini del" id="flDel" type="button">' + ic("trash") + "Borrar zona</button></div>" +
         '<label class="fld"><span>Qué se escribe</span><input class="inp" id="flT" value="' + esc(b.t) + '" autocomplete="off"><small id="flEj"></small></label>' +
         '<div class="fl-toks">' + FICHAS.map(function (t) { return '<button type="button" class="chip" data-tok="' + t[0] + '">' + t[1] + "</button>"; }).join("") + "</div>" +
-        '<small class="fle-ay">Semana = «del 16 al 20 de noviembre» (lunes a viernes) · Lu…Do = el número de ese día · Fecha = «12 de noviembre» · Día = «jueves» · Hoy / mañana = «hoy», «mañana» o el día.</small>' +
+        '<small class="fle-ay">Semana = «del 16 al 20 de noviembre» (lunes a viernes) · Lu…Do = el número de ese día · Fecha = «12 de noviembre» · Día = «jueves» · Hoy o día = «hoy» o el nombre del día.</small>' +
         '<div class="fle-2">' +
         '<label class="fld"><span>Letras</span>' + op("flMay", [["may", "TODO MAYÚSCULAS"], ["ini", "Primera mayúscula"], ["tal", "Tal cual"]], b.may || "ini") + "</label>" +
         '<label class="fld"><span>Alineación</span>' + op("flAl", [["i", "Izquierda"], ["c", "Centro"], ["d", "Derecha"]], b.al || "c") + "</label>" +
