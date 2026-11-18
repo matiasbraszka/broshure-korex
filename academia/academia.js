@@ -401,6 +401,8 @@
     var dl = extra.lista ? '<datalist id="' + id + 'L">' + extra.lista.map(function (g) { return '<option value="' + esc(g) + '">'; }).join("") + "</datalist>" : "";
     return '<label class="fld"><span>' + label + "</span>" + inp + dl + (extra.ayuda ? "<small>" + extra.ayuda + "</small>" : "") + "</label>";
   }
+  // "loom.com/share/…" o "www.youtube.com/…" pegado sin https:// también vale.
+  function conHttps(u) { u = String(u || "").trim(); return u && !/^https?:\/\//i.test(u) && /^[\w-]+(\.[\w-]+)+\//.test(u) ? "https://" + u : u; }
   function val(id) { var el = $("#" + id); return el ? el.value.trim() : ""; }
   function gruposDe(sec) { var s = {}; de(sec).forEach(function (x) { if (x.grupo) s[x.grupo] = 1; }); return Object.keys(s); }
 
@@ -438,19 +440,19 @@
       if (it.id) item.id = it.id;
       if (!item.titulo) { toast("Falta el título."); return; }
       if (sec === "guion") { item.grupo = val("fGrupo") || "Otros"; item.texto = $("#fTexto").value; if (!item.texto.trim()) { toast("Falta el texto."); return; } }
-      if (sec === "link") { item.grupo = val("fGrupo") || "Otros"; item.descripcion = val("fDesc"); item.url = val("fUrl"); if (!/^https?:\/\//.test(item.url)) { toast("El link tiene que empezar con https://"); return; } }
+      if (sec === "link") { item.grupo = val("fGrupo") || "Otros"; item.descripcion = val("fDesc"); item.url = conHttps(val("fUrl")); if (!/^https?:\/\//.test(item.url)) { toast("El link tiene que empezar con https://"); return; } }
       if (sec === "carpeta") item.descripcion = val("fDesc");
       if (sec === "video") {
         item.grupo = val("fCurso"); if (!item.grupo) { toast("Falta el curso."); return; }
         item.descripcion = val("fDesc"); item.descargable = false;
-        if (!nuevo) { item.url = val("fUrl"); item.miniatura = val("fMini"); }
+        if (!nuevo) { item.url = conHttps(val("fUrl")); item.miniatura = val("fMini"); }
       }
       if (nuevo && !item.id) item.orden = 1000 + de(sec).length * 10;
       ok.disabled = true; ok.textContent = "Guardando…";
       var paso = Promise.resolve(item);
       if (sec === "video" && nuevo) {
         if (modo === "link") {
-          item.url = val("fUrl");
+          item.url = conHttps(val("fUrl"));
           if (!/^https?:\/\//.test(item.url)) { ok.disabled = false; ok.textContent = "Guardar"; toast("Pega un link que empiece con https://"); return; }
         } else {
           var f = fFile && fFile.files[0];
