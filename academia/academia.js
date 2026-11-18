@@ -501,7 +501,8 @@
   }
   function medir(c, s, sp) { if (!sp) return c.measureText(s).width; var t = 0; for (var i = 0; i < s.length; i++) t += c.measureText(s[i]).width; return t + sp * (s.length - 1); }
   function escribir(c, s, x, y, sp) { if (!sp) { c.fillText(s, x, y); return; } for (var i = 0; i < s.length; i++) { c.fillText(s[i], x, y); x += c.measureText(s[i]).width + sp; } }
-  function margen(h) { return { x: h * 0.1, y: h * 0.16 }; }
+  // Se tapa un poco más que la zona: arriba los acentos e íconos, abajo las colitas (g, y, p).
+  function margen(h) { return { x: h * 0.1, y: h * 0.25, b: h * 0.35 }; }
   // La zona va de la parte de arriba de las mayúsculas a la base de las letras.
   function dibujar(cv, im, p, f, ancho) {
     var k = ancho ? Math.min(1, ancho / im.naturalWidth) : 1;
@@ -514,7 +515,7 @@
       var m = margen(h);
       if (b.tapar && b.tapar !== "auto") c.fillStyle = b.tapar;
       else if (b.tapar === "auto" && b.fondo) { var g0 = c.createLinearGradient(x - m.x, 0, x + w + m.x, 0); g0.addColorStop(0, b.fondo[0]); g0.addColorStop(1, b.fondo[1]); c.fillStyle = g0; }
-      if (b.tapar && (b.tapar !== "auto" || b.fondo)) c.fillRect(x - m.x, y - m.y, w + 2 * m.x, h + 2 * m.y);
+      if (b.tapar && (b.tapar !== "auto" || b.fondo)) c.fillRect(x - m.x, y - m.y, w + 2 * m.x, h + m.y + m.b);
       var s = textoCaja(b, f); if (!s) return;
       var fam = "'" + (b.fuente || FUENTES[0]) + "', sans-serif", peso = b.peso || 800, esp = +b.esp || 0;
       c.font = peso + " 100px " + fam;
@@ -536,7 +537,7 @@
     try {
       var W = im.naturalWidth, H = im.naturalHeight, c = SMP[im.src];
       if (!c) { c = document.createElement("canvas"); c.width = W; c.height = H; c.getContext("2d").drawImage(im, 0, 0); SMP[im.src] = c; }
-      var m = margen(b.h * H), y0 = Math.max(0, Math.round(b.y * H - m.y)), y1 = Math.min(H - 1, Math.round((b.y + b.h) * H + m.y));
+      var m = margen(b.h * H), y0 = Math.max(0, Math.round(b.y * H - m.y)), y1 = Math.min(H - 1, Math.round((b.y + b.h) * H + m.b));
       var col = function (xx) {
         xx = Math.min(W - 1, Math.max(0, Math.round(xx)));
         var d = c.getContext("2d").getImageData(xx, y0, 1, y1 - y0 + 1).data, r = [], g = [], bl = [];
