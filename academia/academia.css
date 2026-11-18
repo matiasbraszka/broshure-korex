@@ -44,6 +44,10 @@ svg.i{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-widt
 .row1{display:flex;align-items:center;gap:10px}
 .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.12em;font-size:13px;margin-right:auto;min-width:0}
 .brand .logo{width:32px;height:32px;border-radius:10px;font-size:20px;margin:0}
+/* Logo oficial Método Korex (Downloads/MK Logos, «MK SB»): letras en el color del texto, acento #4878FF. */
+.mk{display:block;height:34px;width:calc(34px * 515 / 302);color:var(--text);flex:none}
+.mk-lg{height:64px;width:calc(64px * 515 / 302);margin:0 auto 2px}
+.brand .sep{width:1px;height:22px;background:var(--border-2)}
 .brand span{white-space:nowrap}
 .badge{font:600 11px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;background:var(--warn-tint);color:var(--warn-text);border-radius:99px;padding:6px 9px;white-space:nowrap}
 .tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:0 16px}
