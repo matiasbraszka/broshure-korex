@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Academia KOREX</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="Videos, recursos, guiones y links del equipo KOREX.">
+<meta name="theme-color" content="#0d5bff">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&family=Instrument+Serif&display=swap">
+<link rel="stylesheet" href="/academia/academia.css?v=1">
+</head>
+<body>
+
+<section class="login" id="login">
+  <div class="lbox">
+    <span class="logo">K</span>
+    <h1>Academia KOREX</h1>
+    <p>Videos, recursos, guiones y links del equipo.</p>
+    <form id="fLogin" autocomplete="on">
+      <label class="fld"><span>Contraseña</span>
+        <input class="inp" id="clave" type="password" autocomplete="current-password" required>
+      </label>
+      <button class="btn full" id="bEntrar" type="submit">Entrar</button>
+      <div class="err" id="err" role="alert"></div>
+    </form>
+  </div>
+</section>
+
+<div id="app" hidden>
+  <header class="top">
+    <div class="top-in">
+      <div class="row1">
+        <div class="brand"><span class="logo">K</span><span>ACADEMIA</span><span class="long">KOREX</span></div>
+        <span class="badge" id="badge" hidden>Admin</span>
+        <button class="mini" id="bSalir" type="button">Salir</button>
+      </div>
+      <nav class="tabs" id="tabs" role="tablist"></nav>
+    </div>
+  </header>
+  <main id="main"></main>
+</div>
+<div id="layer"></div>
+
+<script src="/academia/academia.js?v=1"></script>
+</body>
+</html>
