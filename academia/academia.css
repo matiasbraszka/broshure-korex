@@ -248,3 +248,22 @@ textarea.inp{min-height:160px;padding:11px 13px;resize:vertical;line-height:1.5}
   .lec-t span{-webkit-line-clamp:1}
   .vw-nav .btn{padding:0 12px}
 }
+/* ordenar (admin) */
+.lgrp-h{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:46px;padding-top:6px;padding-bottom:6px}
+.grp-top{display:flex;align-items:center}
+.grp-top .grp-h{flex:1;min-width:0}
+.grp-top .gmove{padding-right:8px}
+.gmove{display:inline-flex;gap:2px;flex:none}
+.gmove .mini,.la .mini[data-mover],.gcard-h .mini[data-mover]{width:32px;min-height:32px;padding:0;color:var(--text-3)}
+.gmove .mini:hover,.la .mini[data-mover]:hover,.gcard-h .mini[data-mover]:hover{color:var(--accent-text);background:var(--accent-tint)}
+.la{flex-wrap:wrap}
+.h2 .gmove{margin-left:auto}
+/* descripción del video al abrirlo */
+.viewer.cd{overflow-y:auto}
+.viewer.cd .vw-b{flex:none;overflow:visible}
+.viewer.cd .vw-b video{max-height:calc(100vh - 210px);max-height:calc(100dvh - 210px)}
+.viewer.cd .vw-b .frame{width:min(100%,calc((100dvh - 210px) * 16 / 9))}
+.viewer.cd .vw-f{padding-bottom:14px}
+.vw-desc{text-align:left;width:100%;max-width:760px;font-size:15px;line-height:1.6;color:rgba(255,255,255,.82);padding:4px 16px calc(24px + env(safe-area-inset-bottom,0px));overflow-wrap:anywhere}
+.vw-desc a{color:#8fb0ff;text-decoration:underline;text-underline-offset:3px}
+.vw-desc a:hover{color:#fff}

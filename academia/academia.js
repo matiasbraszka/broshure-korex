@@ -116,7 +116,7 @@
   function cursos() { return grupos(de("video").map(function (v) { return Object.assign({}, v, { grupo: cursoDe(v) }); })).map(function (g) { return g[0]; }); }
   function lecciones(nombre) { return de("video").filter(function (v) { return cursoDe(v) === nombre; }); }
   // Portadas diseñadas por curso (archivos en /academia/portadas/). Sin portada → imagen del primer video que tenga.
-  var PORTADAS = { "Usa la plataforma Korex": "/academia/portadas/usa-la-plataforma-korex.jpg" };
+  var PORTADAS = { "Usa la plataforma Korex": "/academia/portadas/usa-la-plataforma-korex.jpg?v=2" };
   function portada(c) { var ls = lecciones(c); return { miniatura: PORTADAS[c] || (ls.filter(function (v) { return v.miniatura; })[0] || {}).miniatura }; }
   function poster(v, extra) { return '<div class="poster"' + (v && v.miniatura ? ' style="background-image:url(\'' + esc(v.miniatura) + '\'),linear-gradient(140deg,#0a1730,#18306a)"' : "") + ">" + (extra || "") + "</div>"; }
   function nVideos(n) { return n + (n === 1 ? " video" : " videos"); }
@@ -139,13 +139,13 @@
   function vCurso(c) {
     var ls = lecciones(c);
     var h = '<button class="back" data-volver type="button">' + ic("back") + "Cursos</button>" +
-      '<div class="h2"><h2>' + esc(c) + "</h2>" + (admin() ? '<button class="btn sec" data-renombrar type="button">' + ic("pen") + "Renombrar curso</button>" : "") + "</div>" +
+      '<div class="h2"><h2>' + esc(c) + "</h2>" + (admin() ? flechasGrupo("video", c) + '<button class="btn sec" data-renombrar type="button">' + ic("pen") + "Renombrar curso</button>" : "") + "</div>" +
       '<p class="intro">' + nVideos(ls.length) + ". Míralos en orden.</p>";
     h += '<ol class="lecs">';
     ls.forEach(function (v, i) {
       h += '<li class="lec"><button class="lec-b" type="button" data-ver="' + esc(v.id) + '">' + '<span class="lec-n">' + (i + 1) + "</span>" +
         poster(v, '<span class="play">' + ic("play") + "</span>") +
-        '<span class="lec-t"><b>' + esc(v.titulo) + "</b>" + (v.descripcion ? "<span>" + esc(v.descripcion) + "</span>" : "") + "</span></button>" +
+        '<span class="lec-t"><b>' + esc(v.titulo) + "</b>" + (v.descripcion ? "<span>" + esc(String(v.descripcion).split("\n")[0]) + "</span>" : "") + "</span></button>" +
         (admin() ? '<div class="lec-a">' +
           (i > 0 ? '<button class="mini ico" data-mover="' + esc(v.id) + '" data-dir="-1" title="Subir">' + ic("arr") + "</button>" : "") +
           (i < ls.length - 1 ? '<button class="mini ico" data-mover="' + esc(v.id) + '" data-dir="1" title="Bajar">' + ic("abj") + "</button>" : "") +
@@ -157,20 +157,49 @@
     return h;
   }
 
-  // Reordena dentro del curso: renumera todo el curso (10, 20, 30…) a partir de su primer orden.
-  function mover(id, dir) {
-    var v = porId(id); if (!v) return;
-    var ls = lecciones(cursoDe(v)), i = ls.indexOf(v), j = i + dir;
-    if (j < 0 || j >= ls.length) return;
-    var base = Math.min.apply(null, ls.map(function (x) { return x.orden || 0; }));
-    ls.splice(i, 1); ls.splice(j, 0, v);
+  /* ---------------- ordenar (admin) ----------------
+     Videos, links y guiones: el orden de los grupos lo da su primer elemento.
+     Al mover, se renumera la sección entera: grupo 1 → 1000, 1010…; grupo 2 → 2000…  */
+  function claveG(x) { return x.seccion === "video" ? cursoDe(x) : (x.grupo || "Otros"); }
+  function gruposSec(sec) {
+    var m = {}, o = [];
+    de(sec).forEach(function (x) { var g = claveG(x); if (!m[g]) { m[g] = []; o.push(g); } m[g].push(x); });
+    return o.map(function (g) { return [g, m[g]]; });
+  }
+  function renumerar(gs) {
     var cambios = [];
-    ls.forEach(function (x, k) { var o = base + k * 10; if (x.orden !== o) { x.orden = o; cambios.push({ id: x.id, titulo: x.titulo, orden: o }); } });
+    gs.forEach(function (g, gi) { g[1].forEach(function (x, ii) { var o = (gi + 1) * 1000 + ii * 10; if (x.orden !== o) { x.orden = o; cambios.push({ id: x.id, titulo: x.titulo, orden: o }); } }); });
     S.items.sort(function (a, b) { return (a.orden || 0) - (b.orden || 0); });
     render();
     Promise.all(cambios.map(function (it) { return api("guardar", { item: it }); })).then(function (rs) {
       if (rs.some(function (r) { return !r.ok; })) { toast("No se pudo guardar el orden."); recargar(); }
-    });
+    }, function () { toast("No se pudo guardar el orden."); recargar(); });
+  }
+  function mover(id, dir) {
+    var v = porId(id); if (!v) return;
+    var gs = gruposSec(v.seccion), g = gs.filter(function (x) { return x[0] === claveG(v); })[0];
+    var ls = g[1], i = ls.indexOf(v), j = i + dir;
+    if (j < 0 || j >= ls.length) return;
+    ls.splice(i, 1); ls.splice(j, 0, v);
+    renumerar(gs);
+  }
+  function moverGrupo(sec, nombre, dir) {
+    var gs = gruposSec(sec), i = -1;
+    gs.forEach(function (g, k) { if (g[0] === nombre) i = k; });
+    var j = i + dir; if (i < 0 || j < 0 || j >= gs.length) return;
+    var g = gs.splice(i, 1)[0]; gs.splice(j, 0, g);
+    renumerar(gs);
+  }
+  // Flechas: item (data-mover) o grupo (data-mgrupo). Ocultas mientras se busca.
+  function flechas(attr, i, n, extra) {
+    if (!admin() || S.q || n < 2) return "";
+    return (i > 0 ? '<button class="mini ico" ' + attr + ' data-dir="-1" ' + (extra || "") + ' title="Subir" type="button">' + ic("arr") + "</button>" : "") +
+      (i < n - 1 ? '<button class="mini ico" ' + attr + ' data-dir="1" ' + (extra || "") + ' title="Bajar" type="button">' + ic("abj") + "</button>" : "");
+  }
+  function flechasGrupo(sec, nombre) {
+    var gs = gruposSec(sec), i = -1; gs.forEach(function (g, k) { if (g[0] === nombre) i = k; });
+    var f = flechas('data-mgrupo="' + esc(nombre) + '"', i, gs.length, 'data-sec="' + sec + '"');
+    return f ? '<span class="gmove" title="Mover grupo">' + f + "</span>" : "";
   }
 
   function renombrar(c) {
@@ -245,9 +274,9 @@
     h += '<div class="gg">';
     gs.forEach(function (g, i) {
       var open = S.q || S.abiertos[g[0]] || (S.abiertos[g[0]] === undefined && i === 0);
-      h += '<section class="grp' + (open ? " open" : "") + '"><button class="grp-h" data-grupo="' + esc(g[0]) + '" type="button">' + ic("chev", "chev") + esc(g[0]) + "<em>" + g[1].length + '</em></button><div class="grp-b">';
-      g[1].forEach(function (x) {
-        h += '<article class="gcard"><div class="gcard-h"><b>' + esc(x.titulo) + "</b>" +
+      h += '<section class="grp' + (open ? " open" : "") + '"><div class="grp-top"><button class="grp-h" data-grupo="' + esc(g[0]) + '" type="button">' + ic("chev", "chev") + esc(g[0]) + "<em>" + g[1].length + "</em></button>" + flechasGrupo("guion", g[0]) + '</div><div class="grp-b">';
+      g[1].forEach(function (x, xi) {
+        h += '<article class="gcard"><div class="gcard-h"><b>' + esc(x.titulo) + "</b>" + flechas('data-mover="' + esc(x.id) + '"', xi, g[1].length) +
           (admin() ? '<button class="mini ico" data-editar="' + esc(x.id) + '" title="Editar" type="button">' + ic("pen") + '</button><button class="mini ico del" data-borrar="' + esc(x.id) + '" title="Borrar" type="button">' + ic("trash") + "</button>" : "") +
           '<button class="mini btn-copy" data-copiar="' + esc(x.id) + '" type="button">' + ic("copy") + "Copiar</button></div>" +
           '<p class="gtxt">' + esc(x.texto) + "</p></article>";
@@ -263,10 +292,11 @@
     var gs = grupos(l);
     if (!gs.length) return h + '<div class="empty">' + (S.q ? "No hay links con esa búsqueda." : "Todavía no hay links.") + "</div>";
     gs.forEach(function (g) {
-      h += '<section class="lgrp"><div class="lgrp-h">' + esc(g[0]) + "</div>";
-      g[1].forEach(function (x) {
+      h += '<section class="lgrp"><div class="lgrp-h"><span>' + esc(g[0]) + "</span>" + flechasGrupo("link", g[0]) + "</div>";
+      g[1].forEach(function (x, xi) {
         h += '<div class="lrow"><span class="lic">' + ic("link") + '</span><div class="lt"><b>' + esc(x.titulo) + "</b>" + (x.descripcion ? "<span>" + esc(x.descripcion) + "</span>" : "") + "<code>" + esc(corta(x.url)) + "</code></div>" +
           '<div class="la"><a class="mini" href="' + esc(x.url) + '" target="_blank" rel="noopener">' + ic("ext") + 'Abrir</a><button class="mini" data-copiar="' + esc(x.id) + '" type="button">' + ic("copy") + "Copiar</button>" +
+          flechas('data-mover="' + esc(x.id) + '"', xi, g[1].length) +
           (admin() ? '<button class="mini ico" data-editar="' + esc(x.id) + '" title="Editar" type="button">' + ic("pen") + '</button><button class="mini ico del" data-borrar="' + esc(x.id) + '" title="Borrar" type="button">' + ic("trash") + "</button>" : "") +
           "</div></div>";
       });
@@ -277,11 +307,12 @@
 
   /* ---------------- eventos ---------------- */
   document.addEventListener("click", function (e) {
-    var t = e.target.closest("[data-tab],[data-abrir],[data-volver],[data-filtro],[data-ver],[data-bajar],[data-copiar],[data-grupo],[data-nuevo],[data-editar],[data-borrar],[data-subir],[data-curso],[data-mover],[data-renombrar]");
+    var t = e.target.closest("[data-tab],[data-abrir],[data-volver],[data-filtro],[data-ver],[data-bajar],[data-copiar],[data-grupo],[data-nuevo],[data-editar],[data-borrar],[data-subir],[data-curso],[data-mover],[data-mgrupo],[data-renombrar]");
     if (!t || !$("#app").contains(t)) return;
     var d = t.dataset;
     if (d.curso) { S.curso = d.curso; S.q = ""; render(); window.scrollTo(0, 0); }
     else if (d.mover) mover(d.mover, +d.dir);
+    else if (d.mgrupo) moverGrupo(d.sec, d.mgrupo, +d.dir);
     else if ("renombrar" in d) renombrar(S.curso);
     else if (d.tab) { S.tab = d.tab; S.carpeta = null; S.curso = null; S.q = ""; try { sessionStorage.setItem("kx-academia-tab", d.tab); } catch (x) {} render(); window.scrollTo(0, 0); }
     else if (d.abrir) { S.carpeta = d.abrir; S.filtro = "todo"; S.q = ""; render(); window.scrollTo(0, 0); }
@@ -290,7 +321,7 @@
     else if (d.ver) ver(porId(d.ver));
     else if (d.bajar) bajar(porId(d.bajar), t);
     else if (d.copiar) copiar(porId(d.copiar), t);
-    else if (d.grupo) { var sec = t.parentNode; var abierto = !sec.classList.contains("open"); sec.classList.toggle("open", abierto); S.abiertos[d.grupo] = abierto; }
+    else if (d.grupo) { var sec = t.closest(".grp"); var abierto = !sec.classList.contains("open"); sec.classList.toggle("open", abierto); S.abiertos[d.grupo] = abierto; }
     else if (d.nuevo) formulario(d.nuevo, null);
     else if (d.editar) { var it = porId(d.editar); if (it) formulario(it.seccion, it); }
     else if (d.borrar) borrar(porId(d.borrar));
@@ -319,6 +350,12 @@
     if (/iframe\.mediadelivery\.net\/(embed|play)\//.test(u)) return u.replace("/play/", "/embed/") + (u.indexOf("?") > -1 ? "&" : "?") + "autoplay=true&preload=true&responsive=true";
     return u;
   }
+  // Texto con saltos de línea y links que se pueden tocar (se escapa primero).
+  function rico(t) {
+    return esc(t).replace(/(https?:\/\/[^\s<]+?)([.,;:!?)]*)(?=\s|$|<)/g, function (m, u, cola) {
+      return '<a href="' + u + '" target="_blank" rel="noopener">' + u.replace(/^https?:\/\/(www\.)?/, "") + "</a>" + cola;
+    }).replace(/\n/g, "<br>");
+  }
   function ver(x) {
     if (!x) return;
     var cuerpo = "", pie = "";
@@ -334,8 +371,9 @@
     if (x.seccion === "archivo" && x.descargable !== false && (x.descarga || x.url)) pie = '<div class="vw-f"><button class="btn" data-vbajar type="button">' + ic("down") + "Descargar</button></div>";
     var ls = x.seccion === "video" ? lecciones(cursoDe(x)) : [], pos = ls.indexOf(x);
     if (ls.length > 1) pie = '<div class="vw-f vw-nav"><button class="btn sec" data-vir="' + (pos - 1) + '" type="button"' + (pos > 0 ? "" : " disabled") + ">" + ic("back") + 'Anterior</button><span class="vw-pos">Video ' + (pos + 1) + " de " + ls.length + '</span><button class="btn" data-vir="' + (pos + 1) + '" type="button"' + (pos < ls.length - 1 ? "" : " disabled") + ">Siguiente" + ic("chev") + "</button></div>";
-    $("#layer").innerHTML = '<div class="viewer" role="dialog" aria-modal="true" aria-label="' + esc(x.titulo) + '"><div class="vw-h"><b>' + esc(x.titulo) + '</b><button class="mini ico" data-vcerrar type="button" aria-label="Cerrar">' + ic("x") + '</button></div><div class="vw-b">' + cuerpo + "</div>" +
-      (x.seccion === "video" && x.descripcion ? '<p class="vw-desc">' + esc(x.descripcion) + "</p>" : "") + pie + "</div>";
+    var conDesc = x.seccion === "video" && x.descripcion;
+    $("#layer").innerHTML = '<div class="viewer' + (conDesc ? " cd" : "") + '" role="dialog" aria-modal="true" aria-label="' + esc(x.titulo) + '"><div class="vw-h"><b>' + esc(x.titulo) + '</b><button class="mini ico" data-vcerrar type="button" aria-label="Cerrar">' + ic("x") + '</button></div><div class="vw-b">' + cuerpo + "</div>" +
+      (conDesc ? pie + '<div class="vw-desc">' + rico(x.descripcion) + "</div>" : pie) + "</div>";
     document.body.style.overflow = "hidden";
     $("[data-vcerrar]").onclick = cerrar;
     var b = $("[data-vbajar]"); if (b) b.onclick = function () { bajar(x, b); };
@@ -417,7 +455,7 @@
     else if (sec === "carpeta") c = campo("fTitulo", "Nombre de la carpeta", it.titulo) + campo("fDesc", "Descripción (opcional)", it.descripcion);
     else if (sec === "video") {
       c = campo("fCurso", "Curso", nuevo ? (S.curso || "") : cursoDe(it), { lista: cursos(), ph: "Ej.: Primeros pasos", ayuda: "Elige un curso existente o escribe uno nuevo para crearlo." }) +
-        campo("fTitulo", "Título del video", it.titulo) + campo("fDesc", "Descripción (opcional)", it.descripcion);
+        campo("fTitulo", "Título del video", it.titulo) + campo("fDesc", "Descripción (opcional)", it.descripcion, { area: 1, ayuda: "Se ve debajo del video al abrirlo. Pega links a recursos o páginas: quedan para tocar. La primera línea sale también en la lista del curso." });
       if (nuevo) c += '<div class="opt" id="fModo"><button type="button" class="on" data-m="archivo">Subir un video</button><button type="button" data-m="link">Pegar un link</button></div>' +
         '<div id="mArchivo"><div class="drop" id="fDrop">' + ic("up") + '<b>Elige el video</b><small>MP4 o MOV. Se ve en la Academia y no se puede descargar.</small><input type="file" id="fFile" accept="video/*"></div></div>' +
         '<div id="mLink" hidden>' + campo("fUrl", "Link del video", "", { ph: "YouTube, Vimeo, Bunny o .mp4" }) + "</div>" +
