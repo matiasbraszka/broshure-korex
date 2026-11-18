@@ -327,7 +327,7 @@ textarea.inp{min-height:160px;padding:11px 13px;resize:vertical;line-height:1.5}
 .cal-ic.a{background:#ff3b30;color:#fff}
 
 /* ---- flyers con fecha automática ---- */
-.thumb .fl-b{display:inline-flex;align-items:center;gap:4px;background:rgba(72,120,255,.92)}
+.thumb .fl-b{top:auto;bottom:8px;display:inline-flex;align-items:center;gap:4px;background:rgba(72,120,255,.92)}
 .thumb .fl-b svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:2}
 .vw-b canvas.flc{display:block;width:auto;height:auto;max-width:100%;max-height:calc(100vh - 250px);max-height:calc(100dvh - 250px);border-radius:10px;background:#0a1730}
 .fl-f{flex-direction:column;align-items:center;gap:10px}
