@@ -25,7 +25,9 @@
     search: '<circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/>',
     up: '<path d="M12 16V5"/><path d="M7 10l5-5 5 5"/><path d="M5 20h14"/>',
     img: '<rect x="3.5" y="4.5" width="17" height="15" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M20.5 16l-5-5-8 8.5"/>',
-    vid: '<rect x="3" y="5.5" width="13" height="13" rx="2"/><path d="M16 10l5-3v10l-5-3"/>'
+    vid: '<rect x="3" y="5.5" width="13" height="13" rx="2"/><path d="M16 10l5-3v10l-5-3"/>',
+    arr: '<path d="M12 6v12M7 11l5-5 5 5"/>',
+    abj: '<path d="M12 6v12M7 13l5 5 5-5"/>'
   };
   function ic(n, extra) { return '<svg class="i' + (extra ? " " + extra : "") + '" viewBox="0 0 24 24" aria-hidden="true">' + P[n] + "</svg>"; }
   function $(s, r) { return (r || document).querySelector(s); }
@@ -33,8 +35,8 @@
   function lsGet() { try { return localStorage.getItem(KEY) || ""; } catch (e) { return ""; } }
   function lsSet(v) { try { v ? localStorage.setItem(KEY, v) : localStorage.removeItem(KEY); } catch (e) {} }
 
-  var S = { clave: "", rol: "", items: [], tab: "videos", carpeta: null, filtro: "todo", q: "", abiertos: {} };
-  var TABS = [["videos", "Videos"], ["recursos", "Recursos"], ["guiones", "Guiones"], ["links", "Links"]];
+  var S = { clave: "", rol: "", items: [], tab: "videos", carpeta: null, curso: null, filtro: "todo", q: "", abiertos: {} };
+  var TABS = [["videos", "Cursos"], ["recursos", "Recursos"], ["guiones", "Guiones"], ["links", "Links"]];
   function admin() { return S.rol === "admin"; }
 
   /* ---------------- servidor ---------------- */
@@ -92,12 +94,12 @@
   /* ---------------- pantalla ---------------- */
   function render() {
     $("#badge").hidden = !admin();
-    var cuenta = { videos: de("video").length, recursos: de("carpeta").length, guiones: de("guion").length, links: de("link").length };
+    var cuenta = { videos: cursos().length, recursos: de("carpeta").length, guiones: de("guion").length, links: de("link").length };
     $("#tabs").innerHTML = TABS.map(function (t) {
       return '<button class="tab' + (S.tab === t[0] ? " on" : "") + '" role="tab" data-tab="' + t[0] + '">' + t[1] + " <em>" + cuenta[t[0]] + "</em></button>";
     }).join("");
     var h = "";
-    if (S.tab === "videos") h = vVideos();
+    if (S.tab === "videos") h = S.curso && lecciones(S.curso).length ? vCurso(S.curso) : vVideos();
     else if (S.tab === "recursos") h = S.carpeta && porId(S.carpeta) ? vCarpeta(porId(S.carpeta)) : vCarpetas();
     else if (S.tab === "guiones") h = vGuiones();
     else h = vLinks();
@@ -109,21 +111,76 @@
     return '<div class="bar"><label class="search">' + ic("search") + '<input id="q" type="search" placeholder="' + ph + '" value="' + esc(S.q) + '" autocomplete="off" aria-label="Buscar"></label></div>';
   }
 
+  // Cursos = videos agrupados por "grupo". El orden de los cursos lo da su primer video.
+  function cursoDe(v) { return v.grupo || "General"; }
+  function cursos() { return grupos(de("video").map(function (v) { return Object.assign({}, v, { grupo: cursoDe(v) }); })).map(function (g) { return g[0]; }); }
+  function lecciones(nombre) { return de("video").filter(function (v) { return cursoDe(v) === nombre; }); }
+  function poster(v, extra) { return '<div class="poster"' + (v && v.miniatura ? ' style="background-image:url(\'' + esc(v.miniatura) + '\'),linear-gradient(140deg,#0a1730,#18306a)"' : "") + ">" + (extra || "") + "</div>"; }
+  function nVideos(n) { return n + (n === 1 ? " video" : " videos"); }
+
   function vVideos() {
-    var l = de("video").filter(hay);
-    var h = '<div class="h2"><h2>Videos</h2></div><p class="intro">Instructivos para ver desde aquí.</p>' + buscador("Buscar videos");
+    var cs = cursos().filter(function (c) { return !S.q || c.toLowerCase().indexOf(S.q) > -1 || lecciones(c).some(hay); });
+    var h = '<div class="h2"><h2>Cursos</h2></div><p class="intro">Elige un curso y mira sus videos en orden.</p>' + buscador("Buscar cursos o videos");
     h += '<div class="gv">';
-    l.forEach(function (v) {
-      h += '<div class="vcard"><button type="button" data-ver="' + esc(v.id) + '" style="text-align:left;display:flex;flex-direction:column">' +
-        '<div class="poster"' + (v.miniatura ? ' style="background-image:url(\'' + esc(v.miniatura) + '\')"' : "") + '><span class="play">' + ic("play") + "</span></div>" +
-        '<div class="vbody"><b>' + esc(v.titulo) + "</b>" + (v.descripcion ? "<span>" + esc(v.descripcion) + "</span>" : "") + "</div></button>" +
-        (admin() ? '<div class="corner"><button class="mini ico" data-editar="' + esc(v.id) + '" title="Editar">' + ic("pen") + '</button><button class="mini ico" data-borrar="' + esc(v.id) + '" title="Borrar">' + ic("trash") + "</button></div>" : "") +
-        "</div>";
+    cs.forEach(function (c) {
+      var ls = lecciones(c);
+      h += '<button class="vcard ccard" type="button" data-curso="' + esc(c) + '">' + poster(ls[0], '<span class="cnt">' + ic("vid") + nVideos(ls.length) + "</span>") +
+        '<div class="vbody"><b>' + esc(c) + "</b><span>" + ls.map(function (v, i) { return (i + 1) + ". " + esc(v.titulo); }).slice(0, 3).join("<br>") + (ls.length > 3 ? "<br>…" : "") + "</span></div></button>";
     });
-    if (admin()) h += '<button class="addcard" data-nuevo="video" type="button"><span class="plus">' + ic("plus") + "</span>Agregar video</button>";
+    if (admin()) h += '<button class="addcard" data-nuevo="video" type="button"><span class="plus">' + ic("plus") + "</span>Nuevo curso o video</button>";
     h += "</div>";
-    if (!l.length && !admin()) h += '<div class="empty">' + (S.q ? "No hay videos con esa búsqueda." : "Todavía no hay videos.") + "</div>";
+    if (!cs.length && !admin()) h += '<div class="empty">' + (S.q ? "No hay cursos con esa búsqueda." : "Todavía no hay cursos.") + "</div>";
     return h;
+  }
+
+  function vCurso(c) {
+    var ls = lecciones(c);
+    var h = '<button class="back" data-volver type="button">' + ic("back") + "Cursos</button>" +
+      '<div class="h2"><h2>' + esc(c) + "</h2>" + (admin() ? '<button class="btn sec" data-renombrar type="button">' + ic("pen") + "Renombrar curso</button>" : "") + "</div>" +
+      '<p class="intro">' + nVideos(ls.length) + ". Míralos en orden.</p>";
+    h += '<ol class="lecs">';
+    ls.forEach(function (v, i) {
+      h += '<li class="lec"><button class="lec-b" type="button" data-ver="' + esc(v.id) + '">' + '<span class="lec-n">' + (i + 1) + "</span>" +
+        poster(v, '<span class="play">' + ic("play") + "</span>") +
+        '<span class="lec-t"><b>' + esc(v.titulo) + "</b>" + (v.descripcion ? "<span>" + esc(v.descripcion) + "</span>" : "") + "</span></button>" +
+        (admin() ? '<div class="lec-a">' +
+          (i > 0 ? '<button class="mini ico" data-mover="' + esc(v.id) + '" data-dir="-1" title="Subir">' + ic("arr") + "</button>" : "") +
+          (i < ls.length - 1 ? '<button class="mini ico" data-mover="' + esc(v.id) + '" data-dir="1" title="Bajar">' + ic("abj") + "</button>" : "") +
+          '<button class="mini ico" data-editar="' + esc(v.id) + '" title="Editar">' + ic("pen") + '</button><button class="mini ico" data-borrar="' + esc(v.id) + '" title="Borrar">' + ic("trash") + "</button></div>" : "") +
+        "</li>";
+    });
+    h += "</ol>";
+    if (admin()) h += '<button class="addcard addrow" data-nuevo="video" type="button"><span class="plus">' + ic("plus") + "</span>Agregar video a este curso</button>";
+    return h;
+  }
+
+  // Reordena dentro del curso: renumera todo el curso (10, 20, 30…) a partir de su primer orden.
+  function mover(id, dir) {
+    var v = porId(id); if (!v) return;
+    var ls = lecciones(cursoDe(v)), i = ls.indexOf(v), j = i + dir;
+    if (j < 0 || j >= ls.length) return;
+    var base = Math.min.apply(null, ls.map(function (x) { return x.orden || 0; }));
+    ls.splice(i, 1); ls.splice(j, 0, v);
+    var cambios = [];
+    ls.forEach(function (x, k) { var o = base + k * 10; if (x.orden !== o) { x.orden = o; cambios.push({ id: x.id, titulo: x.titulo, orden: o }); } });
+    S.items.sort(function (a, b) { return (a.orden || 0) - (b.orden || 0); });
+    render();
+    Promise.all(cambios.map(function (it) { return api("guardar", { item: it }); })).then(function (rs) {
+      if (rs.some(function (r) { return !r.ok; })) { toast("No se pudo guardar el orden."); recargar(); }
+    });
+  }
+
+  function renombrar(c) {
+    dlg("Renombrar curso", campo("fCurso", "Nombre del curso", c), '<button class="btn sec" data-dcerrar2 type="button">Cancelar</button><button class="btn" id="fOk" type="button">Guardar</button>');
+    $("[data-dcerrar2]").onclick = cerrar;
+    $("#fOk").onclick = function () {
+      var n = val("fCurso"); if (!n) { toast("Falta el nombre."); return; }
+      if (n === c) { cerrar(); return; }
+      this.disabled = true;
+      Promise.all(lecciones(c).map(function (v) { return api("guardar", { item: { id: v.id, titulo: v.titulo, grupo: n } }); })).then(function () {
+        cerrar(); S.curso = n; toast("Curso renombrado"); return recargar();
+      });
+    };
   }
 
   function vCarpetas() {
@@ -217,12 +274,15 @@
 
   /* ---------------- eventos ---------------- */
   document.addEventListener("click", function (e) {
-    var t = e.target.closest("[data-tab],[data-abrir],[data-volver],[data-filtro],[data-ver],[data-bajar],[data-copiar],[data-grupo],[data-nuevo],[data-editar],[data-borrar],[data-subir]");
+    var t = e.target.closest("[data-tab],[data-abrir],[data-volver],[data-filtro],[data-ver],[data-bajar],[data-copiar],[data-grupo],[data-nuevo],[data-editar],[data-borrar],[data-subir],[data-curso],[data-mover],[data-renombrar]");
     if (!t || !$("#app").contains(t)) return;
     var d = t.dataset;
-    if (d.tab) { S.tab = d.tab; S.carpeta = null; S.q = ""; try { sessionStorage.setItem("kx-academia-tab", d.tab); } catch (x) {} render(); window.scrollTo(0, 0); }
+    if (d.curso) { S.curso = d.curso; S.q = ""; render(); window.scrollTo(0, 0); }
+    else if (d.mover) mover(d.mover, +d.dir);
+    else if ("renombrar" in d) renombrar(S.curso);
+    else if (d.tab) { S.tab = d.tab; S.carpeta = null; S.curso = null; S.q = ""; try { sessionStorage.setItem("kx-academia-tab", d.tab); } catch (x) {} render(); window.scrollTo(0, 0); }
     else if (d.abrir) { S.carpeta = d.abrir; S.filtro = "todo"; S.q = ""; render(); window.scrollTo(0, 0); }
-    else if ("volver" in d) { S.carpeta = null; render(); }
+    else if ("volver" in d) { S.carpeta = null; S.curso = null; render(); }
     else if (d.filtro) { S.filtro = d.filtro; render(); }
     else if (d.ver) ver(porId(d.ver));
     else if (d.bajar) bajar(porId(d.bajar), t);
@@ -267,11 +327,14 @@
       cuerpo = '<div style="color:#fff;text-align:center;display:grid;gap:14px;justify-items:center">' + ic("file", "big") + '<a class="btn sec" href="' + esc(u) + '" target="_blank" rel="noopener">' + ic("ext") + "Abrir el archivo</a></div>";
     }
     if (x.seccion === "archivo" && x.descargable !== false && (x.descarga || x.url)) pie = '<div class="vw-f"><button class="btn" data-vbajar type="button">' + ic("down") + "Descargar</button></div>";
+    var ls = x.seccion === "video" ? lecciones(cursoDe(x)) : [], pos = ls.indexOf(x);
+    if (ls.length > 1) pie = '<div class="vw-f vw-nav"><button class="btn sec" data-vir="' + (pos - 1) + '" type="button"' + (pos > 0 ? "" : " disabled") + ">" + ic("back") + 'Anterior</button><span class="vw-pos">Video ' + (pos + 1) + " de " + ls.length + '</span><button class="btn" data-vir="' + (pos + 1) + '" type="button"' + (pos < ls.length - 1 ? "" : " disabled") + ">Siguiente" + ic("chev") + "</button></div>";
     $("#layer").innerHTML = '<div class="viewer" role="dialog" aria-modal="true" aria-label="' + esc(x.titulo) + '"><div class="vw-h"><b>' + esc(x.titulo) + '</b><button class="mini ico" data-vcerrar type="button" aria-label="Cerrar">' + ic("x") + '</button></div><div class="vw-b">' + cuerpo + "</div>" +
       (x.seccion === "video" && x.descripcion ? '<p class="vw-desc">' + esc(x.descripcion) + "</p>" : "") + pie + "</div>";
     document.body.style.overflow = "hidden";
     $("[data-vcerrar]").onclick = cerrar;
     var b = $("[data-vbajar]"); if (b) b.onclick = function () { bajar(x, b); };
+    [].forEach.call(document.querySelectorAll("[data-vir]"), function (n) { n.onclick = function () { var y = ls[+n.dataset.vir]; if (y) ver(y); }; });
     var vw = $(".viewer"); vw.addEventListener("click", function (e) { if (e.target === vw || e.target.classList.contains("vw-b")) cerrar(); });
   }
 
@@ -346,7 +409,8 @@
     else if (sec === "link") c = campo("fGrupo", "Grupo", it.grupo, { lista: gruposDe("link"), ph: "Ej.: Tarjeta BIX" }) + campo("fTitulo", "Título", it.titulo) + campo("fDesc", "Descripción (opcional)", it.descripcion) + campo("fUrl", "Link", it.url, { ph: "https://…" });
     else if (sec === "carpeta") c = campo("fTitulo", "Nombre de la carpeta", it.titulo) + campo("fDesc", "Descripción (opcional)", it.descripcion);
     else if (sec === "video") {
-      c = campo("fTitulo", "Título", it.titulo) + campo("fDesc", "Descripción (opcional)", it.descripcion);
+      c = campo("fCurso", "Curso", nuevo ? (S.curso || "") : cursoDe(it), { lista: cursos(), ph: "Ej.: Primeros pasos", ayuda: "Elige un curso existente o escribe uno nuevo para crearlo." }) +
+        campo("fTitulo", "Título del video", it.titulo) + campo("fDesc", "Descripción (opcional)", it.descripcion);
       if (nuevo) c += '<div class="opt" id="fModo"><button type="button" class="on" data-m="archivo">Subir un video</button><button type="button" data-m="link">Pegar un link</button></div>' +
         '<div id="mArchivo"><div class="drop" id="fDrop">' + ic("up") + '<b>Elige el video</b><small>MP4 o MOV. Se ve en la Academia y no se puede descargar.</small><input type="file" id="fFile" accept="video/*"></div></div>' +
         '<div id="mLink" hidden>' + campo("fUrl", "Link del video", "", { ph: "YouTube, Vimeo, Bunny o .mp4" }) + "</div>" +
@@ -375,6 +439,7 @@
       if (sec === "link") { item.grupo = val("fGrupo") || "Otros"; item.descripcion = val("fDesc"); item.url = val("fUrl"); if (!/^https?:\/\//.test(item.url)) { toast("El link tiene que empezar con https://"); return; } }
       if (sec === "carpeta") item.descripcion = val("fDesc");
       if (sec === "video") {
+        item.grupo = val("fCurso"); if (!item.grupo) { toast("Falta el curso."); return; }
         item.descripcion = val("fDesc"); item.descargable = false;
         if (!nuevo) { item.url = val("fUrl"); item.miniatura = val("fMini"); }
       }
