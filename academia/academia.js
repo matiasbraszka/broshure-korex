@@ -390,7 +390,6 @@
         (!x.miniatura ? ic(x.tipo === "video" ? "vid" : x.tipo === "image" ? "img" : "file", "big") : "") +
         (pl ? '<span class="fmt fl-b">' + ic("cal") + "Fecha al día</span>" : fmt ? '<span class="fmt">' + fmt + "</span>" : "") + (x.tipo === "video" ? '<span class="pl">' + ic("play") + "</span>" : "") + "</div></button>" +
         '<div class="tmeta"><b title="' + esc(x.titulo) + '">' + esc(x.titulo) + "</b>" +
-        (admin() && x.tipo === "image" && !x.panel ? '<button class="mini ico" data-flyer="' + esc(x.id) + '" title="Fecha automática" type="button">' + ic("cal") + "</button>" : "") +
         (x.descargable !== false && (x.descarga || x.url) ? '<button class="mini ico" data-bajar="' + esc(x.id) + '" title="Descargar" type="button">' + ic("down") + "</button>" : "") +
         (admin() ? '<button class="mini ico del" data-borrar="' + esc(x.id) + '" title="' + (x.panel ? "Ocultar de la Academia" : "Borrar") + '" type="button">' + ic("trash") + "</button>" : "") +
         "</div></div>";
@@ -467,14 +466,17 @@
     return "del " + l.getDate() + (l.getMonth() !== v.getMonth() ? " de " + MESES[l.getMonth()] : "") + " al " + v.getDate() + " de " + MESES[v.getMonth()];
   }
   function textoCaja(b, f) {
-    var s = String(b.t || "").replace(/\{(\w+)\}/g, function (m, k) {
-      if (k === "rango") return rangoTxt(f.lunes);
-      if (DCOD.hasOwnProperty(k)) return String(sumar(f.lunes, (DCOD[k] + 6) % 7).getDate());
-      if (k === "fecha") return f.dia.getDate() + " de " + MESES[f.dia.getMonth()];
-      if (k === "dia") return DIAS[f.dia.getDay()];
-      if (k === "num") return String(f.dia.getDate());
-      if (k === "hoy") { var n = diasEntre(hoy0(), f.dia); return n === 0 ? "hoy" : DIAS[f.dia.getDay()]; }
-      return m;
+    // {Hoy} con mayúscula = «Hoy» o «Jueves» (para los mensajes).
+    var s = String(b.t || "").replace(/\{(\w+)\}/g, function (m, k0) {
+      var k = k0.toLowerCase(), v = null;
+      if (k === "rango") v = rangoTxt(f.lunes);
+      else if (DCOD.hasOwnProperty(k)) v = String(sumar(f.lunes, (DCOD[k] + 6) % 7).getDate());
+      else if (k === "fecha") v = f.dia.getDate() + " de " + MESES[f.dia.getMonth()];
+      else if (k === "dia") v = DIAS[f.dia.getDay()];
+      else if (k === "num") v = String(f.dia.getDate());
+      else if (k === "hoy") v = diasEntre(hoy0(), f.dia) === 0 ? "hoy" : DIAS[f.dia.getDay()];
+      if (v === null) return m;
+      return k0 !== k ? v.charAt(0).toUpperCase() + v.slice(1) : v;
     });
     return b.may === "may" ? s.toUpperCase() : b.may === "tal" ? s : s.charAt(0).toUpperCase() + s.slice(1);
   }
@@ -575,13 +577,35 @@
       var et = diasEntre(h0, d) === 0 ? "Hoy" : DIAS[d.getDay()].charAt(0).toUpperCase() + DIAS[d.getDay()].slice(1, 3);
       return '<button class="chip' + (n ? "" : " on") + '" data-v="' + n + '" type="button">' + et + "<small>" + d.getDate() + " " + MES3[d.getMonth()] + "</small></button>";
     }).join("") + "</div>";
-    $("#layer").innerHTML = '<div class="viewer fl-v" role="dialog" aria-modal="true" aria-label="' + esc(x.titulo) + '"><div class="vw-h"><b>' + esc(x.titulo) + '</b><button class="mini ico" data-vcerrar type="button" aria-label="Cerrar">' + ic("x") + '</button></div>' +
-      '<div class="vw-b"><canvas class="flc"></canvas></div><div class="vw-f fl-f">' + ops +
-      '<button class="btn" data-vbajar type="button" disabled>' + ic("down") + "Descargar</button></div></div>";
+    var msgs = p.msgs || [], mi = 0, mtxt = "";
+    var mbloque = msgs.length || admin() ? '<div class="fl-m"><div class="fl-mh"><span>Mensaje para invitar</span>' + (admin() ? '<button class="mini" data-medit type="button">' + ic("pen") + (msgs.length ? "Editar" : "Agregar") + "</button>" : "") + "</div>" +
+      (msgs.length ? (msgs.length > 1 ? '<div class="chips fl-mc">' + msgs.map(function (m, n) { return '<button class="chip' + (n ? "" : " on") + '" data-m="' + n + '" type="button">' + esc(m.t || "Mensaje " + (n + 1)) + "</button>"; }).join("") + "</div>" : "") +
+        '<div class="fl-mt" id="flMt"></div><button class="btn sec" data-mcopiar type="button">' + ic("copy") + "Copiar mensaje</button>" : '<small class="fl-mv">Todavía no hay mensajes para este flyer.</small>') + "</div>" : "";
+    $("#layer").innerHTML = '<div class="viewer fl-v" role="dialog" aria-modal="true" aria-label="' + esc(x.titulo) + '"><div class="vw-h"><b>' + esc(x.titulo) + "</b>" +
+      (admin() ? '<button class="mini" data-vflyer type="button">' + ic("cal") + "Zonas de fecha</button>" : "") +
+      '<button class="mini ico" data-vcerrar type="button" aria-label="Cerrar">' + ic("x") + '</button></div>' +
+      '<div class="fl-w"><div class="vw-b"><canvas class="flc"></canvas></div><div class="vw-f fl-f">' + ops +
+      '<button class="btn" data-vbajar type="button" disabled>' + ic("down") + "Descargar flyer</button>" + mbloque + "</div></div></div>";
     document.body.style.overflow = "hidden";
     cv = $(".flc");
     var bt = $("[data-vbajar]");
+    // WhatsApp: *negrita* y _cursiva_ se ven igual en la vista previa.
+    function msg() {
+      var el = $("#flMt"); if (!el || !msgs[mi]) return;
+      mtxt = textoCaja({ t: msgs[mi].m, may: "tal" }, f);
+      el.innerHTML = esc(mtxt).replace(/\*([^*\n]+)\*/g, "<b>$1</b>").replace(/(^|[\s(])_([^_\n]+)_/g, "$1<i>$2</i>");
+    }
+    msg();
+    var mc = $(".fl-mc"); if (mc) mc.addEventListener("click", function (e) {
+      var b = e.target.closest("[data-m]"); if (!b) return;
+      [].forEach.call(mc.children, function (n) { n.classList.toggle("on", n === b); });
+      mi = +b.dataset.m; msg();
+    });
+    var mb = $("[data-mcopiar]"); if (mb) mb.onclick = function () { copiar({ seccion: "guion", texto: mtxt }, mb); };
+    var me = $("[data-medit]"); if (me) me.onclick = function () { editarMensajes(x, p); };
+    var vf = $("[data-vflyer]"); if (vf) vf.onclick = function () { editarFlyer(x); };
     function pintar() {
+      msg();
       blob = null; bt.disabled = true;
       Promise.all([cargarImg(x.url), cargarFuentes(p)]).then(function (r) {
         dibujar(cv, r[0], p, f);
@@ -737,6 +761,49 @@
     var q0 = $("#flQuitar"); if (q0) q0.onclick = function () { guardar("", q0); };
   }
 
+  // Mensajes para invitar de un flyer (p.msgs = [{t: nombre, m: texto con {Hoy} {fecha}…}]).
+  function editarMensajes(x, p) {
+    var f = fechaInicial(p), sem = usa(p, RX_SEM), ult = null;
+    var toks = sem ? [["{rango}", "Semana"], ["{lu}", "Lu"], ["{ma}", "Ma"], ["{mi}", "Mi"], ["{ju}", "Ju"], ["{vi}", "Vi"]] : [["{Hoy}", "Hoy o día"], ["{fecha}", "Fecha"], ["{num}", "Nº del día"]];
+    function fila(m) {
+      return '<div class="fl-mr"><div class="fl-row"><input class="inp" data-k="t" placeholder="Nombre de la opción (ej.: Perfil inversor)" value="' + esc(m.t || "") + '" autocomplete="off">' +
+        '<button class="mini ico del" data-mdel type="button" title="Borrar mensaje">' + ic("trash") + "</button></div>" +
+        '<textarea class="inp" data-k="m" rows="9">' + esc(m.m || "") + '</textarea><small class="fl-me"></small></div>';
+    }
+    dlg("Mensajes para invitar", '<p class="fle-ay">Cada mensaje sale con la fecha que se elija en el flyer. Toca una ficha para poner la fecha donde está el cursor. *Así* queda en negrita en WhatsApp.</p>' +
+      '<div class="fl-toks" id="mT">' + toks.map(function (t) { return '<button type="button" class="chip" data-tok="' + t[0] + '">' + t[1] + "</button>"; }).join("") + "</div>" +
+      '<div id="mL">' + (p.msgs || []).map(fila).join("") + '</div><button class="btn sec" id="mAdd" type="button">' + ic("plus") + "Agregar mensaje</button>",
+      '<button class="btn sec" data-dcerrar2 type="button">Cancelar</button><button class="btn" id="mOk" type="button">Guardar</button>');
+    $(".dlg").classList.add("dlg-xl");
+    $("[data-dcerrar2]").onclick = cerrar;
+    var L = $("#mL");
+    function ejemplos() { [].forEach.call(L.querySelectorAll(".fl-mr"), function (r) { var v = r.querySelector("textarea").value; r.querySelector(".fl-me").textContent = /\{\w+\}/.test(v) ? "Así se ve hoy: «" + textoCaja({ t: v.split("\n").filter(function (l) { return /\{\w+\}/.test(l); })[0], may: "tal" }, f) + "»" : "Este mensaje no tiene fecha automática."; }); }
+    ejemplos();
+    var marcar = function (e) { if (e.target.tagName === "TEXTAREA") { ult = e.target; ult.dataset.c = ult.selectionStart; ult.dataset.f = ult.selectionEnd; } };
+    ["keyup", "mouseup", "input", "focusin"].forEach(function (ev) { L.addEventListener(ev, marcar); });
+    L.addEventListener("input", ejemplos);
+    L.addEventListener("click", function (e) { var d = e.target.closest("[data-mdel]"); if (d) { d.closest(".fl-mr").remove(); ult = null; } });
+    $("#mAdd").onclick = function () { L.insertAdjacentHTML("beforeend", fila({})); ejemplos(); L.lastElementChild.querySelector("input").focus(); };
+    $("#mT").addEventListener("click", function (e) {
+      var t = e.target.closest("[data-tok]"); if (!t) return;
+      if (!ult || !L.contains(ult)) { ult = L.querySelector("textarea"); if (!ult) { toast("Primero agrega un mensaje."); return; } }
+      var a = ult.dataset.c ? +ult.dataset.c : ult.value.length, z = ult.dataset.f ? +ult.dataset.f : a;
+      ult.value = ult.value.slice(0, a) + t.dataset.tok + ult.value.slice(z); ult.focus();
+      try { ult.setSelectionRange(a + t.dataset.tok.length, a + t.dataset.tok.length); } catch (x2) {}
+      ult.dataset.c = ult.dataset.f = a + t.dataset.tok.length; ejemplos();
+    });
+    $("#mOk").onclick = function () {
+      var btn = this, lista = [].map.call(L.querySelectorAll(".fl-mr"), function (r, n) { return { t: r.querySelector("input").value.trim() || "Mensaje " + (n + 1), m: r.querySelector("textarea").value.replace(/\s+$/, "") }; }).filter(function (m) { return m.m.trim(); });
+      var q = JSON.parse(JSON.stringify(p)); if (lista.length) q.msgs = lista; else delete q.msgs;
+      btn.disabled = true; btn.textContent = "Guardando…";
+      api("guardar", { item: { id: x.id, seccion: "archivo", titulo: x.titulo, texto: JSON.stringify(q) } }).then(function (j) {
+        if (!j.ok) throw new Error(j.error || "error");
+        toast("Guardado"); return recargar();
+      }).then(function () { var y = porId(x.id); if (y) ver(y); else cerrar(); })
+        .catch(function (e) { btn.disabled = false; btn.textContent = "Guardar"; toast("No se pudo guardar (" + (e.message || e) + ")."); });
+    };
+  }
+
   /* ---------------- eventos ---------------- */
   document.addEventListener("click", function (e) {
     var t = e.target.closest("[data-tab],[data-abrir],[data-volver],[data-filtro],[data-ver],[data-bajar],[data-copiar],[data-grupo],[data-nuevo],[data-editar],[data-borrar],[data-subir],[data-curso],[data-mover],[data-mgrupo],[data-renombrar],[data-entreno-cal],[data-entreno-edit],[data-flyer]");
@@ -808,10 +875,13 @@
     var ls = x.seccion === "video" ? lecciones(cursoDe(x)) : [], pos = ls.indexOf(x);
     if (ls.length > 1) pie = '<div class="vw-f vw-nav"><button class="btn sec" data-vir="' + (pos - 1) + '" type="button"' + (pos > 0 ? "" : " disabled") + ">" + ic("back") + 'Anterior</button><span class="vw-pos">Video ' + (pos + 1) + " de " + ls.length + '</span><button class="btn" data-vir="' + (pos + 1) + '" type="button"' + (pos < ls.length - 1 ? "" : " disabled") + ">Siguiente" + ic("chev") + "</button></div>";
     var conDesc = x.seccion === "video" && x.descripcion;
-    $("#layer").innerHTML = '<div class="viewer' + (conDesc ? " cd" : "") + '" role="dialog" aria-modal="true" aria-label="' + esc(x.titulo) + '"><div class="vw-h"><b>' + esc(x.titulo) + '</b><button class="mini ico" data-vcerrar type="button" aria-label="Cerrar">' + ic("x") + '</button></div><div class="vw-b">' + cuerpo + "</div>" +
+    $("#layer").innerHTML = '<div class="viewer' + (conDesc ? " cd" : "") + '" role="dialog" aria-modal="true" aria-label="' + esc(x.titulo) + '"><div class="vw-h"><b>' + esc(x.titulo) + "</b>" +
+      (admin() && x.tipo === "image" && !x.panel && x.seccion === "archivo" ? '<button class="mini" data-vflyer type="button">' + ic("cal") + "Fecha automática</button>" : "") +
+      '<button class="mini ico" data-vcerrar type="button" aria-label="Cerrar">' + ic("x") + '</button></div><div class="vw-b">' + cuerpo + "</div>" +
       (conDesc ? pie + '<div class="vw-desc">' + rico(x.descripcion) + "</div>" : pie) + "</div>";
     document.body.style.overflow = "hidden";
     $("[data-vcerrar]").onclick = cerrar;
+    var vf = $("[data-vflyer]"); if (vf) vf.onclick = function () { editarFlyer(x); };
     var b = $("[data-vbajar]"); if (b) b.onclick = function () { bajar(x, b); };
     [].forEach.call(document.querySelectorAll("[data-vir]"), function (n) { n.onclick = function () { var y = ls[+n.dataset.vir]; if (y) ver(y); }; });
     var vw = $(".viewer"); vw.addEventListener("click", function (e) { if (e.target === vw || e.target.classList.contains("vw-b")) cerrar(); });
