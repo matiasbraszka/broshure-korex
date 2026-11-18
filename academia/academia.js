@@ -292,7 +292,8 @@
     var gs = grupos(l);
     if (!gs.length) return h + '<div class="empty">' + (S.q ? "No hay links con esa búsqueda." : "Todavía no hay links.") + "</div>";
     gs.forEach(function (g) {
-      h += '<section class="lgrp"><div class="lgrp-h"><span>' + esc(g[0]) + "</span>" + flechasGrupo("link", g[0]) + "</div>";
+      h += '<section class="lgrp"><div class="lgrp-h"><span class="lgrp-t"><i>' + ic("link") + "</i><b>" + esc(g[0]) + "</b><em>" + g[1].length + "</em></span>" + flechasGrupo("link", g[0]) +
+        (admin() && !S.q ? '<button class="mini ico" data-nuevo="link" data-en="' + esc(g[0]) + '" title="Agregar link a este grupo" type="button">' + ic("plus") + "</button>" : "") + "</div>";
       g[1].forEach(function (x, xi) {
         h += '<div class="lrow"><span class="lic">' + ic("link") + '</span><div class="lt"><b>' + esc(x.titulo) + "</b>" + (x.descripcion ? "<span>" + esc(x.descripcion) + "</span>" : "") + "<code>" + esc(corta(x.url)) + "</code></div>" +
           '<div class="la"><a class="mini" href="' + esc(x.url) + '" target="_blank" rel="noopener">' + ic("ext") + 'Abrir</a><button class="mini" data-copiar="' + esc(x.id) + '" type="button">' + ic("copy") + "Copiar</button>" +
@@ -322,7 +323,7 @@
     else if (d.bajar) bajar(porId(d.bajar), t);
     else if (d.copiar) copiar(porId(d.copiar), t);
     else if (d.grupo) { var sec = t.closest(".grp"); var abierto = !sec.classList.contains("open"); sec.classList.toggle("open", abierto); S.abiertos[d.grupo] = abierto; }
-    else if (d.nuevo) formulario(d.nuevo, null);
+    else if (d.nuevo) { S.nuevoGrupo = d.en || ""; formulario(d.nuevo, null); }
     else if (d.editar) { var it = porId(d.editar); if (it) formulario(it.seccion, it); }
     else if (d.borrar) borrar(porId(d.borrar));
     else if (d.subir) subirArchivos(porId(d.subir));
@@ -444,17 +445,44 @@
   }
   // "loom.com/share/…" o "www.youtube.com/…" pegado sin https:// también vale.
   function conHttps(u) { u = String(u || "").trim(); return u && !/^https?:\/\//i.test(u) && /^[\w-]+(\.[\w-]+)+\//.test(u) ? "https://" + u : u; }
+  // Desplegable de grupo/curso: elige uno existente o «Crear … nuevo» (muestra un campo de texto).
+  // El valor final queda siempre en el input #id, así val(id) sirve igual.
+  function campoGrupo(id, label, valor, lista, cosa) {
+    valor = valor || "";
+    var existe = lista.indexOf(valor) > -1, crear = !lista.length || (valor && !existe);
+    var opts = (lista.length ? '<option value="" disabled' + (!valor ? " selected" : "") + ">Elige un " + cosa + "…</option>" : "") +
+      lista.map(function (g) { return '<option value="' + esc(g) + '"' + (g === valor ? " selected" : "") + ">" + esc(g) + "</option>"; }).join("") +
+      '<option value="__nuevo"' + (crear ? " selected" : "") + ">+ Crear " + cosa + " nuevo</option>";
+    return '<label class="fld"><span>' + label + '</span><div class="sel"><select class="inp" data-gsel="' + id + '">' + opts + "</select></div>" +
+      '<input class="inp" id="' + id + '" value="' + esc(valor) + '" placeholder="Nombre del ' + cosa + ' nuevo" autocomplete="off"' + (crear ? "" : " hidden") + "></label>";
+  }
+  function activarGrupos() {
+    [].forEach.call(document.querySelectorAll("[data-gsel]"), function (s) {
+      var inp = $("#" + s.dataset.gsel);
+      s.addEventListener("change", function () {
+        if (s.value === "__nuevo") { inp.hidden = false; inp.value = ""; inp.focus(); } else { inp.hidden = true; inp.value = s.value; }
+      });
+    });
+  }
+  // Orden de un elemento nuevo (o que cambia de grupo): al final de SU grupo; grupo nuevo → al final de todo.
+  function ordenNuevo(sec, item) {
+    var k = claveG(item), g = gruposSec(sec).filter(function (x) { return x[0] === k; })[0];
+    var otros = g ? g[1].filter(function (x) { return x.id !== item.id; }) : [];
+    if (otros.length) return Math.max.apply(null, otros.map(function (x) { return x.orden || 0; })) + 10;
+    var mx = Math.max.apply(null, de(sec).map(function (x) { return x.orden || 0; }).concat([0]));
+    return (Math.floor(mx / 1000) + 1) * 1000;
+  }
   function val(id) { var el = $("#" + id); return el ? el.value.trim() : ""; }
   function gruposDe(sec) { var s = {}; de(sec).forEach(function (x) { if (x.grupo) s[x.grupo] = 1; }); return Object.keys(s); }
 
   function formulario(sec, it) {
     var nuevo = !it; it = it || {};
     var c = "";
-    if (sec === "guion") c = campo("fGrupo", "Grupo", it.grupo || (S.q ? "" : ""), { lista: gruposDe("guion"), ph: "Ej.: Objeciones", ayuda: "Elige uno existente o escribe uno nuevo." }) + campo("fTitulo", "Título", it.titulo) + campo("fTexto", "Texto del guion", it.texto, { area: 1 });
-    else if (sec === "link") c = campo("fGrupo", "Grupo", it.grupo, { lista: gruposDe("link"), ph: "Ej.: Tarjeta BIX" }) + campo("fTitulo", "Título", it.titulo) + campo("fDesc", "Descripción (opcional)", it.descripcion) + campo("fUrl", "Link", it.url, { ph: "https://…" });
+    if (sec === "guion") c = campoGrupo("fGrupo", "Grupo", it.grupo, gruposSec("guion").map(function (g) { return g[0]; }), "grupo") + campo("fTitulo", "Título", it.titulo) + campo("fTexto", "Texto del guion", it.texto, { area: 1 });
+    else if (sec === "link") c = campoGrupo("fGrupo", "Grupo", it.grupo || S.nuevoGrupo, gruposSec("link").map(function (g) { return g[0]; }), "grupo") + campo("fTitulo", "Título", it.titulo) + campo("fDesc", "Descripción (opcional)", it.descripcion) + campo("fUrl", "Link", it.url, { ph: "https://…" });
     else if (sec === "carpeta") c = campo("fTitulo", "Nombre de la carpeta", it.titulo) + campo("fDesc", "Descripción (opcional)", it.descripcion);
     else if (sec === "video") {
-      c = campo("fCurso", "Curso", nuevo ? (S.curso || "") : cursoDe(it), { lista: cursos(), ph: "Ej.: Primeros pasos", ayuda: "Elige un curso existente o escribe uno nuevo para crearlo." }) +
+      c = campoGrupo("fCurso", "Curso", nuevo ? (S.curso || "") : cursoDe(it), cursos(), "curso") +
         campo("fTitulo", "Título del video", it.titulo) + campo("fDesc", "Descripción (opcional)", it.descripcion, { area: 1, ayuda: "Se ve debajo del video al abrirlo. Pega links a recursos o páginas: quedan para tocar. La primera línea sale también en la lista del curso." });
       if (nuevo) c += '<div class="opt" id="fModo"><button type="button" class="on" data-m="archivo">Subir un video</button><button type="button" data-m="link">Pegar un link</button></div>' +
         '<div id="mArchivo"><div class="drop" id="fDrop">' + ic("up") + '<b>Elige el video</b><small>MP4 o MOV. Se ve en la Academia y no se puede descargar.</small><input type="file" id="fFile" accept="video/*"></div></div>' +
@@ -473,6 +501,7 @@
     });
     var fFile = $("#fFile");
     if (fFile) fFile.addEventListener("change", function () { var f = fFile.files[0]; if (f) { $("#fDrop b").textContent = f.name; if (!val("fTitulo")) $("#fTitulo").value = f.name.replace(/\.[^.]+$/, ""); } });
+    activarGrupos(); S.nuevoGrupo = "";
     var t0 = $("#fTitulo"); if (t0) setTimeout(function () { t0.focus(); }, 50);
 
     $("#fOk").onclick = function () {
@@ -480,15 +509,16 @@
       var item = { seccion: sec, titulo: val("fTitulo") };
       if (it.id) item.id = it.id;
       if (!item.titulo) { toast("Falta el título."); return; }
-      if (sec === "guion") { item.grupo = val("fGrupo") || "Otros"; item.texto = $("#fTexto").value; if (!item.texto.trim()) { toast("Falta el texto."); return; } }
-      if (sec === "link") { item.grupo = val("fGrupo") || "Otros"; item.descripcion = val("fDesc"); item.url = conHttps(val("fUrl")); if (!/^https?:\/\//.test(item.url)) { toast("El link tiene que empezar con https://"); return; } }
+      if (sec === "guion") { item.grupo = val("fGrupo"); if (!item.grupo) { toast("Elige un grupo."); return; } item.texto = $("#fTexto").value; if (!item.texto.trim()) { toast("Falta el texto."); return; } }
+      if (sec === "link") { item.grupo = val("fGrupo"); if (!item.grupo) { toast("Elige un grupo."); return; } item.descripcion = val("fDesc"); item.url = conHttps(val("fUrl")); if (!/^https?:\/\//.test(item.url)) { toast("El link tiene que empezar con https://"); return; } }
       if (sec === "carpeta") item.descripcion = val("fDesc");
       if (sec === "video") {
-        item.grupo = val("fCurso"); if (!item.grupo) { toast("Falta el curso."); return; }
+        item.grupo = val("fCurso"); if (!item.grupo) { toast("Elige un curso."); return; }
         item.descripcion = val("fDesc"); item.descargable = false;
         if (!nuevo) { item.url = conHttps(val("fUrl")); item.miniatura = val("fMini"); }
       }
-      if (nuevo && !item.id) item.orden = 1000 + de(sec).length * 10;
+      item.seccion = sec;
+      if (nuevo || ("grupo" in item && claveG(it) !== claveG(item))) item.orden = ordenNuevo(sec, item);
       ok.disabled = true; ok.textContent = "Guardando…";
       var paso = Promise.resolve(item);
       if (sec === "video" && nuevo) {
