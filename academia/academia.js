@@ -452,6 +452,10 @@
     try { var p = JSON.parse(x.texto); return p && p.cajas && p.cajas.length ? p : null; } catch (e) { return null; }
   }
   function usa(p, rx) { return p.cajas.some(function (b) { return rx.test(b.t || ""); }); }
+  // Días de la semana que se pueden elegir en ese flyer (p.dias, 0 = domingo). Sin dato: todos.
+  function diasOk(p) { return p.dias && p.dias.length ? p.dias : [0, 1, 2, 3, 4, 5, 6]; }
+  function proximosDias(p, n) { var ok = diasOk(p), r = [], d = hoy0(); for (var i = 0; r.length < n && i < 60; i++) { if (ok.indexOf(d.getDay()) > -1) r.push(d); d = sumar(d, 1); } return r; }
+  function fechaInicial(p) { return { lunes: semanaBase(), dia: proximosDias(p, 1)[0] || hoy0() }; }
   function hoy0() { var d = new Date(); d.setHours(12, 0, 0, 0); return d; }
   function sumar(d, n) { var r = new Date(d); r.setDate(r.getDate() + n); return r; }
   function lunesDe(d) { var w = d.getDay(); return sumar(d, w === 0 ? -6 : 1 - w); }
@@ -544,9 +548,9 @@
     } catch (e) { return null; }
   }
   function pintarMinis() {
-    var f = { lunes: semanaBase(), dia: hoy0() };
     [].forEach.call(document.querySelectorAll("[data-pl]"), function (el) {
       var x = porId(el.dataset.pl), p = plantilla(x); if (!p) return;
+      var f = fechaInicial(p);
       var k = x.id + "|" + x.texto + "|" + f.lunes.toDateString() + f.dia.toDateString();
       var poner = function () { [].forEach.call(document.querySelectorAll('[data-pl="' + x.id + '"]'), function (n) { n.style.backgroundImage = "url('" + MINIS[k] + "')"; }); };
       if (MINIS[k]) { poner(); return; }
@@ -558,7 +562,7 @@
   }
   function cuandoTxt(p, f) { return usa(p, RX_SEM) ? rangoTxt(f.lunes) : f.dia.getDate() + " de " + MESES[f.dia.getMonth()]; }
   function verFlyer(x, p) {
-    var f = { lunes: semanaBase(), dia: hoy0() }, l0 = semanaBase(), h0 = hoy0(), blob = null, cv;
+    var f = fechaInicial(p), l0 = semanaBase(), h0 = hoy0(), blob = null, cv, lista = proximosDias(p, 7);
     var ops = "";
     if (usa(p, RX_SEM)) ops += '<div class="chips fl-ch" data-q="sem">' + [0, 7, 14].map(function (n) {
       var l = sumar(l0, n), v = sumar(l, 4), rel = diasEntre(lunesDe(h0), l) / 7;
@@ -566,8 +570,8 @@
       var sub = l.getMonth() === v.getMonth() ? l.getDate() + "–" + v.getDate() + " " + MES3[v.getMonth()] : l.getDate() + " " + MES3[l.getMonth()] + " – " + v.getDate() + " " + MES3[v.getMonth()];
       return '<button class="chip' + (n ? "" : " on") + '" data-v="' + n + '" type="button">' + et + "<small>" + sub + "</small></button>";
     }).join("") + "</div>";
-    if (usa(p, RX_DIA)) ops += '<div class="chips fl-ch" data-q="dia">' + [0, 1, 2, 3, 4, 5, 6].map(function (n) {
-      var d = sumar(h0, n), et = n === 0 ? "Hoy" : DIAS[d.getDay()].charAt(0).toUpperCase() + DIAS[d.getDay()].slice(1, 3);
+    if (usa(p, RX_DIA)) ops += '<div class="chips fl-ch" data-q="dia">' + lista.map(function (d, n) {
+      var et = diasEntre(h0, d) === 0 ? "Hoy" : DIAS[d.getDay()].charAt(0).toUpperCase() + DIAS[d.getDay()].slice(1, 3);
       return '<button class="chip' + (n ? "" : " on") + '" data-v="' + n + '" type="button">' + et + "<small>" + d.getDate() + " " + MES3[d.getMonth()] + "</small></button>";
     }).join("") + "</div>";
     $("#layer").innerHTML = '<div class="viewer fl-v" role="dialog" aria-modal="true" aria-label="' + esc(x.titulo) + '"><div class="vw-h"><b>' + esc(x.titulo) + '</b><button class="mini ico" data-vcerrar type="button" aria-label="Cerrar">' + ic("x") + '</button></div>' +
@@ -588,7 +592,7 @@
       g.addEventListener("click", function (e) {
         var b = e.target.closest("[data-v]"); if (!b) return;
         [].forEach.call(g.children, function (n) { n.classList.toggle("on", n === b); });
-        if (g.dataset.q === "sem") f.lunes = sumar(l0, +b.dataset.v); else f.dia = sumar(h0, +b.dataset.v);
+        if (g.dataset.q === "sem") f.lunes = sumar(l0, +b.dataset.v); else f.dia = lista[+b.dataset.v];
         pintar();
       });
     });
@@ -614,12 +618,22 @@
 
   function editarFlyer(x) {
     var antes = plantilla(x), p = JSON.parse(JSON.stringify(antes || { cajas: [] })), sel = p.cajas.length ? 0 : -1, im = null, drag = null, raf = 0;
-    var f = { lunes: semanaBase(), dia: hoy0() };
-    dlg("Fecha automática", '<div class="fle-g"><div><p class="fle-ay">Arrastra sobre la imagen para marcar dónde va la fecha: justo encima del texto, desde arriba de las letras hasta la base.</p><div class="fle" id="flE"><canvas id="flC"></canvas><div id="flB"></div></div></div><div id="flF"></div></div>',
+    var f = fechaInicial(p);
+    var dsel = diasOk(p), dbtn = [[1, "L"], [2, "M"], [3, "X"], [4, "J"], [5, "V"], [6, "S"], [0, "D"]].map(function (d) { return '<button type="button" class="chip' + (dsel.indexOf(d[0]) > -1 ? " on" : "") + '" data-wd="' + d[0] + '">' + d[1] + "</button>"; }).join("");
+    dlg("Fecha automática", '<div class="fle-g"><div><p class="fle-ay">Arrastra sobre la imagen para marcar dónde va la fecha: justo encima del texto, desde arriba de las letras hasta la base.</p><div class="fle" id="flE"><canvas id="flC"></canvas><div id="flB"></div></div>' +
+      '<div class="fl-dias"><span>Días que se pueden elegir al descargar</span><div class="fl-toks" id="flD">' + dbtn + "</div></div></div><div id=\"flF\"></div></div>",
       (antes ? '<button class="btn sec" id="flQuitar" type="button">Quitar fecha automática</button>' : "") + '<button class="btn sec" data-dcerrar2 type="button">Cancelar</button><button class="btn" id="fOk" type="button">Guardar</button>');
     $(".dlg").classList.add("dlg-xl");
     $("[data-dcerrar2]").onclick = cerrar;
     var E = $("#flE"), C = $("#flC");
+    $("#flD").addEventListener("click", function (e) {
+      var t = e.target.closest("[data-wd]"); if (!t) return;
+      t.classList.toggle("on");
+      var on = [].filter.call($("#flD").children, function (n) { return n.classList.contains("on"); }).map(function (n) { return +n.dataset.wd; });
+      if (!on.length) { t.classList.add("on"); toast("Deja al menos un día."); return; }
+      if (on.length === 7) delete p.dias; else p.dias = on;
+      f = fechaInicial(p); ejemplo(); pedir();
+    });
     function redibujar() { raf = 0; if (im) dibujar(C, im, p, f, 1100); }
     function pedir() { if (!raf) raf = requestAnimationFrame(redibujar); }
     function zonas() {
@@ -651,7 +665,7 @@
         '<input type="color" class="inp col" id="flTc"' + (tp === "fijo" ? "" : " hidden") + ' value="' + esc(tp === "fijo" ? b.tapar : (b.fondo || ["#000000"])[0]) + '"></label>';
       ejemplo();
     }
-    function ejemplo() { var b = p.cajas[sel], e = $("#flEj"); if (b && e) e.textContent = "Esta semana se ve: «" + textoCaja(b, f) + "»"; }
+    function ejemplo() { var b = p.cajas[sel], e = $("#flEj"); if (b && e) e.textContent = "Ejemplo: «" + textoCaja(b, f) + "»"; }
     function leer() {
       var b = p.cajas[sel]; if (!b) return;
       b.t = $("#flT").value; b.may = $("#flMay").value; b.al = $("#flAl").value; b.fuente = $("#flFu").value; b.peso = +$("#flPe").value;

@@ -358,3 +358,6 @@ textarea.inp{min-height:160px;padding:11px 13px;resize:vertical;line-height:1.5}
 .fl-row{display:flex;align-items:center;gap:10px}
 .fl-row input[type=checkbox]{width:20px;height:20px;flex:none}
 .dlg-f #flQuitar{margin-right:auto}
+.fl-dias{display:grid;gap:8px;margin-top:12px}
+.fl-dias>span{font-size:13.5px;font-weight:600}
+.fl-dias .chip{min-width:38px;justify-content:center}
