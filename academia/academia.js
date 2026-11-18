@@ -117,7 +117,7 @@
     if (s.vivo) return { txt: "En vivo ahora · termina a las " + horaLocal(s.fin), vivo: true };
     var a = partes(ahora, zonaUsuario() || ENT.tz), b = partes(s.ini, zonaUsuario() || ENT.tz);
     var dif = Math.round((Date.UTC(b.y, b.m - 1, b.d) - Date.UTC(a.y, a.m - 1, a.d)) / 864e5);
-    var dia = dif === 0 ? "Hoy" : dif === 1 ? "Mañana" : DIAS[b.wd].charAt(0).toUpperCase() + DIAS[b.wd].slice(1);
+    var dia = dif === 0 ? "Hoy" : DIAS[b.wd].charAt(0).toUpperCase() + DIAS[b.wd].slice(1);
     var falta = s.ini - ahora, extra = falta < 3600000 ? " · empieza en " + Math.max(1, Math.ceil(falta / 60000)) + " min" : "";
     var enEspana = new Intl.DateTimeFormat("es", { timeZone: ENT.tz, hour: "2-digit", minute: "2-digit", hour12: false }).format(new Date(s.ini));
     var tuHora = horaLocal(s.ini) !== enEspana ? " (tu hora)" : "";
