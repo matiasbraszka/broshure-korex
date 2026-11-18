@@ -325,7 +325,9 @@
     $("#layer").innerHTML = '<div class="scrim"><div class="dlg" role="dialog" aria-modal="true" aria-label="' + esc(titulo) + '"><div class="dlg-h"><b>' + esc(titulo) + '</b><button class="mini ico" data-dcerrar type="button" aria-label="Cerrar">' + ic("x") + '</button></div><div class="dlg-b">' + cuerpo + '</div><div class="dlg-f">' + pie + "</div></div></div>";
     document.body.style.overflow = "hidden";
     $("[data-dcerrar]").onclick = cerrar;
-    var sc = $(".scrim"); sc.addEventListener("mousedown", function (e) { if (e.target === sc) cerrar(); });
+    // Los primeros 500 ms se ignoran los toques fuera (un doble toque la cerraba al instante).
+    var abierto = Date.now(), sc = $(".scrim");
+    sc.addEventListener("mousedown", function (e) { if (e.target === sc && Date.now() - abierto > 500) cerrar(); });
   }
   function campo(id, label, valor, extra) {
     extra = extra || {};
@@ -397,17 +399,31 @@
     };
   }
 
+  // Confirmación propia (no window.confirm): un toque doble o un Enter de más en el
+  // cartel del navegador volvía a disparar el botón y borraba también el elemento siguiente.
+  var borrando = false;
   function borrar(x) {
-    if (!x) return;
-    var msg = x.panel ? "¿Ocultar «" + x.titulo + "» de la Academia? Sigue estando en el panel." :
-      x.seccion === "carpeta" ? "¿Borrar la carpeta «" + x.titulo + "»" + (x.en_vivo ? "? Los anuncios siguen estando en el panel." : " y todo lo que tiene adentro?") :
-      "¿Borrar «" + x.titulo + "»?";
-    if (!confirm(msg)) return;
-    api("borrar", { id: x.id }).then(function (j) {
-      if (!j.ok) { toast("No se pudo borrar."); return; }
-      if (x.seccion === "carpeta") S.carpeta = null;
-      toast(x.panel ? "Oculto" : "Borrado"); recargar();
-    });
+    if (!x || borrando || $("#layer").innerHTML) return;
+    if (document.activeElement) document.activeElement.blur();
+    var msg = x.panel ? "Se oculta de la Academia, pero sigue estando en el panel." :
+      x.seccion === "carpeta" ? (x.en_vivo ? "Los anuncios siguen estando en el panel." : "Se borra también todo lo que tiene adentro.") :
+      "Esto no se puede deshacer.";
+    dlg((x.panel ? "¿Ocultar «" : "¿Borrar «") + x.titulo + "»?", "<p style=\"margin:0;color:var(--text-2)\">" + esc(msg) + "</p>",
+      '<button class="btn sec" data-dcerrar2 type="button">Cancelar</button><button class="btn del" id="bBorrar" type="button">' + (x.panel ? "Ocultar" : "Borrar") + "</button>");
+    $("[data-dcerrar2]").onclick = cerrar;
+    $("#bBorrar").onclick = function () {
+      if (borrando) return;
+      borrando = true; this.disabled = true; this.textContent = "Borrando…";
+      api("borrar", { id: x.id }).then(function (j) {
+        cerrar();
+        if (!j.ok) { toast("No se pudo borrar."); return; }
+        S.items = S.items.filter(function (y) { return y.id !== x.id && y.padre !== x.id; });
+        if (x.seccion === "carpeta") S.carpeta = null;
+        render(); toast(x.panel ? "Oculto" : "Borrado");
+        return recargar();
+      }).catch(function () { cerrar(); toast("No se pudo borrar."); })
+        .then(function () { setTimeout(function () { borrando = false; }, 400); });
+    };
   }
 
   /* ---------------- admin: subir archivos ---------------- */
