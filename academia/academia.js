@@ -26,6 +26,7 @@
     up: '<path d="M12 16V5"/><path d="M7 10l5-5 5 5"/><path d="M5 20h14"/>',
     img: '<rect x="3.5" y="4.5" width="17" height="15" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M20.5 16l-5-5-8 8.5"/>',
     vid: '<rect x="3" y="5.5" width="13" height="13" rx="2"/><path d="M16 10l5-3v10l-5-3"/>',
+    cal: '<rect x="4" y="5.5" width="16" height="14.5" rx="2"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/>',
     arr: '<path d="M12 6v12M7 11l5-5 5 5"/>',
     abj: '<path d="M12 6v12M7 13l5 5 5-5"/>'
   };
@@ -75,7 +76,133 @@
   $("#bSalir").addEventListener("click", salir);
 
   /* ---------------- datos ---------------- */
-  function de(seccion) { return S.items.filter(function (x) { return x.seccion === seccion; }); }
+  function de(seccion) { return S.items.filter(function (x) { return x.seccion === seccion && !esEntreno(x); }); }
+
+  /* ---------------- entrenamiento en vivo ----------------
+     Fila de academia_items: seccion link, grupo "__entrenamiento"; url = Zoom, descarga = .ics en Storage.
+     Días y hora fijos acá: lunes, miércoles y viernes de 19:00 a 20:00, hora de España.  */
+  var ENT = { dias: [1, 3, 5], hora: 19, min: 0, dur: 60, tz: "Europe/Madrid", rrule: "RRULE:FREQ=WEEKLY;BYDAY=MO,WE,FR", titulo: "Entrenamiento privado Korex" };
+  var DIAS = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
+  function esEntreno(x) { return x.grupo === "__entrenamiento"; }
+  function entreno() { return S.items.filter(esEntreno)[0] || null; }
+  // Partes de fecha/hora de un instante en una zona horaria.
+  function partes(ms, tz) {
+    var o = {};
+    new Intl.DateTimeFormat("en-US", { timeZone: tz, hourCycle: "h23", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", weekday: "short" })
+      .formatToParts(new Date(ms)).forEach(function (p) { o[p.type] = p.value; });
+    return { y: +o.year, m: +o.month, d: +o.day, h: +o.hour, mi: +o.minute, wd: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(o.weekday) };
+  }
+  // Instante (ms) de y-m-d hh:mm en la zona tz.
+  function instante(y, m, d, h, mi, tz) {
+    var guess = Date.UTC(y, m - 1, d, h, mi), p = partes(guess, tz);
+    var off = Date.UTC(p.y, p.m - 1, p.d, p.h, p.mi) - guess;
+    return guess - off;
+  }
+  // Próxima sesión que todavía no terminó: { ini, fin, vivo }.
+  function proxima(ahora) {
+    var hoy = partes(ahora, ENT.tz);
+    for (var k = 0; k < 9; k++) {
+      var base = new Date(Date.UTC(hoy.y, hoy.m - 1, hoy.d + k));
+      if (ENT.dias.indexOf(base.getUTCDay()) < 0) continue;
+      var ini = instante(base.getUTCFullYear(), base.getUTCMonth() + 1, base.getUTCDate(), ENT.hora, ENT.min, ENT.tz), fin = ini + ENT.dur * 60000;
+      if (fin > ahora) return { ini: ini, fin: fin, vivo: ahora >= ini };
+    }
+    return null;
+  }
+  function horaLocal(ms) { return new Intl.DateTimeFormat("es", { hour: "2-digit", minute: "2-digit", hour12: false }).format(new Date(ms)); }
+  function zonaUsuario() { try { return Intl.DateTimeFormat().resolvedOptions().timeZone || ""; } catch (e) { return ""; } }
+  function estadoEntreno() {
+    var ahora = Date.now(), s = proxima(ahora);
+    if (!s) return { txt: "", vivo: false };
+    if (s.vivo) return { txt: "En vivo ahora · termina a las " + horaLocal(s.fin), vivo: true };
+    var a = partes(ahora, zonaUsuario() || ENT.tz), b = partes(s.ini, zonaUsuario() || ENT.tz);
+    var dif = Math.round((Date.UTC(b.y, b.m - 1, b.d) - Date.UTC(a.y, a.m - 1, a.d)) / 864e5);
+    var dia = dif === 0 ? "Hoy" : dif === 1 ? "Mañana" : DIAS[b.wd].charAt(0).toUpperCase() + DIAS[b.wd].slice(1);
+    var falta = s.ini - ahora, extra = falta < 3600000 ? " · empieza en " + Math.max(1, Math.ceil(falta / 60000)) + " min" : "";
+    var enEspana = new Intl.DateTimeFormat("es", { timeZone: ENT.tz, hour: "2-digit", minute: "2-digit", hour12: false }).format(new Date(s.ini));
+    var tuHora = horaLocal(s.ini) !== enEspana ? " (tu hora)" : "";
+    return { txt: "Próximo: " + dia + " a las " + horaLocal(s.ini) + tuHora + extra, vivo: false };
+  }
+  function vEntreno() {
+    var e = entreno();
+    if (!e) return admin() ? '<button class="addcard addrow" data-entreno-edit type="button"><span class="plus">' + ic("plus") + "</span>Configurar el entrenamiento en vivo</button>" : "";
+    var st = estadoEntreno();
+    return '<section class="ent' + (st.vivo ? " vivo" : "") + '">' +
+      '<div class="ent-i">' + ic("vid") + "</div>" +
+      '<div class="ent-t"><span class="ent-lab">Entrenamiento en vivo</span>' +
+      "<b>Lunes, miércoles y viernes · 19:00 España</b>" +
+      '<span class="ent-sub"><span id="entEstado">' + (st.vivo ? '<i class="dot"></i>' : "") + esc(st.txt) + "</span></span></div>" +
+      '<div class="ent-a"><a class="btn" href="' + esc(e.url) + '" target="_blank" rel="noopener">' + ic("vid") + "Entrar al Zoom</a>" +
+      '<button class="btn sec" data-entreno-cal type="button">' + ic("cal") + "Agregar al calendario</button>" +
+      (admin() ? '<button class="mini ico" data-entreno-edit title="Cambiar link de Zoom" type="button">' + ic("pen") + "</button>" : "") + "</div></section>";
+  }
+  setInterval(function () { var el = $("#entEstado"); if (!el) return; var st = estadoEntreno(); el.innerHTML = (st.vivo ? '<i class="dot"></i>' : "") + esc(st.txt); var c = el.closest(".ent"); if (c) c.classList.toggle("vivo", st.vivo); }, 30000);
+
+  function fechaCal(ms, tz) { var p = partes(ms, tz); function z(n) { return (n < 10 ? "0" : "") + n; } return p.y + z(p.m) + z(p.d) + "T" + z(p.h) + z(p.mi) + "00"; }
+  function googleCal(e) {
+    var s = proxima(Date.now());
+    return "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + encodeURIComponent(ENT.titulo) +
+      "&dates=" + fechaCal(s.ini, ENT.tz) + "/" + fechaCal(s.fin, ENT.tz) + "&ctz=" + encodeURIComponent(ENT.tz) +
+      "&recur=" + encodeURIComponent(ENT.rrule) + "&location=" + encodeURIComponent(e.url) +
+      "&details=" + encodeURIComponent("Entra por Zoom: " + e.url + "\n\nRecursos: https://info.metodokorex.com/academia");
+  }
+  function icsTexto(url) {
+    var s = proxima(Date.now()), ahora = new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d+/, "");
+    function esc2(t) { return String(t).replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\n/g, "\\n"); }
+    return ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Metodo Korex//Academia//ES", "CALSCALE:GREGORIAN", "METHOD:PUBLISH",
+      "BEGIN:VTIMEZONE", "TZID:Europe/Madrid",
+      "BEGIN:DAYLIGHT", "TZOFFSETFROM:+0100", "TZOFFSETTO:+0200", "TZNAME:CEST", "DTSTART:19700329T020000", "RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU", "END:DAYLIGHT",
+      "BEGIN:STANDARD", "TZOFFSETFROM:+0200", "TZOFFSETTO:+0100", "TZNAME:CET", "DTSTART:19701025T030000", "RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU", "END:STANDARD",
+      "END:VTIMEZONE",
+      "BEGIN:VEVENT", "UID:entrenamiento-korex@metodokorex.com", "DTSTAMP:" + ahora,
+      "DTSTART;TZID=Europe/Madrid:" + fechaCal(s.ini, ENT.tz), "DTEND;TZID=Europe/Madrid:" + fechaCal(s.fin, ENT.tz), ENT.rrule,
+      "SUMMARY:" + esc2(ENT.titulo), "LOCATION:" + esc2(url), "URL:" + url,
+      "DESCRIPTION:" + esc2("Entra por Zoom: " + url + "\n\nRecursos: https://info.metodokorex.com/academia"),
+      "BEGIN:VALARM", "ACTION:DISPLAY", "DESCRIPTION:" + esc2(ENT.titulo), "TRIGGER:-PT15M", "END:VALARM",
+      "END:VEVENT", "END:VCALENDAR"].map(function (l) { // líneas de máx. 75 caracteres (RFC 5545)
+        var o = []; while (l.length > 74) { o.push(l.slice(0, 74)); l = " " + l.slice(74); } o.push(l); return o.join("\r\n");
+      }).join("\r\n") + "\r\n";
+  }
+  function calendario() {
+    var e = entreno(); if (!e) return;
+    var ics = e.descarga || "";
+    dlg("Agregar al calendario",
+      '<p class="cal-intro">Se agrega una sola vez y queda <b>todos los lunes, miércoles y viernes a las 19:00 (España)</b>, con un aviso 15 minutos antes. Tu calendario lo pasa solo a tu hora.</p>' +
+      '<div class="cal-opts">' +
+      '<a class="cal-op" href="' + esc(googleCal(e)) + '" target="_blank" rel="noopener"><span class="cal-ic g">G</span><span><b>Google Calendar</b><small>Android, Gmail o la compu</small></span>' + ic("chev") + "</a>" +
+      '<a class="cal-op" ' + (ics ? 'href="' + esc(ics) + '"' : 'href="#" data-ics-local') + '><span class="cal-ic a">' + ic("cal") + '</span><span><b>iPhone, Mac u Outlook</b><small>Se abre el calendario y tocas «Agregar»</small></span>' + ic("chev") + "</a>" +
+      "</div>",
+      '<button class="btn sec" data-dcerrar2 type="button">Cerrar</button>');
+    $("[data-dcerrar2]").onclick = cerrar;
+    var loc = $("[data-ics-local]");
+    if (loc) loc.onclick = function (ev) {
+      ev.preventDefault();
+      var a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([icsTexto(e.url)], { type: "text/calendar" })); a.download = "entrenamiento-korex.ics";
+      document.body.appendChild(a); a.click(); a.remove();
+    };
+  }
+  // Admin: guarda el link de Zoom y regenera el .ics (archivo nuevo en Storage).
+  function editarEntreno() {
+    var e = entreno() || {};
+    dlg("Entrenamiento en vivo", campo("fZoom", "Link de Zoom", e.url, { ph: "https://us06web.zoom.us/j/…", ayuda: "Lunes, miércoles y viernes de 19:00 a 20:00 (España). Para cambiar días u horario, pídelo." }),
+      '<button class="btn sec" data-dcerrar2 type="button">Cancelar</button><button class="btn" id="fOk" type="button">Guardar</button>');
+    $("[data-dcerrar2]").onclick = cerrar;
+    $("#fOk").onclick = function () {
+      var url = conHttps(val("fZoom")), ok = this;
+      if (!/^https:\/\/[^\s]+$/.test(url)) { toast("Pega el link de Zoom completo."); return; }
+      ok.disabled = true; ok.textContent = "Guardando…";
+      api("subir_archivo", { nombre: "entrenamiento-korex.ics" }).then(function (r) {
+        if (!r.ok) throw new Error(r.error || "subida");
+        return fetch(r.subir, { method: "PUT", headers: { "Content-Type": "text/calendar; charset=utf-8", "x-upsert": "false" }, body: icsTexto(url) }).then(function (x) {
+          if (!x.ok) throw new Error("ics " + x.status);
+          var item = { titulo: "Entrenamiento en vivo", url: url, descarga: r.url, grupo: "__entrenamiento", descripcion: "Lunes, miércoles y viernes · 19:00 a 20:00 (España)" };
+          if (e.id) item.id = e.id; else { item.seccion = "link"; item.orden = 0; }
+          return api("guardar", { item: item });
+        });
+      }).then(function (j) { if (!j.ok) throw new Error(j.error || "guardar"); cerrar(); toast("Guardado"); return recargar(); })
+        .catch(function (er) { ok.disabled = false; ok.textContent = "Guardar"; toast("No se pudo guardar (" + (er.message || er) + ")."); });
+    };
+  }
   function hay(x) {
     if (!S.q) return true;
     var t = [x.titulo, x.descripcion, x.texto, x.grupo, x.url].join(" ").toLowerCase();
@@ -103,7 +230,8 @@
     else if (S.tab === "recursos") h = S.carpeta && porId(S.carpeta) ? vCarpeta(porId(S.carpeta)) : vCarpetas();
     else if (S.tab === "guiones") h = vGuiones();
     else h = vLinks();
-    $("#main").innerHTML = h;
+    var arriba = !(S.tab === "videos" && S.curso) && !(S.tab === "recursos" && S.carpeta);
+    $("#main").innerHTML = (arriba ? vEntreno() : "") + h;
     var q = $("#q");
     if (q && document.activeElement !== q && S.q) { q.value = S.q; }
   }
@@ -308,9 +436,11 @@
 
   /* ---------------- eventos ---------------- */
   document.addEventListener("click", function (e) {
-    var t = e.target.closest("[data-tab],[data-abrir],[data-volver],[data-filtro],[data-ver],[data-bajar],[data-copiar],[data-grupo],[data-nuevo],[data-editar],[data-borrar],[data-subir],[data-curso],[data-mover],[data-mgrupo],[data-renombrar]");
+    var t = e.target.closest("[data-tab],[data-abrir],[data-volver],[data-filtro],[data-ver],[data-bajar],[data-copiar],[data-grupo],[data-nuevo],[data-editar],[data-borrar],[data-subir],[data-curso],[data-mover],[data-mgrupo],[data-renombrar],[data-entreno-cal],[data-entreno-edit]");
     if (!t || !$("#app").contains(t)) return;
     var d = t.dataset;
+    if ("entrenoCal" in d) { calendario(); return; }
+    if ("entrenoEdit" in d) { editarEntreno(); return; }
     if (d.curso) { S.curso = d.curso; S.q = ""; render(); window.scrollTo(0, 0); }
     else if (d.mover) mover(d.mover, +d.dir);
     else if (d.mgrupo) moverGrupo(d.sec, d.mgrupo, +d.dir);
