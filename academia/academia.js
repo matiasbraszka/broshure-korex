@@ -311,6 +311,8 @@
     if (y) return "https://www.youtube-nocookie.com/embed/" + y[1] + "?autoplay=1&rel=0";
     var v = u.match(/vimeo\.com\/(\d+)/);
     if (v) return "https://player.vimeo.com/video/" + v[1] + "?autoplay=1";
+    var lo = u.match(/loom\.com\/(?:share|embed)\/([a-f0-9]{16,})/i);
+    if (lo) return "https://www.loom.com/embed/" + lo[1] + "?autoplay=1&hide_owner=true&hide_share=true&hideEmbedTopBar=true";
     if (/iframe\.mediadelivery\.net\/(embed|play)\//.test(u)) return u.replace("/play/", "/embed/") + (u.indexOf("?") > -1 ? "&" : "?") + "autoplay=true&preload=true&responsive=true";
     return u;
   }
