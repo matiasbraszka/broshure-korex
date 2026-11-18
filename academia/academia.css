@@ -281,3 +281,11 @@ textarea.inp{min-height:160px;padding:11px 13px;resize:vertical;line-height:1.5}
 .sel select.inp{appearance:none;-webkit-appearance:none;padding-right:42px;cursor:pointer;font-weight:500}
 .sel::after{content:"";position:absolute;right:17px;top:50%;width:8px;height:8px;border-right:2px solid var(--text-2);border-bottom:2px solid var(--text-2);transform:translateY(-75%) rotate(45deg);pointer-events:none}
 .fld .sel+.inp{margin-top:4px}
+/* botón Ir a la plataforma */
+.btn-plat{min-height:38px;padding:0 14px;font-size:14px;gap:7px;color:#fff;text-decoration:none}
+.btn-plat .i{width:16px;height:16px}
+@media (max-width:480px){
+  .brand span{display:none}
+  .btn-plat{padding:0 11px;font-size:13px}
+}
+@media (max-width:360px){.top .badge,.btn-plat .i{display:none}.btn-plat{padding:0 10px}}
