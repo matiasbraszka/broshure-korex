@@ -325,3 +325,36 @@ textarea.inp{min-height:160px;padding:11px 13px;resize:vertical;line-height:1.5}
 .cal-ic{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;flex:none;font-weight:800;font-size:18px}
 .cal-ic.g{background:#fff;color:#1a73e8;border:1px solid var(--border-2)}
 .cal-ic.a{background:#ff3b30;color:#fff}
+
+/* ---- flyers con fecha automática ---- */
+.thumb .fl-b{display:inline-flex;align-items:center;gap:4px;background:rgba(72,120,255,.92)}
+.thumb .fl-b svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:2}
+.vw-b canvas.flc{display:block;width:auto;height:auto;max-width:100%;max-height:calc(100vh - 250px);max-height:calc(100dvh - 250px);border-radius:10px;background:#0a1730}
+.fl-f{flex-direction:column;align-items:center;gap:10px}
+.fl-ch{max-width:100%;padding:0 2px}
+.viewer .fl-ch .chip{display:grid;align-content:center;line-height:1.15;min-height:44px;padding:4px 14px;text-align:center;background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.16);color:#dfe6f5}
+.viewer .fl-ch .chip.on{background:#fff;border-color:#fff;color:#0a1730}
+.fl-ch .chip small{font-weight:500;font-size:11.5px;opacity:.75}
+.dlg.dlg-xl{width:min(1060px,100%)}
+.fle-g{display:grid;gap:18px}
+@media (min-width:861px){.fle-g{grid-template-columns:minmax(0,1.1fr) minmax(300px,1fr);align-items:start}}
+.fle-ay{display:block;font-size:12.5px;color:var(--text-3);margin:0 0 8px;line-height:1.45}
+.fle{position:relative;touch-action:none;user-select:none;-webkit-user-select:none;cursor:crosshair;border-radius:10px;overflow:hidden;background:#0a1730;line-height:0;min-height:120px}
+.fle canvas{display:block;width:100%;height:auto}
+#flB{position:absolute;inset:0}
+.flz{position:absolute;border:1.5px dashed rgba(255,255,255,.9);box-shadow:0 0 0 1px rgba(0,0,0,.55);cursor:move}
+.flz.on{border-style:solid;border-color:#4878ff;box-shadow:0 0 0 1px #fff,0 0 0 4px rgba(72,120,255,.35)}
+.flz span{position:absolute;top:0;left:0;transform:translateY(-100%);font:700 10px/1 var(--f-mono);background:#4878ff;color:#fff;padding:3px 5px;border-radius:4px 4px 0 0}
+.flz i{position:absolute;right:-8px;bottom:-8px;width:16px;height:16px;border-radius:50%;background:#fff;border:2px solid #4878ff;cursor:nwse-resize}
+.fle-vacio{display:grid;gap:8px;justify-items:center;text-align:center;padding:30px 16px;color:var(--text-3);border:1px dashed var(--border-2);border-radius:var(--r-lg)}
+.fle-vacio b{color:var(--text)}
+#flF{display:grid;gap:12px;align-content:start}
+.fle-zn{display:flex;align-items:center;justify-content:space-between;font-weight:700}
+.fl-toks{display:flex;flex-wrap:wrap;gap:6px}
+.fl-toks .chip{min-height:30px;padding:0 10px;font-size:12px}
+.fle-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.inp.col{padding:4px;height:46px;cursor:pointer}
+.inp.col[hidden]{display:none}
+.fl-row{display:flex;align-items:center;gap:10px}
+.fl-row input[type=checkbox]{width:20px;height:20px;flex:none}
+.dlg-f #flQuitar{margin-right:auto}

@@ -205,7 +205,7 @@
   }
   function hay(x) {
     if (!S.q) return true;
-    var t = [x.titulo, x.descripcion, x.texto, x.grupo, x.url].join(" ").toLowerCase();
+    var t = [x.titulo, x.descripcion, plantilla(x) ? "" : x.texto, x.grupo, x.url].join(" ").toLowerCase();
     return t.indexOf(S.q) > -1;
   }
   function hijos(id) { return S.items.filter(function (x) { return x.seccion === "archivo" && x.padre === id; }); }
@@ -232,6 +232,7 @@
     else h = vLinks();
     var arriba = !(S.tab === "videos" && S.curso) && !(S.tab === "recursos" && S.carpeta);
     $("#main").innerHTML = (arriba ? vEntreno() : "") + h;
+    pintarMinis();
     var q = $("#q");
     if (q && document.activeElement !== q && S.q) { q.value = S.q; }
   }
@@ -382,12 +383,14 @@
   }
   function grillaArchivos(l) {
     return '<div class="gm">' + l.map(function (x) {
-      var fondo = x.miniatura ? ' style="background-image:url(\'' + esc(x.miniatura) + '\')"' : "";
+      var pl = plantilla(x);
+      var fondo = x.miniatura && !pl ? ' style="background-image:url(\'' + esc(x.miniatura) + '\')"' : "";
       var fmt = x.tipo === "video" ? "VIDEO" : x.tipo === "image" ? "" : (x.tipo === "pdf" ? "PDF" : "ARCHIVO");
-      return '<div class="tile"><button type="button" data-ver="' + esc(x.id) + '" style="display:block;text-align:left"><div class="thumb"' + fondo + ">" +
+      return '<div class="tile"><button type="button" data-ver="' + esc(x.id) + '" style="display:block;text-align:left"><div class="thumb"' + fondo + (pl ? ' data-pl="' + esc(x.id) + '"' : "") + ">" +
         (!x.miniatura ? ic(x.tipo === "video" ? "vid" : x.tipo === "image" ? "img" : "file", "big") : "") +
-        (fmt ? '<span class="fmt">' + fmt + "</span>" : "") + (x.tipo === "video" ? '<span class="pl">' + ic("play") + "</span>" : "") + "</div></button>" +
+        (pl ? '<span class="fmt fl-b">' + ic("cal") + "Fecha al día</span>" : fmt ? '<span class="fmt">' + fmt + "</span>" : "") + (x.tipo === "video" ? '<span class="pl">' + ic("play") + "</span>" : "") + "</div></button>" +
         '<div class="tmeta"><b title="' + esc(x.titulo) + '">' + esc(x.titulo) + "</b>" +
+        (admin() && x.tipo === "image" && !x.panel ? '<button class="mini ico" data-flyer="' + esc(x.id) + '" title="Fecha automática" type="button">' + ic("cal") + "</button>" : "") +
         (x.descargable !== false && (x.descarga || x.url) ? '<button class="mini ico" data-bajar="' + esc(x.id) + '" title="Descargar" type="button">' + ic("down") + "</button>" : "") +
         (admin() ? '<button class="mini ico del" data-borrar="' + esc(x.id) + '" title="' + (x.panel ? "Ocultar de la Academia" : "Borrar") + '" type="button">' + ic("trash") + "</button>" : "") +
         "</div></div>";
@@ -434,9 +437,294 @@
     return h;
   }
 
+  /* ---------------- flyers con fecha automática ----------------
+     Un flyer puede tener zonas (JSON en `texto`) donde se escribe la fecha al verlo o
+     descargarlo. Se arma en el navegador con un canvas: el servidor no hace nada extra. */
+  var MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+  var MES3 = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
+  var DIAS = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
+  var DCOD = { lu: 1, ma: 2, mi: 3, ju: 4, vi: 5, sa: 6, "do": 0 };
+  var FUENTES = ["Plus Jakarta Sans", "Inter", "Montserrat", "Poppins", "Sora", "Manrope", "Archivo"];
+  var FICHAS = [["{rango}", "Semana"], ["{lu}", "Lu"], ["{ma}", "Ma"], ["{mi}", "Mi"], ["{ju}", "Ju"], ["{vi}", "Vi"], ["{sa}", "Sá"], ["{do}", "Do"], ["{fecha}", "Fecha"], ["{dia}", "Día"], ["{hoy}", "Hoy / mañana"], ["{num}", "Nº del día"]];
+  var RX_SEM = /\{(rango|lu|ma|mi|ju|vi|sa|do)\}/, RX_DIA = /\{(fecha|dia|hoy|num)\}/;
+  function plantilla(x) {
+    if (!x || x.tipo !== "image" || x.panel || String(x.texto || "").charAt(0) !== "{") return null;
+    try { var p = JSON.parse(x.texto); return p && p.cajas && p.cajas.length ? p : null; } catch (e) { return null; }
+  }
+  function usa(p, rx) { return p.cajas.some(function (b) { return rx.test(b.t || ""); }); }
+  function hoy0() { var d = new Date(); d.setHours(12, 0, 0, 0); return d; }
+  function sumar(d, n) { var r = new Date(d); r.setDate(r.getDate() + n); return r; }
+  function lunesDe(d) { var w = d.getDay(); return sumar(d, w === 0 ? -6 : 1 - w); }
+  // Sábado y domingo ya cuenta la semana que viene.
+  function semanaBase() { var h = hoy0(), w = h.getDay(); return lunesDe(w === 6 || w === 0 ? sumar(h, 2) : h); }
+  function diasEntre(a, b) { return Math.round((b - a) / 864e5); }
+  function rangoTxt(l) {
+    var v = sumar(l, 4);
+    return "del " + l.getDate() + (l.getMonth() !== v.getMonth() ? " de " + MESES[l.getMonth()] : "") + " al " + v.getDate() + " de " + MESES[v.getMonth()];
+  }
+  function textoCaja(b, f) {
+    var s = String(b.t || "").replace(/\{(\w+)\}/g, function (m, k) {
+      if (k === "rango") return rangoTxt(f.lunes);
+      if (DCOD.hasOwnProperty(k)) return String(sumar(f.lunes, (DCOD[k] + 6) % 7).getDate());
+      if (k === "fecha") return f.dia.getDate() + " de " + MESES[f.dia.getMonth()];
+      if (k === "dia") return DIAS[f.dia.getDay()];
+      if (k === "num") return String(f.dia.getDate());
+      if (k === "hoy") { var n = diasEntre(hoy0(), f.dia); return n === 0 ? "hoy" : n === 1 ? "mañana" : DIAS[f.dia.getDay()]; }
+      return m;
+    });
+    return b.may === "may" ? s.toUpperCase() : b.may === "tal" ? s : s.charAt(0).toUpperCase() + s.slice(1);
+  }
+  var IMGS = {}, FONTS = {}, SMP = {}, MINIS = {};
+  function cargarImg(u) {
+    u = abs(u);
+    if (!IMGS[u]) IMGS[u] = new Promise(function (ok, no) {
+      var im = new Image(); im.crossOrigin = "anonymous";
+      im.onload = function () { ok(im); }; im.onerror = function () { delete IMGS[u]; no(new Error("imagen")); };
+      im.src = u;
+    });
+    return IMGS[u];
+  }
+  function cargarFuentes(p) {
+    return Promise.all(p.cajas.map(function (b) {
+      var f = b.fuente || FUENTES[0];
+      if (!FONTS[f]) FONTS[f] = new Promise(function (ok) {
+        var l = document.createElement("link"); l.rel = "stylesheet";
+        l.href = "https://fonts.googleapis.com/css2?family=" + f.replace(/ /g, "+") + ":wght@400;500;600;700;800&display=swap";
+        l.onload = l.onerror = function () { ok(); }; document.head.appendChild(l);
+      });
+      return FONTS[f].then(function () { return document.fonts ? document.fonts.load((b.peso || 800) + " 50px '" + f + "'").catch(function () {}) : null; });
+    }));
+  }
+  function medir(c, s, sp) { if (!sp) return c.measureText(s).width; var t = 0; for (var i = 0; i < s.length; i++) t += c.measureText(s[i]).width; return t + sp * (s.length - 1); }
+  function escribir(c, s, x, y, sp) { if (!sp) { c.fillText(s, x, y); return; } for (var i = 0; i < s.length; i++) { c.fillText(s[i], x, y); x += c.measureText(s[i]).width + sp; } }
+  function margen(h) { return { x: h * 0.1, y: h * 0.16 }; }
+  // La zona va de la parte de arriba de las mayúsculas a la base de las letras.
+  function dibujar(cv, im, p, f, ancho) {
+    var k = ancho ? Math.min(1, ancho / im.naturalWidth) : 1;
+    cv.width = Math.round(im.naturalWidth * k); cv.height = Math.round(im.naturalHeight * k);
+    var c = cv.getContext("2d"), W = cv.width, H = cv.height;
+    c.drawImage(im, 0, 0, W, H);
+    p.cajas.forEach(function (b) {
+      var x = b.x * W, y = b.y * H, w = b.w * W, h = b.h * H;
+      if (w < 3 || h < 3) return;
+      var m = margen(h);
+      if (b.tapar && b.tapar !== "auto") c.fillStyle = b.tapar;
+      else if (b.tapar === "auto" && b.fondo) { var g0 = c.createLinearGradient(x - m.x, 0, x + w + m.x, 0); g0.addColorStop(0, b.fondo[0]); g0.addColorStop(1, b.fondo[1]); c.fillStyle = g0; }
+      if (b.tapar && (b.tapar !== "auto" || b.fondo)) c.fillRect(x - m.x, y - m.y, w + 2 * m.x, h + 2 * m.y);
+      var s = textoCaja(b, f); if (!s) return;
+      var fam = "'" + (b.fuente || FUENTES[0]) + "', sans-serif", peso = b.peso || 800, esp = +b.esp || 0;
+      c.font = peso + " 100px " + fam;
+      var cap = c.measureText("H").actualBoundingBoxAscent || 72;
+      var size = h / cap * 100 * (+b.tam || 100) / 100;
+      c.font = peso + " " + size + "px " + fam;
+      var tw = medir(c, s, esp * size);
+      if (tw > w) { size = size * w / tw; c.font = peso + " " + size + "px " + fam; tw = medir(c, s, esp * size); }
+      var al = b.al || "c", tx = al === "i" ? x : al === "d" ? x + w - tw : x + (w - tw) / 2;
+      c.textAlign = "left"; c.textBaseline = "alphabetic";
+      if (b.color2) { var g = c.createLinearGradient(tx, 0, tx + tw, 0); g.addColorStop(0, b.color || "#ffffff"); g.addColorStop(1, b.color2); c.fillStyle = g; }
+      else c.fillStyle = b.color || "#ffffff";
+      escribir(c, s, tx, y + h, esp * size);
+    });
+  }
+  function hex(v) { return "#" + v.map(function (n) { return (n < 16 ? "0" : "") + n.toString(16); }).join(""); }
+  // Colores del fondo a la izquierda y a la derecha de la zona (mediana), para taparla con un degradado.
+  function muestrear(im, b) {
+    try {
+      var W = im.naturalWidth, H = im.naturalHeight, c = SMP[im.src];
+      if (!c) { c = document.createElement("canvas"); c.width = W; c.height = H; c.getContext("2d").drawImage(im, 0, 0); SMP[im.src] = c; }
+      var m = margen(b.h * H), y0 = Math.max(0, Math.round(b.y * H - m.y)), y1 = Math.min(H - 1, Math.round((b.y + b.h) * H + m.y));
+      var col = function (xx) {
+        xx = Math.min(W - 1, Math.max(0, Math.round(xx)));
+        var d = c.getContext("2d").getImageData(xx, y0, 1, y1 - y0 + 1).data, r = [], g = [], bl = [];
+        for (var i = 0; i < d.length; i += 4) { r.push(d[i]); g.push(d[i + 1]); bl.push(d[i + 2]); }
+        var med = function (a) { a.sort(function (p, q) { return p - q; }); return a[a.length >> 1]; };
+        return hex([med(r), med(g), med(bl)]);
+      };
+      return [col(b.x * W - m.x - 3), col((b.x + b.w) * W + m.x + 3)];
+    } catch (e) { return null; }
+  }
+  function pintarMinis() {
+    var f = { lunes: semanaBase(), dia: hoy0() };
+    [].forEach.call(document.querySelectorAll("[data-pl]"), function (el) {
+      var x = porId(el.dataset.pl), p = plantilla(x); if (!p) return;
+      var k = x.id + "|" + x.texto + "|" + f.lunes.toDateString() + f.dia.toDateString();
+      var poner = function () { [].forEach.call(document.querySelectorAll('[data-pl="' + x.id + '"]'), function (n) { n.style.backgroundImage = "url('" + MINIS[k] + "')"; }); };
+      if (MINIS[k]) { poner(); return; }
+      Promise.all([cargarImg(x.url), cargarFuentes(p)]).then(function (r) {
+        var cv = document.createElement("canvas"); dibujar(cv, r[0], p, f, 480);
+        MINIS[k] = cv.toDataURL("image/jpeg", 0.85); poner();
+      }).catch(function () {});
+    });
+  }
+  function cuandoTxt(p, f) { return usa(p, RX_SEM) ? rangoTxt(f.lunes) : f.dia.getDate() + " de " + MESES[f.dia.getMonth()]; }
+  function verFlyer(x, p) {
+    var f = { lunes: semanaBase(), dia: hoy0() }, l0 = semanaBase(), h0 = hoy0(), blob = null, cv;
+    var ops = "";
+    if (usa(p, RX_SEM)) ops += '<div class="chips fl-ch" data-q="sem">' + [0, 7, 14].map(function (n) {
+      var l = sumar(l0, n), v = sumar(l, 4), rel = diasEntre(lunesDe(h0), l) / 7;
+      var et = rel === 0 ? "Esta semana" : rel === 1 ? "Próxima semana" : "En " + rel + " semanas";
+      var sub = l.getMonth() === v.getMonth() ? l.getDate() + "–" + v.getDate() + " " + MES3[v.getMonth()] : l.getDate() + " " + MES3[l.getMonth()] + " – " + v.getDate() + " " + MES3[v.getMonth()];
+      return '<button class="chip' + (n ? "" : " on") + '" data-v="' + n + '" type="button">' + et + "<small>" + sub + "</small></button>";
+    }).join("") + "</div>";
+    if (usa(p, RX_DIA)) ops += '<div class="chips fl-ch" data-q="dia">' + [0, 1, 2, 3, 4, 5, 6].map(function (n) {
+      var d = sumar(h0, n), et = n === 0 ? "Hoy" : n === 1 ? "Mañana" : DIAS[d.getDay()].charAt(0).toUpperCase() + DIAS[d.getDay()].slice(1, 3);
+      return '<button class="chip' + (n ? "" : " on") + '" data-v="' + n + '" type="button">' + et + "<small>" + d.getDate() + " " + MES3[d.getMonth()] + "</small></button>";
+    }).join("") + "</div>";
+    $("#layer").innerHTML = '<div class="viewer fl-v" role="dialog" aria-modal="true" aria-label="' + esc(x.titulo) + '"><div class="vw-h"><b>' + esc(x.titulo) + '</b><button class="mini ico" data-vcerrar type="button" aria-label="Cerrar">' + ic("x") + '</button></div>' +
+      '<div class="vw-b"><canvas class="flc"></canvas></div><div class="vw-f fl-f">' + ops +
+      '<button class="btn" data-vbajar type="button" disabled>' + ic("down") + "Descargar</button></div></div>";
+    document.body.style.overflow = "hidden";
+    cv = $(".flc");
+    var bt = $("[data-vbajar]");
+    function pintar() {
+      blob = null; bt.disabled = true;
+      Promise.all([cargarImg(x.url), cargarFuentes(p)]).then(function (r) {
+        dibujar(cv, r[0], p, f);
+        try { cv.toBlob(function (b) { blob = b; bt.disabled = !b; }, "image/jpeg", 0.92); } catch (e) { toast("No se pudo armar la imagen."); }
+      }).catch(function () { toast("No se pudo cargar el flyer."); });
+    }
+    pintar();
+    [].forEach.call(document.querySelectorAll(".fl-ch"), function (g) {
+      g.addEventListener("click", function (e) {
+        var b = e.target.closest("[data-v]"); if (!b) return;
+        [].forEach.call(g.children, function (n) { n.classList.toggle("on", n === b); });
+        if (g.dataset.q === "sem") f.lunes = sumar(l0, +b.dataset.v); else f.dia = sumar(h0, +b.dataset.v);
+        pintar();
+      });
+    });
+    bt.onclick = function () {
+      if (!blob) return;
+      var nombre = String(x.titulo || "flyer").replace(/[\\/:*?"<>|@]+/g, "").trim() + " - " + cuandoTxt(p, f) + ".jpg";
+      var bajarlo = function () {
+        var a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = nombre;
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(function () { URL.revokeObjectURL(a.href); }, 30000);
+        toast("Listo: revisa tus descargas.");
+      };
+      // En el celular se abre el menú para guardarlo en Fotos o mandarlo directo por WhatsApp.
+      var file = null;
+      try { file = new File([blob], nombre, { type: "image/jpeg" }); } catch (e) {}
+      if (file && navigator.canShare && navigator.canShare({ files: [file] }) && matchMedia("(pointer:coarse)").matches) {
+        navigator.share({ files: [file] }).catch(function (e) { if (!e || e.name !== "AbortError") bajarlo(); });
+      } else bajarlo();
+    };
+    $("[data-vcerrar]").onclick = cerrar;
+    var vw = $(".viewer"); vw.addEventListener("click", function (e) { if (e.target === vw || e.target.classList.contains("vw-b")) cerrar(); });
+  }
+
+  function editarFlyer(x) {
+    var antes = plantilla(x), p = JSON.parse(JSON.stringify(antes || { cajas: [] })), sel = p.cajas.length ? 0 : -1, im = null, drag = null, raf = 0;
+    var f = { lunes: semanaBase(), dia: hoy0() };
+    dlg("Fecha automática", '<div class="fle-g"><div><p class="fle-ay">Arrastra sobre la imagen para marcar dónde va la fecha: justo encima del texto, desde arriba de las letras hasta la base.</p><div class="fle" id="flE"><canvas id="flC"></canvas><div id="flB"></div></div></div><div id="flF"></div></div>',
+      (antes ? '<button class="btn sec" id="flQuitar" type="button">Quitar fecha automática</button>' : "") + '<button class="btn sec" data-dcerrar2 type="button">Cancelar</button><button class="btn" id="fOk" type="button">Guardar</button>');
+    $(".dlg").classList.add("dlg-xl");
+    $("[data-dcerrar2]").onclick = cerrar;
+    var E = $("#flE"), C = $("#flC");
+    function redibujar() { raf = 0; if (im) dibujar(C, im, p, f, 1100); }
+    function pedir() { if (!raf) raf = requestAnimationFrame(redibujar); }
+    function zonas() {
+      $("#flB").innerHTML = p.cajas.map(function (b, i) {
+        return '<div class="flz' + (i === sel ? " on" : "") + '" data-z="' + i + '" style="left:' + b.x * 100 + "%;top:" + b.y * 100 + "%;width:" + b.w * 100 + "%;height:" + b.h * 100 + '%"><span>' + (i + 1) + "</span>" + (i === sel ? '<i data-h="1"></i>' : "") + "</div>";
+      }).join("");
+    }
+    function op(id, lista, v) { return '<select class="inp sel" id="' + id + '">' + lista.map(function (o) { return '<option value="' + esc(o[0]) + '"' + (String(o[0]) === String(v) ? " selected" : "") + ">" + esc(o[1]) + "</option>"; }).join("") + "</select>"; }
+    function campos() {
+      var b = p.cajas[sel];
+      if (!b) { $("#flF").innerHTML = '<div class="fle-vacio">' + ic("cal", "big") + "<b>" + (p.cajas.length ? "Toca una zona para editarla" : "Todavía no hay zonas") + "</b><small>Arrastra sobre el flyer, encima de la fecha que quieres cambiar. Puedes marcar varias: el rango de la semana y el número de cada día.</small></div>"; return; }
+      var tp = b.tapar === "" ? "" : (!b.tapar || b.tapar === "auto") ? "auto" : "fijo";
+      $("#flF").innerHTML =
+        '<div class="fle-zn"><span>Zona ' + (sel + 1) + " de " + p.cajas.length + '</span><button class="mini del" id="flDel" type="button">' + ic("trash") + "Borrar zona</button></div>" +
+        '<label class="fld"><span>Qué se escribe</span><input class="inp" id="flT" value="' + esc(b.t) + '" autocomplete="off"><small id="flEj"></small></label>' +
+        '<div class="fl-toks">' + FICHAS.map(function (t) { return '<button type="button" class="chip" data-tok="' + t[0] + '">' + t[1] + "</button>"; }).join("") + "</div>" +
+        '<small class="fle-ay">Semana = «del 16 al 20 de noviembre» (lunes a viernes) · Lu…Do = el número de ese día · Fecha = «12 de noviembre» · Día = «jueves» · Hoy / mañana = «hoy», «mañana» o el día.</small>' +
+        '<div class="fle-2">' +
+        '<label class="fld"><span>Letras</span>' + op("flMay", [["may", "TODO MAYÚSCULAS"], ["ini", "Primera mayúscula"], ["tal", "Tal cual"]], b.may || "ini") + "</label>" +
+        '<label class="fld"><span>Alineación</span>' + op("flAl", [["i", "Izquierda"], ["c", "Centro"], ["d", "Derecha"]], b.al || "c") + "</label>" +
+        '<label class="fld"><span>Fuente</span>' + op("flFu", FUENTES.map(function (n) { return [n, n]; }), b.fuente || FUENTES[0]) + "</label>" +
+        '<label class="fld"><span>Grosor</span>' + op("flPe", [[400, "Normal"], [500, "Medio"], [600, "Semi negrita"], [700, "Negrita"], [800, "Extra negrita"]], b.peso || 800) + "</label>" +
+        '<label class="fld"><span>Espacio entre letras</span>' + op("flEs", [[0, "Normal"], [0.04, "Poco"], [0.1, "Medio"], [0.16, "Amplio"], [0.25, "Muy amplio"]], b.esp || 0) + "</label>" +
+        '<label class="fld"><span>Tamaño</span>' + op("flTa", [[80, "80 %"], [90, "90 %"], [95, "95 %"], [100, "Justo a la zona"], [105, "105 %"], [110, "110 %"], [120, "120 %"]], b.tam || 100) + "</label>" +
+        '<label class="fld"><span>Color</span><input type="color" class="inp col" id="flCo" value="' + esc(b.color || "#ffffff") + '"></label>' +
+        '<label class="fld"><span>Degradado</span><span class="fl-row"><input type="checkbox" id="flG"' + (b.color2 ? " checked" : "") + '><input type="color" class="inp col" id="flC2" value="' + esc(b.color2 || "#8fd3ff") + '"></span></label>' +
+        "</div>" +
+        '<label class="fld"><span>Tapar la fecha vieja</span>' + op("flTp", [["auto", "Sí, con el color del fondo"], ["fijo", "Sí, con un color que elijo"], ["", "No (la imagen ya viene sin fecha)"]], tp) +
+        '<input type="color" class="inp col" id="flTc"' + (tp === "fijo" ? "" : " hidden") + ' value="' + esc(tp === "fijo" ? b.tapar : (b.fondo || ["#000000"])[0]) + '"></label>';
+      ejemplo();
+    }
+    function ejemplo() { var b = p.cajas[sel], e = $("#flEj"); if (b && e) e.textContent = "Esta semana se ve: «" + textoCaja(b, f) + "»"; }
+    function leer() {
+      var b = p.cajas[sel]; if (!b) return;
+      b.t = $("#flT").value; b.may = $("#flMay").value; b.al = $("#flAl").value; b.fuente = $("#flFu").value; b.peso = +$("#flPe").value;
+      b.esp = +$("#flEs").value; b.tam = +$("#flTa").value; b.color = $("#flCo").value; b.color2 = $("#flG").checked ? $("#flC2").value : "";
+      var tp = $("#flTp").value; $("#flTc").hidden = tp !== "fijo";
+      if (tp === "auto") { b.tapar = "auto"; if (!b.fondo) b.fondo = muestrear(im, b); } else b.tapar = tp === "fijo" ? $("#flTc").value : "";
+      ejemplo();
+      cargarFuentes(p).then(pedir);
+    }
+    var cursor = function (e) { if (e.target.id === "flT") { e.target.dataset.c = e.target.selectionStart; e.target.dataset.f = e.target.selectionEnd; } };
+    ["keyup", "mouseup", "input"].forEach(function (ev) { $("#flF").addEventListener(ev, cursor); });
+    $("#flF").addEventListener("input", leer);
+    $("#flF").addEventListener("change", leer);
+    $("#flF").addEventListener("click", function (e) {
+      var t = e.target.closest("[data-tok],#flDel"); if (!t) return;
+      if (t.id === "flDel") { p.cajas.splice(sel, 1); sel = p.cajas.length ? Math.min(sel, p.cajas.length - 1) : -1; zonas(); campos(); pedir(); return; }
+      // Va donde quedó el cursor; si nunca se tocó el campo, al final.
+      var inp = $("#flT"), a = inp.dataset.c ? +inp.dataset.c : inp.value.length, z = inp.dataset.f ? +inp.dataset.f : a;
+      inp.value = inp.value.slice(0, a) + t.dataset.tok + inp.value.slice(z); inp.focus();
+      try { inp.setSelectionRange(a + t.dataset.tok.length, a + t.dataset.tok.length); } catch (x2) {}
+      leer();
+    });
+    function pos(e) { var r = C.getBoundingClientRect(); return { x: Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)), y: Math.min(1, Math.max(0, (e.clientY - r.top) / r.height)) }; }
+    E.addEventListener("pointerdown", function (e) {
+      if (!im) return;
+      var q = pos(e), z = e.target.closest("[data-z]");
+      if (e.target.dataset && e.target.dataset.h && p.cajas[sel]) drag = { m: "r", b: p.cajas[sel] };
+      else if (z) { sel = +z.dataset.z; var b = p.cajas[sel]; drag = { m: "m", b: b, dx: q.x - b.x, dy: q.y - b.y }; campos(); }
+      else {
+        var ult = p.cajas[p.cajas.length - 1] || {};
+        var nb = { x: q.x, y: q.y, w: 0, h: 0, t: p.cajas.length ? "" : "{rango}", may: ult.may || "may", al: ult.al || "c", fuente: ult.fuente || FUENTES[0], peso: ult.peso || 800, esp: ult.esp || 0, tam: 100, color: ult.color || "#ffffff", color2: "", tapar: "auto" };
+        p.cajas.push(nb); sel = p.cajas.length - 1; drag = { m: "n", b: nb, ox: q.x, oy: q.y };
+      }
+      try { E.setPointerCapture(e.pointerId); } catch (x2) {}
+      e.preventDefault(); zonas();
+    });
+    E.addEventListener("pointermove", function (e) {
+      if (!drag) return; var q = pos(e), b = drag.b;
+      if (drag.m === "n") { b.x = Math.min(q.x, drag.ox); b.y = Math.min(q.y, drag.oy); b.w = Math.abs(q.x - drag.ox); b.h = Math.abs(q.y - drag.oy); }
+      else if (drag.m === "m") { b.x = Math.min(1 - b.w, Math.max(0, q.x - drag.dx)); b.y = Math.min(1 - b.h, Math.max(0, q.y - drag.dy)); }
+      else { b.w = Math.max(0.01, q.x - b.x); b.h = Math.max(0.005, q.y - b.y); }
+      b.fondo = null; zonas(); pedir();
+    });
+    function fin() {
+      if (!drag) return; var b = drag.b, nuevo = drag.m === "n"; drag = null;
+      if (nuevo && (b.w < 0.01 || b.h < 0.005)) { p.cajas.pop(); sel = -1; }
+      else if (b.tapar === "auto") b.fondo = muestrear(im, b);
+      zonas(); campos(); pedir();
+    }
+    E.addEventListener("pointerup", fin); E.addEventListener("pointercancel", fin);
+    zonas(); campos();
+    Promise.all([cargarImg(x.url), cargarFuentes(p)]).then(function (r) { im = r[0]; redibujar(); }).catch(function () { toast("No se pudo cargar la imagen."); });
+
+    function guardar(texto, btn) {
+      btn.disabled = true; btn.textContent = "Guardando…";
+      api("guardar", { item: { id: x.id, seccion: "archivo", titulo: x.titulo, texto: texto } }).then(function (j) {
+        if (!j.ok) throw new Error(j.error || "error");
+        cerrar(); toast("Guardado"); return recargar();
+      }).catch(function (e) { btn.disabled = false; btn.textContent = "Guardar"; toast("No se pudo guardar (" + (e.message || e) + ")."); });
+    }
+    $("#fOk").onclick = function () {
+      if (!p.cajas.length) { toast(antes ? "Para quitarla usa «Quitar fecha automática»." : "Marca al menos una zona."); return; }
+      if (p.cajas.some(function (b) { return !String(b.t || "").trim(); })) { toast("A una zona le falta qué se escribe."); return; }
+      var r4 = function (n) { return Math.round(n * 1e4) / 1e4; };
+      p.cajas.forEach(function (b) { b.x = r4(b.x); b.y = r4(b.y); b.w = r4(b.w); b.h = r4(b.h); if (b.tapar === "auto" && !b.fondo && im) b.fondo = muestrear(im, b); });
+      guardar(JSON.stringify(p), $("#fOk"));
+    };
+    var q0 = $("#flQuitar"); if (q0) q0.onclick = function () { guardar("", q0); };
+  }
+
   /* ---------------- eventos ---------------- */
   document.addEventListener("click", function (e) {
-    var t = e.target.closest("[data-tab],[data-abrir],[data-volver],[data-filtro],[data-ver],[data-bajar],[data-copiar],[data-grupo],[data-nuevo],[data-editar],[data-borrar],[data-subir],[data-curso],[data-mover],[data-mgrupo],[data-renombrar],[data-entreno-cal],[data-entreno-edit]");
+    var t = e.target.closest("[data-tab],[data-abrir],[data-volver],[data-filtro],[data-ver],[data-bajar],[data-copiar],[data-grupo],[data-nuevo],[data-editar],[data-borrar],[data-subir],[data-curso],[data-mover],[data-mgrupo],[data-renombrar],[data-entreno-cal],[data-entreno-edit],[data-flyer]");
     if (!t || !$("#app").contains(t)) return;
     var d = t.dataset;
     if ("entrenoCal" in d) { calendario(); return; }
@@ -450,7 +738,8 @@
     else if ("volver" in d) { S.carpeta = null; S.curso = null; render(); }
     else if (d.filtro) { S.filtro = d.filtro; render(); }
     else if (d.ver) ver(porId(d.ver));
-    else if (d.bajar) bajar(porId(d.bajar), t);
+    else if (d.flyer) editarFlyer(porId(d.flyer));
+    else if (d.bajar) { var xb = porId(d.bajar); if (plantilla(xb)) ver(xb); else bajar(xb, t); }
     else if (d.copiar) copiar(porId(d.copiar), t);
     else if (d.grupo) { var sec = t.closest(".grp"); var abierto = !sec.classList.contains("open"); sec.classList.toggle("open", abierto); S.abiertos[d.grupo] = abierto; }
     else if (d.nuevo) { S.nuevoGrupo = d.en || ""; formulario(d.nuevo, null); }
@@ -489,6 +778,7 @@
   }
   function ver(x) {
     if (!x) return;
+    var pl = plantilla(x); if (pl) { verFlyer(x, pl); return; }
     var cuerpo = "", pie = "";
     var u = x.url || "";
     if (x.seccion === "video" || x.tipo === "video") {
