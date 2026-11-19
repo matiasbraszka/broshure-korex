@@ -394,3 +394,17 @@ textarea.inp{min-height:160px;padding:11px 13px;resize:vertical;line-height:1.5}
 .fl-ch,.fl-mc{padding-bottom:2px}
 .viewer .fl-ch .chip{font-size:14px;min-height:46px}
 .fl-ch .chip small{font-size:13px;opacity:.85}
+/* botones del visor en grilla: nunca quedan escondidos fuera de la fila (zoom, celular) */
+.fl-v .fl-ch,.fl-v .fl-mc{display:grid;gap:8px;width:100%;max-width:520px;overflow:visible;padding:0}
+.fl-v .fl-ch{grid-template-columns:repeat(auto-fill,minmax(84px,1fr))}
+.fl-v .fl-ch[data-q=sem]{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
+.fl-v .fl-mc{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.viewer .fl-ch .chip{border-radius:12px;min-height:58px;padding:6px 8px;white-space:normal;font-size:16px;font-weight:700;gap:2px}
+.viewer .fl-ch[data-q=dia] .chip small{font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;opacity:.7}
+.viewer .fl-ch[data-q=sem] .chip{font-size:14.5px}
+.viewer .fl-mc .chip{position:relative;border-radius:12px;min-height:48px;padding:8px 12px 8px 36px;text-align:left;white-space:normal;line-height:1.25;font-size:13.5px}
+.viewer .fl-mc .chip::before{content:"";position:absolute;left:13px;top:50%;width:14px;height:14px;margin-top:-7px;border-radius:50%;border:2px solid currentColor;opacity:.55;box-sizing:border-box}
+.viewer .fl-mc .chip.on::before{opacity:1;border-color:#2f6bff;background:#2f6bff;box-shadow:inset 0 0 0 3px #fff}
+.viewer .fl-ch .chip:not(.on):hover,.viewer .fl-mc .chip:not(.on):hover{background:rgba(255,255,255,.12)}
+@media (min-width:960px){.fl-v .fl-ch,.fl-v .fl-mc{max-width:none}}
+.fl-m{grid-template-columns:minmax(0,1fr);box-sizing:border-box}

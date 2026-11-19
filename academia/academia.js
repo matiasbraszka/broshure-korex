@@ -581,7 +581,7 @@
     }).join("") + "</div>";
     if (usa(p, RX_DIA)) ops += '<div class="chips fl-ch" data-q="dia">' + lista.map(function (d, n) {
       var et = diasEntre(h0, d) === 0 ? "Hoy" : DIAS[d.getDay()].charAt(0).toUpperCase() + DIAS[d.getDay()].slice(1, 3);
-      return '<button class="chip' + (n ? "" : " on") + '" data-v="' + n + '" type="button">' + et + " " + dm(d) + "</button>";
+      return '<button class="chip' + (n ? "" : " on") + '" data-v="' + n + '" type="button"><small>' + et + "</small>" + dm(d) + "</button>";
     }).join("") + "</div>";
     var msgs = p.msgs || [], mi = 0, mtxt = "";
     var mbloque = msgs.length || admin() ? '<div class="fl-m"><div class="fl-mh"><span>Mensaje para invitar</span>' + (admin() ? '<button class="mini" data-medit type="button">' + ic("pen") + (msgs.length ? "Editar" : "Agregar") + "</button>" : "") + "</div>" +
