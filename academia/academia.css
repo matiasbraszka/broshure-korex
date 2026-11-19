@@ -389,3 +389,8 @@ textarea.inp{min-height:160px;padding:11px 13px;resize:vertical;line-height:1.5}
 .fl-mr .fl-row .inp{flex:1}
 .fl-me{color:var(--text-3);font-size:12.5px}
 #mAdd{justify-self:start;margin-top:4px}
+/* que los días no se achiquen ni se corten en el panel */
+.fl-f>*,.fl-m>*{flex-shrink:0}
+.fl-ch,.fl-mc{padding-bottom:2px}
+.viewer .fl-ch .chip{font-size:14px;min-height:46px}
+.fl-ch .chip small{font-size:13px;opacity:.85}
