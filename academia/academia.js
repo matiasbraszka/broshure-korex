@@ -245,7 +245,7 @@
   function cursos() { return grupos(de("video").map(function (v) { return Object.assign({}, v, { grupo: cursoDe(v) }); })).map(function (g) { return g[0]; }); }
   function lecciones(nombre) { return de("video").filter(function (v) { return cursoDe(v) === nombre; }); }
   // Portadas diseñadas por curso (archivos en /academia/portadas/). Sin portada → imagen del primer video que tenga.
-  var PORTADAS = { "Usa la plataforma Korex": "/academia/portadas/usa-la-plataforma-korex.jpg?v=2" };
+  var PORTADAS = { "Usa la plataforma Korex": "/academia/portadas/usa-la-plataforma-korex.jpg?v=2", "Como usar la plataforma Korex": "/academia/portadas/usa-la-plataforma-korex.jpg?v=2", "Cómo usar la plataforma Korex": "/academia/portadas/usa-la-plataforma-korex.jpg?v=2" };
   function portada(c) { var ls = lecciones(c); return { miniatura: PORTADAS[c] || (ls.filter(function (v) { return v.miniatura; })[0] || {}).miniatura }; }
   function poster(v, extra) { return '<div class="poster"' + (v && v.miniatura ? ' style="background-image:url(\'' + esc(v.miniatura) + '\'),linear-gradient(140deg,#0a1730,#18306a)"' : "") + ">" + (extra || "") + "</div>"; }
   function nVideos(n) { return n + (n === 1 ? " video" : " videos"); }
