@@ -36,7 +36,7 @@
   function lsGet() { try { return localStorage.getItem(KEY) || ""; } catch (e) { return ""; } }
   function lsSet(v) { try { v ? localStorage.setItem(KEY, v) : localStorage.removeItem(KEY); } catch (e) {} }
 
-  var S = { clave: "", rol: "", items: [], tab: "calendario", carpeta: null, curso: null, filtro: "todo", q: "", abiertos: {}, semana: null, calTipo: "todo" };
+  var S = { clave: "", rol: "", items: [], tab: "calendario", carpeta: null, curso: null, filtro: "todo", q: "", abiertos: {}, semana: null, calTipo: "todo", calVista: "mes", calMes: null, calDia: null };
   var TABS = [["calendario", "Calendario"], ["videos", "Cursos"], ["recursos", "Recursos"], ["guiones", "Guiones"], ["links", "Links"]];
   function admin() { return S.rol === "admin"; }
 
@@ -155,7 +155,11 @@
     return out.filter(function (s) { return s.f >= desde && s.f <= hasta; }).sort(function (a, b) { return a.ini - b.ini; });
   }
   function proximas(ahora) { var h = fMad(ahora); return sesiones(sumarF(h, -1), sumarF(h, 21)).filter(function (s) { return !s.x && s.fin > ahora; }); }
-  function sesionPorKey(key) { var h = fMad(Date.now()); return sesiones(sumarF(h, -21), sumarF(h, 60)).filter(function (s) { return s.key === key; })[0] || null; }
+  // key = "<id del tipo>|<fecha original o id de la extra>": se busca alrededor de esa fecha.
+  function sesionPorKey(key) {
+    var cl = key.slice(key.lastIndexOf("|") + 1), f = /^\d{4}-\d\d-\d\d$/.test(cl) ? cl : (jp((porId(cl) || {}).texto).f || fMad(Date.now()));
+    return sesiones(sumarF(f, -40), sumarF(f, 40)).filter(function (s) { return s.key === key; })[0] || null;
+  }
   function estado(s, ahora) { return s.x ? "susp" : ahora >= s.fin ? "pasada" : ahora >= s.ini ? "vivo" : "prox"; }
   function diaRel(ms) {
     var a = partes(Date.now(), tzU()), b = partes(ms, tzU());
@@ -218,37 +222,105 @@
   function quedanSemana() { var ahora = Date.now(); return proximas(ahora).filter(function (s) { return s.ini < ahora + 7 * 864e5; }).length; }
 
   function vCalendario() {
-    var evs = eventos(), ahora = Date.now(), l0 = lunesF(fMad(ahora));
+    var evs = eventos(), ahora = Date.now();
     var h = '<div class="h2"><h2>Calendario</h2>' + (admin() && evs.length ? '<button class="btn" data-ses-nueva type="button">' + ic("plus") + "Agregar sesión</button>" : "") + "</div>" +
-      '<p class="intro">Presentaciones y entrenamientos en vivo por Zoom. Los horarios ya están en ' + esc(zonaTxt()) + ".</p>";
+      '<p class="intro">Presentaciones y entrenamientos en vivo por Zoom. Los horarios ya están en ' + esc(zonaTxt()) + ". Toca una sesión para ver de qué se trata y agendarla.</p>";
     if (!evs.length) return h + (admin() ? '<button class="addcard addrow" data-ev-nuevo type="button"><span class="plus">' + ic("plus") + "</span>Crear el primer tipo de sesión</button>" : '<div class="empty">Todavía no hay sesiones programadas.</div>');
-    var lun = semanaVista(), dom = sumarF(lun, 6), n = admin() ? 4 : 3;
     if (S.calTipo !== "todo" && !evs.some(function (e) { return e.id === S.calTipo; })) S.calTipo = "todo";
-    h += '<div class="cal-bar"><div class="chips cal-sem">';
-    for (var k = 0; k < n; k++) {
-      var l = sumarF(l0, k * 7);
-      h += '<button class="chip' + (l === lun ? " on" : "") + '" data-semana="' + k + '" type="button">' + (k === 0 ? "Esta semana" : k === 1 ? "Próxima semana" : "En " + k + " semanas") +
-        "<small>" + dmF(l) + " al " + dmF(sumarF(l, 6)) + "</small></button>";
-    }
-    h += '</div><button class="btn sec" data-suscribir="todos" type="button">' + ic("cal") + "Agendar todo</button></div>";
-    if (evs.length > 1) h += '<div class="chips cal-fil">' + '<button class="chip' + (S.calTipo === "todo" ? " on" : "") + '" data-caltipo="todo" type="button">Todas</button>' +
-      evs.map(function (e) { var c = cfg(e); return '<button class="chip c-' + c.color + (S.calTipo === e.id ? " on" : "") + '" data-caltipo="' + esc(e.id) + '" type="button"><i class="cdot"></i>' + esc(c.etiqueta) + "</button>"; }).join("") + "</div>";
+    var filtro = function (s) { return S.calTipo === "todo" || s.ev.id === S.calTipo; };
+    var fil = evs.length > 1 ? '<div class="chips cal-fil">' + '<button class="chip' + (S.calTipo === "todo" ? " on" : "") + '" data-caltipo="todo" type="button">Todas</button>' +
+      evs.map(function (e) { var c = cfg(e); return '<button class="chip c-' + c.color + (S.calTipo === e.id ? " on" : "") + '" data-caltipo="' + esc(e.id) + '" type="button"><i class="cdot"></i>' + esc(c.etiqueta) + "</button>"; }).join("") + "</div>" : "";
+    var vista = '<div class="opt cal-vista"><button type="button" data-calvista="mes"' + (S.calVista !== "lista" ? ' class="on"' : "") + ">Mes</button>" +
+      '<button type="button" data-calvista="lista"' + (S.calVista === "lista" ? ' class="on"' : "") + ">Lista</button></div>";
+    var todo = '<button class="btn sec" data-suscribir="todos" type="button">' + ic("cal") + "Agendar todo</button>";
 
-    var ls = sesiones(lun, dom).filter(function (s) { return S.calTipo === "todo" || s.ev.id === S.calTipo; });
-    var orden = [], m = {}, hoyL = fLoc(ahora);
-    ls.forEach(function (s) { var k2 = fLoc(s.ini); if (!m[k2]) { m[k2] = []; orden.push(k2); } m[k2].push(s); });
-    h += ls.length ? '<div class="cal-dias">' + orden.map(function (k2) {
-      var p = partes(m[k2][0].ini, tzU());
-      return '<section class="cal-dia' + (k2 === hoyL ? " hoy" : k2 < hoyL ? " ya" : "") + '"><div class="cal-dh"><span>' + DIAS[p.wd] + "</span><b>" + p.d + "</b><small>" + MESES[p.m - 1] + "</small>" +
-        (k2 === hoyL ? "<em>Hoy</em>" : "") + '</div><div class="cal-ses">' + m[k2].map(function (s) { return vSes(s, ahora); }).join("") + "</div></section>";
-    }).join("") + "</div>" : '<div class="empty">' + (S.calTipo === "todo" ? "Esta semana no hay sesiones." : "Esta semana no hay sesiones de este tipo.") + "</div>";
+    if (S.calVista === "lista") {
+      var l0 = lunesF(fMad(ahora)), lun = semanaVista(), n = admin() ? 4 : 3, sem = "";
+      for (var k = 0; k < n; k++) {
+        var l = sumarF(l0, k * 7);
+        sem += '<button class="chip' + (l === lun ? " on" : "") + '" data-semana="' + k + '" type="button">' + (k === 0 ? "Esta semana" : k === 1 ? "Próxima semana" : "En " + k + " semanas") +
+          "<small>" + dmF(l) + " al " + dmF(sumarF(l, 6)) + "</small></button>";
+      }
+      h += '<div class="cal-tool">' + vista + todo + "</div>" + '<div class="chips cal-sem">' + sem + "</div>" + fil;
+      h += vDias(sesiones(lun, sumarF(lun, 6)).filter(filtro), ahora, S.calTipo === "todo" ? "Esta semana no hay sesiones." : "Esta semana no hay sesiones de este tipo.");
+    } else h += vMes(filtro, ahora, vista, todo, fil);
 
     h += '<div class="h2 cal-qe"><h2>Qué es cada una</h2>' + (admin() ? '<button class="btn sec" data-ev-nuevo type="button">' + ic("plus") + "Nuevo tipo</button>" : "") + "</div>";
     h += '<div class="evs">' + evs.map(function (e, i) { return vEv(e, i, evs.length, ahora); }).join("") + "</div>";
     return h;
   }
-
-  function vSes(s, ahora) {
+  // Sesiones agrupadas por día (en la hora de quien mira).
+  function vDias(ls, ahora, vacio) {
+    var orden = [], m = {}, hoyL = fLoc(ahora);
+    ls.forEach(function (s) { var k = fLoc(s.ini); if (!m[k]) { m[k] = []; orden.push(k); } m[k].push(s); });
+    if (!ls.length) return '<div class="empty">' + vacio + "</div>";
+    return '<div class="cal-dias">' + orden.map(function (k) {
+      var p = partes(m[k][0].ini, tzU());
+      return '<section class="cal-dia' + (k === hoyL ? " hoy" : k < hoyL ? " ya" : "") + '"><div class="cal-dh"><span>' + DIAS[p.wd] + "</span><b>" + p.d + "</b><small>" + MESES[p.m - 1] + "</small>" +
+        (k === hoyL ? "<em>Hoy</em>" : "") + '</div><div class="cal-ses">' + m[k].map(function (s) { return vSes(s, ahora); }).join("") + "</div></section>";
+    }).join("") + "</div>";
+  }
+  // Vista mes (como Skool o Google Calendar): grilla de lunes a domingo, días en la hora de quien mira.
+  function vMes(filtro, ahora, vista, todo, fil) {
+    var hoyL = fLoc(ahora), mes = S.calMes || hoyL.slice(0, 7), y = +mes.slice(0, 4), mm = +mes.slice(5, 7);
+    var sig = mm === 12 ? (y + 1) + "-01" : y + "-" + z2(mm + 1), ant = mm === 1 ? (y - 1) + "-12" : y + "-" + z2(mm - 1);
+    var ini = lunesF(mes + "-01"), fin = sumarF(lunesF(sumarF(sig + "-01", -1)), 6);
+    var por = {};
+    sesiones(sumarF(ini, -1), sumarF(fin, 1)).filter(filtro).forEach(function (s) { var k = fLoc(s.ini); (por[k] = por[k] || []).push(s); });
+    // Día elegido: el que se tocó; si no, hoy si tiene sesiones por venir; si no, el de la próxima sesión del mes.
+    var sel = S.calDia;
+    if (!sel || sel < ini || sel > fin) {
+      var px = proximas(ahora).filter(filtro).filter(function (s) { var k = fLoc(s.ini); return k >= ini && k <= fin; })[0];
+      sel = px ? fLoc(px.ini) : hoyL >= ini && hoyL <= fin ? hoyL : mes + "-01";
+    }
+    var h = '<div class="cal-tool"><div class="cal-nav"><button class="mini ico" data-calmes="' + ant + '" title="Mes anterior" type="button">' + ic("back") + "</button>" +
+      "<b>" + cap(MESES[mm - 1]) + " " + y + '</b><button class="mini ico" data-calmes="' + sig + '" title="Mes siguiente" type="button">' + ic("chev") + "</button>" +
+      (mes !== hoyL.slice(0, 7) ? '<button class="chip" data-calmes="' + hoyL.slice(0, 7) + '" type="button">Hoy</button>' : "") + "</div>" + vista + todo + "</div>" + fil;
+    h += '<div class="mes"><div class="mes-h">' + ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"].map(function (d) { return "<span>" + d + "</span>"; }).join("") + '</div><div class="mes-g">';
+    for (var f = ini; f <= fin; f = sumarF(f, 1)) {
+      var ls = por[f] || [], d = +f.slice(8, 10);
+      var cls = "mc" + (f.slice(0, 7) !== mes ? " fuera" : "") + (f === hoyL ? " hoy" : f < hoyL ? " ya" : "") + (f === sel ? " sel" : "") + (ls.length ? " con" : "");
+      h += '<div class="' + cls + '" data-caldia="' + f + '" role="button" tabindex="0" aria-label="' + d + " de " + MESES[+f.slice(5, 7) - 1] + (ls.length ? ", " + ls.length + " sesiones" : "") + '">' +
+        '<span class="mc-n">' + d + "</span>" +
+        '<div class="mc-ev">' + ls.slice(0, 3).map(function (s) {
+          var st = estado(s, ahora);
+          return '<button class="mchip c-' + s.c.color + " " + st + '" data-detalle="' + esc(s.key) + '" type="button" title="' + esc(s.ev.titulo) + '"><b>' + horaLocal(s.ini) + "</b>" + esc(s.c.etiqueta) + "</button>";
+        }).join("") + (ls.length > 3 ? '<span class="mc-mas">+' + (ls.length - 3) + " más</span>" : "") + "</div>" +
+        '<div class="mc-dots">' + ls.slice(0, 4).map(function (s) { return '<i class="c-' + s.c.color + (s.x ? " x" : "") + '"></i>'; }).join("") + "</div></div>";
+    }
+    h += "</div></div>";
+    var p = partes(msDe(sel, "12:00"), TZ), lsSel = por[sel] || [];
+    h += '<div class="cal-sel"><p class="h3">' + (sel === hoyL ? "Hoy · " : "") + cap(DIAS[wdF(sel)]) + " " + +sel.slice(8, 10) + " de " + MESES[+sel.slice(5, 7) - 1] + "</p>" +
+      (lsSel.length ? '<div class="cal-ses">' + lsSel.map(function (s) { return vSes(s, ahora); }).join("") + "</div>" : '<div class="empty">Este día no hay sesiones.</div>') + "</div>";
+    return h;
+  }
+  // Ficha de una sesión (al tocarla en el mes).
+  function detalle(s) {
+    var ahora = Date.now(), st = estado(s, ahora), p = partes(s.ini, tzU()), ev = s.ev;
+    var cuerpo = '<div class="det c-' + s.c.color + (ev.miniatura ? "" : " sin") + '">' +
+      (ev.miniatura ? '<button class="det-img" id="detImg" type="button" style="background-image:url(\'' + esc(ev.miniatura) + '\')" aria-label="Ver imagen"></button>' : "") +
+      '<div class="det-b"><span class="tagc">' + esc(s.c.etiqueta) + "</span>" +
+      '<p class="det-f">' + ic("cal") + "<span><b>" + cap(DIAS[p.wd]) + " " + p.d + " de " + MESES[p.m - 1] + "</b><br>" + horaLocal(s.ini) + " a " + horaLocal(s.fin) + (tuHora(s.ini) ? " (tu hora) · " + horaMad(s.ini) + " en España" : " (hora de España)") + "</span></p>" +
+      (insignias(s, ahora) ? '<span class="ses-bs">' + insignias(s, ahora) + "</span>" : "") +
+      (s.n ? '<span class="ses-n">' + esc(s.n) + "</span>" : "") +
+      (ev.descripcion ? '<p class="evc-d">' + esc(ev.descripcion) + "</p>" : "") + "</div></div>";
+    var pie = "";
+    if (admin()) pie += '<span class="det-adm"><button class="mini" id="detMover" type="button">' + ic("pen") + "Cambiar</button>" +
+      (s.extra ? '<button class="mini del" id="detBorrar" type="button">' + ic("trash") + "Borrar</button>" : '<button class="mini' + (s.x ? "" : " del") + '" id="detSusp" type="button">' + (s.x ? "Reactivar" : "Suspender") + "</button>") + "</span>";
+    if (st === "prox" || st === "vivo") {
+      pie += '<button class="btn sec" id="detAgendar" type="button">' + ic("cal") + "Agendar</button>";
+      if (ev.url) pie += '<a class="btn" href="' + esc(ev.url) + '" target="_blank" rel="noopener">' + ic("vid") + "Entrar al Zoom</a>";
+    } else pie += '<button class="btn sec" data-dcerrar2 type="button">Cerrar</button>';
+    dlg(ev.titulo, cuerpo, pie);
+    var on = function (id, fn) { var e = $("#" + id); if (e) e.onclick = fn; };
+    on("detImg", function () { ver({ titulo: ev.titulo, tipo: "image", url: ev.miniatura }); });
+    on("detAgendar", function () { agendar(s); });
+    on("detMover", function () { moverSes(s); });
+    on("detSusp", function () { cerrar(); suspender(s); });
+    on("detBorrar", function () { cerrar(); borrar(s.fila); });
+    var c2 = $("[data-dcerrar2]"); if (c2) c2.onclick = cerrar;
+  }
+  function insignias(s, ahora) {
     var st = estado(s, ahora), falta = s.ini - ahora, b = "";
     if (st === "vivo") b += '<span class="ses-st st-vivo"><i class="dot"></i>En vivo ahora</span>';
     else if (st === "susp") b += '<span class="ses-st st-susp">Suspendida</span>';
@@ -256,6 +328,11 @@
     else if (falta < 3600000) b += '<span class="ses-st st-pronto">Empieza en ' + Math.max(1, Math.ceil(falta / 60000)) + " min</span>";
     if (s.movida && !s.x) b += '<span class="ses-st st-cambio">Cambió de horario</span>';
     if (s.extra) b += '<span class="ses-st st-extra">Sesión extra</span>';
+    return b;
+  }
+
+  function vSes(s, ahora) {
+    var st = estado(s, ahora), b = insignias(s, ahora);
     var a = "";
     if (st === "prox" || st === "vivo") {
       if (s.ev.url) a += '<a class="btn' + (st === "vivo" ? "" : " sec") + '" href="' + esc(s.ev.url) + '" target="_blank" rel="noopener">' + ic("vid") + "Entrar al Zoom</a>";
@@ -1066,10 +1143,14 @@
 
   /* ---------------- eventos ---------------- */
   document.addEventListener("click", function (e) {
-    var t = e.target.closest("[data-tab],[data-abrir],[data-volver],[data-filtro],[data-ver],[data-bajar],[data-copiar],[data-grupo],[data-nuevo],[data-editar],[data-borrar],[data-subir],[data-curso],[data-mover],[data-mgrupo],[data-renombrar],[data-flyer],[data-semana],[data-caltipo],[data-agendar],[data-suscribir],[data-ses-mover],[data-ses-susp],[data-ses-borrar],[data-ses-nueva],[data-ev-nuevo],[data-ev-edit],[data-ev-borrar],[data-ev-mover],[data-ev-img]");
+    var t = e.target.closest("[data-tab],[data-abrir],[data-volver],[data-filtro],[data-ver],[data-bajar],[data-copiar],[data-grupo],[data-nuevo],[data-editar],[data-borrar],[data-subir],[data-curso],[data-mover],[data-mgrupo],[data-renombrar],[data-flyer],[data-semana],[data-caltipo],[data-agendar],[data-suscribir],[data-ses-mover],[data-ses-susp],[data-ses-borrar],[data-ses-nueva],[data-ev-nuevo],[data-ev-edit],[data-ev-borrar],[data-ev-mover],[data-ev-img],[data-calvista],[data-calmes],[data-caldia],[data-detalle]");
     if (!t || !$("#app").contains(t)) return;
     var d = t.dataset;
     // calendario
+    if (d.detalle) { var sd = sesionPorKey(d.detalle); if (sd) detalle(sd); return; }
+    if (d.calvista) { S.calVista = d.calvista; render(); return; }
+    if (d.calmes) { S.calMes = d.calmes; S.calDia = null; render(); return; }
+    if (d.caldia) { S.calDia = d.caldia; render(); var cs = $(".cal-sel"); if (cs && matchMedia("(max-width:640px)").matches) cs.scrollIntoView({ behavior: "smooth", block: "start" }); return; }
     if ("semana" in d) { S.semana = +d.semana; render(); return; }
     if (d.caltipo) { S.calTipo = d.caltipo; render(); return; }
     if (d.agendar) { var sa = sesionPorKey(d.agendar); if (sa) agendar(sa); return; }
@@ -1100,6 +1181,10 @@
     else if (d.editar) { var it = porId(d.editar); if (it) formulario(it.seccion, it); }
     else if (d.borrar) borrar(porId(d.borrar));
     else if (d.subir) subirArchivos(porId(d.subir));
+  });
+  document.addEventListener("keydown", function (e) {
+    var c = e.target.closest && e.target.closest("[data-caldia]");
+    if (c && (e.key === "Enter" || e.key === " ") && e.target === c) { e.preventDefault(); c.click(); }
   });
   document.addEventListener("input", function (e) {
     if (e.target.id !== "q") return;
