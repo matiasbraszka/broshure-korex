@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0d0f0a">
+<meta name="theme-color" content="#070806">
 <meta name="robots" content="noindex">
 <title>Tutorial Tarjeta BIX · Equipo Korex</title>
 <meta name="description" content="Cómo activar y usar tu tarjeta BIX paso a paso.">
@@ -12,37 +12,27 @@
 <meta property="og:description" content="Activa y usa tu tarjeta BIX en 3 minutos, paso a paso.">
 <meta property="og:url" content="https://info.metodokorex.com/bixinstalacion/">
 <meta property="og:image" content="https://info.metodokorex.com/bixinstalacion/og.jpg">
+<link rel="stylesheet" href="/reproductor/korex-player.css">
+<link rel="stylesheet" href="/reproductor/voomly.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@700;800&family=IBM+Plex+Sans:wght@500;600;700&display=swap">
 <style>
-:root { --lima: #cafe5c; --tinta: #10140a; --fondo: #070806; --gris: #a3a998; color-scheme: dark; }
+/* Misma estructura que /tutorial-aitech/ (menú de tutoriales, encabezado, video, pasos, pie) con la marca BIX: verde lima, Sora + IBM Plex */
+:root { --lima: #cafe5c; --tinta: #10140a; --fondo: #070806; --gris: #a3a998; --tm-fondo: rgba(7,8,6,.86); color-scheme: dark; }
 * { box-sizing: border-box; }
 html, body { margin: 0; }
 body { background: radial-gradient(120% 50% at 0% 0%, #20330a 0%, transparent 60%), var(--fondo); color: #f2f5ea;
   font: 500 15px/1.45 "IBM Plex Sans", system-ui, sans-serif; -webkit-tap-highlight-color: transparent; min-height: 100vh; }
-button { font: inherit; color: inherit; cursor: pointer; }
-/* Video: del alto de la pantalla */
-.vid { position: relative; width: min(100%, calc((100svh - 12px) * 9 / 16)); margin: 0 auto; }
-.vid .voomly-embed { width: 100%; }
-@media (min-width: 860px) { .vid { width: calc((100svh - 40px) * 9 / 16); margin-top: 12px; border-radius: 18px; overflow: hidden; box-shadow: 0 0 0 1px #2b3022, 0 30px 80px rgba(0,0,0,.6); } }
-
-/* ── Reproductor de Voomly a nuestro estilo: barra de vidrio, barra de tiempo + volumen + velocidad + pantalla completa ── */
-.vid [data-cy="togglePlayButton"], .vid [class*="styles_selectQualityWrap"], .vid [class*="logo_root"] { display: none !important; }
-.vid [data-cy="controls-root"] { background: rgba(8,10,6,.38) !important; -webkit-backdrop-filter: blur(12px) saturate(140%); backdrop-filter: blur(12px) saturate(140%);
-  border-radius: 14px; border: 1px solid rgba(255,255,255,.1); padding-left: 6px; padding-right: 6px; }
-.vid [class*="progressBar_root"], .vid [class*="controls_buttons"] { background: transparent !important; }
-.vid [class*="progressBar_track"] { background: rgba(255,255,255,.2) !important; border-radius: 6px; overflow: hidden; }
-.vid [class*="progressBar_bar__"] { background: var(--lima) !important; }   /* solo lo ya visto (no "barWrap", que es todo el ancho) */
-.vid [class*="progressBar_secondsLoaded"] { background: rgba(255,255,255,.28) !important; }
-.vid [class*="progressBar_tipTime"], .vid [class*="select_popover"], .vid [class*="volume_slider"] { background: rgba(8,10,6,.72) !important; -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-radius: 8px; }
-.vid [class*="sliderHandle_value"] { background: var(--lima) !important; color: var(--tinta) !important; }
-.vid [class*="volume_trackBg"] { background: rgba(255,255,255,.25) !important; }
-.vid [class*="volume_bar"] { background: var(--lima) !important; }
-.vid [class*="popoverTip_root"] { display: none !important; }
-/* botón grande de play: verde BIX y redondo */
-.vid [class*="playButton_icon"] rect { fill: var(--lima) !important; rx: 32px; ry: 32px; }
-.vid [class*="playButton_icon"] path { fill: var(--tinta) !important; }
-
+.envuelve { max-width: 980px; margin: 0 auto; padding: 14px 0 28px; }
+header { display: flex; align-items: center; gap: 12px; padding: 0 16px 12px; }
+header img { height: 26px; width: auto; }
+header .tit { font: 800 18px/1.1 Sora, sans-serif; letter-spacing: -.2px; white-space: nowrap; }
+header .tit small { display: block; font: 700 12px/1.3 "IBM Plex Sans", sans-serif; color: var(--gris); letter-spacing: .4px; }
+header .firma { margin-left: auto; font-size: 11.5px; font-weight: 700; color: var(--gris); text-align: right; line-height: 1.2; }
+header .firma b { color: #fff; }
+/* Video vertical (9:16): del alto de la pantalla, debajo del menú */
+#reproductor { --kp-acento: #cafe5c; --kp-texto-acento: #10140a; width: min(100%, calc((100svh - var(--tm-alto, 68px) - 20px) * 9 / 16)); margin: 0 auto; }
+@media (min-width: 700px) { #reproductor { width: min(100%, calc((100svh - var(--tm-alto, 68px) - 110px) * 9 / 16)); border-radius: 18px; box-shadow: 0 0 0 1px #2b3022, 0 30px 80px rgba(0,0,0,.6); } .envuelve { padding-top: 24px; } }
 /* Botón de registro: solo aparece si el link trae el código de quien invita (?code=XXXX) */
 .cta { max-width: 560px; margin: 16px auto 0; padding: 0 16px; }
 .cta a { display: block; padding: 17px 16px; border-radius: 14px; background: var(--lima); color: var(--tinta); text-align: center; text-decoration: none;
@@ -51,31 +41,30 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .cta .fl { display: inline-block; margin-left: 8px; animation: empuje 1.2s ease-in-out infinite; }
 @keyframes empuje { 50% { transform: translateX(5px); } }
 @media (prefers-reduced-motion: reduce) { .cta .fl { animation: none; } }
-
-/* Lista de pasos debajo del video */
-.lista { max-width: 560px; margin: 18px auto 0; padding: 0 16px; }
-.lista h2 { margin: 0 0 2px; font: 800 17px/1.2 Sora, sans-serif; }
-.lista h2 + p { margin: 0 0 12px; font-size: 13px; color: var(--gris); }
-.lista button { display: flex; align-items: center; gap: 12px; width: 100%; margin-bottom: 8px; padding: 12px 14px; border-radius: 14px;
-  border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.04); text-align: left; font-size: 15px; }
-.lista button .n { flex: none; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: rgba(255,255,255,.08); font-weight: 700; font-size: 13px; }
-.lista button .t { margin-left: auto; color: var(--gris); font-size: 13px; }
-.lista button.act { border-color: var(--lima); } .lista button.act .n { background: var(--lima); color: var(--tinta); }
-footer { max-width: 560px; margin: 16px auto 0; padding: 0 16px 24px; font-size: 12px; line-height: 1.5; color: var(--gris); text-align: center; }
+h2 { margin: 20px 16px 10px; font: 800 19px/1.2 Sora, sans-serif; letter-spacing: -.2px; }
+h2 small { display: block; font: 700 13px/1.3 "IBM Plex Sans", sans-serif; color: var(--gris); margin-top: 3px; }
+.kp-capitulos { padding: 0 16px; display: grid; gap: 0; }
+@media (min-width: 700px) { .kp-capitulos { grid-template-columns: 1fr 1fr; column-gap: 10px; } }
+.kp-capitulos button { color: #f2f5ea; font-family: "IBM Plex Sans", sans-serif; }
+.kp-capitulos button.act { box-shadow: 0 0 24px rgba(202,254,92,.18); }
+footer { margin: 22px 16px 0; font-size: 12px; line-height: 1.5; color: var(--gris); text-align: center; }
 footer b { color: #fff; }
 </style>
 </head>
 <body>
-<div class="vid" id="vid">
-  <div class="voomly-embed" data-id="0Y9ZUh5I5jLJjVLKhxjlBjTcD72D1BQ1ZnNxeYooNTqmfj0c-" data-ratio="0.5625" data-type="v" data-skin-color="rgb(202,254,92)"></div>
+<script src="/reproductor/tutoriales.js"></script>
+<div class="envuelve">
+  <header>
+    <img src="logo-bix.svg" alt="BIX" draggable="false">
+    <div class="tit">Tutorial Tarjeta<small>PASO A PASO</small></div>
+    <div class="firma">por <b>Equipo Korex</b><br>afiliados independientes</div>
+  </header>
+  <div id="reproductor" class="vy" style="--vy-acento:#cafe5c;--vy-tinta:#10140a"><div class="voomly-embed" data-id="0Y9ZUh5I5jLJjVLKhxjlBjTcD72D1BQ1ZnNxeYooNTqmfj0c-" data-ratio="0.5625" data-type="v" data-skin-color="rgb(202,254,92)"></div></div>
+  <div class="cta" id="cta" hidden><a target="_blank" rel="noopener">Inicia tu registro aquí<span class="fl" aria-hidden="true">→</span></a></div>
+  <h2>Salta al paso que necesites<small>Toca un paso y el video va directo ahí</small></h2>
+  <div class="kp-capitulos" id="capitulos"></div>
+  <footer>Tutorial elaborado por <b>Equipo Korex</b>, afiliados independientes de BIX. No somos la empresa y no brindamos asesoramiento financiero. ¿Quieres saber más? Pídele información a quien te invitó.</footer>
 </div>
-<div class="cta" id="cta" hidden><a target="_blank" rel="noopener">Inicia tu registro aquí<span class="fl" aria-hidden="true">→</span></a></div>
-<section class="lista">
-  <h2>Salta al paso que necesites</h2>
-  <p>Toca un paso y el video va directo ahí</p>
-  <div id="capitulos"></div>
-</section>
-<footer>Tutorial elaborado por <b>Equipo Korex</b>, afiliados independientes de BIX. No somos la empresa y no brindamos asesoramiento financiero. ¿Quieres saber más? Pídele información a quien te invitó.</footer>
 <script src="https://embed.voomly.com/embed/embed-build.js"></script>
 <script>
 // Botón de registro: /bixinstalacion/?code=XXXX → lleva a bix.fi con ese código de referido
@@ -100,11 +89,12 @@ lista.innerHTML = CAPS.map((c, i) => `<button type="button" data-i="${i}"><span 
 const botones = [...lista.children];
 let api = null, actual = -1;
 function marcar(t) { let k = 0; CAPS.forEach((c, i) => { if (t >= c.t - 0.05) k = i; }); if (k !== actual) { actual = k; botones.forEach((b, i) => b.classList.toggle('act', i === k)); } }
-lista.onclick = (e) => {
+lista.addEventListener('click', (e) => {
   const b = e.target.closest('[data-i]'); if (!b || !api) return;
   const t = CAPS[+b.dataset.i].t; api.seek({ time: t + 0.05 }); api.play(); marcar(t);
-  document.getElementById('vid').scrollIntoView({ behavior: 'smooth', block: 'start' });
-};
+  document.getElementById('reproductor').scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+// Reproductor de Voomly: marca en la lista el paso que se está viendo
 (function conectar() {
   if (!window.attachVoomlyPlayer || !window.voomlyEmbedPlayerPreloader) return setTimeout(conectar, 150);
   const el = document.querySelector('.voomly-embed');

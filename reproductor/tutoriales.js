@@ -10,7 +10,7 @@
   ];
   const css = `
 .tm-nav { position: sticky; top: 0; z-index: 30; padding: calc(8px + env(safe-area-inset-top)) 10px 8px;
-  background: rgba(4,7,14,.86); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(255,255,255,.09); }
+  background: var(--tm-fondo, rgba(4,7,14,.86)); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(255,255,255,.09); }
 .tm-fila { display: grid; grid-template-columns: repeat(${VIDEOS.length}, 1fr); gap: 6px; max-width: 620px; margin: 0 auto; }
 .tm-it { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 50px; padding: 6px 4px; border-radius: 12px;
   text-decoration: none; color: #e9edf7; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); text-align: center; line-height: 1.15; }
