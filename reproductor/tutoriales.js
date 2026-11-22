@@ -4,6 +4,7 @@
 (function () {
   const VIDEOS = [
     { href: '/tutorial-aitech/', nombre: 'Registro AI Tech', dur: '4:59', a: 'linear-gradient(135deg,#0EC8F0,#2D6BFF)', t: '#fff', sombra: 'rgba(14,200,240,.45)' },
+    { href: '/tutorial2-aitech/', nombre: 'Retiros AI Tech', dur: '5:15', a: 'linear-gradient(135deg,#0EC8F0,#2D6BFF)', t: '#fff', sombra: 'rgba(14,200,240,.45)' },
     { href: '/tutorial-myfxbook/', nombre: 'MyFXBook Sonic', dur: '5:28', a: 'linear-gradient(135deg,#0EC8F0,#2D6BFF)', t: '#fff', sombra: 'rgba(14,200,240,.45)' },
     { href: '/bixinstalacion/', nombre: 'Tarjeta BIX', dur: '3:04', a: '#cafe5c', t: '#10140a', sombra: 'rgba(202,254,92,.4)' },
   ];

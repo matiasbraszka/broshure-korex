@@ -41,6 +41,12 @@ h2 small { display: block; font-weight: 700; font-size: 13px; color: var(--gris)
 .kp-capitulos button.act { box-shadow: 0 0 24px rgba(14,200,240,.25); }
 .aviso { margin: 18px 16px 0; padding: 12px 14px; border-radius: 12px; background: rgba(255,90,95,.1); border: 1px solid rgba(255,90,95,.35); font-size: 14px; }
 .aviso b { color: #ff8a8e; }
+.otra-parte { display: flex; align-items: center; gap: 12px; margin: 12px 16px 0; padding: 12px 14px; border-radius: 12px; text-decoration: none; color: var(--gris);
+  background: rgba(14,29,69,.55); border: 1px solid rgba(126,164,255,.3); font-size: 13.5px; line-height: 1.35; }
+.otra-parte div { flex: 1; }
+.otra-parte b { display: block; color: #fff; font-size: 15px; }
+.otra-parte span { flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, #0EC8F0, #2D6BFF); color: #fff; font-size: 13px; }
+@media (hover: hover) { .otra-parte:hover { border-color: rgba(14,200,240,.6); } }
 footer { margin: 22px 16px 0; font-size: 12px; line-height: 1.5; color: var(--gris); text-align: center; }
 footer b { color: #fff; }
 </style>
@@ -57,6 +63,7 @@ footer b { color: #fff; }
   <h2>Salta al paso que necesites<small>Toca un paso y el video va directo ahí</small></h2>
   <div class="kp-capitulos" id="capitulos"></div>
   <div class="aviso"><b>Importante:</b> regístrate siempre desde el link de AI Tech, nunca directo en TAG Markets.</div>
+  <a class="otra-parte" href="/tutorial2-aitech/"><div><b>¿Ya invertiste? Mira la Parte 2</b>Reinvertir, cargar tu wallet y retirar ganancias, capital y comisiones</div><span>▶</span></a>
   <footer>Tutorial elaborado por <b>Equipo Korex</b>, afiliados independientes. No somos AI Tech, TAG Markets ni ninguna de las empresas mencionadas, y no brindamos asesoramiento financiero. Este video es solo informativo: operar con CFD y productos apalancados implica riesgo de pérdida.</footer>
 </div>
 <script src="https://embed.voomly.com/embed/embed-build.js"></script>
