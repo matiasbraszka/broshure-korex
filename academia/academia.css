@@ -624,18 +624,19 @@ main{grid-template-columns:minmax(0,1fr)}
 .campana em{display:none;position:absolute;top:6px;right:6px;width:9px;height:9px;border-radius:50%;background:#ff4d4f;box-shadow:0 0 0 2px var(--bg)}
 .campana.hay em{display:block}
 .scrim.lado{place-items:stretch end;padding:0}
-.scrim.lado .dlg{width:min(440px,100%);height:100dvh;max-height:100dvh;border-radius:0;display:flex;flex-direction:column;animation:lado .22s ease}
+.scrim.lado .dlg{width:min(440px,100%);height:100dvh;max-height:100dvh;border-radius:0;display:flex;flex-direction:column;background:var(--bg);animation:lado .22s ease}
+.scrim.lado .dlg-h b{font:400 25px/1.1 var(--f-serif)}
 .scrim.lado .dlg-b{flex:1;align-content:start}
 @keyframes lado{from{transform:translateX(40px);opacity:0}to{transform:none;opacity:1}}
 .nov-l{display:grid;gap:12px}
-.nov{display:grid;gap:8px;padding:14px;border:1px solid var(--border);border-radius:var(--r)}
-.nov.nueva{border-color:color-mix(in srgb,var(--accent) 45%,var(--border));background:color-mix(in srgb,var(--accent-tint) 45%,transparent)}
+.nov{display:grid;gap:8px;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--shadow)}
+.nov.nueva{border-color:color-mix(in srgb,var(--accent) 55%,var(--border))}
 .nov-h{display:flex;align-items:center;gap:8px;min-height:28px}
-.nov-f{font-size:12.5px;color:var(--text-3);font-weight:600}
-.nov-new{font-size:11px;font-weight:700;border-radius:99px;padding:3px 8px;background:var(--accent);color:#fff}
+.nov-f{font:600 11px/1.2 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--text-3)}
+.nov-new{font:600 11px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;border-radius:99px;padding:5px 8px;background:var(--accent-tint);color:var(--accent-text)}
 .nov-adm{margin-left:auto;display:flex;gap:2px}
-.nov h3{margin:0;font-size:17px;font-weight:600;line-height:1.3}
-.nov-img{width:100%;max-height:320px;object-fit:cover;border-radius:10px;display:block}
-.nov-t{font-size:14.5px;line-height:1.6;color:var(--text-2)}
+.nov h3{margin:0;font-size:16px;font-weight:600;line-height:1.3}
+.nov-img{width:100%;max-height:320px;object-fit:cover;border-radius:var(--r);display:block}
+.nov-t{font-size:14px;line-height:1.55;color:var(--text-2)}
 .nov-t a{color:var(--accent-text)}
 .nov-a{display:flex;gap:8px;flex-wrap:wrap}
