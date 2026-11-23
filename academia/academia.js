@@ -29,7 +29,7 @@
     cal: '<rect x="4" y="5.5" width="16" height="14.5" rx="2"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/>',
     arr: '<path d="M12 6v12M7 11l5-5 5 5"/>',
     abj: '<path d="M12 6v12M7 13l5 5 5-5"/>',
-    bell: '<path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/>'
+    diario: '<path d="M4 5.5h12v13a1.5 1.5 0 0 0 1.5 1.5H6a2 2 0 0 1-2-2z"/><path d="M16 9h3.5v9.5a1.5 1.5 0 0 1-3 0"/><path d="M7 9h6M7 12.5h6M7 16h4"/>'
   };
   function ic(n, extra) { return '<svg class="i' + (extra ? " " + extra : "") + '" viewBox="0 0 24 24" aria-hidden="true">' + P[n] + "</svg>"; }
   function $(s, r) { return (r || document).querySelector(s); }
@@ -72,7 +72,7 @@
       $("#login").hidden = true; $("#app").hidden = false; render();
     }).catch(function () { b.disabled = false; b.textContent = "Entrar"; $("#err").textContent = "No se pudo entrar. Revisa tu conexión."; });
   }
-  function salir() { S.clave = ""; S.rol = ""; S.items = []; S.novCerrada = false; lsSet(""); $("#app").hidden = true; $("#login").hidden = false; $("#clave").value = ""; }
+  function salir() { S.clave = ""; S.rol = ""; S.items = []; lsSet(""); $("#app").hidden = true; $("#login").hidden = false; $("#clave").value = ""; }
   $("#fLogin").addEventListener("submit", function (e) { e.preventDefault(); var v = $("#clave").value.trim(); if (v) entrar(v); });
   $("#bSalir").addEventListener("click", salir);
 
@@ -336,8 +336,8 @@
   /* ---------------- actualizaciones (novedades) ----------------
      academia_items, sección link, grupo "__novedad": titulo, descripcion (el texto), miniatura (imagen opcional),
      url (link opcional), texto = JSON { ir: "<pestaña>" (botón para ir a verlo), auto: 1 (la subió el sistema) }.
-     Lo que cada uno ya vio se guarda en su navegador: lo nuevo se marca con el número de la campanita
-     y un aviso arriba. Regla: cada mejora importante de la Academia se publica acá. */
+     Se abren con el ícono de diario de arriba, en un panel lateral. Lo que cada uno ya vio se guarda en su
+     navegador: si hay algo nuevo, el ícono lleva un puntito. Regla: cada mejora importante se publica acá. */
   var VISTO = "kx-academia-novedades";
   function novedades() {
     return S.items.filter(function (x) { return x.grupo === "__novedad"; })
@@ -356,15 +356,7 @@
     var n = sinVer().length;
     b.hidden = !novedades().length && !admin();
     b.classList.toggle("hay", n > 0);
-    b.querySelector("em").textContent = n > 9 ? "9+" : n;
     b.setAttribute("aria-label", n ? "Actualizaciones: " + n + (n === 1 ? " nueva" : " nuevas") : "Actualizaciones");
-  }
-  // Aviso arriba de la pantalla cuando hay algo sin ver.
-  function vNovedad() {
-    var ls = sinVer(); if (!ls.length || S.novCerrada) return "";
-    return '<section class="nov-av" id="novAv"><span class="nov-av-i">' + ic("bell") + '</span><span class="nov-av-t"><small>' +
-      (ls.length > 1 ? ls.length + " actualizaciones nuevas" : "Actualización nueva") + "</small><b>" + esc(ls[0].titulo) + "</b></span>" +
-      '<button class="btn" data-nov type="button">Ver</button><button class="mini ico" data-nov-x type="button" aria-label="Cerrar aviso">' + ic("x") + "</button></section>";
   }
   function fechaNov(iso) {
     var d = new Date(iso); if (isNaN(d)) return "";
@@ -389,7 +381,8 @@
         "</article>";
     }).join("") + "</div>" : '<p class="cal-intro">Todavía no hay actualizaciones publicadas.</p>'),
       (admin() ? '<button class="btn sec" id="novNueva" type="button">' + ic("plus") + "Publicar actualización</button>" : "") + '<button class="btn" data-dcerrar2 type="button">Listo</button>');
-    marcarVisto(); S.novCerrada = true; pintarCampana(); var av = $("#novAv"); if (av) av.remove();
+    $(".scrim").classList.add("lado");
+    marcarVisto(); pintarCampana();
     $("[data-dcerrar2]").onclick = cerrar;
     var nv = $("#novNueva"); if (nv) nv.onclick = function () { editarNov(null); };
     $(".dlg-b").onclick = function (e) {
@@ -410,7 +403,7 @@
       '<div class="fld"><span>Imagen (opcional)</span><div class="eimg"><div class="eimg-p" id="eImgP"></div><div class="eimg-a">' +
       '<span class="btn sec eimg-up">' + ic("up") + 'Subir imagen<input type="file" id="eImgF" accept="image/*"></span>' +
       '<button class="mini del" id="eImgX" type="button">' + ic("trash") + 'Quitar</button><div class="prog" id="eProg"></div></div></div></div>' +
-      (n.id ? "" : '<p class="cal-intro">Al publicarla, a todos los que entren les aparece el aviso de que hay una actualización nueva.</p>'),
+      (n.id ? "" : '<p class="cal-intro">Al publicarla, a todos les aparece marcada como nueva en Actualizaciones.</p>'),
       '<button class="btn sec" data-dcerrar2 type="button">Cancelar</button><button class="btn" id="fOk" type="button">' + (n.id ? "Guardar" : "Publicar") + "</button>");
     $("[data-dcerrar2]").onclick = function () { verNovedades(); };
     function pintarImg() { var p = $("#eImgP"); p.style.backgroundImage = img ? "url('" + img.replace(/'/g, "%27") + "')" : ""; p.innerHTML = img ? "" : ic("img", "big"); $("#eImgX").hidden = !img; }
@@ -633,7 +626,7 @@
     else if (S.tab === "guiones") h = vGuiones();
     else h = vLinks();
     var arriba = S.tab !== "calendario" && !(S.tab === "videos" && S.curso) && !(S.tab === "recursos" && S.carpeta);
-    $("#main").innerHTML = vNovedad() + (arriba ? vProximo() : "") + h;
+    $("#main").innerHTML = (arriba ? vProximo() : "") + h;
     pintarCampana();
     pintarMinis();
     var q = $("#q");
@@ -1213,11 +1206,10 @@
 
   /* ---------------- eventos ---------------- */
   document.addEventListener("click", function (e) {
-    var t = e.target.closest("[data-tab],[data-abrir],[data-volver],[data-filtro],[data-ver],[data-bajar],[data-copiar],[data-grupo],[data-nuevo],[data-editar],[data-borrar],[data-subir],[data-curso],[data-mover],[data-mgrupo],[data-renombrar],[data-flyer],[data-caltipo],[data-suscribir],[data-ses-nueva],[data-ev-nuevo],[data-calmes],[data-caldia],[data-detalle],[data-ev-tipos],[data-nov],[data-nov-x]");
+    var t = e.target.closest("[data-tab],[data-abrir],[data-volver],[data-filtro],[data-ver],[data-bajar],[data-copiar],[data-grupo],[data-nuevo],[data-editar],[data-borrar],[data-subir],[data-curso],[data-mover],[data-mgrupo],[data-renombrar],[data-flyer],[data-caltipo],[data-suscribir],[data-ses-nueva],[data-ev-nuevo],[data-calmes],[data-caldia],[data-detalle],[data-ev-tipos],[data-nov]");
     if (!t || !$("#app").contains(t)) return;
     var d = t.dataset;
     if ("nov" in d) { verNovedades(); return; }
-    if ("novX" in d) { S.novCerrada = true; marcarVisto(); pintarCampana(); var av = $("#novAv"); if (av) av.remove(); return; }
     // calendario
     if (d.detalle) { var sd = sesionPorKey(d.detalle); if (sd) detalle(sd); return; }
     if (d.calmes) { S.calMes = d.calmes; render(); return; }

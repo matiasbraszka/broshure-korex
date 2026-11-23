@@ -618,19 +618,15 @@ main{grid-template-columns:minmax(0,1fr)}
 .mc-dots i.np{background:transparent;box-shadow:inset 0 0 0 1.5px var(--c)}
 .dm-r.np{border-style:dashed}
 
-/* actualizaciones */
+/* actualizaciones: ícono de diario arriba + panel lateral */
 .campana{position:relative;width:38px;height:38px}
-.campana .i{width:19px;height:19px}
-.campana em{display:none;position:absolute;top:1px;right:0;min-width:17px;height:17px;padding:0 4px;border-radius:99px;background:#ff4d4f;color:#fff;font-size:10.5px;font-weight:700;line-height:17px;font-style:normal;text-align:center;box-shadow:0 0 0 2px var(--bg)}
+.campana .i{width:20px;height:20px}
+.campana em{display:none;position:absolute;top:6px;right:6px;width:9px;height:9px;border-radius:50%;background:#ff4d4f;box-shadow:0 0 0 2px var(--bg)}
 .campana.hay em{display:block}
-.campana.hay .i{animation:campana 1.2s ease 1}
-@keyframes campana{0%,100%{transform:rotate(0)}20%{transform:rotate(14deg)}40%{transform:rotate(-12deg)}60%{transform:rotate(8deg)}80%{transform:rotate(-4deg)}}
-.nov-av{display:flex;align-items:center;gap:12px;margin:0 0 18px;padding:12px 12px 12px 14px;border-radius:var(--r);background:var(--accent-tint);border:1px solid color-mix(in srgb,var(--accent) 35%,transparent)}
-.nov-av-i{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--accent);color:#fff;flex:none}
-.nov-av-i .i{width:19px;height:19px}
-.nov-av-t{display:grid;gap:1px;min-width:0;flex:1}
-.nov-av-t small{font-size:12px;font-weight:600;color:var(--accent-text);text-transform:uppercase;letter-spacing:.04em}
-.nov-av-t b{font-size:15px;font-weight:600;line-height:1.3}
+.scrim.lado{place-items:stretch end;padding:0}
+.scrim.lado .dlg{width:min(440px,100%);height:100dvh;max-height:100dvh;border-radius:0;display:flex;flex-direction:column;animation:lado .22s ease}
+.scrim.lado .dlg-b{flex:1;align-content:start}
+@keyframes lado{from{transform:translateX(40px);opacity:0}to{transform:none;opacity:1}}
 .nov-l{display:grid;gap:12px}
 .nov{display:grid;gap:8px;padding:14px;border:1px solid var(--border);border-radius:var(--r)}
 .nov.nueva{border-color:color-mix(in srgb,var(--accent) 45%,var(--border));background:color-mix(in srgb,var(--accent-tint) 45%,transparent)}
@@ -643,8 +639,3 @@ main{grid-template-columns:minmax(0,1fr)}
 .nov-t{font-size:14.5px;line-height:1.6;color:var(--text-2)}
 .nov-t a{color:var(--accent-text)}
 .nov-a{display:flex;gap:8px;flex-wrap:wrap}
-@media (max-width:480px){
-  .nov-av{display:grid;grid-template-columns:38px minmax(0,1fr) auto;gap:10px 12px}
-  .nov-av .btn{grid-row:2;grid-column:1/-1}
-  .nov-av .mini{grid-row:1;grid-column:3}
-}
