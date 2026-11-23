@@ -28,7 +28,8 @@
     vid: '<rect x="3" y="5.5" width="13" height="13" rx="2"/><path d="M16 10l5-3v10l-5-3"/>',
     cal: '<rect x="4" y="5.5" width="16" height="14.5" rx="2"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/>',
     arr: '<path d="M12 6v12M7 11l5-5 5 5"/>',
-    abj: '<path d="M12 6v12M7 13l5 5 5-5"/>'
+    abj: '<path d="M12 6v12M7 13l5 5 5-5"/>',
+    bell: '<path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/>'
   };
   function ic(n, extra) { return '<svg class="i' + (extra ? " " + extra : "") + '" viewBox="0 0 24 24" aria-hidden="true">' + P[n] + "</svg>"; }
   function $(s, r) { return (r || document).querySelector(s); }
@@ -71,7 +72,7 @@
       $("#login").hidden = true; $("#app").hidden = false; render();
     }).catch(function () { b.disabled = false; b.textContent = "Entrar"; $("#err").textContent = "No se pudo entrar. Revisa tu conexión."; });
   }
-  function salir() { S.clave = ""; S.rol = ""; S.items = []; lsSet(""); $("#app").hidden = true; $("#login").hidden = false; $("#clave").value = ""; }
+  function salir() { S.clave = ""; S.rol = ""; S.items = []; S.novCerrada = false; lsSet(""); $("#app").hidden = true; $("#login").hidden = false; $("#clave").value = ""; }
   $("#fLogin").addEventListener("submit", function (e) { e.preventDefault(); var v = $("#clave").value.trim(); if (v) entrar(v); });
   $("#bSalir").addEventListener("click", salir);
 
@@ -132,7 +133,7 @@
   function armar(e, clave, f, h, c, fila, extra) {
     var ini = msDe(f, h);
     return { ev: e.ev, c: e.c, clave: clave, key: e.ev.id + "|" + clave, f: f, h: h, x: !!c.x, n: c.n || "", fila: fila, extra: extra,
-      movida: !extra && (f !== clave || h !== e.c.hora), ini: ini, fin: ini + e.c.dur * 60000 };
+      movida: !extra && (f !== clave || h !== e.c.hora), ini: ini, fin: ini + e.c.dur * 60000, np: f > finPub() };
   }
   // Sesiones con fecha (de España) entre desde y hasta, con los cambios de cada semana aplicados.
   function sesiones(desde, hasta) {
@@ -152,9 +153,12 @@
         out.push(armar(evs[id], f, c.f || f, c.h || evs[id].c.hora, c, k ? k.r : null, false));
       }
     }
-    return out.filter(function (s) { return s.f >= desde && s.f <= hasta; }).sort(function (a, b) { return a.ini - b.ini; });
+    return out.filter(function (s) { return s.f >= desde && s.f <= hasta && (!s.np || admin()); }).sort(function (a, b) { return a.ini - b.ini; });
   }
-  function proximas(ahora) { var h = fMad(ahora); return sesiones(sumarF(h, -1), sumarF(h, 21)).filter(function (s) { return !s.x && s.fin > ahora; }); }
+  // Se publica de a una semana: los miembros ven hasta el domingo de esta semana (de España).
+  // La semana siguiente aparece sola el lunes; el admin la ve antes, marcada «Sin publicar».
+  function finPub() { return sumarF(lunesF(fMad(Date.now())), 6); }
+  function proximas(ahora) { var h = fMad(ahora); return sesiones(sumarF(h, -1), sumarF(h, 21)).filter(function (s) { return !s.x && !s.np && s.fin > ahora; }); }
   // key = "<id del tipo>|<fecha original o id de la extra>": se busca alrededor de esa fecha.
   function sesionPorKey(key) {
     var cl = key.slice(key.lastIndexOf("|") + 1), f = /^\d{4}-\d\d-\d\d$/.test(cl) ? cl : (jp((porId(cl) || {}).texto).f || fMad(Date.now()));
@@ -217,7 +221,8 @@
     var evs = eventos(), ahora = Date.now();
     var h = '<div class="h2"><h2>Calendario</h2>' + (admin() ? '<span class="cal-adm">' + (evs.length ? '<button class="btn sec" data-ev-tipos type="button">' + ic("pen") + "Tipos de sesión</button>" +
       '<button class="btn" data-ses-nueva type="button">' + ic("plus") + "Agregar sesión</button>" : "") + "</span>" : "") + "</div>" +
-      '<p class="intro">Presentaciones y entrenamientos en vivo por Zoom, en ' + esc(zonaTxt()) + ". Toca una sesión para ver de qué se trata y agendarla.</p>";
+      '<p class="intro">Presentaciones y entrenamientos en vivo por Zoom, en ' + esc(zonaTxt()) + ". Toca una sesión para ver de qué se trata y agendarla." +
+      (admin() ? " Las semanas que vienen las ves solo vos, marcadas «Sin publicar»: se publican solas cada lunes." : " Los horarios de cada semana se publican el lunes.") + "</p>";
     if (!evs.length) return h + (admin() ? '<button class="addcard addrow" data-ev-nuevo type="button"><span class="plus">' + ic("plus") + "</span>Crear el primer tipo de sesión</button>" : '<div class="empty">Todavía no hay sesiones programadas.</div>');
     if (S.calTipo !== "todo" && !evs.some(function (e) { return e.id === S.calTipo; })) S.calTipo = "todo";
     var fil = evs.length > 1 ? '<div class="chips cal-fil">' + '<button class="chip' + (S.calTipo === "todo" ? " on" : "") + '" data-caltipo="todo" type="button">Todas</button>' +
@@ -246,9 +251,9 @@
       h += '<div class="' + cls + '"' + (ls.length || admin() ? ' data-caldia="' + f + '" role="button" tabindex="0"' : "") + ' aria-label="' + d + " de " + MESES[+f.slice(5, 7) - 1] + (ls.length ? ", " + ls.length + (ls.length === 1 ? " sesión" : " sesiones") : "") + '">' +
         '<span class="mc-n">' + d + "</span>" +
         '<div class="mc-ev">' + ls.slice(0, 3).map(function (s) {
-          return '<button class="mchip c-' + s.c.color + " " + estado(s, ahora) + '" data-detalle="' + esc(s.key) + '" type="button" title="' + esc(s.ev.titulo) + '"><b>' + horaLocal(s.ini) + "</b>" + esc(s.c.etiqueta) + "</button>";
+          return '<button class="mchip c-' + s.c.color + " " + estado(s, ahora) + (s.np ? " np" : "") + '" data-detalle="' + esc(s.key) + '" type="button" title="' + esc(s.ev.titulo) + '"><b>' + horaLocal(s.ini) + "</b>" + esc(s.c.etiqueta) + "</button>";
         }).join("") + (ls.length > 3 ? '<span class="mc-mas">+' + (ls.length - 3) + " más</span>" : "") + "</div>" +
-        '<div class="mc-dots">' + ls.slice(0, 4).map(function (s) { return '<i class="c-' + s.c.color + (s.x ? " x" : "") + '"></i>'; }).join("") + "</div></div>";
+        '<div class="mc-dots">' + ls.slice(0, 4).map(function (s) { return '<i class="c-' + s.c.color + (s.x ? " x" : "") + (s.np ? " np" : "") + '"></i>'; }).join("") + "</div></div>";
     }
     return h + "</div></div>";
   }
@@ -258,7 +263,7 @@
     if (ls.length === 1 && !admin()) { detalle(ls[0]); return; }
     dlg(cap(DIAS[wdF(f)]) + " " + +p[2] + " de " + MESES[+p[1] - 1],
       (ls.length ? '<div class="dm-l">' + ls.map(function (s) {
-        return '<button class="dm-r c-' + s.c.color + " " + estado(s, ahora) + '" data-k="' + esc(s.key) + '" type="button"><span class="dm-h"><b>' + horaLocal(s.ini) + "</b><small>" + (tuHora(s.ini) ? "tu hora" : "España") + "</small></span>" +
+        return '<button class="dm-r c-' + s.c.color + " " + estado(s, ahora) + (s.np ? " np" : "") + '" data-k="' + esc(s.key) + '" type="button"><span class="dm-h"><b>' + horaLocal(s.ini) + "</b><small>" + (tuHora(s.ini) ? "tu hora" : "España") + "</small></span>" +
           '<span class="dm-t"><span class="tagc">' + esc(s.c.etiqueta) + "</span><b>" + esc(s.ev.titulo) + "</b>" + (insignias(s, ahora) ? '<span class="ses-bs">' + insignias(s, ahora) + "</span>" : "") + "</span>" + ic("chev") + "</button>";
       }).join("") + "</div>" : '<p class="cal-intro">Este día no hay sesiones.</p>'),
       (admin() ? '<button class="btn sec" id="dmNueva" type="button">' + ic("plus") + "Agregar sesión este día</button>" : "") + '<button class="btn sec" data-dcerrar2 type="button">Cerrar</button>');
@@ -324,7 +329,113 @@
     else if (falta < 3600000) b += '<span class="ses-st st-pronto">Empieza en ' + Math.max(1, Math.ceil(falta / 60000)) + " min</span>";
     if (s.movida && !s.x) b += '<span class="ses-st st-cambio">Cambió de horario</span>';
     if (s.extra) b += '<span class="ses-st st-extra">Sesión extra</span>';
+    if (s.np) b += '<span class="ses-st st-np">Sin publicar · aparece el lunes ' + dmF(lunesF(s.f)) + "</span>";
     return b;
+  }
+
+  /* ---------------- actualizaciones (novedades) ----------------
+     academia_items, sección link, grupo "__novedad": titulo, descripcion (el texto), miniatura (imagen opcional),
+     url (link opcional), texto = JSON { ir: "<pestaña>" (botón para ir a verlo), auto: 1 (la subió el sistema) }.
+     Lo que cada uno ya vio se guarda en su navegador: lo nuevo se marca con el número de la campanita
+     y un aviso arriba. Regla: cada mejora importante de la Academia se publica acá. */
+  var VISTO = "kx-academia-novedades";
+  function novedades() {
+    return S.items.filter(function (x) { return x.grupo === "__novedad"; })
+      .sort(function (a, b) { return String(b.creado || "").localeCompare(String(a.creado || "")); });
+  }
+  function vistoGet() { try { return localStorage.getItem(VISTO) || ""; } catch (e) { return ""; } }
+  function vistoSet(v) { try { localStorage.setItem(VISTO, v); } catch (e) {} }
+  // La primera vez que alguien entra no se le marca todo el historial: solo lo de los últimos 14 días.
+  function sinVer() {
+    var v = vistoGet() || new Date(Date.now() - 14 * 864e5).toISOString();
+    return novedades().filter(function (n) { return String(n.creado || "") > v; });
+  }
+  function marcarVisto() { var n = novedades()[0]; if (n && n.creado) vistoSet(n.creado); }
+  function pintarCampana() {
+    var b = $("#bNov"); if (!b) return;
+    var n = sinVer().length;
+    b.hidden = !novedades().length && !admin();
+    b.classList.toggle("hay", n > 0);
+    b.querySelector("em").textContent = n > 9 ? "9+" : n;
+    b.setAttribute("aria-label", n ? "Actualizaciones: " + n + (n === 1 ? " nueva" : " nuevas") : "Actualizaciones");
+  }
+  // Aviso arriba de la pantalla cuando hay algo sin ver.
+  function vNovedad() {
+    var ls = sinVer(); if (!ls.length || S.novCerrada) return "";
+    return '<section class="nov-av" id="novAv"><span class="nov-av-i">' + ic("bell") + '</span><span class="nov-av-t"><small>' +
+      (ls.length > 1 ? ls.length + " actualizaciones nuevas" : "Actualización nueva") + "</small><b>" + esc(ls[0].titulo) + "</b></span>" +
+      '<button class="btn" data-nov type="button">Ver</button><button class="mini ico" data-nov-x type="button" aria-label="Cerrar aviso">' + ic("x") + "</button></section>";
+  }
+  function fechaNov(iso) {
+    var d = new Date(iso); if (isNaN(d)) return "";
+    var p = partes(d.getTime(), tzU()), h = partes(Date.now(), tzU());
+    var dif = Math.round((Date.UTC(h.y, h.m - 1, h.d) - Date.UTC(p.y, p.m - 1, p.d)) / 864e5);
+    return dif === 0 ? "Hoy" : dif === 1 ? "Ayer" : p.d + " de " + MESES[p.m - 1] + (p.y !== h.y ? " de " + p.y : "");
+  }
+  var NOM_TAB = {}; TABS.forEach(function (t) { NOM_TAB[t[0]] = t[1]; });
+  function verNovedades() {
+    var nuevas = {}; sinVer().forEach(function (n) { nuevas[n.id] = 1; });
+    var ls = novedades();
+    dlg("Actualizaciones", (ls.length ? '<div class="nov-l">' + ls.map(function (n) {
+      var c = jp(n.texto), ir = c.ir && NOM_TAB[c.ir];
+      return '<article class="nov' + (nuevas[n.id] ? " nueva" : "") + '">' +
+        '<div class="nov-h"><span class="nov-f">' + esc(fechaNov(n.creado)) + "</span>" + (nuevas[n.id] ? '<span class="nov-new">Nuevo</span>' : "") +
+        (admin() ? '<span class="nov-adm"><button class="mini ico" data-nov-ed="' + esc(n.id) + '" title="Editar" type="button">' + ic("pen") + '</button><button class="mini ico del" data-nov-del="' + esc(n.id) + '" title="Borrar" type="button">' + ic("trash") + "</button></span>" : "") + "</div>" +
+        "<h3>" + esc(n.titulo) + "</h3>" +
+        (n.miniatura ? '<img class="nov-img" src="' + esc(n.miniatura) + '" alt="" loading="lazy">' : "") +
+        (n.descripcion ? '<div class="nov-t">' + rico(n.descripcion) + "</div>" : "") +
+        (ir || n.url ? '<div class="nov-a">' + (ir ? '<button class="btn sec" data-nov-ir="' + esc(c.ir) + '" type="button">Ir a ' + esc(ir) + "</button>" : "") +
+          (n.url ? '<a class="btn sec" href="' + esc(n.url) + '" target="_blank" rel="noopener">' + ic("ext") + "Abrir</a>" : "") + "</div>" : "") +
+        "</article>";
+    }).join("") + "</div>" : '<p class="cal-intro">Todavía no hay actualizaciones publicadas.</p>'),
+      (admin() ? '<button class="btn sec" id="novNueva" type="button">' + ic("plus") + "Publicar actualización</button>" : "") + '<button class="btn" data-dcerrar2 type="button">Listo</button>');
+    marcarVisto(); S.novCerrada = true; pintarCampana(); var av = $("#novAv"); if (av) av.remove();
+    $("[data-dcerrar2]").onclick = cerrar;
+    var nv = $("#novNueva"); if (nv) nv.onclick = function () { editarNov(null); };
+    $(".dlg-b").onclick = function (e) {
+      var t = e.target.closest("[data-nov-ir],[data-nov-ed],[data-nov-del]"); if (!t) return;
+      if (t.dataset.novIr) { cerrar(); S.tab = t.dataset.novIr; S.carpeta = null; S.curso = null; S.q = ""; render(); window.scrollTo(0, 0); }
+      else if (t.dataset.novEd) editarNov(porId(t.dataset.novEd));
+      else { cerrar(); borrar(porId(t.dataset.novDel)); }
+    };
+  }
+  function editarNov(n) {
+    n = n || {}; var c = jp(n.texto), img = n.miniatura || "";
+    var opts = '<option value="">Ninguno</option>' + TABS.map(function (t) { return '<option value="' + t[0] + '"' + (c.ir === t[0] ? " selected" : "") + ">" + t[1] + "</option>"; }).join("");
+    dlg(n.id ? "Editar actualización" : "Publicar actualización",
+      campo("nTit", "Título", n.titulo, { ph: "Nuevo: calendario de presentaciones en vivo" }) +
+      campo("nDesc", "Qué cambió y para qué sirve", n.descripcion, { area: 1, ayuda: "Los links que pegues quedan para tocar." }) +
+      '<label class="fld"><span>Botón para ir a verlo (opcional)</span><div class="sel"><select class="inp" id="nIr">' + opts + "</select></div></label>" +
+      campo("nUrl", "Link (opcional)", n.url, { ph: "https://…" }) +
+      '<div class="fld"><span>Imagen (opcional)</span><div class="eimg"><div class="eimg-p" id="eImgP"></div><div class="eimg-a">' +
+      '<span class="btn sec eimg-up">' + ic("up") + 'Subir imagen<input type="file" id="eImgF" accept="image/*"></span>' +
+      '<button class="mini del" id="eImgX" type="button">' + ic("trash") + 'Quitar</button><div class="prog" id="eProg"></div></div></div></div>' +
+      (n.id ? "" : '<p class="cal-intro">Al publicarla, a todos los que entren les aparece el aviso de que hay una actualización nueva.</p>'),
+      '<button class="btn sec" data-dcerrar2 type="button">Cancelar</button><button class="btn" id="fOk" type="button">' + (n.id ? "Guardar" : "Publicar") + "</button>");
+    $("[data-dcerrar2]").onclick = function () { verNovedades(); };
+    function pintarImg() { var p = $("#eImgP"); p.style.backgroundImage = img ? "url('" + img.replace(/'/g, "%27") + "')" : ""; p.innerHTML = img ? "" : ic("img", "big"); $("#eImgX").hidden = !img; }
+    pintarImg();
+    $("#eImgX").onclick = function () { img = ""; pintarImg(); };
+    $("#eImgF").onchange = function () {
+      var f = this.files[0]; if (!f) return;
+      var ok = $("#fOk"); ok.disabled = true; $("#eProg").innerHTML = "";
+      subirUno(f, f.name, $("#eProg")).then(function (r) { img = r.url; pintarImg(); }).catch(function () { toast("No se pudo subir la imagen."); })
+        .then(function () { ok.disabled = false; });
+    };
+    setTimeout(function () { var t = $("#nTit"); if (t) t.focus(); }, 50);
+    $("#fOk").onclick = function () {
+      var ok = this, titulo = val("nTit"), url = conHttps(val("nUrl"));
+      if (!titulo) { toast("Falta el título."); return; }
+      if (url && !/^https?:\/\/\S+$/.test(url)) { toast("El link tiene que empezar con https://"); return; }
+      var cc = {}; if (c.auto) cc.auto = 1; if ($("#nIr").value) cc.ir = $("#nIr").value;
+      var item = { seccion: "link", grupo: "__novedad", titulo: titulo, descripcion: $("#nDesc").value.trim(), url: url, miniatura: img, texto: JSON.stringify(cc) };
+      if (n.id) item.id = n.id;
+      ok.disabled = true; ok.textContent = "Guardando…";
+      api("guardar", { item: item }).then(function (j) {
+        if (!j.ok) throw new Error(j.error || "guardar");
+        return recargar().then(function () { marcarVisto(); pintarCampana(); toast(n.id ? "Guardado" : "Publicada"); verNovedades(); });
+      }).catch(function (er) { ok.disabled = false; ok.textContent = n.id ? "Guardar" : "Publicar"; toast("No se pudo guardar (" + (er.message || er) + ")."); });
+    };
   }
 
   /* ---- agendar ---- */
@@ -522,7 +633,8 @@
     else if (S.tab === "guiones") h = vGuiones();
     else h = vLinks();
     var arriba = S.tab !== "calendario" && !(S.tab === "videos" && S.curso) && !(S.tab === "recursos" && S.carpeta);
-    $("#main").innerHTML = (arriba ? vProximo() : "") + h;
+    $("#main").innerHTML = vNovedad() + (arriba ? vProximo() : "") + h;
+    pintarCampana();
     pintarMinis();
     var q = $("#q");
     if (q && document.activeElement !== q && S.q) { q.value = S.q; }
@@ -1101,9 +1213,11 @@
 
   /* ---------------- eventos ---------------- */
   document.addEventListener("click", function (e) {
-    var t = e.target.closest("[data-tab],[data-abrir],[data-volver],[data-filtro],[data-ver],[data-bajar],[data-copiar],[data-grupo],[data-nuevo],[data-editar],[data-borrar],[data-subir],[data-curso],[data-mover],[data-mgrupo],[data-renombrar],[data-flyer],[data-caltipo],[data-suscribir],[data-ses-nueva],[data-ev-nuevo],[data-calmes],[data-caldia],[data-detalle],[data-ev-tipos]");
+    var t = e.target.closest("[data-tab],[data-abrir],[data-volver],[data-filtro],[data-ver],[data-bajar],[data-copiar],[data-grupo],[data-nuevo],[data-editar],[data-borrar],[data-subir],[data-curso],[data-mover],[data-mgrupo],[data-renombrar],[data-flyer],[data-caltipo],[data-suscribir],[data-ses-nueva],[data-ev-nuevo],[data-calmes],[data-caldia],[data-detalle],[data-ev-tipos],[data-nov],[data-nov-x]");
     if (!t || !$("#app").contains(t)) return;
     var d = t.dataset;
+    if ("nov" in d) { verNovedades(); return; }
+    if ("novX" in d) { S.novCerrada = true; marcarVisto(); pintarCampana(); var av = $("#novAv"); if (av) av.remove(); return; }
     // calendario
     if (d.detalle) { var sd = sesionPorKey(d.detalle); if (sd) detalle(sd); return; }
     if (d.calmes) { S.calMes = d.calmes; render(); return; }
