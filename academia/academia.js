@@ -424,11 +424,34 @@
       var item = { seccion: "link", grupo: "__novedad", titulo: titulo, descripcion: $("#nDesc").value.trim(), url: url, miniatura: img, texto: JSON.stringify(cc) };
       if (n.id) item.id = n.id;
       ok.disabled = true; ok.textContent = "Guardando…";
-      api("guardar", { item: item }).then(function (j) {
+      guardarNov(item, 2).then(function (j) {
         if (!j.ok) throw new Error(j.error || "guardar");
-        return recargar().then(function () { marcarVisto(); pintarCampana(); toast(n.id ? "Guardado" : "Publicada"); verNovedades(); });
-      }).catch(function (er) { ok.disabled = false; ok.textContent = n.id ? "Guardar" : "Publicar"; toast("No se pudo guardar (" + (er.message || er) + ")."); });
+        if (j.item && !porId(j.item.id)) S.items.push(j.item);
+        else if (j.item) Object.assign(porId(j.item.id), j.item);
+        // Ya quedó guardada: si falla solo la recarga, no se avisa un error (invitaría a publicarla dos veces).
+        return recargar().catch(function () { render(); }).then(function () { marcarVisto(); pintarCampana(); toast(n.id ? "Guardado" : "Publicada"); verNovedades(); });
+      }).catch(function (er) {
+        ok.disabled = false; ok.textContent = n.id ? "Guardar" : "Publicar";
+        toast(er instanceof TypeError || er.message === "red" ? "Se cortó la conexión y no se publicó. Tu texto sigue acá: prueba de nuevo." : "No se pudo guardar (" + (er.message || er) + ").");
+      });
     };
+  }
+  function esperar(ms) { return new Promise(function (ok) { setTimeout(ok, ms); }); }
+  // Si se corta la red no se sabe si llegó a guardarse: antes de reintentar se mira si ya está, para no publicarla dos veces.
+  function guardarNov(item, intentos) {
+    return api("guardar", { item: item }).catch(function () {
+      return esperar(1200).then(function () { return api("datos"); })
+        .catch(function () { return esperar(2500).then(function () { return api("datos"); }); })
+        .catch(function () { throw new Error("red"); })
+        .then(function (j) {
+          if (!j.ok) throw new Error("red");
+          S.items = j.items || [];
+          var ya = !item.id && S.items.filter(function (x) { return x.grupo === "__novedad" && x.titulo === item.titulo && (x.descripcion || "") === (item.descripcion || ""); })[0];
+          if (ya) return { ok: true, item: ya };
+          if (intentos > 0) return guardarNov(item, intentos - 1);
+          throw new Error("red");
+        });
+    });
   }
 
   /* ---- agendar ---- */
