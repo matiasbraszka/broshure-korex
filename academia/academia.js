@@ -875,10 +875,19 @@
   // Días de la semana que se pueden elegir en ese flyer (p.dias, 0 = domingo). Sin dato: todos.
   function diasOk(p) { return p.dias && p.dias.length ? p.dias : [0, 1, 2, 3, 4, 5, 6]; }
   function proximosDias(p, n) { var ok = diasOk(p), r = [], d = hoy0(); for (var i = 0; r.length < n && i < 60; i++) { if (ok.indexOf(d.getDay()) > -1) r.push(d); d = sumar(d, 1); } return r; }
-  // f.sin = «Hoy» sin fecha (sirve cualquier día). f.zoom = link de la sesión del calendario elegida en p.ev.
-  function fechaInicial(p) { return { lunes: semanaBase(), dia: proximosDias(p, 1)[0] || hoy0(), sin: false, zoom: zoomDe(p) }; }
+  // f.sin = sin fecha (sirve cualquier día): dice «Hoy», o con f.porDias los días de la sesión («Lun · Mié · Vie»).
+  // f.zoom y f.dd = link y días de la sesión del calendario elegida en p.ev.
+  function fechaInicial(p) { return { lunes: semanaBase(), dia: proximosDias(p, 1)[0] || hoy0(), sin: false, porDias: false, zoom: zoomDe(p), dd: diasDe(p) }; }
   function eventos() { return S.items.filter(function (x) { return x.seccion === "link" && x.grupo === "__evento"; }); }
   function zoomDe(p) { var e = p && p.ev ? porId(p.ev) : null; return e && e.url || ""; }
+  function diasDe(p) {
+    var e = p && p.ev ? porId(p.ev) : null, d = null;
+    try { d = JSON.parse(e.texto).dias; } catch (x) {}
+    return d && d.length ? d.slice().sort(function (a, b) { return (a + 6) % 7 - (b + 6) % 7; }) : null;
+  }
+  // «lunes, miércoles y viernes» (mensajes) · «Lun · Mié · Vie» (flyer, donde hay poco lugar).
+  function diasLargo(ds) { var n = ds.map(function (d) { return DIAS[d]; }); return n.length > 1 ? n.slice(0, -1).join(", ") + " y " + n[n.length - 1] : n[0]; }
+  function diasCorto(ds) { return ds.map(function (d) { return DIAS[d].charAt(0).toUpperCase() + DIAS[d].slice(1, 3); }).join(" · "); }
   // Solo los flyers de un día (no las agendas de la semana) ofrecen «Hoy» sin fecha.
   function admiteSin(p) { return usa(p, RX_DIA) && !usa(p, RX_SEM); }
   function hoy0() { var d = new Date(); d.setHours(12, 0, 0, 0); return d; }
@@ -899,7 +908,8 @@
       if (k === "zoom") return f.zoom || (admin() ? "[falta elegir el Zoom en «Editar»]" : "");
       // «Hoy» sin fecha: el día y el mes desaparecen (con el separador que los acompañaba).
       if (f.sin && (k === "fecha" || k === "num" || k === "dm")) return NADA;
-      if (f.sin && (k === "dia" || k === "hoy" || k === "hoydia")) v = "hoy";
+      if (f.sin && (k === "dia" || k === "hoy" || k === "hoydia")) v = f.porDias && f.dd ? (b.msg ? diasLargo(f.dd) : diasCorto(f.dd)) : "hoy";
+      else if (k === "dias") v = diasLargo(f.dd || [f.dia.getDay()]);
       else if (k === "rango") v = rangoTxt(f.lunes);
       else if (DCOD.hasOwnProperty(k)) v = String(sumar(f.lunes, (DCOD[k] + 6) % 7).getDate());
       else if (k === "fecha") v = f.dia.getDate() + " de " + MESES[f.dia.getMonth()];
@@ -1000,7 +1010,7 @@
       }).catch(function () {});
     });
   }
-  function cuandoTxt(p, f) { return f.sin ? "hoy" : usa(p, RX_SEM) ? rangoTxt(f.lunes) : f.dia.getDate() + " de " + MESES[f.dia.getMonth()]; }
+  function cuandoTxt(p, f) { return f.sin ? (f.porDias && f.dd ? diasCorto(f.dd).replace(/ · /g, "-") : "hoy") : usa(p, RX_SEM) ? rangoTxt(f.lunes) : f.dia.getDate() + " de " + MESES[f.dia.getMonth()]; }
   function verFlyer(x, p) {
     var f = fechaInicial(p), l0 = semanaBase(), h0 = hoy0(), blob = null, cv, lista = proximosDias(p, 7);
     var ops = "";
@@ -1011,7 +1021,8 @@
       return '<button class="chip' + (n ? "" : " on") + '" data-v="' + n + '" type="button">' + et + "<small>" + sub + "</small></button>";
     }).join("") + "</div>";
     if (usa(p, RX_DIA)) ops += '<div class="chips fl-ch" data-q="dia">' +
-      (admiteSin(p) ? '<button class="chip" data-v="sin" type="button" title="Dice «Hoy» sin la fecha: sirve para mandarlo cualquier día"><small>Sin fecha</small>Hoy</button>' : "") +
+      (admiteSin(p) ? '<button class="chip" data-v="sin" type="button" title="Dice «Hoy» sin la fecha: sirve para mandarlo cualquier día"><small>Sin fecha</small>Hoy</button>' +
+        (f.dd ? '<button class="chip" data-v="dias" type="button" title="Dice los días de la presentación, sin fecha: sirve para mandarlo cualquier día"><small>Sin fecha</small>' + diasCorto(f.dd) + "</button>" : "") : "") +
       lista.map(function (d, n) {
       var et = diasEntre(h0, d) === 0 ? "Hoy" : DIAS[d.getDay()].charAt(0).toUpperCase() + DIAS[d.getDay()].slice(1, 3);
       return '<button class="chip' + (n ? "" : " on") + '" data-v="' + n + '" type="button"><small>' + et + "</small>" + dm(d) + "</button>";
@@ -1030,7 +1041,8 @@
     // WhatsApp: *negrita* y _cursiva_ se ven igual en la vista previa.
     function msg() {
       var el = $("#flMt"); if (!el || !msgs[mi]) return;
-      mtxt = textoCaja({ t: msgs[mi].m, may: "tal" }, f);
+      // Con los días de la sesión se usa la versión propia del mensaje (md), si la tiene.
+      mtxt = textoCaja({ t: f.porDias && msgs[mi].md ? msgs[mi].md : msgs[mi].m, may: "tal", msg: 1 }, f);
       el.innerHTML = esc(mtxt).replace(/\*([^*\n]+)\*/g, "<b>$1</b>").replace(/(^|[\s(])_([^_\n]+)_/g, "$1<i>$2</i>");
     }
     msg();
@@ -1055,8 +1067,8 @@
         var b = e.target.closest("[data-v]"); if (!b) return;
         [].forEach.call(g.children, function (n) { n.classList.toggle("on", n === b); });
         if (g.dataset.q === "sem") f.lunes = sumar(l0, +b.dataset.v);
-        else if (b.dataset.v === "sin") { f.sin = true; f.dia = h0; }
-        else { f.sin = false; f.dia = lista[+b.dataset.v]; }
+        else if (b.dataset.v === "sin" || b.dataset.v === "dias") { f.sin = true; f.porDias = b.dataset.v === "dias"; f.dia = h0; }
+        else { f.sin = f.porDias = false; f.dia = lista[+b.dataset.v]; }
         pintar();
       });
     });
@@ -1203,25 +1215,26 @@
   // Mensajes para invitar de un flyer (p.msgs = [{t: nombre, m: texto con {Hoy} {fecha}…}]).
   function editarMensajes(x, p) {
     var f = fechaInicial(p), sem = usa(p, RX_SEM), ult = null;
-    var toks = sem ? [["{rango}", "Semana"], ["{lu}", "Lu"], ["{ma}", "Ma"], ["{mi}", "Mi"], ["{ju}", "Ju"], ["{vi}", "Vi"]] : [["{Hoy}", "Hoy o día"], ["{HOYDIA}", "HOY, MARTES"], ["{fecha}", "Fecha"], ["{dm}", "19/11"], ["{zoom}", "Link del Zoom"]];
+    var toks = sem ? [["{rango}", "Semana"], ["{lu}", "Lu"], ["{ma}", "Ma"], ["{mi}", "Mi"], ["{ju}", "Ju"], ["{vi}", "Vi"]] : [["{Hoy}", "Hoy o día"], ["{HOYDIA}", "HOY, MARTES"], ["{fecha}", "Fecha"], ["{dm}", "19/11"], ["{dias}", "Días de la sesión"], ["{zoom}", "Link del Zoom"]];
     var evs = eventos(), evSel = sem ? "" : '<label class="fld"><span>Link del Zoom: de qué sesión del calendario sale</span><select class="inp sel" id="mEv"><option value="">Ninguna</option>' +
       evs.map(function (e) { return '<option value="' + esc(e.id) + '"' + (e.id === p.ev ? " selected" : "") + ">" + esc(e.titulo) + (e.url ? "" : " (sin link)") + "</option>"; }).join("") + "</select></label>";
     function fila(m) {
       return '<div class="fl-mr"><div class="fl-row"><input class="inp" data-k="t" placeholder="Nombre de la opción (ej.: Perfil inversor)" value="' + esc(m.t || "") + '" autocomplete="off">' +
         '<button class="mini ico del" data-mdel type="button" title="Borrar mensaje">' + ic("trash") + "</button></div>" +
-        '<textarea class="inp" data-k="m" rows="9">' + esc(m.m || "") + '</textarea><small class="fl-me"></small></div>';
+        '<textarea class="inp" data-k="m" rows="9">' + esc(m.m || "") + '</textarea><small class="fl-me"></small>' +
+        (sem ? "" : '<label class="fld"><span>Versión para «sin fecha» con los días de la sesión (opcional)</span><textarea class="inp" data-k="md" rows="6" placeholder="Si lo dejas vacío, se usa el mensaje de arriba con los días en lugar de la fecha.">' + esc(m.md || "") + "</textarea></label>") + "</div>";
     }
     dlg("Mensajes para invitar", '<p class="fle-ay">Cada mensaje sale con la fecha que se elija en el flyer. Toca una ficha para ponerla donde está el cursor. ' +
-      (sem ? "" : "«Link del Zoom» pone el link de la sesión elegida abajo, siempre el que esté cargado en el calendario. Si se elige «Hoy» sin fecha, la fecha desaparece sola. ") + "*Así* queda en negrita en WhatsApp.</p>" + evSel +
+      (sem ? "" : "«Link del Zoom» pone el link de la sesión elegida abajo, siempre el que esté cargado en el calendario. Si se elige «Hoy» o los días sin fecha, la fecha desaparece sola; «Días de la sesión» pone «lunes, miércoles y viernes» según el calendario. ") + "*Así* queda en negrita en WhatsApp.</p>" + evSel +
       '<div class="fl-toks" id="mT">' + toks.map(function (t) { return '<button type="button" class="chip" data-tok="' + t[0] + '">' + t[1] + "</button>"; }).join("") + "</div>" +
       '<div id="mL">' + (p.msgs || []).map(fila).join("") + '</div><button class="btn sec" id="mAdd" type="button">' + ic("plus") + "Agregar mensaje</button>",
       '<button class="btn sec" data-dcerrar2 type="button">Cancelar</button><button class="btn" id="mOk" type="button">Guardar</button>');
     $(".dlg").classList.add("dlg-xl");
     $("[data-dcerrar2]").onclick = cerrar;
     var L = $("#mL");
-    function ejemplos() { [].forEach.call(L.querySelectorAll(".fl-mr"), function (r) { var v = r.querySelector("textarea").value; r.querySelector(".fl-me").textContent = /\{\w+\}/.test(v) ? "Así se ve hoy: «" + textoCaja({ t: v.split("\n").filter(function (l) { return /\{\w+\}/.test(l); })[0], may: "tal" }, f) + "»" : "Este mensaje no tiene fecha automática."; }); }
+    function ejemplos() { [].forEach.call(L.querySelectorAll(".fl-mr"), function (r) { var v = r.querySelector('[data-k="m"]').value; r.querySelector(".fl-me").textContent = /\{\w+\}/.test(v) ? "Así se ve hoy: «" + textoCaja({ t: v.split("\n").filter(function (l) { return /\{\w+\}/.test(l); })[0], may: "tal", msg: 1 }, f) + "»" : "Este mensaje no tiene fecha automática."; }); }
     ejemplos();
-    var mev = $("#mEv"); if (mev) mev.onchange = function () { f.zoom = zoomDe({ ev: mev.value }); ejemplos(); };
+    var mev = $("#mEv"); if (mev) mev.onchange = function () { f.zoom = zoomDe({ ev: mev.value }); f.dd = diasDe({ ev: mev.value }); ejemplos(); };
     var marcar = function (e) { if (e.target.tagName === "TEXTAREA") { ult = e.target; ult.dataset.c = ult.selectionStart; ult.dataset.f = ult.selectionEnd; } };
     ["keyup", "mouseup", "input", "focusin"].forEach(function (ev) { L.addEventListener(ev, marcar); });
     L.addEventListener("input", ejemplos);
@@ -1236,7 +1249,9 @@
       ult.dataset.c = ult.dataset.f = a + t.dataset.tok.length; ejemplos();
     });
     $("#mOk").onclick = function () {
-      var btn = this, lista = [].map.call(L.querySelectorAll(".fl-mr"), function (r, n) { return { t: r.querySelector("input").value.trim() || "Mensaje " + (n + 1), m: r.querySelector("textarea").value.replace(/\s+$/, "") }; }).filter(function (m) { return m.m.trim(); });
+      var btn = this, lista = [].map.call(L.querySelectorAll(".fl-mr"), function (r, n) { var md = r.querySelector('[data-k="md"]'), o = { t: r.querySelector("input").value.trim() || "Mensaje " + (n + 1), m: r.querySelector('[data-k="m"]').value.replace(/\s+$/, "") };
+        if (md && md.value.trim()) o.md = md.value.replace(/\s+$/, "");
+        return o; }).filter(function (m) { return m.m.trim(); });
       var q = JSON.parse(JSON.stringify(p)); if (lista.length) q.msgs = lista; else delete q.msgs;
       if (mev) { if (mev.value) q.ev = mev.value; else delete q.ev; }
       btn.disabled = true; btn.textContent = "Guardando…";
