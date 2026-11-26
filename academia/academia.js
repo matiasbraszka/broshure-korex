@@ -1032,7 +1032,7 @@
       (msgs.length ? (msgs.length > 1 ? '<div class="chips fl-mc">' + msgs.map(function (m, n) { return '<button class="chip' + (n ? "" : " on") + '" data-m="' + n + '" type="button">' + esc(m.t || "Mensaje " + (n + 1)) + "</button>"; }).join("") + "</div>" : "") +
         '<div class="fl-mt" id="flMt"></div><button class="btn sec" data-mcopiar type="button">' + ic("copy") + "Copiar mensaje</button>" : '<small class="fl-mv">Todavía no hay mensajes para este flyer.</small>') + "</div>" : "";
     $("#layer").innerHTML = '<div class="viewer fl-v" role="dialog" aria-modal="true" aria-label="' + esc(x.titulo) + '"><div class="vw-h"><b>' + esc(x.titulo) + "</b>" +
-      '<button class="mini ico" data-vcerrar type="button" aria-label="Cerrar">' + ic("x") + '</button></div>' +
+      botonBorrar(x) + '<button class="mini ico" data-vcerrar type="button" aria-label="Cerrar">' + ic("x") + '</button></div>' +
       '<div class="fl-w"><div class="vw-b"><canvas class="flc"></canvas></div><div class="vw-f fl-f">' + ops +
       '<button class="btn" data-vbajar type="button" disabled>' + ic("down") + "Descargar flyer</button>" + mbloque + "</div></div></div>";
     document.body.style.overflow = "hidden";
@@ -1088,7 +1088,7 @@
         navigator.share({ files: [file] }).catch(function (e) { if (!e || e.name !== "AbortError") bajarlo(); });
       } else bajarlo();
     };
-    $("[data-vcerrar]").onclick = cerrar;
+    $("[data-vcerrar]").onclick = cerrar; conBorrar(x);
     var vw = $(".viewer"); vw.addEventListener("click", function (e) { if (e.target === vw || e.target.classList.contains("vw-b")) cerrar(); });
   }
 
@@ -1347,10 +1347,10 @@
     if (ls.length > 1) pie = '<div class="vw-f vw-nav"><button class="btn sec" data-vir="' + (pos - 1) + '" type="button"' + (pos > 0 ? "" : " disabled") + ">" + ic("back") + 'Anterior</button><span class="vw-pos">Video ' + (pos + 1) + " de " + ls.length + '</span><button class="btn" data-vir="' + (pos + 1) + '" type="button"' + (pos < ls.length - 1 ? "" : " disabled") + ">Siguiente" + ic("chev") + "</button></div>";
     var conDesc = x.seccion === "video" && x.descripcion;
     $("#layer").innerHTML = '<div class="viewer' + (conDesc ? " cd" : "") + '" role="dialog" aria-modal="true" aria-label="' + esc(x.titulo) + '"><div class="vw-h"><b>' + esc(x.titulo) + "</b>" +
-      '<button class="mini ico" data-vcerrar type="button" aria-label="Cerrar">' + ic("x") + '</button></div><div class="vw-b">' + cuerpo + "</div>" +
+      botonBorrar(x) + '<button class="mini ico" data-vcerrar type="button" aria-label="Cerrar">' + ic("x") + '</button></div><div class="vw-b">' + cuerpo + "</div>" +
       (conDesc ? pie + '<div class="vw-desc">' + rico(x.descripcion) + "</div>" : pie) + "</div>";
     document.body.style.overflow = "hidden";
-    $("[data-vcerrar]").onclick = cerrar;
+    $("[data-vcerrar]").onclick = cerrar; conBorrar(x);
     var b = $("[data-vbajar]"); if (b) b.onclick = function () { bajar(x, b); };
     [].forEach.call(document.querySelectorAll("[data-vir]"), function (n) { n.onclick = function () { var y = ls[+n.dataset.vir]; if (y) ver(y); }; });
     var vw = $(".viewer"); vw.addEventListener("click", function (e) { if (e.target === vw || e.target.classList.contains("vw-b")) cerrar(); });
@@ -1516,6 +1516,9 @@
   // Confirmación propia (no window.confirm): un toque doble o un Enter de más en el
   // cartel del navegador volvía a disparar el botón y borraba también el elemento siguiente.
   var borrando = false;
+  // El tacho también dentro del visor (antes solo estaba en la miniatura y no se encontraba).
+  function botonBorrar(x) { return admin() && x && x.seccion === "archivo" ? '<button class="mini ico del" data-vborrar type="button" title="' + (x.panel ? "Ocultar de la Academia" : "Borrar") + '" aria-label="Borrar">' + ic("trash") + "</button>" : ""; }
+  function conBorrar(x) { var b = $("[data-vborrar]"); if (b) b.onclick = function () { cerrar(); borrar(x); }; }
   function borrar(x) {
     if (!x || borrando || $("#layer").innerHTML) return;
     if (document.activeElement) document.activeElement.blur();
