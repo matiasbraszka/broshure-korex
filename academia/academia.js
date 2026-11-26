@@ -37,7 +37,7 @@
   function lsGet() { try { return localStorage.getItem(KEY) || ""; } catch (e) { return ""; } }
   function lsSet(v) { try { v ? localStorage.setItem(KEY, v) : localStorage.removeItem(KEY); } catch (e) {} }
 
-  var S = { clave: "", rol: "", items: [], tab: "videos", carpeta: null, curso: null, filtro: "todo", q: "", abiertos: {}, calTipo: "todo", calMes: null };
+  var S = { clave: "", rol: "", items: [], tab: "videos", carpeta: null, curso: null, filtro: "todo", marca: "todo", q: "", abiertos: {}, calTipo: "todo", calMes: null };
   var TABS = [["videos", "Cursos"], ["recursos", "Recursos"], ["guiones", "Guiones"], ["links", "Links"], ["calendario", "Calendario"]];
   function admin() { return S.rol === "admin"; }
 
@@ -791,14 +791,29 @@
       return t[0] === "todo" || hs.some(function (x) { return t[0] === "otro" ? (x.tipo !== "image" && x.tipo !== "video") : x.tipo === t[0]; });
     });
     if (!tipos.some(function (t) { return t[0] === S.filtro; })) S.filtro = "todo";
-    var l = hs.filter(function (x) { return S.filtro === "todo" || (S.filtro === "otro" ? (x.tipo !== "image" && x.tipo !== "video") : x.tipo === S.filtro); });
+    // Filtro por marca (AITECH / BIX): solo si en la carpeta hay de las dos.
+    var mk = hs.map(marcaDe), dosMarcas = mk.indexOf("aitech") >= 0 && mk.indexOf("bix") >= 0;
+    if (!dosMarcas) S.marca = "todo";
+    var l = hs.filter(function (x, i) { return (S.marca === "todo" || !mk[i] || mk[i] === "ambas" || mk[i] === S.marca) && (S.filtro === "todo" || (S.filtro === "otro" ? (x.tipo !== "image" && x.tipo !== "video") : x.tipo === S.filtro)); });
     var h = '<button class="back" data-volver type="button">' + ic("back") + "Recursos</button>" +
       '<div class="h2"><h2>' + esc(c.titulo) + "</h2>" + (admin() ? '<button class="btn" data-subir="' + esc(c.id) + '" type="button">' + ic("up") + "Subir archivos</button>" : "") + "</div>" +
       (c.descripcion ? '<p class="intro">' + esc(c.descripcion) + "</p>" : "") +
       (admin() && c.en_vivo ? '<p class="intro" style="color:var(--warn-text)">Esta carpeta muestra en vivo los anuncios editados del panel. Lo que borres aquí solo se oculta en la Academia.</p>' : "");
+    if (dosMarcas) h += '<div class="chips chips-marca">' + [["todo", "Todos"], ["aitech", "AITECH"], ["bix", "BIX"]].map(function (t) { return '<button class="chip' + (S.marca === t[0] ? " on" : "") + '" data-marca="' + t[0] + '" type="button">' + t[1] + "</button>"; }).join("") + "</div>";
     if (tipos.length > 2) h += '<div class="chips">' + tipos.map(function (t) { return '<button class="chip' + (S.filtro === t[0] ? " on" : "") + '" data-filtro="' + t[0] + '" type="button">' + t[1] + "</button>"; }).join("") + "</div>";
     h += l.length ? grillaArchivos(l) : '<div class="empty">' + (admin() ? "Carpeta vacía. Usa «Subir archivos»." : "Esta carpeta todavía está vacía.") + "</div>";
     return h;
+  }
+  // De qué marca es un archivo: «marca» en su JSON, o la sesión del calendario que usa (ev),
+  // o el título. "" = no se sabe (se muestra con cualquier filtro); "ambas" = va en los dos.
+  function marcaDe(x) {
+    var p = null; try { p = JSON.parse(x.texto); } catch (e) {}
+    if (p && typeof p === "object") {
+      if (p.marca) return p.marca;
+      if (p.ev) { var e = porId(p.ev); return /bix/i.test(p.ev + " " + (e && e.titulo || "")) ? "bix" : "aitech"; }
+    }
+    var t = x.titulo || "";
+    return /bix/i.test(t) ? "bix" : /ai ?tech|copy ?trading|inversi/i.test(t) ? "aitech" : "";
   }
   function grillaArchivos(l) {
     return '<div class="gm">' + l.map(function (x) {
@@ -1265,7 +1280,7 @@
 
   /* ---------------- eventos ---------------- */
   document.addEventListener("click", function (e) {
-    var t = e.target.closest("[data-tab],[data-abrir],[data-volver],[data-filtro],[data-ver],[data-bajar],[data-copiar],[data-grupo],[data-nuevo],[data-editar],[data-borrar],[data-subir],[data-curso],[data-mover],[data-mgrupo],[data-renombrar],[data-flyer],[data-caltipo],[data-suscribir],[data-ses-nueva],[data-ev-nuevo],[data-calmes],[data-caldia],[data-detalle],[data-ev-tipos],[data-nov]");
+    var t = e.target.closest("[data-tab],[data-abrir],[data-volver],[data-filtro],[data-marca],[data-ver],[data-bajar],[data-copiar],[data-grupo],[data-nuevo],[data-editar],[data-borrar],[data-subir],[data-curso],[data-mover],[data-mgrupo],[data-renombrar],[data-flyer],[data-caltipo],[data-suscribir],[data-ses-nueva],[data-ev-nuevo],[data-calmes],[data-caldia],[data-detalle],[data-ev-tipos],[data-nov]");
     if (!t || !$("#app").contains(t)) return;
     var d = t.dataset;
     if ("nov" in d) { verNovedades(); return; }
@@ -1283,9 +1298,10 @@
     else if (d.mgrupo) moverGrupo(d.sec, d.mgrupo, +d.dir);
     else if ("renombrar" in d) renombrar(S.curso);
     else if (d.tab) { S.tab = d.tab; S.carpeta = null; S.curso = null; S.q = ""; try { sessionStorage.setItem("kx-academia-tab", d.tab); } catch (x) {} render(); window.scrollTo(0, 0); }
-    else if (d.abrir) { S.carpeta = d.abrir; S.filtro = "todo"; S.q = ""; render(); window.scrollTo(0, 0); }
+    else if (d.abrir) { S.carpeta = d.abrir; S.filtro = "todo"; S.marca = "todo"; S.q = ""; render(); window.scrollTo(0, 0); }
     else if ("volver" in d) { S.carpeta = null; S.curso = null; render(); }
     else if (d.filtro) { S.filtro = d.filtro; render(); }
+    else if (d.marca) { S.marca = d.marca; render(); }
     else if (d.ver) ver(porId(d.ver));
     else if (d.flyer) editarFlyer(porId(d.flyer));
     else if (d.bajar) { var xb = porId(d.bajar); if (plantilla(xb)) ver(xb); else bajar(xb, t); }
